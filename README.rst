@@ -84,5 +84,5 @@ Further Reference
  * Eclipse integration: https://github.com/belframework-org/OpenBEL-Workbench
  * OpenBEL Eclipse repository: https://github.com/belframework-org/eclipse
  * OpenBEL build server: http://ci.selventa.com
- * Ohloh:
- * Freecode:
+ * Ohloh: https://www.ohloh.net/p/openbel-framework
+ * Freecode: http://freecode.com/projects/openbel-framework
