@@ -1,0 +1,28 @@
+[AnnotationDefinition]
+Keyword=Species
+TypeString=list
+DescriptionString=The annotation values for species provided by NCBI Taxonomy ids.
+UsageString=Use this annotation to annotate the species taxonomy id.
+VersionString=20110524
+CreatedDateTime=2011-05-24T12:00:00
+
+[Author]
+NameString=Selventa
+CopyrightString=Copyright (c) 2011, Selventa. All Rights Reserved.
+ContactInfoString=belframework@selventa.com
+
+[Citation]
+NameString=NCBI Taxonomy Ids
+DescriptionString=NCBI maintains species taxonomies
+PublishedVersionString=20110524
+PublishedDate=2011-05-24
+ReferenceURL=http://www.ncbi.nlm.nih.gov/Taxonomy/taxonomyhome.html/
+
+[Processing]
+CaseSensitiveFlag=no
+DelimiterString=|
+
+[Values]
+9606|Homo sapiens
+10090|Mus musculus
+10116|Rattus norvegicus

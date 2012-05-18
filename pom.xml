@@ -1,0 +1,311 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>OpenBEL Framework</name>
+    <groupId>org.openbel</groupId>
+    <artifactId>org.openbel.parent</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <description>OpenBEL Framework</description>
+    <url>https://github.com/belframework-org</url>
+
+    <scm>
+        <connection>scm:git:git://github.com/belframework-org/OpenBEL-Framework.git</connection>
+        <developerConnection>scm:git:git://github.com/belframework-org/OpenBEL-Framework.git</developerConnection>
+        <url>https://github.com/belframework-org</url>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/belframework-org</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>vm-build</id>
+            <name>vm-build-snapshots</name>
+            <url>http://vm-build/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+
+        <repository>
+            <id>vm-build</id>
+            <name>vm-build Artifactory</name>
+            <url>http://vm-build/artifactory/libs-release-local</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <!-- source encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java-version>1.6</java-version>
+        <belframework-release.version>2.0.0</belframework-release.version>
+        <commons-xmlschema.version>1.4.7</commons-xmlschema.version>
+        <antlr.version>3.3</antlr.version>
+        <cglib.version>2.2</cglib.version>
+        <commons-cli.version>1.2</commons-cli.version>
+        <commons-codec.version>1.4</commons-codec.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <commons-digester.version>2.0</commons-digester.version>
+        <commons-io.version>2.0.1</commons-io.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-net.version>2.2</commons-net.version>
+        <commons-pool.version>1.4</commons-pool.version>
+        <derby.version>10.7.1.1</derby.version>
+        <ftpserver.version>1.0.5</ftpserver.version>
+        <groovy.version>1.8.4</groovy.version>
+        <jaxb-impl.version>2.2.5</jaxb-impl.version>
+        <jdbm.version>2.0.0</jdbm.version>
+        <jena.version>2.6.4</jena.version>
+        <jetty.version>7.2.2.v20101205</jetty.version>
+        <jsch.version>0.1.44-1</jsch.version>
+        <junit.version>4.10</junit.version>
+        <logback.version>0.9.29</logback.version>
+        <opencsv.version>2.1</opencsv.version>
+        <postgresql.version>9.1-901.jdbc4</postgresql.version>
+        <servlet-api.version>2.4</servlet-api.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <spockframework.version>0.5-groovy-1.8</spockframework.version>
+        <spring-ws.version>2.0.1.RELEASE</spring-ws.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <sshd.version>0.5.0</sshd.version>
+        <tomcat.version>6.0.32</tomcat.version>
+        <trove4j.version>3.0.2</trove4j.version>
+        <xmlunit.version>1.3</xmlunit.version>
+    </properties>
+
+    <!-- Define child projects for this POM. -->
+    <modules>
+        <module>org.openbel.bel</module>
+        <module>org.openbel.framework.common</module>
+        <module>org.openbel.framework.core</module>
+        <module>org.openbel.framework.compiler</module>
+        <module>org.openbel.framework.api</module>
+        <module>org.openbel.framework.ws</module>
+        <module>org.openbel.framework.ws.client</module>
+        <module>org.openbel.framework.tools</module>
+    </modules>
+
+    <!-- Defines default continuous build setup -->
+    <build>
+        <finalName>${project.artifactId}-${belframework-release.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.7</version>
+                    <configuration>
+                        <doctitle>OpenBEL Framework Documentation</doctitle>
+                        <aggregate>true</aggregate>
+                        <detectLinks>true</detectLinks>
+                        <stylesheetfile>tools/resources/stylesheet.css
+                        </stylesheetfile>
+                        <overview>tools/resources/overview.html
+                        </overview>
+                        <show>protected</show>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-javadoc</id>
+                            <configuration>
+                                <doctitle>OpenBEL Framework Documentation</doctitle>
+                                <failOnError>false</failOnError>
+                                <detectLinks>true</detectLinks>
+                                <stylesheetfile>tools/resources/stylesheet.css
+                                </stylesheetfile>
+                                <overview>tools/resources/overview.html
+                                </overview>
+                                <show>protected</show>
+                                <subpackages>org.openbel</subpackages>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- m2e configuration for Eclipse 3.7+ -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.0,)</versionRange>
+                                        <goals>
+                                            <goal>copy-dependencies</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.gmaven</groupId>
+                                        <artifactId>gmaven-plugin</artifactId>
+                                        <versionRange>[1.3,)</versionRange>
+                                        <goals>
+                                            <goal>compile</goal>
+                                            <goal>testCompile</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <!-- Defines build for distribution of OpenBEL Framework -->
+        <profile>
+            <id>distribution</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- Define distribution assembly -->
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <configuration>
+                            <finalName>OpenBEL_Framework</finalName>
+                            <descriptors>
+                                <descriptor>
+                                    tools/dist/resources/assemblies/distribution.xml
+                                </descriptor>
+                            </descriptors>
+                            <archiverConfig>
+                                <fileMode>420</fileMode> <!-- 420(dec) = 644(oct) -->
+                                <directoryMode>493</directoryMode> <!-- 493(dec) = 755(oct) -->
+                                <defaultDirectoryMode>493
+                                </defaultDirectoryMode>
+                            </archiverConfig>
+                        </configuration>
+                    </plugin>
+                    <!-- Build sources -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.1.2</version>
+                        <configuration>
+                            <attach>false</attach>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Build javadoc for API packages -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <id>api-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                                <configuration>
+                                    <doctitle>OpenBEL Framework Documentation</doctitle>
+                                    <failOnError>false</failOnError>
+                                    <detectLinks>true</detectLinks>
+                                    <stylesheetfile>tools/resources/stylesheet.css
+                                    </stylesheetfile>
+                                    <overview>tools/resources/overview.html
+                                    </overview>
+                                    <show>protected</show>
+                                    <subpackages>org.openbel</subpackages>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <inherited>false</inherited>
+                        <executions>
+                            <!-- Explode supported tomcat version -->
+                            <execution>
+                                <id>tomcat-unzip</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <tasks>
+                                        <unzip src="tools/dist/resources/thirdparty/apache-tomcat-${tomcat.version}.zip" dest="target/tomcat" />
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>attach-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>attach-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                                    <artifacts>
+                                        <artifact>
+                                            <file>target/OpenBEL_Framework-${belframework-release.version}.zip</file>
+                                            <type>zip</type>
+                                            <classifier>distribution</classifier>
+                                        </artifact>
+                                    </artifacts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>2.4.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
+

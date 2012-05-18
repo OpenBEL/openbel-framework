@@ -1,0 +1,45 @@
+##################################################################################
+# Unit test configurations and expected results
+#
+#   No compiler arguments
+#       13 nodes, 12 edges:
+#           p(HGNC:TNF) -> p(HSF:"AKT Family")
+#           p(HSF:"AKT Family") hasMember p(HGNC:AKT1)
+#           p(HSF:"AKT Family") hasMember p(HGNC:AKT2)
+#           p(HSF:"AKT Family") hasMember p(HGNC:AKT3)
+#           p(HGNC:AKT1) >> r(HGNC:AKT1)
+#           r(HGNC:AKT1) :> g(HGNC:AKT1)
+#           p(HGNC:AKT2) >> r(HGNC:AKT2)
+#           r(HGNC:AKT2) :> g(HGNC:AKT2)
+#           p(HGNC:AKT3) >> r(HGNC:AKT3)
+#           r(HGNC:AKT3) :> g(HGNC:AKT3)
+#           p(HGNC:TNF) >> r(HGNC:TNF)
+#           r(HGNC:TNF) :> g(HGNC:TNF)
+#
+#   --no-protein-families
+#       4 nodes, 3 edges:
+#           p(TNF) increases p(AKT Family)
+#           g(TNF) transcribedTo r(TNF)
+#           r(TNF) translatedTo p(TNF)
+
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Unit Test #2"
+SET DOCUMENT Description = "Gene Activation Pathways test"
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2011, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE HSF AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE NCH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns"
+
+##################################################################################
+# Statements Section
+
+p(HGNC:TNF) -> p(HSF:"AKT Family")
+

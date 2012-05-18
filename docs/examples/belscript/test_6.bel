@@ -1,0 +1,30 @@
+##################################################################################
+#                                                                                #
+# Test term expansion (actsIn) and equivalencing of HGNC/EG.                     #
+#   --no-phaseIII
+#       5 nodes, 4 edges:
+#           kin(p(HGNC:AKT1)) -> p(HGNC:RELA)
+#           cat(g(EG:5970)) -> kin(p(EG:207))
+#           p(HGNC:AKT1) actsIn kin(p(HGNC:RELA))
+#           g(EG:5970) actsIn cat(g(EG:5970))
+
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Unit Test #6"
+SET DOCUMENT Description = "Gene Activation Pathways test"
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2011, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE EG AS URL "http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns"
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+
+##################################################################################
+# Statements Section
+
+kin(p(HGNC:AKT1)) -> p(HGNC:RELA)
+cat(g(EG:5970)) -> kin(p(EG:207))

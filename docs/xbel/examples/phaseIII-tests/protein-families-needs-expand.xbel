@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bel:document xmlns:bel="http://www.belscript.org/schema/xbel">
+    <bel:header>
+        <bel:name>Protein Families Test Document</bel:name>
+        <bel:description>Protein Families Test Document</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>All rights reserved.</bel:copyright>
+        <bel:authorGroup>
+            <bel:author>Selventa, Inc.</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+    <bel:namespaceGroup>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns" bel:prefix="HGNC"/>
+    </bel:namespaceGroup>
+    <bel:statementGroup>
+
+        <!-- This will be expanded to 14-3-3 Family and members. -->
+        <bel:statement>
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HGNC">YWHAZ</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+
+    </bel:statementGroup>
+</bel:document>

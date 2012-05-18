@@ -1,0 +1,9 @@
+VIM syntax highlighter - for BEL Script 
+
+To use:
+  * Create $HOME/.vim/syntax if it does not already exist.
+  * Put bel.vim in $HOME/.vim/syntax
+  * Allow vim to recognize the .bel extension by:
+    - Place filetype.vim in $HOME/.vim
+    - Modify your existing filetype.vim plugin with the line:
+        au BufRead,BufNewFile *.bel setfiletype bel

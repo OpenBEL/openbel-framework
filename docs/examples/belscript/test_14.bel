@@ -1,0 +1,23 @@
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Unit Test #14"
+SET DOCUMENT Description = "Undirected reciprocal statements"
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2012, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE GO AS URL "http://resource.belframework.org/belframework/1.0/namespace/go-biological-processes-names.belns"
+DEFINE NAMESPACE CHEBI AS URL "http://resource.belframework.org/belframework/1.0/namespace/chebi-names.belns"
+
+##################################################################################
+# Statements Section
+
+SET Citation = {"PubMed","Journal of clinical oncology : official journal of the American Society of Clinical Oncology","16170185","","Beeram M|Patnaik A|Rowinsky EK",""}
+SET Evidence = "Other antiapoptotic effects of C-Raf are mediated by a mitochondrial pool of the protein, which, on stimulation, localizes to the mitochondrial membrane where the protein interacts with and phosphorylates Bcl-2, Bcl-2–associated athanogene, and other pro-apoptotic regulators, abrogating their pro-apoptotic effects.157,167 The antiapoptotic effects of C-Raf are also mediated through the ankyrin-repeat protein Tvl-1 and apoptosis signal-regulated kinase-1.166,168,169"
+
+a(CHEBI:dioxygen) positiveCorrelation rxn(reactants(a(CHEBI:rapamycin)), products(a(CHEBI:"iron(2+")))

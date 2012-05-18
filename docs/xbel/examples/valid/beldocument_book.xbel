@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bel:document xmlns:bel="http://belframework.org/schema/1.0/xbel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://belframework.org/schema/1.0/xbel http://resource.belframework.org/belframework/1.0/schema/xbel.xsd">
+
+    <bel:header>
+        <bel:name>Book document</bel:name>
+        <bel:description>Example real knowledge captured from a book titled "Biochemistry of Lipids, Lipoproteins and Membranes" (ISBN - 0444532196).</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>Copyright (C) Elsevier Science
+        </bel:copyright>
+        <bel:disclaimer>This knowledge was taken "as is" from "Biochemistry of Lipids, Lipoproteins and Membranes" (ISBN - 0444532196).</bel:disclaimer>
+        <bel:authorGroup>
+            <bel:author>J.E. Vance (Editor)</bel:author>
+            <bel:author>Dennis E. Vance (Editor)</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+
+    <bel:namespaceGroup>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns" bel:prefix="EG" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/go-names.belns" bel:prefix="GO" />
+        <bel:namespace bel:resourceLocation="file:///home/nick/hgnc.belns" bel:prefix="HGNC" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mgi-marker-symbols.belns" bel:prefix="MGI" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/rgd-symbols.belns" bel:prefix="RGD" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mesh-all.belns" bel:prefix="MeSH" />
+    </bel:namespaceGroup>
+
+    <bel:annotationDefinitionGroup>
+        <bel:internalAnnotationDefinition bel:id="species">
+            <bel:description>Defines the species used in this research.
+            </bel:description>
+            <bel:usage>Use to represent a species context for the statement.</bel:usage>
+            <bel:listAnnotation>
+                <bel:listValue>9606</bel:listValue>
+                <bel:listValue>10090</bel:listValue>
+                <bel:listValue>100116</bel:listValue>
+            </bel:listAnnotation>
+        </bel:internalAnnotationDefinition>
+        <bel:internalAnnotationDefinition bel:id="tissue">
+            <bel:description>Defines the tissues used in this research.</bel:description>
+            <bel:usage>Use to represent a tissue context for the statement.</bel:usage>
+            <bel:patternAnnotation>.*</bel:patternAnnotation>
+        </bel:internalAnnotationDefinition>
+        <bel:externalAnnotationDefinition bel:id="cell-line" bel:url="1"/>
+    </bel:annotationDefinitionGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="species">Human</bel:annotation>
+            <bel:annotation bel:refID="tissue">TH1</bel:annotation>
+            <bel:evidence>the elevation of intracellular cAMP concentration that results from increased glucagon production also plays a role in the down-regulation process</bel:evidence>
+            <bel:citation bel:type="Book">
+                <bel:reference>0444532196</bel:reference>
+                <bel:name>Biochemistry of Lipids, Lipoproteins and
+                    Membranes</bel:name>
+                <bel:comment><![CDATA[
+Research on the biochemistry and molecular biology of lipids and lipoproteins has experienced remarkable growth in the last 20 years, particularly with the realization that many different classes of lipids play fundamental roles in diseases such as heart disease, obesity, diabetes, cancer and neurodegenerative disorders. The 5th edition of this book has been written with two major objectives. The first objective is to provide students and teachers with an advanced up-to-date textbook covering the major areas of current interest in the lipid field. The chapters are written for students and researchers familiar with the general concepts of lipid metabolism but who wish to expand their knowledge in this area. The second objective is to provide a reference text for scientists who are about to enter the field of lipids, lipoproteins and membranes and who wish to learn more about this area of research. All of the chapters have been extensively updated since the 4th edition appeared in 2002.
+
+Key Features:
+* Represents a bridge between the superficial coverage of the lipid field found in basic biochemistry text books and the highly specialized material contained in scientific review articles and monographs.
+
+* Allows scientists to become familiar with recent developments related to their own research interests, and will help clinical researchers and medical students keep abreast of developments in basic science that are important for subsequent clinical advances.
+
+* Serves as a general reference book for scientists studying lipids, lipoproteins and membranes and as an advanced and up-to-date textbook for teachers and students who are familiar with the basic concepts of lipid biochemistry.
+                ]]></bel:comment>
+                <bel:date>1996-08-01</bel:date>
+            </bel:citation>
+        </bel:annotationGroup>
+
+        <!-- proteinAbundance(HGNC:NFKB1) -> rnaAbundance(HGNC:FAS) -->
+        <bel:statement bel:relationship="increases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">NFKB1</bel:parameter>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="rnaAbundance">
+                    <bel:parameter bel:ns="HGNC">FAS</bel:parameter>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+
+        <!-- transcriptionalActivity(proteinAbundance(EG:207)) -| (proteinAbundance(HGNC:NFKB1) -> rnaAbundance(HGNC:FAS)) -->
+        <bel:statement bel:relationship="decreases">
+            <bel:subject>
+                <bel:term bel:function="transcriptionalActivity">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="EG">207</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <!-- Nested statement: (proteinAbundance(HGNC:NFKB1) -> rnaAbundance(HGNC:FAS)) -->
+                <bel:statement bel:relationship="increases">
+                    <bel:subject>
+                        <bel:term bel:function="proteinAbundance">
+                            <bel:parameter bel:ns="HGNC">NFKB1</bel:parameter>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <bel:term bel:function="rnaAbundance">
+                            <bel:parameter bel:ns="HGNC">FAS</bel:parameter>
+                        </bel:term>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+
+        <!-- proteinAbundance(HGNC:NFKB1, P@(S,23)) => geneAbundance(HGNC:SCD) -->
+        <bel:statement bel:relationship="directlyIncreases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">NFKB1</bel:parameter>
+                    <bel:term bel:function="proteinModification">
+                        <bel:parameter>S</bel:parameter>
+                        <bel:parameter>23</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="geneAbundance">
+                    <bel:parameter bel:ns="HGNC">SCD</bel:parameter>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="species">All</bel:annotation>
+            <bel:citation bel:type="Book">
+                <bel:reference>0444532196</bel:reference>
+                <bel:name>Biochemistry of Lipids, Lipoproteins and Membranes</bel:name>
+                <bel:comment><![CDATA[
+Research on the biochemistry and molecular biology of lipids and lipoproteins has experienced remarkable growth in the last 20 years, particularly with the realization that many different classes of lipids play fundamental roles in diseases such as heart disease, obesity, diabetes, cancer and neurodegenerative disorders. The 5th edition of this book has been written with two major objectives. The first objective is to provide students and teachers with an advanced up-to-date textbook covering the major areas of current interest in the lipid field. The chapters are written for students and researchers familiar with the general concepts of lipid metabolism but who wish to expand their knowledge in this area. The second objective is to provide a reference text for scientists who are about to enter the field of lipids, lipoproteins and membranes and who wish to learn more about this area of research. All of the chapters have been extensively updated since the 4th edition appeared in 2002.
+
+Key Features:
+* Represents a bridge between the superficial coverage of the lipid field found in basic biochemistry text books and the highly specialized material contained in scientific review articles and monographs.
+
+* Allows scientists to become familiar with recent developments related to their own research interests, and will help clinical researchers and medical students keep abreast of developments in basic science that are important for subsequent clinical advances.
+
+* Serves as a general reference book for scientists studying lipids, lipoproteins and membranes and as an advanced and up-to-date textbook for teachers and students who are familiar with the basic concepts of lipid biochemistry.
+                ]]></bel:comment>
+                <bel:date>1996-08-01</bel:date>
+            </bel:citation>
+
+            <bel:evidence>AP-2 binding at variants of well-characterized cAMP-response elements in the ACCalpha PII promoter phosphorylation of AP-2 by cAMPK facilitates the binding of AP-2 to the cAMP-response element</bel:evidence>
+        </bel:annotationGroup>
+
+        <!-- catalyticActivity(HGNC:CTSD) -> biologicalProcess(GO:apoptosis) -->
+        <bel:statement bel:relationship="increases">
+            <bel:subject>
+                <bel:term bel:function="catalyticActivity">
+                    <bel:term bel:function="abundance">
+                        <bel:parameter bel:ns="HGNC">CTSD</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="biologicalProcess">
+                    <bel:parameter bel:ns="GO">apoptosis</bel:parameter>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:citation bel:type="Book">
+                <bel:reference>0444532196</bel:reference>
+                <bel:name>Biochemistry of Lipids, Lipoproteins and Membranes</bel:name>
+                <bel:comment><![CDATA[
+Research on the biochemistry and molecular biology of lipids and lipoproteins has experienced remarkable growth in the last 20 years, particularly with the realization that many different classes of lipids play fundamental roles in diseases such as heart disease, obesity, diabetes, cancer and neurodegenerative disorders. The 5th edition of this book has been written with two major objectives. The first objective is to provide students and teachers with an advanced up-to-date textbook covering the major areas of current interest in the lipid field. The chapters are written for students and researchers familiar with the general concepts of lipid metabolism but who wish to expand their knowledge in this area. The second objective is to provide a reference text for scientists who are about to enter the field of lipids, lipoproteins and membranes and who wish to learn more about this area of research. All of the chapters have been extensively updated since the 4th edition appeared in 2002.
+
+Key Features:
+* Represents a bridge between the superficial coverage of the lipid field found in basic biochemistry text books and the highly specialized material contained in scientific review articles and monographs.
+
+* Allows scientists to become familiar with recent developments related to their own research interests, and will help clinical researchers and medical students keep abreast of developments in basic science that are important for subsequent clinical advances.
+
+* Serves as a general reference book for scientists studying lipids, lipoproteins and membranes and as an advanced and up-to-date textbook for teachers and students who are familiar with the basic concepts of lipid biochemistry.
+                ]]></bel:comment>
+                <bel:date>1996-08-01</bel:date>
+            </bel:citation>
+
+            <bel:evidence>transcription of ACC and FAS genes is regulated by certain growth factors such as colony stimulating factor 1</bel:evidence>
+        </bel:annotationGroup>
+
+        <bel:statementGroup>
+            <bel:annotationGroup>
+                <bel:annotation bel:refID="species">Mouse</bel:annotation>
+            </bel:annotationGroup>
+
+            <!-- proteinAbundance(MGI:Sphk1) -> biologicalProcess(tumor growth) -->
+            <bel:statement bel:relationship="increases">
+                <bel:comment>Had to unqualify "tumor growth" since it did't exist in the GO namespace.</bel:comment>
+                <bel:subject>
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="MGI">Sphk1</bel:parameter>
+                    </bel:term>
+                </bel:subject>
+                <bel:object>
+                    <bel:term bel:function="biologicalProcess">
+                        <bel:parameter>tumor growth</bel:parameter>
+                    </bel:term>
+                </bel:object>
+            </bel:statement>
+        </bel:statementGroup>
+
+        <bel:statementGroup>
+            <bel:annotationGroup>
+                <bel:annotation bel:refID="species">Rat</bel:annotation>
+                <bel:annotation bel:refID="cell-line">A549</bel:annotation>
+            </bel:annotationGroup>
+
+            <!-- catalyticActivity(complexAbundance(proteinAbundance(KEAP1), proteinAbundance(RGD:RBX1), proteinAbundance(RGD:CUL3))) =^ degredation(p(RGD:NFE2L2)) -->
+            <bel:statement bel:relationship="directlyIncreases">
+                <bel:comment>Had to unqualify "KEAP1", "RBX1", "CUL3", and "NFE2L2" since it did't exist in the RGD namespace.</bel:comment>
+                <bel:subject>
+                    <bel:term bel:function="catalyticActivity">
+                        <bel:term bel:function="complexAbundance">
+                            <bel:term bel:function="proteinAbundance">
+                                <bel:parameter>KEAP1</bel:parameter>
+                            </bel:term>
+                            <bel:term bel:function="proteinAbundance">
+                                <bel:parameter>RBX1</bel:parameter>
+                            </bel:term>
+                            <bel:term bel:function="proteinAbundance">
+                                <bel:parameter>CUL3</bel:parameter>
+                            </bel:term>
+                        </bel:term>
+                    </bel:term>
+                </bel:subject>
+                <bel:object>
+                    <bel:term bel:function="degradation">
+                        <bel:term bel:function="proteinAbundance">
+                            <bel:parameter>NFE2L2</bel:parameter>
+                        </bel:term>
+                    </bel:term>
+                </bel:object>
+            </bel:statement>
+        </bel:statementGroup>
+
+        <bel:statementGroup>
+            <bel:annotationGroup>
+                <bel:annotation bel:refID="species">Human</bel:annotation>
+                <bel:evidence>Decreases in the number of beta-adrenoceptors and adenylate cyclase activity were prevented by long-acting SOD or gamma-GCE</bel:evidence>
+            </bel:annotationGroup>
+
+            <!-- pathology(HGNC:PTPRJ) =| proteinAbundance(ORC3L, P@(Y)) -->
+            <bel:statement bel:relationship="directlyDecreases">
+                <bel:subject>
+                    <bel:term bel:function="pathology">
+                        <bel:parameter bel:ns="HGNC">PTPRJ</bel:parameter>
+                    </bel:term>
+                </bel:subject>
+                <bel:object>
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter>ORC3L</bel:parameter>
+                        <bel:term bel:function="proteinModification">
+                            <bel:parameter>Y</bel:parameter>
+                        </bel:term>
+                    </bel:term>
+                </bel:object>
+            </bel:statement>
+        </bel:statementGroup>
+    </bel:statementGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="species">Rat</bel:annotation>
+            <bel:citation bel:type="Book">
+                <bel:reference>0444532196</bel:reference>
+                <bel:name>Biochemistry of Lipids, Lipoproteins and Membranes</bel:name>
+                <bel:comment><![CDATA[
+Research on the biochemistry and molecular biology of lipids and lipoproteins has experienced remarkable growth in the last 20 years, particularly with the realization that many different classes of lipids play fundamental roles in diseases such as heart disease, obesity, diabetes, cancer and neurodegenerative disorders. The 5th edition of this book has been written with two major objectives. The first objective is to provide students and teachers with an advanced up-to-date textbook covering the major areas of current interest in the lipid field. The chapters are written for students and researchers familiar with the general concepts of lipid metabolism but who wish to expand their knowledge in this area. The second objective is to provide a reference text for scientists who are about to enter the field of lipids, lipoproteins and membranes and who wish to learn more about this area of research. All of the chapters have been extensively updated since the 4th edition appeared in 2002.
+
+Key Features:
+* Represents a bridge between the superficial coverage of the lipid field found in basic biochemistry text books and the highly specialized material contained in scientific review articles and monographs.
+
+* Allows scientists to become familiar with recent developments related to their own research interests, and will help clinical researchers and medical students keep abreast of developments in basic science that are important for subsequent clinical advances.
+
+* Serves as a general reference book for scientists studying lipids, lipoproteins and membranes and as an advanced and up-to-date textbook for teachers and students who are familiar with the basic concepts of lipid biochemistry.
+                ]]></bel:comment>
+                <bel:date>1996-08-01</bel:date>
+            </bel:citation>
+
+            <bel:evidence>the binding of USF at this site that is more important in mediating the fasting/refeeding response</bel:evidence>
+        </bel:annotationGroup>
+
+        <!-- proteinAbundance(Calu) negativeCorrelation oxidoreductaseActivity(proteinAbundance(RGD:Vkorc1)) -->
+        <bel:statement bel:relationship="negativeCorrelation">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter>Calu</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+    </bel:statementGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="species">Human</bel:annotation>
+            <bel:citation bel:type="Book">
+                <bel:reference>0444532196</bel:reference>
+                <bel:name>Biochemistry of Lipids, Lipoproteins and Membranes</bel:name>
+                <bel:comment><![CDATA[
+Research on the biochemistry and molecular biology of lipids and lipoproteins has experienced remarkable growth in the last 20 years, particularly with the realization that many different classes of lipids play fundamental roles in diseases such as heart disease, obesity, diabetes, cancer and neurodegenerative disorders. The 5th edition of this book has been written with two major objectives. The first objective is to provide students and teachers with an advanced up-to-date textbook covering the major areas of current interest in the lipid field. The chapters are written for students and researchers familiar with the general concepts of lipid metabolism but who wish to expand their knowledge in this area. The second objective is to provide a reference text for scientists who are about to enter the field of lipids, lipoproteins and membranes and who wish to learn more about this area of research. All of the chapters have been extensively updated since the 4th edition appeared in 2002.
+
+Key Features:
+* Represents a bridge between the superficial coverage of the lipid field found in basic biochemistry text books and the highly specialized material contained in scientific review articles and monographs.
+
+* Allows scientists to become familiar with recent developments related to their own research interests, and will help clinical researchers and medical students keep abreast of developments in basic science that are important for subsequent clinical advances.
+
+* Serves as a general reference book for scientists studying lipids, lipoproteins and membranes and as an advanced and up-to-date textbook for teachers and students who are familiar with the basic concepts of lipid biochemistry.
+                ]]></bel:comment>
+                <bel:date>1996-08-01</bel:date>
+            </bel:citation>
+
+            <bel:evidence>insulin activates the expression of SREBP-1c gene in primary hepatocytes whereas glucagon and cAMP have the opposite effect suggests that SREBP could mediate some of the effects of insulin on lipogenic gene expression in the liver, indirectly, by increasing glucose flux through glucokinase, and/or directy, by activation of lipogenic gene expression</bel:evidence>
+        </bel:annotationGroup>
+
+        <!-- proteinAbundance(TXNIP) -| ribosylationActivity(proteinAbundance(HGNC:IL3RA)) -->
+        <bel:statement bel:relationship="decreases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">TXNIP</bel:parameter>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="ribosylationActivity">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HGNC">IL3RA</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+
+        <!-- proteinAbundance(BRCA1) -| (transcriptionalActivity(proteinAbundance(HGNC:ESR1)) -> geneAbundance(HGNC:CTSD)) -->
+        <bel:statement bel:relationship="decreases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">BRCA1</bel:parameter>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <!-- Nested statement: transcriptionalActivity(proteinAbundance(HGNC:ESR1)) -> geneAbundance(HGNC:CTSD) -->
+                <bel:statement bel:relationship="increases">
+                    <bel:subject>
+                        <bel:term bel:function="transcriptionalActivity">
+                            <bel:term bel:function="proteinAbundance">
+                                <bel:parameter bel:ns="HGNC">ESR1</bel:parameter>
+                            </bel:term>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <bel:term bel:function="geneAbundance">
+                            <bel:parameter bel:ns="HGNC">CTSD</bel:parameter>
+                        </bel:term>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+</bel:document>

@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="OpenBEL Framework - Functional Tests" default="default">
+    <description>
+        The functional tests to run for the OpenBEL Framework distribution build.
+    </description>
+
+    <property name="/" value="${file.separator}" />
+    <property name=":" value="${path.separator}" />
+
+    <property name="dist_parent" value="target${/}dependency" />
+    <property name="dist_file"
+              value="${dist_parent}${/}org.openbel.parent-${project.version}-distribution.zip" />
+    <property name="dist_dir"
+              value="${dist_parent}${/}OpenBEL_Framework-${release.version}" />
+
+    <condition property="linux" value="true">
+        <os family="unix" />
+    </condition>
+    <condition property="windows" value="true">
+        <os family="windows" />
+    </condition>
+
+    <condition property="compiler" value="${dist_dir}${/}belc.sh">
+        <isset property="linux" />
+    </condition>
+    <condition property="compiler" value="${dist_dir}${/}belc.cmd">
+        <isset property="windows" />
+    </condition>
+    <condition property="start_server" value="${dist_dir}${/}StartServer.sh">
+        <isset property="linux" />
+    </condition>
+    <condition property="start_server" value="${dist_dir}${/}StartServer.cmd">
+        <isset property="windows" />
+    </condition>
+    <condition property="stop_server" value="${dist_dir}${/}StopServer.sh">
+        <isset property="linux" />
+    </condition>
+    <condition property="stop_server" value="${dist_dir}${/}StopServer.cmd">
+        <isset property="windows" />
+    </condition>
+
+    <!-- Default target -->
+    <target name="default"
+            description="Runs the functional tests on the OpenBEL Framework">
+        <echo>Unzipping ${dist_file} to ${dist_parent}...</echo>
+        <unzip src="${dist_file}" dest="${dist_parent}" />
+
+        <antcall target="chmod_scripts" />
+
+        <antcall target="set_bel_framework_system_configuration" />
+        <antcall target="manifestclasspath_hack" />
+
+        <!-- Command-line Tools Tests -->
+        <!--
+        <antcall target="run_command_line_tools_test" />
+        -->
+
+        <!-- Compiler Tests -->
+        <antcall target="run_compiler_test" />
+
+    	<!-- Equivalence Tests -->
+    	<antcall target="run_equivalence_test" />
+
+        <!-- Run API Tests -->
+        <antcall target="run_api_tests" />
+
+        <!-- Running KAM store tests -->
+        <antcall target="run_kam_store_tests" />
+
+        <parallel>
+        	<!-- Start framework server -->
+            <antcall target="start_bel_framework_server" />
+
+            <sequential>
+                <echo>Waiting for server startup, 40 seconds...</echo>
+                <sleep seconds="40" />
+
+				<!-- Running Web API tests -->
+                <antcall target="run_webapi_tests" />
+
+                <!-- Stop Framework Server -->
+                <antcall target="stop_bel_framework_server" />
+            </sequential>
+        </parallel>
+
+        <echo>Waiting for server shutdown, 5 seconds...</echo>
+        <sleep seconds="5" />
+    </target>
+
+    <target name="chmod_scripts">
+        <!-- Make all ".sh" or ".cmd" files below ${dist_dir} readable and executable by anyone -->
+        <antcall target="chmod_scripts_linux" />
+        <antcall target="chmod_scripts_windows" />
+    </target>
+    <target name="chmod_scripts_linux" if="linux">
+        <chmod dir="${dist_dir}" perm="ug+rx" includes="**${/}*.sh" />
+    </target>
+    <target name="chmod_scripts_windows" if="windows">
+        <attrib readonly="false" system="false" hidden="false">
+            <fileset dir="${dist_dir}" includes="**${/}*.cmd" />
+        </attrib>
+    </target>
+
+    <target name="set_bel_framework_system_configuration">
+        <property name="bel_framework_system_config_file"
+                  value="src${/}test${/}resources${/}belframework.cfg" />
+        <!-- Possible choices for a OpenBEL Framework config file: -->
+        <!--
+        <property name="bel_framework_system_config_file"
+                  value="..${/}..${/}docs${/}configuration${/}belframework.cfg" />
+        <property name="bel_framework_system_config_file"
+                  value="..${/}..${/}docs${/}configuration${/}belframework.embedded.cfg" />
+        <property name="bel_framework_system_config_file"
+                  value="..${/}..${/}docs${/}configuration${/}belframework.mysql.cfg" />
+        <property name="bel_framework_system_config_file"
+                  value="..${/}..${/}docs${/}configuration${/}belframework.oracle.cfg" />
+        -->
+        <condition property="syscfg" value="true">
+            <available file="${bel_framework_system_config_file}" />
+        </condition>
+
+        <antcall target="copy_bel_framework_system_configuration" />
+    </target>
+    <target name="copy_bel_framework_system_configuration" if="syscfg">
+        <copy file="${bel_framework_system_config_file}"
+              tofile="${basedir}${/}${dist_dir}${/}config${/}belframework.cfg"
+              overwrite="true"
+              failonerror="true" />
+    </target>
+
+    <target name="manifestclasspath_hack">
+        <!-- The junit Ant task can be problematic on Windows if the classpath
+             gets too long (for example, a classpath including all of the JARs
+             in target/dependency).  The following is a workaround to create
+             a JAR that loads in the other JARs in target/dependency/. -->
+        <manifestclasspath property="belframework_manifest_classpath"
+                           jarfile="${basedir}${/}target${/}dependency${/}all.jar">
+            <classpath>
+                <fileset dir="target${/}dependency">
+                    <include name="**${/}*.jar" />
+                    <exclude name="all.jar" />
+                </fileset>
+            </classpath>
+        </manifestclasspath>
+        <jar jarfile="${basedir}${/}target${/}dependency${/}all.jar">
+            <manifest>
+                <attribute name="Class-Path" value="${belframework_manifest_classpath}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run_command_line_tools_test">
+        <echo>Running framework command-line tools test...</echo>
+
+        <junit printsummary="true" haltonfailure="true" fork="true" dir="${basedir}">
+            <classpath>
+                <path path="${plugin.classpath}" />
+                <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
+                <pathelement location="target${/}test-classes" />
+                <pathelement location="target${/}dependency${/}all.jar" />
+            </classpath>
+
+            <test name="org.openbel.framework.test.TestDocumentConverter"
+                  haltonfailure="true"
+                  outfile="result">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+	<target name="run_equivalence_test">
+        <echo>Running Equivalence test...</echo>
+
+        <junit printsummary="true" haltonfailure="true" fork="true" dir="${basedir}">
+            <classpath>
+                <path path="${plugin.classpath}" />
+                <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
+                <pathelement location="target${/}test-classes" />
+                <pathelement location="target${/}dependency${/}all.jar" />
+            </classpath>
+
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+
+            <test name="org.openbel.framework.test.EquivalenceIT"
+                  haltonfailure="true"
+                  outfile="result">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+    <target name="run_api_tests">
+        <echo>Running Java API tests...</echo>
+
+        <junit printsummary="true" haltonfailure="true" fork="true" dir="${basedir}">
+            <classpath>
+                <path path="${plugin.classpath}" />
+                <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
+                <pathelement location="target${/}test-classes" />
+                <pathelement location="target${/}dependency${/}all.jar" />
+            </classpath>
+
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+
+            <test name="org.openbel.framework.test.AnnotationFilterIT"
+                  haltonfailure="true"
+                  outfile="result">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+    <target name="start_bel_framework_server"
+            description="Start the framework server.">
+        <echo>Starting framework server...</echo>
+        <antcall target="start_bel_framework_server_linux" />
+        <antcall target="start_bel_framework_server_windows" />
+    </target>
+    <target name="start_bel_framework_server_linux" if="linux">
+        <exec dir="${basedir}"
+              executable="${start_server}"
+              failonerror="true">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+        </exec>
+    </target>
+    <target name="start_bel_framework_server_windows" if="windows">
+        <exec dir="${basedir}"
+              executable="cmd"
+              failonerror="true">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+            <arg value="/c" />
+            <arg value="${start_server}" />
+        </exec>
+    </target>
+
+    <target name="run_webapi_tests">
+        <echo>Running Web API tests...</echo>
+
+        <junit printsummary="true" haltonfailure="true">
+            <classpath>
+                <path path="${plugin.classpath}" />
+                <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
+                <pathelement location="target${/}test-classes" />
+                <pathelement location="target${/}dependency${/}org.openbel.framework.ws.client-${project.version}.jar" />
+                <fileset dir="target${/}dependency">
+                    <include name="hamcrest-all-*.jar" />
+                </fileset>
+            </classpath>
+
+            <test name="org.openbel.framework.test.BELCompilerIT"
+                  haltonfailure="true"
+                  outfile="result">
+                <formatter type="plain" />
+            </test>
+
+            <test name="org.openbel.framework.test.TestKamUtilsEndPoint"
+                  haltonfailure="true">
+                <formatter type="plain" />
+            </test>
+
+            <test name="org.openbel.framework.test.TestEndPointKamHandleValidation"
+                  haltonfailure="true">
+                <formatter type="plain" />
+            </test>
+
+            <test name="org.openbel.framework.test.TestObjectIdRendering"
+                  haltonfailure="true">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+    <target name="run_compiler_test">
+        <echo>Compiling unit tests...</echo>
+
+        <!-- Unit Test 1 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_1.bel" />
+            <param name="kam" value="test1a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_1.bel" />
+            <param name="kam" value="test1b" />
+            <param name="extra_options" value="--no-preserve --expand-protein-families" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_1.bel" />
+            <param name="kam" value="test1c" />
+            <param name="extra_options" value="--no-preserve --no-gene-scaffolding" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 2 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_2.bel" />
+            <param name="kam" value="test2a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_2.bel" />
+            <param name="kam" value="test2b" />
+            <param name="extra_options" value="--no-preserve --no-protein-families" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 3 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_3.bel" />
+            <param name="kam" value="test3a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 4 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_4.bel" />
+            <param name="kam" value="test4a" />
+            <param name="extra_options" value="--no-preserve --expand-named-complexes" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_4.bel" />
+            <param name="kam" value="test4b" />
+            <param name="extra_options"
+                   value="--no-preserve --expand-named-complexes --no-gene-scaffolding" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 5 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_5.bel" />
+            <param name="kam" value="test5a" />
+            <param name="extra_options" value="--no-preserve --no-gene-scaffolding" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 6 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_6.bel" />
+            <param name="kam" value="test6a" />
+            <param name="extra_options" value="--no-preserve --no-phaseIII" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 7 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_7.bel" />
+            <param name="kam" value="test7a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 8 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_8.bel" />
+            <param name="kam" value="test8a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 9 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_9.bel" />
+            <param name="kam" value="test9a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 10 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_10.xbel" />
+            <param name="kam" value="test10a" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_10.xbel" />
+            <param name="kam" value="test10a" />
+            <param name="extra_options" value="--no-preserve --pedantic" />
+            <param name="fail_on_compiler_error" value="false" />
+            <param name="expect_failure" value="true" />
+            <param name="expected_failure_message"
+                   value="Phase I failed with error (105) Semantic verification failure." />
+        </antcall>
+
+        <!-- Unit Test 12 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_12.bel" />
+            <param name="kam" value="test12" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 13 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_13.bel" />
+            <param name="kam" value="test13" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 14 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_14.bel" />
+            <param name="kam" value="test14" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 15 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_15.bel" />
+            <param name="kam" value="test15" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+        <!-- Unit Test 16 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_16.bel" />
+            <param name="kam" value="test16" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+    	<!-- Unit Test 17 -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_17.bel" />
+            <param name="kam" value="test17" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+    </target>
+
+    <target name="compiler_test" if="bel_file">
+        <echo>
+Executing compiler with:
+  -f ${bel_file}
+  -k ${kam}
+  -d ${kam}
+with extra options:
+  ${extra_options}
+compiler expected to fail:
+  ${expect_failure}
+fail on compiler error:
+  ${fail_on_compiler_error}
+expected failure message:
+  ${expected_failure_message}
+        </echo>
+
+        <antcall target="compiler_test_linux" inheritAll="true" />
+        <antcall target="compiler_test_windows" inheritAll="true" />
+    </target>
+    <target name="compiler_test_linux" if="linux">
+        <echo>${basedir}${/}${dist_dir}</echo>
+        <exec dir="${basedir}"
+              executable="${compiler}"
+              failonerror="${fail_on_compiler_error}"
+              errorproperty="compiler_error">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+            <arg value="-f" />
+            <arg value="${bel_file}" />
+            <arg value="-k" />
+            <arg value="${kam}" />
+            <arg value="-d" />
+            <arg value="${kam}" />
+            <arg line="${extra_options}" />
+        </exec>
+        <antcall target="compiler_test_check_failure" inheritAll="true" />
+    </target>
+    <target name="compiler_test_windows" if="windows">
+        <exec dir="${basedir}"
+              executable="cmd"
+              failonerror="${fail_on_compiler_error}"
+              errorproperty="compiler_error">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+            <arg value="/c" />
+            <arg value="${compiler}" />
+            <arg value="-f" />
+            <arg value="${bel_file}" />
+            <arg value="-k" />
+            <arg value="${kam}" />
+            <arg value="-d" />
+            <arg value="${kam}" />
+            <arg line="${extra_options}" />
+        </exec>
+        <antcall target="compiler_test_check_failure" inheritAll="true" />
+    </target>
+    <target name="compiler_test_check_failure" if="compiler_error">
+        <fail>
+            <condition>
+                <or>
+                    <and>
+                        <equals arg1="${expect_failure}" arg2="true" />
+                        <not>
+                            <contains string="${compiler_error}"
+                                      substring="${expected_failure_message}"
+                                      casesensitive="true" />
+                        </not>
+                    </and>
+                    <and>
+                        <equals arg1="${expect_failure}" arg2="false" />
+                        <contains string="${compiler_error}"
+                                  substring="Compiler exited with error code"
+                                  casesensitive="true" />
+                    </and>
+                </or>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="run_kam_store_tests">
+        <echo>Running KAM store tests...</echo>
+
+        <junit printsummary="true" haltonfailure="true" fork="true" dir="${basedir}">
+            <classpath>
+                <path path="${plugin.classpath}" />
+                <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
+                <pathelement location="target${/}test-classes" />
+                <pathelement location="target${/}dependency${/}all.jar" />
+            </classpath>
+
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+
+            <test name="org.openbel.framework.test.TestKAMStoreDaoImpl"
+                  haltonfailure="true"
+                  outfile="result">
+                <formatter type="plain" />
+            </test>
+        </junit>
+    </target>
+
+    <target name="stop_bel_framework_server"
+            description="Stops the framework server.">
+        <echo>Stopping framework server...</echo>
+        <antcall target="stop_bel_framework_server_linux" />
+        <antcall target="stop_bel_framework_server_windows" />
+    </target>
+    <target name="stop_bel_framework_server_linux" if="linux">
+        <exec dir="${basedir}"
+              executable="${stop_server}"
+              failonerror="true">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+        </exec>
+    </target>
+    <target name="stop_bel_framework_server_windows" if="windows">
+        <exec dir="${basedir}"
+              executable="cmd"
+              failonerror="true">
+            <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
+            <arg value="/c" />
+            <arg value="${stop_server}" />
+        </exec>
+    </target>
+</project>

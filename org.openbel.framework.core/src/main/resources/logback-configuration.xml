@@ -1,0 +1,20 @@
+<configuration>
+
+    <!--
+    Disable the file appender since an empty log file is created.
+    
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logback.log</file>
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%date %level [%thread] %logger [%file:%line] %msg%n</Pattern>
+        </layout>
+    </appender>
+    -->
+    
+    <logger name="org.springframework" level="OFF" />
+
+    <root level="OFF">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

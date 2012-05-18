@@ -1,0 +1,302 @@
+<assembly
+    xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>${belframework-release.version}</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <!-- Package a default framework system configuration. -->
+        <fileSet>
+            <directory>tools/dist/resources/config</directory>
+            <includes>
+                <include>*.cfg</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/config</outputDirectory>
+        </fileSet>
+
+        <!-- Package a framework database setup files. -->
+        <fileSet>
+            <directory>tools/dist/resources/setup</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/setup</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>tools/dist/resources/knowledge</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/examples/xbel</outputDirectory>
+        </fileSet>
+
+        <!-- Package licenses used in the framework -->
+        <fileSet>
+            <directory>tools/dist/resources/licenses</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/licenses</outputDirectory>
+        </fileSet>
+
+        <!-- Package sources for required dependencies used in the framework -->
+        <fileSet>
+            <directory>tools/dist/resources/sources</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/sources</outputDirectory>
+        </fileSet>
+
+        <!-- Package readme.txt -->
+        <fileSet>
+            <directory>tools/dist/resources/readme</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/</outputDirectory>
+        </fileSet>
+
+        <!-- Package changelog.txt -->
+        <fileSet>
+            <directory>tools/dist/resources/changelog</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/</outputDirectory>
+        </fileSet>
+
+        <!-- Package upgrade.txt -->
+        <fileSet>
+            <directory>tools/dist/resources/upgrade</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/</outputDirectory>
+        </fileSet>
+
+        <!-- Package tomcat web application server -->
+        <fileSet>
+            <directory>target/tomcat/apache-tomcat-${tomcat.version}</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <excludes>
+                <exclude>conf/server.xml</exclude>
+                <exclude>conf/context.xml</exclude>
+                <exclude>webapps/**/*</exclude>
+                <exclude>bin/*</exclude>
+            </excludes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/server/tomcat</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/tomcat/apache-tomcat-${tomcat.version}</directory>
+            <includes>
+                <include>bin/*</include>
+            </includes>
+            <fileMode>0755</fileMode>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/server/tomcat</outputDirectory>
+        </fileSet>
+        <!--
+            Package framework specific configurations for web
+            application server
+        -->
+        <fileSet>
+            <directory>tools/dist/resources/server/tomcat</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/server/tomcat</outputDirectory>
+        </fileSet>
+
+        <!--
+            Package the framework API javadocs into
+            'doc/belframework-api' folder.
+        -->
+        <fileSet>
+            <directory>target/site/apidocs</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/doc/belframework-api</outputDirectory>
+        </fileSet>
+
+        <!-- Package the framework API libraries 'lib/api' folder. -->
+        <fileSet>
+            <directory>target/javaapi</directory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/api</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+    <moduleSets>
+
+        <!-- Compiler modules. -->
+        <moduleSet>
+            <!-- Work over all modules in the reactor. -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includeSubModules>true</includeSubModules>
+
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <!--
+                        Package API Example source into
+                        'examples/belframework-api/src' folder.
+                    -->
+                    <fileSet>
+                        <directory>src/main/java</directory>
+                        <includes>
+                            <include>org/openbel/framework/api/examples/**</include>
+                        </includes>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/examples/belframework-api/src</outputDirectory>
+                    </fileSet>
+                    <fileSet>
+                        <directory>src/main/java</directory>
+                        <includes>
+                            <include>org/openbel/framework/ws/examples/**</include>
+                        </includes>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/examples/belframework-api/src</outputDirectory>
+                    </fileSet>
+
+                    <!-- Package compiler scripts into framework root folder. -->
+                    <fileSet>
+                        <directory>scripts</directory>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                        <fileMode>0755</fileMode>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/</outputDirectory>
+                    </fileSet>
+
+                    <!-- Package scripts in the tools directory -->
+                    <fileSet>
+                        <directory>tools</directory>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                        <fileMode>0755</fileMode>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/tools</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+        <!-- Framework Web API -->
+        <moduleSet>
+            <!-- Work over all modules in the reactor. -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includeSubModules>true</includeSubModules>
+
+            <includes>
+                <include>org.openbel:org.openbel.framework.ws</include>
+            </includes>
+            <binaries>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/server/war</outputDirectory>
+                <unpack>false</unpack>
+                <includeDependencies>false</includeDependencies>
+                <outputFileNameMapping>openbel-ws.${artifact.extension}</outputFileNameMapping>
+
+                <dependencySets>
+                    <dependencySet>
+                        <includes>
+                            <include>org.openbel:org.openbel:org.openbel.framework.ws:war:${belframework-release.version}</include>
+                        </includes>
+                        <useTransitiveFiltering>true</useTransitiveFiltering>
+                        <useTransitiveDependencies>false</useTransitiveDependencies>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/server/war</outputDirectory>
+                    </dependencySet>
+                </dependencySets>
+            </binaries>
+        </moduleSet>
+
+        <!-- Framework Tools and Compiler Libraries -->
+        <moduleSet>
+            <!-- Work over all modules in the reactor. -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includeSubModules>true</includeSubModules>
+
+            <includes>
+                <include>org.openbel:org.openbel.framework.tools</include>
+            </includes>
+
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>target/dependencies</directory>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/belcompiler</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+
+            <binaries>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/belcompiler</outputDirectory>
+                <unpack>false</unpack>
+                <includeDependencies>false</includeDependencies>
+                <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>
+            </binaries>
+        </moduleSet>
+
+
+        <!-- Framework Java API Libraries -->
+        <moduleSet>
+            <!-- Work over all modules in the reactor. -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includeSubModules>true</includeSubModules>
+
+            <includes>
+                <include>org.openbel:org.openbel.framework.api</include>
+            </includes>
+
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <!--  KAM Store Java API Libraries -->
+                    <fileSet>
+                        <directory>target/dependencies</directory>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/api</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+
+            <binaries>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/api</outputDirectory>
+                <unpack>false</unpack>
+                <includeDependencies>false</includeDependencies>
+                <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>
+            </binaries>
+        </moduleSet>
+
+        <!-- Framework Web API Client -->
+        <moduleSet>
+            <!-- Work over all modules in the reactor. -->
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includeSubModules>true</includeSubModules>
+
+            <includes>
+                <include>org.openbel:org.openbel.framework.ws.client</include>
+            </includes>
+            <binaries>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/webapiclient</outputDirectory>
+                <unpack>false</unpack>
+                <includeDependencies>false</includeDependencies>
+                <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>
+            </binaries>
+        </moduleSet>
+    </moduleSets>
+</assembly>

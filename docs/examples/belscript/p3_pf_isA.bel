@@ -1,0 +1,73 @@
+##################################################################################
+# Unit test configurations and expected results
+#
+#   
+
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Phase III - Protein Family - Infer isA relationships"
+SET DOCUMENT Description = "Unit test for proper augmentation of protein families to infer isA relationships for same molecular activity functions."
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2011, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE PFH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE PFM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-protein-families.belns"
+DEFINE NAMESPACE PFR AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-protein-families.belns"
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE MGI AS URL "http://resource.belframework.org/belframework/1.0/namespace/mgi-approved-symbols.belns"
+DEFINE NAMESPACE RGD AS URL "http://resource.belframework.org/belframework/1.0/namespace/rgd-approved-symbols.belns"
+DEFINE NAMESPACE EGID AS URL "http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns"
+
+##################################################################################
+# Statements Section
+
+# Human
+act(p(PFH:"NOTCH Family")) -| r(HGNC:P2RX1)
+g(HGNC:P2RX6) => act(p(HGNC:NOTCH4))
+
+kin(p(PFH:"PDE Family")) =| p(HGNC:PDE6A)
+r(HGNC:PDE6B) =| kin(p(HGNC:PDE3B))
+
+ribo(p(PFH:"IGFBP Family")) => p(HGNC:IGF1R)
+m(HGNC:IGF2R) =| ribo(p(HGNC:IGFBP7))
+
+cat(p(PFH:"PAK Family")) -> p(HGNC:THBS4)
+p(HGNC:THBS1) -| gtp(p(HGNC:PAK4))
+
+# Mouse
+cat(p(PFM:"Histone H2B Family")) -| r(MGI:Rock1)
+g(MGI:Rock2) => cat(p(MGI:Hist1h2bc))
+
+chap(p(PFM:"Aldo Family")) =| p(MGI:Prkaa2)
+r(MGI:Prkag3) =| chap(p(MGI:Aldoc))
+
+tscript(p(PFM:"Il12 Family")) =| r(MGI:Ppp1r3d)
+g(MGI:Ppp1r9b) => tscript(p(MGI:Il12b))
+
+cat(p(PFM:"Eif4a Family")) -> p(MGI:Epha4)
+p(MGI:Ephb2) -| gtp(p(MGI:Eif4a1))
+
+# Rat
+gtp(p(PFR:"Esr Family")) => m(RGD:Ets1)
+m(RGD:Gabpb1l) =| gtp(p(RGD:Esr2))
+
+pep(p(PFR:"Gnai Family")) =| p(RGD:Gpx1)
+g(RGD:Gpx7) => pep(p(RGD:Gnai3))
+
+phos(p(PFR:"Grm Family")) -> p(RGD:Gsk3b)
+g(RGD:Gstm3) => phos(p(RGD:Grm2))
+
+tport(p(PFR:"Wnt Family")) =| r(RGD:Col4a3)
+m(RGD:Col4a1) => tport(p(RGD:Wnt5b))
+
+act(p(PFR:"Tubb Family")) => r(RGD:Ube2r2)
+m(RGD:Tpsg1) =| kin(p(RGD:Tubb3))
+
+# Equivalencing
+kin(p(PFH:"LDH Family")) => r(HGNC:PPARG)
+g(HGNC:PTCHD1) => kin(p(EGID:3939))

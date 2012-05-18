@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bel:document xmlns:bel="http://belframework.org/schema/1.0/xbel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://belframework.org/schema/1.0/xbel http://resource.belframework.org/belframework/1.0/schema/xbel.xsd">
+
+    <bel:header>
+        <bel:name>Simple</bel:name>
+        <bel:description>Description</bel:description>
+    	<bel:version>1.0</bel:version>
+    	<bel:authorGroup>
+    		<bel:author>Tony Bargnesi</bel:author>
+    		<bel:author>Tat Chu</bel:author>
+    		<bel:author>Nick Bargnesi</bel:author>
+    	</bel:authorGroup>
+    </bel:header>
+
+    <bel:annotationDefinitionGroup>
+        <bel:internalAnnotationDefinition bel:id="two">
+            <bel:description>bel:description</bel:description>
+            <bel:usage>bel:usage</bel:usage>
+            <bel:listAnnotation>
+                <bel:listValue>enum1</bel:listValue>
+                <bel:listValue>enum2</bel:listValue>
+                <bel:listValue>enum3</bel:listValue>
+            </bel:listAnnotation>
+        </bel:internalAnnotationDefinition>
+
+        <bel:internalAnnotationDefinition bel:id="three">
+            <bel:description>bel:description</bel:description>
+            <bel:usage>bel:usage</bel:usage>
+            <bel:patternAnnotation>[0-9]{4}</bel:patternAnnotation>
+        </bel:internalAnnotationDefinition>
+    </bel:annotationDefinitionGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="three">enum2</bel:annotation>
+            <bel:evidence>This is my evidence text.  I can be no more than 4000 characters.</bel:evidence>
+            <bel:citation bel:type="Book">
+                <bel:reference>My Reference</bel:reference>
+            	<bel:name>My Book</bel:name>
+            	<bel:date>2009-10-10</bel:date>
+            </bel:citation>
+        </bel:annotationGroup>
+        
+        <!-- Simple statement. -->
+        <bel:statement bel:relationship="increases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter>TSC1</bel:parameter>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="geneAbundance">
+                    <bel:parameter>207</bel:parameter>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+        
+        <!-- Single source statement. -->
+        <bel:statement>
+            <bel:subject>
+                <bel:term bel:function="translocation">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter>AIFM1</bel:parameter>
+                    </bel:term>
+                    <bel:term bel:function="cellSecretion">
+                        <bel:parameter>mitochondrial membrane</bel:parameter>
+                    </bel:term>
+                    <bel:parameter>cytoplasm</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+        
+        <!-- Nested statement. -->
+        <bel:statement bel:relationship="decreases">
+            <bel:subject>
+                <bel:term bel:function="complexAbundance">
+                    <bel:term bel:function="geneAbundance">
+                        <bel:parameter>ABO</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:statement bel:relationship="increases">
+                    <bel:subject>
+                        <bel:term bel:function="geneAbundance">
+                            <bel:parameter>INS</bel:parameter>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <bel:term bel:function="transcriptionalActivity">
+                            <bel:parameter>A</bel:parameter>
+                        </bel:term>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+</bel:document>

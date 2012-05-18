@@ -1,0 +1,25 @@
+<jaxb:bindings version="1.0" 
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+  jaxb:extensionBindingPrefixes="xjc">
+
+    <jaxb:bindings schemaLocation="xbel.xsd">
+
+        <jaxb:globalBindings generateIsSetMethod="true">
+            <jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+                    parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+                    printMethod="javax.xml.bind.DatatypeConverter.printDate"
+                />
+            <xjc:superClass name="org.openbel.bel.xbel.model.JAXBElement"/>
+        </jaxb:globalBindings>
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="org.openbel.bel.xbel.model"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName prefix="XBEL"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        
+    </jaxb:bindings>
+</jaxb:bindings>

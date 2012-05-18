@@ -1,0 +1,84 @@
+##############################################################################
+#                                                                            #
+# Example BEL Script.                                                        #
+#                                                                            #
+# This BEL Script encodes BEL Statements extracted from PubMed ID 11340296   #
+#                                                                            #
+##############################################################################
+
+
+##############################################################################
+#
+# Properties Section
+# This section is used to define properties associated with the document as a 
+# whole.
+#
+
+# Set the Citation for the Document. This is generally used to define who
+# created the document.
+
+SET DOCUMENT name = "Example BEL Script Document"
+SET DOCUMENT author = "Selventa"
+SET DOCUMENT version = "1.0"
+SET DOCUMENT copyright "Copyright (c) 2011, Selventa. All Rights Reserved"
+
+# Set additional information for the Document. This is generally used to define why
+# the document was created and what it can be used for.
+SET DOCUMENT description "This document provides an illustration of the structure \
+of a BEL Script document and the encoding of BEL Statements"
+SET DOCUMENT created_at "20110501"
+
+##############################################################################
+#
+# Definitions Section
+# This section is used to define the Namespaces and Annotation Types which will 
+# be used within the document.
+#
+
+# First define the Namespaces for term parameters. One Namespace can be set as 
+# the DEFAULT Namespace for the document
+DEFINE DEFAULT NAMESPACE HGNC AS URL \
+" http://resource.belframework.org/belframework/1.0/ns/hgnc-approved-\ symbols.belns"
+DEFINE NAMESPACE EGID AS URL \
+" http://resource.belframework.org/belframework/1.0/ns/entrez-gene-ids-hmr.belns"
+
+# Next define Annotation Types to be used to annotate the BEL Statements that are 
+# defined later on
+
+# Here we set up a species annotation using the pre-defined species annotation available 
+# on BELSCRIPT. This species annotation uses NCBI TAX IDs
+DEFINE ANNOTATION_TYPE Species AS URL \
+    " http://resource.belframework.org/belframework/1.0/annotation/species.belanno"
+# Define a Tissues annotation type
+DEFINE ANNOTATION_TYPE Tissue AS LIST{"t-cells"}
+# Define an ExposureTime Annotation Type using a REGEX pattern
+DEFINE ANNOTATION_TYPE ExposureTime AS PATTERN "[0-6]hr"
+
+##############################################################################
+#
+# Statements Section
+# This section is used to encode BEL Statements using the Namespaces and 
+# Annotation Types previously defined.
+#
+
+# Set the citation for the PubMed article being used. The Citation and EvidenceLine 
+# Annotation types are part of the BEL specification and don't need to be defined as 
+# Annotation Types
+SET Citation = {"Exp Clin Immunogenet, 2001;18(2) 80-5", "PUBMED", "11340296"}
+
+# Set document-defined annotation values
+SET Species = 9606
+SET Tissue = "t-cells"
+
+# Create an Evidence Line for a block of BEL Statements
+SET EvidenceLine = "Here we show that interfereon-alpha (IFNalpha) is a potent producer \
+    of SOCS expression in human T cells, as high expression of CIS, SOCS-1, SOCS-2, \
+and SOCS-3 was detectable after IFNalpha stimulation. After 4 h of stimulation \
+CIS, SOCS-1, and SOCS-3 had returned to baseline levels, whereas SOCS-2 \
+expression had not declined."
+
+SET ExposureTime = "4hr"
+
+# Create some BEL Statements. The following statements will be annotated with Citation,
+# Species, Tissue, EvidenceLine and ExposureTime annotation type values defined above.
+statement //this is a statement placeholder

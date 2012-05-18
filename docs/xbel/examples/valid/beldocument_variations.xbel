@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bel:document xmlns:bel="http://belframework.org/schema/1.0/xbel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://belframework.org/schema/1.0/xbel http://resource.belframework.org/belframework/1.0/schema/xbel.xsd">
+
+    <bel:header>
+        <bel:name>Test document</bel:name>
+        <bel:description>Description of document</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>Copyright Selventa (c) 2011</bel:copyright>
+        <bel:disclaimer>Do not use without permission of the authors.</bel:disclaimer>
+        <bel:contactInfo>Anthony Bargnesi (abargnesi@selventa.com)</bel:contactInfo>
+        <bel:authorGroup>
+            <bel:author>Tony Bargnesi</bel:author>
+            <bel:author>Tat Chu</bel:author>
+            <bel:author>Nick Bargnesi</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+
+    <bel:namespaceGroup bel:defaultResourceLocation="http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns">
+        <bel:namespace bel:prefix="HGNC" bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns" />
+        <bel:namespace bel:prefix="GO" bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/go-names.belns" />
+    </bel:namespaceGroup>
+
+    <bel:annotationDefinitionGroup>
+        <bel:internalAnnotationDefinition bel:id="dosage">
+            <bel:description>Annotation used to describe the experiment dosage.</bel:description>
+            <bel:usage>Use this annotation to state the dosage for experiment context of the statement.  For example a proper dosage could be "5 ml/hr", "10 ml/hr", or "50 ml/hr".</bel:usage>
+            <bel:patternAnnotation>[d]+\sml\/hr</bel:patternAnnotation>
+        </bel:internalAnnotationDefinition>
+        <bel:internalAnnotationDefinition bel:id="statementStatus">
+            <bel:description>The list of statement status options to track knowledge modeling.</bel:description>
+            <bel:usage>Use this annotation to capture the knowledge modeling status of a statement or group of statements.</bel:usage>
+            <bel:listAnnotation>
+                <bel:listValue>In Progress</bel:listValue>
+                <bel:listValue>Needs Review</bel:listValue>
+                <bel:listValue>First Review</bel:listValue>
+                <bel:listValue>Second Review</bel:listValue>
+                <bel:listValue>Approved</bel:listValue>
+            </bel:listAnnotation>
+        </bel:internalAnnotationDefinition>
+    </bel:annotationDefinitionGroup>
+
+    <!-- Approved and Reviewed Statements -->
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:evidence>This effect was abolished, reduced or prevented by phentolamine, phenoxybenzamine or reserpine plus alpha-mt pretreatment, hence showing to be alpha-mediated.</bel:evidence>
+            <bel:citation bel:type="PubMed">
+                <bel:reference>231231</bel:reference>
+                <bel:name>Inhibition of acetylcholine outflow from guinea-pig cerebral cortex following locus coeruleus stimulation.</bel:name>
+                <bel:comment>Experiments were performed in unanaesthetized guinea-pigs in order to obtain direct evidence that the noradrenergic projections from locus coeruleus (L.C.) to cerebral cortex inhibit the acetylcholine (ACh) release. The animals were provided with left and right epidural cups, to collect outflowing ACh and with a stimulating electrode, positioned in the left L.C. The electrical stimulation of L.C. caused a significant reduction of ACh outflow from both parietal areas. This effect was abolished, reduced or prevented by phentolamine, phenoxybenzamine or reserpine plus alpha-mt pretreatment, hence showing to be alpha-mediated.  PMID: 231231 [PubMed - indexed for MEDLINE]</bel:comment>
+                <bel:date>1979-10-14</bel:date>
+            </bel:citation>
+        </bel:annotationGroup>
+
+        <bel:statementGroup>
+            <bel:statement bel:relationship="biomarkerFor">
+                <bel:annotationGroup>
+                    <bel:annotation bel:refID="dosage">5 ml/hr</bel:annotation>
+                    <bel:annotation bel:refID="statementStatus">Second Review</bel:annotation>
+                </bel:annotationGroup>
+                
+                <bel:subject>
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter>208</bel:parameter>
+                    </bel:term>
+                </bel:subject>
+                <bel:object>
+                    <bel:term bel:function="biologicalProcess">
+                        <bel:parameter bel:ns="GO">apoptosis</bel:parameter>
+                    </bel:term>
+                </bel:object>
+            </bel:statement>
+    
+        </bel:statementGroup>
+    </bel:statementGroup>
+
+    <bel:statementGroup>
+        <bel:annotationGroup>
+            <bel:annotation bel:refID="dosage">20 ml/hr</bel:annotation>
+            <bel:evidence>The electrical stimulation of L.C. caused a significant reduction of ACh outflow from both parietal areas.</bel:evidence>
+            <bel:citation bel:type="PubMed">
+                <bel:reference>231231</bel:reference>
+                <bel:name>Inhibition of acetylcholine outflow from guinea-pig cerebral cortex following locus coeruleus stimulation.</bel:name>
+                <bel:comment>Experiments were performed in unanaesthetized guinea-pigs in order to obtain direct evidence that the noradrenergic projections from locus coeruleus (L.C.) to cerebral cortex inhibit the acetylcholine (ACh) release. The animals were provided with left and right epidural cups, to collect outflowing ACh and with a stimulating electrode, positioned in the left L.C. The electrical stimulation of L.C. caused a significant reduction of ACh outflow from both parietal areas. This effect was abolished, reduced or prevented by phentolamine, phenoxybenzamine or reserpine plus alpha-mt pretreatment, hence showing to be alpha-mediated.  PMID: 231231 [PubMed - indexed for MEDLINE]</bel:comment>
+                <bel:date>1979-10-14</bel:date>
+            </bel:citation>
+        </bel:annotationGroup>
+        
+        <!-- proteinAbundance(TSC1 -->
+        <bel:statement bel:relationship="increases">
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">TSC1</bel:parameter>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:term bel:function="geneAbundance">
+                    <bel:parameter>206</bel:parameter>
+                </bel:term>
+            </bel:object>
+        </bel:statement>
+        
+        <!-- Single source statement. -->
+        <bel:statement>
+            <bel:subject>
+                <bel:term bel:function="translocation">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HGNC">AIFM1</bel:parameter>
+                    </bel:term>
+                    <bel:parameter bel:ns="GO">mitochondrial membrane</bel:parameter>
+                    <bel:parameter bel:ns="GO">cytoplasm</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+        
+        <!-- Nested statement. -->
+        <bel:statement bel:relationship="directlyDecreases">
+            <bel:subject>
+                <bel:term bel:function="complexAbundance">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HGNC">ABO</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:statement bel:relationship="increases">
+                    <bel:annotationGroup>
+                        <bel:evidence>Evidence line two for nested statement.</bel:evidence>
+                    </bel:annotationGroup>
+                    <bel:subject>
+                        <bel:term bel:function="proteinAbundance">
+                            <bel:parameter bel:ns="HGNC">SCD</bel:parameter>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <bel:term bel:function="transcriptionalActivity">
+                            <bel:term bel:function="abundance">
+                                <bel:parameter bel:ns="HGNC">AKT1</bel:parameter>
+                            </bel:term>
+                        </bel:term>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+</bel:document>

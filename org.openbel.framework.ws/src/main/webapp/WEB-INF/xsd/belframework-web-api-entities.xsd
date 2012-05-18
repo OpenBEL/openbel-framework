@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bfapi="http://belframework.org/ws/schemas" targetNamespace="http://belframework.org/ws/schemas" elementFormDefault="qualified">
+
+    <xs:complexType name="Node">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" />
+            <xs:element name="label" type="xs:string" />
+            <xs:element name="function" type="bfapi:FunctionType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="KamNode">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:Node"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Edge">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" />
+            <xs:element name="source" type="bfapi:Node" />
+            <xs:element name="relationship" type="bfapi:RelationshipType" />
+            <xs:element name="target" type="bfapi:Node" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="KamEdge">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:Edge"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SimplePath">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="source" type="bfapi:KamNode" />
+            <xs:element name="target" type="bfapi:KamNode" />
+            <xs:element name="edges" type="bfapi:KamEdge" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="RelationshipType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UNKNOWN">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents the state where the edge's relationship is
+                        unknown.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ACTS_IN" />
+            <xs:enumeration value="ANALOGOUS" />
+            <xs:enumeration value="ASSOCIATION" />
+            <xs:enumeration value="BIOMARKER_FOR" />
+            <xs:enumeration value="CAUSES_NO_CHANGE" />
+            <xs:enumeration value="DECREASES" />
+            <xs:enumeration value="DIRECTLY_DECREASES" />
+            <xs:enumeration value="DIRECTLY_INCREASES" />
+            <xs:enumeration value="HAS_COMPONENT" />
+            <xs:enumeration value="HAS_MEMBER" />
+            <xs:enumeration value="HAS_MODIFICATION" />
+            <xs:enumeration value="HAS_PRODUCT" />
+            <xs:enumeration value="HAS_VARIANT" />
+            <xs:enumeration value="INCLUDES" />
+            <xs:enumeration value="INCREASES" />
+            <xs:enumeration value="IS_A" />
+            <xs:enumeration value="NEGATIVE_CORRELATION" />
+            <xs:enumeration value="ORTHOLOGOUS" />
+            <xs:enumeration value="POSITIVE_CORRELATION" />
+            <xs:enumeration value="PROGNOSTIC_BIOMARKER_FOR" />
+            <xs:enumeration value="RATE_LIMITING_STEP_OF" />
+            <xs:enumeration value="REACTANT_IN" />
+            <xs:enumeration value="SUB_PROCESS_OF" />
+            <xs:enumeration value="TRANSCRIBED_TO" />
+            <xs:enumeration value="TRANSLATED_TO" />
+            <xs:enumeration value="TRANSLOCATES" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="FunctionType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UNKNOWN">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents the state where the node's function is
+                        unknown.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ABUNDANCE" />
+            <xs:enumeration value="BIOLOGICAL_PROCESS" />
+            <xs:enumeration value="CATALYTIC_ACTIVITY" />
+            <xs:enumeration value="CELL_SECRETION" />
+            <xs:enumeration value="CELL_SURFACE_EXPRESSION" />
+            <xs:enumeration value="CHAPERONE_ACTIVITY" />
+            <xs:enumeration value="COMPLEX_ABUNDANCE" />
+            <xs:enumeration value="COMPOSITE_ABUNDANCE" />
+            <xs:enumeration value="DEGRADATION" />
+            <xs:enumeration value="GENE_ABUNDANCE" />
+            <xs:enumeration value="GTP_BOUND_ACTIVITY" />
+            <xs:enumeration value="KINASE_ACTIVITY" />
+            <xs:enumeration value="LIST" />
+            <xs:enumeration value="MICRORNA_ABUNDANCE" />
+            <xs:enumeration value="MOLECULAR_ACTIVITY" />
+            <xs:enumeration value="PATHOLOGY" />
+            <xs:enumeration value="PEPTIDASE_ACTIVITY" />
+            <xs:enumeration value="PHOSPHATASE_ACTIVITY" />
+            <xs:enumeration value="PROTEIN_ABUNDANCE" />
+            <xs:enumeration value="REACTION" />
+            <xs:enumeration value="RIBOSYLATION_ACTIVITY" />
+            <xs:enumeration value="RNA_ABUNDANCE" />
+            <xs:enumeration value="TRANSCRIPTIONAL_ACTIVITY" />
+            <xs:enumeration value="TRANSLOCATION" />
+            <xs:enumeration value="TRANSPORT_ACTIVITY" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="BelSyntax">
+        <xs:annotation>
+            <xs:documentation>Enumeration of different BEL syntaxes.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SHORT_FORM">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents short form BEL. e.g. the protein abundance of ABC
+                        will be displayed as "p(ABC)".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LONG_FORM">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents long form BEL. e.g. the protein abundance of ABC
+                        will be displayed as "proteinAbundance(ABC)".
+                    </xs:documentation>
+                </xs:annotation>            
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Annotation">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="annotationType" type="bfapi:AnnotationType" />
+            <xs:element name="value" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AnnotationType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+            <xs:element name="usage" type="xs:string" minOccurs="0" />
+            <xs:element name="annotationDefinitionType" type="bfapi:AnnotationDefinitionType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BelDocument">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="description" type="xs:string" minOccurs="0" />
+            <xs:element name="version" type="xs:string" minOccurs="0" />
+            <xs:element name="copyright" type="xs:string" minOccurs="0" />
+            <xs:element name="disclaimer" type="xs:string" minOccurs="0" />
+            <xs:element name="contactInfo" type="xs:string" minOccurs="0" />
+            <xs:element name="licenseInfo" type="xs:string" minOccurs="0" />
+            <xs:element name="authors" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="annotationTypes" type="bfapi:AnnotationType" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="namespaces" type="bfapi:Namespace" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Namespace">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="prefix" type="xs:string" />
+            <xs:element name="resourceLocation" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="NamespaceDescriptor">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="namespace" type="bfapi:Namespace" minOccurs="1" />
+            <xs:element name="name" type="xs:string" minOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="EquivalenceId">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="msb" type="xs:long" />
+            <xs:element name="lsb" type="xs:long" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BelStatement">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="subjectTerm" type="bfapi:BelTerm" />
+            <xs:element name="relationship" type="bfapi:RelationshipType" minOccurs="0" />
+            <xs:element name="objectTerm" type="bfapi:BelTerm" minOccurs="0" />
+            <xs:element name="objectStatement" type="bfapi:BelStatement" minOccurs="0" />
+            <xs:element name="annotations" type="bfapi:Annotation" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="citation" type="bfapi:Citation" minOccurs="0" />
+            <xs:element name="document" type="bfapi:BelDocument" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BelTerm">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="label" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="NamespaceValue">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="namespace" type="bfapi:Namespace" />
+            <xs:element name="value" type="xs:string" />
+            <xs:element name="equivalence" minOccurs="0" type="bfapi:EquivalenceId">
+                <xs:annotation>
+                    <xs:documentation>
+                        Identifier for the namespace/value combination for equivalencing. Equivalent
+                        values across different namespaces will have the same EquivalenceId object.
+                        This element is optional for NamespaceValues provided in requests as the server can
+                        always obtain the EquivalenceId.
+                        When part of a response, the equivalenceId will always be populated. Lack of an
+                        equivalenceId indicates the given namespaceValue has no equivalents.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Citation">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="citationType" type="bfapi:CitationType" />
+            <xs:element name="comment" type="xs:string" minOccurs="0" />
+            <xs:element name="publicationDate" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="authors" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Kam">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="description" type="xs:string" />
+            <xs:element name="lastCompiled" type="xs:dateTime" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="KamHandle">
+        <xs:annotation>
+            <xs:documentation>Uniquely identifies a Kam</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="handle" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DialectHandle">
+        <xs:annotation>
+            <xs:documentation>Uniquely identifies a Dialect</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="handle" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="FilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="isInclude" type="xs:boolean" use="optional" default="true" />
+    </xs:complexType>
+
+    <xs:complexType name="AnnotationFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="annotationType" type="bfapi:AnnotationType" />
+                    <xs:element name="valueSet" type="xs:string" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="BelDocumentFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:BelDocument" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="CitationFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:Citation" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NamespaceFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:Namespace" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="RelationshipTypeFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:RelationshipType" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FunctionReturnTypeFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:FunctionReturnType" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="FunctionTypeFilterCriteria">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="bfapi:FilterCriteria">
+                <xs:sequence>
+                    <xs:element name="valueSet" type="bfapi:FunctionType" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="NodeFilter">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="functionTypeCriteria" type="bfapi:FunctionTypeFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="functionReturnCriteria" type="bfapi:FunctionReturnTypeFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EdgeFilter">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="relationshipCriteria" type="bfapi:RelationshipTypeFilterCriteria" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="KamFilter">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="annotationCriteria" type="bfapi:AnnotationFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="documentCriteria" type="bfapi:BelDocumentFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="citationCriteria" type="bfapi:CitationFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="relationshipCriteria" type="bfapi:RelationshipTypeFilterCriteria" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="EdgeDirectionType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FORWARD" />
+            <xs:enumeration value="REVERSE" />
+            <xs:enumeration value="BOTH" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CitationType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BOOK" />
+            <xs:enumeration value="JOURNAL" />
+            <xs:enumeration value="ONLINE_RESOURCE" />
+            <xs:enumeration value="PUBMED" />
+            <xs:enumeration value="OTHER" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="FunctionReturnType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ABUNDANCE" />
+            <xs:enumeration value="PROTEIN_ABUNDANCE" />
+            <xs:enumeration value="GENE_ABUNDANCE" />
+            <xs:enumeration value="MICRORNA_ABUNDANCE" />
+            <xs:enumeration value="RNA_ABUNDANCE" />
+            <xs:enumeration value="BIOLOGICAL_PROCESS" />
+            <xs:enumeration value="PATHOLOGY" />
+            <xs:enumeration value="COMPLEX_ABUNDANCE" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="AnnotationDefinitionType">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ENUMERATION" />
+            <xs:enumeration value="REGULAR_EXPRESSION" />
+            <xs:enumeration value="URL" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="KAMLoadStatus">
+        <xs:annotation>
+            <xs:documentation>
+                A set of statuses indicating the load state of a KAM.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="IN_PROCESS">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates a KAM that is being loaded.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="COMPLETE">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates a KAM that has been loaded.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FAILED">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates a KAM that has failed to load.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

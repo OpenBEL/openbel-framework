@@ -1,0 +1,57 @@
+##################################################################################
+# Equivalence Integration Test - BEL                                             #
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Equivalence Integration Test File"
+SET DOCUMENT Description = "File to test equivalencing"
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2012, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE NAMESPACE EGID AS URL "http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns"
+DEFINE NAMESPACE MGI AS URL "http://resource.belframework.org/belframework/1.0/namespace/mgi-approved-symbols.belns"
+DEFINE NAMESPACE RGD AS URL "http://resource.belframework.org/belframework/1.0/namespace/rgd-approved-symbols.belns"
+DEFINE NAMESPACE SPAC AS URL "http://resource.belframework.org/belframework/1.0/namespace/swissprot-accession-numbers.belns"
+DEFINE NAMESPACE SP AS URL "http://resource.belframework.org/belframework/1.0/namespace/swissprot-entry-names.belns"
+DEFINE NAMESPACE NCM AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-complexes.belns"
+
+##################################################################################
+# Statements Section
+
+SET STATEMENT_GROUP = "Group 2"
+
+SET Citation = {"PubMed","Journal of clinical oncology : official journal of the American Society of Clinical Oncology","16170185","","Beeram M|Patnaik A|Rowinsky EK",""}
+SET Evidence = "Other antiapoptotic effects of C-Raf are mediated by a mitochondrial pool of the protein, which, on stimulation, localizes to the mitochondrial membrane where the protein interacts with and phosphorylates Bcl-2, Bcl-2–associated athanogene, and other pro-apoptotic regulators, abrogating their pro-apoptotic effects.157,167 The antiapoptotic effects of C-Raf are also mediated through the ankyrin-repeat protein Tvl-1 and apoptosis signal-regulated kinase-1.166,168,169"
+
+# Statement equivalences using AKT1 entity.
+# parmeter equivalences: 3 (EGID:207, SPAC:P31749, SP:AKT1_HUMAN equivalent for HGNC:AKT1)
+proteinAbundance(HGNC:AKT1,proteinModification(P,T,308)) directlyIncreases kinaseActivity(proteinAbundance(EGID:207))
+proteinAbundance(SPAC:P31749,proteinModification(P,T,308)) directlyIncreases kinaseActivity(proteinAbundance(SP:AKT1_HUMAN))
+
+# Statement equivalences using Mapkap1 and Akt1.
+# parmeter equivalences: 2 (EGID:227743, MGI:Akt1 equivalent to MGI:Mapkap1 and SPAC:P31750 respectively)
+proteinAbundance(MGI:Mapkap1) increases proteinAbundance(SPAC:P31750,proteinModification(P,S,473))
+proteinAbundance(EGID:227743) increases proteinAbundance(MGI:Akt1,proteinModification(P,S,473))
+
+# Term equivalences by identity and term inequality due to proteinModification differences.
+# parmeter equivalences: 1 (SP:4EBP1_MOUSE equivalent to MGI:Eif4ebp1)
+kinaseActivity(complexAbundance(NCM:"TORC2 Complex")) directlyIncreases proteinAbundance(MGI:Eif4ebp1,proteinModification(P,T,36))
+kinaseActivity(complexAbundance(NCM:"TORC2 Complex")) directlyIncreases proteinAbundance(SP:4EBP1_MOUSE,proteinModification(P,T,45))
+
+# Term equivalence based on discontinuous function arguments.
+# parmeter equivalences: 1 (HGNC:AKT2 equivalent to EGID:208)
+#   HGNC:AKT1 and EGID:207 have already been equivalenced previously
+complexAbundance(proteinAbundance(HGNC:AKT1),geneAbundance(EGID:208)) directlyDecreases geneAbundance(SP:SCND3_HUMAN)
+complexAbundance(geneAbundance(HGNC:AKT2),proteinAbundance(EGID:207)) directlyDecreases geneAbundance(SP:SCND3_HUMAN)
+
+# Parameter equivalences only using Fem1a and Hoxa2.
+# parmeter equivalences: 2 (EGID:316131, RGD:Hoxa2 equivalent to RGD:Fem1a and SP:HXA2_RAT respectively)
+proteinAbundance(RGD:Fem1a) increases kinaseActivity(geneAbundance(SP:HXA2_RAT))
+geneAbundance(EGID:316131) increases kinaseActivity(proteinAbundance(RGD:Hoxa2))
+
+UNSET STATEMENT_GROUP

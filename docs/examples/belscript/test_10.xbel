@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bel:document xsi:schemaLocation="http://belframework.org/schema/1.0/xbel http://resource.belframework.org/belframework/1.0/schema/xbel.xsd" xmlns:bel="http://belframework.org/schema/1.0/xbel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <bel:header>
+        <bel:name>Unit Test #10</bel:name>
+        <bel:description>Prune multi-nested statement</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>All rights reserved.</bel:copyright>
+        <bel:authorGroup>
+            <bel:author>Selventa, Inc.</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+    <bel:namespaceGroup>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns" bel:prefix="HGNC" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mgi-approved-symbols.belns" bel:prefix="MGI" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/rgd-approved-symbols.belns" bel:prefix="RGD" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/entrez-gene-ids-hmr.belns" bel:prefix="EG" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/go-biological-processes-names.belns" bel:prefix="GO" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mesh-biological-processes.belns" bel:prefix="MESHBP" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mesh-diseases.belns" bel:prefix="MESHD" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/chebi-names.belns" bel:prefix="CHEBI" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns" bel:prefix="HSF" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns" bel:prefix="HSC" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-protein-families.belns" bel:prefix="MMF" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-complexes.belns" bel:prefix="MMC" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-protein-families.belns" bel:prefix="RNF" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-complexes.belns" bel:prefix="RNC" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-chemical-names.belns" bel:prefix="SLCHEM" />
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-legacy-diseases.belns" bel:prefix="SLDIS" />
+    </bel:namespaceGroup>
+    <bel:statementGroup>
+        <bel:statement bel:relationship="increases">
+            <bel:subject>
+                <bel:term bel:function="kinaseActivity">
+                    <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="RGD">Mapk1</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <bel:statement bel:relationship="directlyIncreases">
+                    <bel:subject>
+                        <bel:term bel:function="catalyticActivity">
+                            <bel:term bel:function="complexAbundance">
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">VHL</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">TCEB1</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">TCEB2</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">RBX1</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">CUL2</bel:parameter>
+                                </bel:term>
+                            </bel:term>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <bel:term bel:function="degradation">
+                            <bel:term bel:function="proteinAbundance">
+                                <bel:parameter bel:ns="HGNC">HIF1A</bel:parameter>
+                            </bel:term>
+                        </bel:term>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+
+        <!-- ONE LEVEL -->
+        <bel:statement bel:relationship="directlyIncreases">
+            <bel:comment></bel:comment>
+            <bel:annotationGroup />
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                    <bel:parameter bel:ns="HGNC">HIF1A</bel:parameter>
+                    <bel:term bel:function="proteinModification">
+                        <bel:parameter>P</bel:parameter>
+                        <bel:parameter>H</bel:parameter>
+                    </bel:term>
+                </bel:term>
+            </bel:subject>
+            <bel:object>
+                <!-- TWO LEVEL -->
+                <bel:statement bel:relationship="directlyIncreases">
+                    <bel:subject>
+                        <bel:term bel:function="catalyticActivity">
+                            <bel:term bel:function="complexAbundance">
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">VHL</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">TCEB1</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">TCEB2</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">RBX1</bel:parameter>
+                                </bel:term>
+                                <bel:term bel:function="proteinAbundance">
+                                    <bel:parameter bel:ns="HGNC">CUL2</bel:parameter>
+                                </bel:term>
+                            </bel:term>
+                        </bel:term>
+                    </bel:subject>
+                    <bel:object>
+                        <!-- THREE LEVEL -->
+                        <bel:statement bel:relationship="decreases">
+                            <bel:comment>The effect of RAP1A on RAF1 (c-RAF) does not appear to be stimulating</bel:comment>
+                            <bel:annotationGroup />
+                            <bel:subject>
+                                <bel:term bel:function="gtpBoundActivity">
+                                    <bel:term bel:function="proteinAbundance">
+                                        <bel:parameter bel:ns="HGNC">RAP1A</bel:parameter>
+                                    </bel:term>
+                                </bel:term>
+                            </bel:subject>
+                            <bel:object>
+                                <bel:term bel:function="kinaseActivity">
+                                    <bel:term bel:function="proteinAbundance">
+                                        <bel:parameter bel:ns="HGNC">RAF1</bel:parameter>
+                                    </bel:term>
+                                </bel:term>
+                            </bel:object>
+                        </bel:statement>
+                    </bel:object>
+                </bel:statement>
+            </bel:object>
+        </bel:statement>
+    </bel:statementGroup>
+</bel:document>

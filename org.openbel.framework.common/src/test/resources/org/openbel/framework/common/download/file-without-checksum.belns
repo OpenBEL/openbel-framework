@@ -1,0 +1,30 @@
+[Namespace]
+Keyword=BADNS
+NameString=BADNS
+DomainString=Gene and Gene Products
+SpeciesString=9606
+DescriptionString=HUGO Geneome Naming Committee (HGNC) standard approved gene symbols. These symbols may be used to specify human gene,  RNA, microRNA and protein abundances.
+VersionString=20110516
+CreatedDateTime=2011-04-29T11:50:00
+
+[Author]
+NameString=Selventa
+
+[Citation]
+NameString=HUGO Genome Naming Committee
+DescriptionString=For each known human gene HGNC approves a gene name and symbol (short-form abbreviation). Each symbol is unique and each gene is only given one approved gene symbol.
+PublishedVersionString=20110517
+PublishedDate=2011-05-17
+ReferenceURL=http://www.ncbi.nlm.nih.gov/pubmed/20929869
+
+[Processing]
+CaseSensitiveFlag=yes
+DelimiterString=|
+
+[Values]
+A1BG|GRP
+A1BG-AS1|GR
+A1CF|GRP
+A2LD1|GRP
+A2M|GRP
+A2ML1|GRP

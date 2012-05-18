@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:document xmlns:ns1="http://www.belscript.org/schema/xbel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.belscript.org/schema/xbel ../../xbel.xsd">
+    <ns1:header>
+        <ns1:description>PubMed 16275121: Small heterodimer partner (SHP; NR0B2), an exceptional member of the mammalian nuclear receptor family, directly modulates the activities of conventional nuclear receptors by acting as an inducible and tissue-specific corepressor. Recent progress in dissecting underlying molecular mechanisms, identifying target factors and target genes, and uncovering physiological functions points to the regulatory involvement of SHP in diverse metabolic and intracellular pathways that awaits future clarification. In this review, we carry out a comprehensive survey of all published data and discuss our current understanding of molecular mechanisms and physiological consequences governing SHP action.</ns1:description>
+        <ns1:name>Trends Endocrinol Metab 2005 Dec 16(10) 478-88</ns1:name>
+        <ns1:version>1.0</ns1:version>
+        <ns1:copyright>All rights reserved.</ns1:copyright>
+        <ns1:authorGroup>
+            <ns1:author>Selventa, Inc.</ns1:author>
+        </ns1:authorGroup>
+    </ns1:header>
+    <ns1:namespaceGroup>
+        <ns1:namespace ns1:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/mgi-marker-symbols.belns" ns1:prefix="MGI"/>
+    </ns1:namespaceGroup>
+    <ns1:annotationDefinitionGroup>
+        <ns1:internalAnnotationDefinition ns1:id="species">
+            <ns1:description>Built-in Species</ns1:description>
+            <ns1:usage>Usage text</ns1:usage>
+            <ns1:listAnnotation>
+                <ns1:listValue>9606</ns1:listValue>
+                <ns1:listValue>10090</ns1:listValue>
+                <ns1:listValue>100116</ns1:listValue>
+            </ns1:listAnnotation>
+        </ns1:internalAnnotationDefinition>
+    </ns1:annotationDefinitionGroup>
+    <ns1:statementGroup>
+
+        <ns1:annotationGroup>
+            <ns1:citation ns1:type="PubMed">
+                <ns1:reference>16275121</ns1:reference>
+                <ns1:name>Trends Endocrinol Metab 2005 Dec 16(10) 478-88</ns1:name>
+            </ns1:citation>
+        </ns1:annotationGroup>
+
+        <ns1:statement ns1:relationship="negativeCorrelation">
+            <ns1:annotationGroup>
+                <ns1:annotation ns1:refID="species">10090</ns1:annotation>
+            </ns1:annotationGroup>
+            <ns1:subject>
+                <ns1:term ns1:function="transcriptionalActivity">
+                    <ns1:term ns1:function="proteinAbundance">
+                        <ns1:parameter ns1:ns="MGI">Nr5a2</ns1:parameter>
+                    </ns1:term>
+                </ns1:term>
+            </ns1:subject>
+            <ns1:object>
+                <ns1:statement ns1:relationship="positiveCorrelation">
+                    <ns1:annotationGroup>
+                        <ns1:annotation ns1:refID="species">10090</ns1:annotation>
+                    </ns1:annotationGroup>
+                    <ns1:subject>
+                        <ns1:term ns1:function="transcriptionalActivity">
+                            <ns1:term ns1:function="proteinAbundance">
+                                <ns1:parameter ns1:ns="MGI">Foxe3</ns1:parameter>
+                            </ns1:term>
+                        </ns1:term>
+                    </ns1:subject>
+                    <ns1:object>
+                        <ns1:term ns1:function="rnaAbundance">
+                            <ns1:parameter ns1:ns="MGI">Nr5a2</ns1:parameter>
+                        </ns1:term>
+                    </ns1:object>
+                </ns1:statement>
+            </ns1:object>
+        </ns1:statement>
+
+    </ns1:statementGroup>
+</ns1:document>
+

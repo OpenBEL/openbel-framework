@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bel:document xmlns:bel="http://www.belscript.org/schema/xbel">
+    <bel:header>
+        <bel:name>Named Complexes Test Document</bel:name>
+        <bel:description>Named Complexes Test Document</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>All rights reserved.</bel:copyright>
+        <bel:authorGroup>
+            <bel:author>Selventa, Inc.</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+    <bel:namespaceGroup>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns" bel:prefix="HGNC"/>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns" bel:prefix="HSC"/>
+    </bel:namespaceGroup>
+    <bel:statementGroup>
+
+        <!-- This will be expanded to C1 Complex and components C1QB, C1QC. -->
+        <bel:statement>
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HGNC">C1QA</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+
+    </bel:statementGroup>
+</bel:document>

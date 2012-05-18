@@ -1,0 +1,17 @@
+bindings.xjb:
+    JAXB-specific customizations used with xjc.
+
+xbel-annotations.xsd:
+    The XBEL annotation schema, included by xbel
+
+xbel.html:
+    XBEL schema documentation
+
+xbel.pdf
+    XBEL schema documentation
+
+xbel.xsd
+    The XBEL schema
+
+examples/
+    XBEL examples

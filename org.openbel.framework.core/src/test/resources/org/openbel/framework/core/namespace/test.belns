@@ -1,0 +1,156 @@
+[Namespace]
+Keyword=ProteinComplexes
+NameString=Selventa Named Protein Complexes
+DomainString=GeneProtein
+DescriptionString=This namespace list that names of protein complexes that are frequently used and/or are well characterized. Each named complex may be associated with a defined set of complex components (complex components are defined in BEL documents using BEL statements elsewhere). This namespace serves to standardize the representation of a complex by providing a standardized name. This name may also be associated with a defined set of complex components. However there is no requirement that a named complex has complex components associated with it; it can simply represent the concept of the complex.
+VersionString=20110204
+CreatedDateTime=2011-02-04T11:13:00
+
+[Author]
+NameString=Selventa
+CopyrightString=© 2010 Selventa
+ContactInfoString=bel@selventa.com
+
+[Citation]
+NameString=Selventa Named Protein Complexes
+
+[Processing]
+CaseSensitiveFlag=yes
+DelimiterString=|
+CacheableFlag=yes
+
+[Values]
+9-1-1 Complex|C
+Acetylcholine Current Channel Complex|C
+Acetyl-Coa Carboxylase Complex|C
+Amp-Activated Protein Kinase Complex|C
+Anaphase Promoting Complex|C
+Annexin Ii Heterotetramer Complex|C
+Ap1 Complex|C
+Ap-1 Complex|C
+Ap2 Complex|C
+Ap3 Complex|C
+Arp2/3 Protein Complex|C
+Atp-Dependent Potassium Channel Complex|C
+Bk Channel Complex|C
+Branched Chain Alpha Keto Acid Dehydrogenase Complex|C
+C1 Complex|C
+C1Q Complex|C
+C3 Convertase Complex|C
+C5 Convertase Complex|C
+Cacc Complex|C
+Calcineurin Complex|C
+Calcium-Activated Potassium Channel Complex|C
+Camk2 Complex|C
+Cbf3 Protein Complex|C
+Cct Complex|C
+Cd3 Complex|C
+Cd8 Complex|C
+Chrn Complex|C
+Clathrin Complex|C
+Coa Ligase (Gdp) Complex|C
+Cohesin Complex|C
+Complement Component C1Q Complex|C
+Crsp Complex|C
+Csnk2 Complex|C
+Cytochrome C Oxidase Complex (Muscle)|C
+Cytochrome C Oxidase Complex (Non-Muscle)|C
+Cytochrome C Oxidase Complex|C
+Cytoplasmic Dynein Complex|C
+Cytosolic Nfat Complex|C
+Dci Complex|C
+Delta Dna Polymerase Complex|C
+Dystrophin Associated Glycoprotein Complex|C
+E1A Binding Protein Complex|C
+Ech1 Complex|C
+Echs1 Complex|C
+Eif2 Complex|C
+Eif2B Complex|C
+Eif4F Complex|C
+Enac Complex|C
+Er Chaperone Complex|C
+Eukaryotic Translation Initiation Factor 2B Complex|C
+F-Channel Complex|C
+Fcr Gamma Chain Complex|C
+Fibrinogen Complex|C
+Follicle-Stimulating Hormone Complex|C
+Gabra Complex|C
+Gamma Secretase Complex|C
+Gpit Complex|C
+Gtf2E Complex|C
+Gtf2F Complex|C
+Hdl Complex|C
+Hemoglobin Complex|C
+Ib-V-Ix Complex|C
+Igg Immune Complex|C
+Ik Channel Complex|C
+Ikappab Kinase Complex|C
+Interferon Gamma Receptor Complex|C
+Interleukin-4 Receptor Complex|C
+Inward Rectifier Potassium Channel Complex|C
+Kinetochore Complex|C
+Laminin-1 Complex|C
+Laminin-5 Complex|C
+L-Type Calcium Channel Complex|C
+Luteinizing Hormone Complex|C
+Membrane Attack Complex|C
+Mhc Class I Complex|C
+Mhc Class Ii Complex|C
+Mrna Cap Complex|C
+Nadh Dehydrogenase Complex|C
+Nadh Dehydrogenase Complex I|C
+Nadph Oxidase Complex|C
+Nfat Complex|C
+Nfkb Complex|C
+Nfy Complex|C
+Ngf Complex|C
+Nua4 Complex|C
+Nuclear Nfat Complex|C
+P85-P110 PI3K Complex|C
+Pdgf Receptor Complex|C
+Phosphorylase B Kinase Complex|C
+Phosphorylase Kinase Complex|C
+Platelet Derived Growth Factor Complex|C
+Polr2 Complex|C
+Prc1 Maintenance Complex|C
+Prc2 Initiation Complex|C
+Prefoldin Complex|C
+Preinitiation Complex|C
+Propionyl Coa Carboxylase Complex|C
+Proteasome Complex (Sensu Eukarya)|C
+Proteasome Core Complex (Sensu Eukarya)|C
+Proteasome Core Complex, Alpha-Subunit Complex (Sensu Eukarya)|C
+Proteasome Core Complex, Beta-Subunit Complex (Sensu Eukarya)|C
+Proteasome Regulatory Particle, Base Subcomplex (Sensu Eukarya)|C
+Proteasome Regulatory Particle, Lid Subcomplex (Sensu Eukarya)|C
+Protein Kinase Ck2 Complex|C
+Proton-Transporting Atp Synthase Complex (Sensu Eukarya)|C
+Pyruvate Dehydrogenase Complex|C
+Respiratory Chain Complex I|C
+Respiratory Chain Complex Ii (Sensu Eukarya)|C
+Respiratory Chain Complex Iii (Sensu Eukarya)|C
+Respiratory Chain Complex Iv (Sensu Eukarya)|C
+Rfc Complex|C
+Rna Polymerase I Complex|C
+Rna Polymerase Ii Complex|C
+Selectivity Factor Sl1 Complex|C
+Sk Channel Complex|C
+Sodium/Potassium-Exchanging Atpase Complex|C
+Soluble Guanylate Cyclase Complex|C
+Succinate Coa Ligase Complex (Gdp Forming)|C
+Succinate Dehydrogenase Complex|C
+Swi/Snf Complex|C
+T-Cell Receptor Antigen Recognition Complex|C
+T-Cell Receptor Complex|C
+Ternary Complex|C
+Thrombin-Antithrombin Complex|C
+Tif 1B Complex|C
+Torc1 Complex|C
+Torc2 Complex|C
+Tr Auxiliary Protein Complex|C
+Trifunctional Complex|C
+T-Type Calcium Channel Complex|C
+Voltage-Dependent Potassium Channel Complex|C
+Voltage-Gated Sodium Channel Complex|C
+Wave2 Complex|C
+

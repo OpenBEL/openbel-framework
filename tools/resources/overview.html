@@ -1,0 +1,221 @@
+<html>
+  <body>
+    <p>
+      These are the API docs for the OpenBEL Framework.
+    </p>
+
+    <p>
+      <h1>Style</h1>
+      <dl>
+        <dt>Indentation</dt>
+        <dd>
+          <ul>
+            <li>
+              Four spaces should be used as the unit of indentation.
+            </li>
+            <li>
+              Indent with spaces, not tabs.
+            </li>
+            <li>
+              Indentation should be consistent.
+            </li>
+          </ul>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt><h2>Line Length</h2></dt>
+        <dd>
+          <ul>
+            <li>Avoid lines longer than <tt>80</tt> characters.</li>
+          </ul>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt><h2>Brace Usage</h2></dt>
+        <dd>
+          <ul>
+            <li>
+              Conditionals should always use braces.
+            </li>
+            <li>
+              Braces in loops can be considered optional, e.g.,<br>
+              <code>
+                for (int i = 0; i < array.length; methodcall(array[i]), i++);
+              </code>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>Switch Statements</dt>
+        <dd>
+          <ul>
+            <li>
+              Switch statements should always include default cases.
+            </li>
+          </ul>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt><h2>Blank Usage</h2></dt>
+        <dd>
+          <ul>
+            <li>Keywords followed by parantheses</li>
+            <li>Commas in arguments lists</li>
+            <li>Expressions in for loops</li>
+            <li>Binary operators, except '.'</li>
+            <li>After casts</li>
+          </ul>
+          <br>
+          E.g.,
+          <ul>
+            <li><code>if (...) { /// }</code></li>
+            <li><code>method(a, b, c);</code></li>
+            <li><code>for (int i = 0; i < j; j++) { // }</code></li>
+            <li><code>list.add((T) item);</code></li>
+          </ul>
+        </dd>
+      </dl>
+
+      <h1><h2>Documentation</h2></h1>
+      <ul>
+        <li>Document all public, default and protected elements</li>
+        <li>Document all thrown exceptions</li>
+        <li>
+          Use the tags and tools provided (e.g., use of <code>inheritDoc</code>)
+        </li>
+        <li>Document when nulls are accepted or returned for a method</li>
+      </ul>
+      <br>
+      Examples, note the use of <i>may be</i> language:
+      <pre>
+        <code>
+          /**
+           * Creates an item.
+           *
+           * @param e Entry, which may be null
+           */
+          public Item(Entry e) {
+              this.entry = e;
+          }
+
+          /**
+           * Returns the item's entry.
+           *
+           * @return Entry, which may be null
+           */
+          public Entry getEntry() {
+              return entry;
+          }
+
+          /**
+           * Returns the item's other entries.
+           *
+           * @return {@link Set} of entries, which may be empty
+          public Set<Entry> getEntries() {
+              if (entries == null) return emptySet();
+              return entries;
+          }
+        </code>
+      </pre>
+
+      <h1>Conventions</h1>
+
+        <dt><h2>Catching Exceptions</h2></dt>
+        <dd>
+          Avoid catching higher-level exceptions; there are seldom reasons to do so.
+          <br>
+          <pre>
+            <code>
+              try {
+                  // some code
+              } catch (Exception e) {
+                  // Don't!
+              }
+            </code>
+          </pre>
+        </dd>
+
+        <dt><h2>Naming Conventions</h2></dt>
+        <dd>
+          <ul>
+            <li>Constants should be uppercase with words separated by '_'.</li>
+            <li>
+              Consider case-senstivity when naming types.<br>
+              E.g., do not use:<br>
+              <pre>
+                <code>
+                  public class Bel {
+                  }
+                </code>
+              </pre>
+              Do use:
+              <pre>
+                <code>
+                  public class BEL {
+                  }
+                </code>
+              </pre>
+            </li>
+          </ul>
+        </dd>
+
+        <dt><h2>Simplify Logic</h2></dt>
+        <dd>
+          Simplify conditional logic, when execution flows throw branches in a mutually
+          exclusive fashion.<br>
+          E.g., avoid using:<br>
+          <pre>
+            <code>
+              if (condition1) {
+                  // some code for condition #1
+                  return;
+              } else if (condition2) {
+                  // some code for condition #2
+                  return;
+              } else {
+                  // default code
+                  return;
+              }
+            </code>
+          </pre>
+          Do use:<br>
+          <pre>
+            <code>
+              if (condition1) {
+                  // some code for condition #1
+                  return;
+              } else if (condition2) {
+                  // some code for condition #2
+                  return;
+              }
+              // default code
+              return;
+            </code>
+          </pre>
+          The latter syntax matches intent and allows for things like branch
+          prediction by the virtual machine.
+        </dd>
+
+        <br>
+        <dt><h2>Unnecessary Code</h2></dt>
+        <dd>
+          Unnecessary code usually comes as a result of software maturity during
+          phases of refactoring.  Here are the types of unnecessary code that
+          should be avoided:
+          <ul>
+            <li>Unnecessary null checks</li>
+            <li>Unnecessary else statements</li>
+            <li>Unnecessary casts, instanceof</li>
+            <li>Unused imports</li>
+            </li>
+          </ul>
+        </dd>
+      </dl>
+  </body>
+</html>
+

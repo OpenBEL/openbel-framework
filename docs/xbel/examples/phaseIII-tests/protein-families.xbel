@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bel:document xmlns:bel="http://www.belscript.org/schema/xbel">
+    <bel:header>
+        <bel:name>Protein Families Test Document</bel:name>
+        <bel:description>Protein Families Test Document</bel:description>
+        <bel:version>1.0</bel:version>
+        <bel:copyright>All rights reserved.</bel:copyright>
+        <bel:authorGroup>
+            <bel:author>Selventa, Inc.</bel:author>
+        </bel:authorGroup>
+    </bel:header>
+    <bel:namespaceGroup>
+        <bel:namespace bel:resourceLocation="http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns" bel:prefix="HSF"/>
+    </bel:namespaceGroup>
+    <bel:statementGroup>
+
+        <!-- This will be expanded to all 14-3-3 Family. -->
+        <bel:statement>
+            <bel:subject>
+                <bel:term bel:function="proteinAbundance">
+                        <bel:parameter bel:ns="HSF">14-3-3 Family</bel:parameter>
+                </bel:term>
+            </bel:subject>
+        </bel:statement>
+
+    </bel:statementGroup>
+</bel:document>

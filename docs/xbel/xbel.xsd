@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+BEL document schema version 1.0. 
+
+The "bel" namespace is required on all elements and attributes within
+instance documents.
+ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    attributeFormDefault="qualified"
+    targetNamespace="http://belframework.org/schema/1.0/xbel"
+    xmlns:bel="http://belframework.org/schema/1.0/xbel">
+
+    <xs:include schemaLocation="xbel-annotations.xsd"/>
+
+    <!-- SIMPLE TYPES -->
+
+    <!-- Simple comment. -->
+    <xs:element name="comment" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A comment optionally used with statements.
+            </xs:documentation>
+        </xs:annotation></xs:element>
+
+    <!-- BEL document copyright. -->
+    <xs:element name="copyright" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document copyright information.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL document name. -->
+    <xs:element name="name" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document name.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL document version. -->
+    <xs:element name="version" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document version information.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL document contact information. -->
+    <xs:element name="contactInfo" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document contact information.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL document authors. -->
+    <xs:element name="author" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document author.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    
+    <!-- BEL document license. -->
+    <xs:element name="license" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document license.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL document disclaimer. -->
+    <xs:element name="disclaimer" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Document disclaimer.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL relationships. -->
+    <xs:simpleType name="relationship">
+        <xs:annotation>
+            <xs:documentation>
+                The intrinsic set of relationship types allowed in
+                statements.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="increases" />
+            <xs:enumeration value="decreases" />
+            <xs:enumeration value="directlyIncreases" />
+            <xs:enumeration value="directlyDecreases" />
+            <xs:enumeration value="causesNoChange" />
+            <xs:enumeration value="positiveCorrelation" />
+            <xs:enumeration value="negativeCorrelation" />
+            <xs:enumeration value="translatedTo" />
+            <xs:enumeration value="transcribedTo" />
+            <xs:enumeration value="isA" />
+            <xs:enumeration value="subProcessOf" />
+            <xs:enumeration value="rateLimitingStepOf" />
+            <xs:enumeration value="biomarkerFor" />
+            <xs:enumeration value="prognosticBiomarkerFor" />
+            <xs:enumeration value="orthologous" />
+            <xs:enumeration value="analogous" />
+            <xs:enumeration value="association" />
+            <xs:enumeration value="hasMembers" />
+            <xs:enumeration value="hasComponents" />
+            <xs:enumeration value="hasMember" />
+            <xs:enumeration value="hasComponent" />            
+        </xs:restriction>
+    </xs:simpleType>
+
+     <!-- BEL term functions. -->
+    <xs:simpleType name="function">
+        <xs:annotation>
+            <xs:documentation>
+                The intrinsic set of functions allowed in BEL term expressions.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="proteinAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The protein abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="proteinModification">
+                <xs:annotation>
+                    <xs:documentation>
+                        The protein modification BEL function for a protein abundance.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="substitution">
+                <xs:annotation>
+                    <xs:documentation>
+                        The substitution BEL function for a protein abundance.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="truncation">
+                <xs:annotation>
+                    <xs:documentation>
+                        The truncation BEL function for a protein abundance.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="rnaAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The rna abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="abundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="microRNAAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The micro rna abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="geneAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The gene abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="biologicalProcess">
+                <xs:annotation>
+                    <xs:documentation>
+                        The biological process BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="pathology">
+                <xs:annotation>
+                    <xs:documentation>
+                        The pathology BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="complexAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The complex abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="translocation">
+                <xs:annotation>
+                    <xs:documentation>
+                        The translocation BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cellSecretion">
+                <xs:annotation>
+                    <xs:documentation>
+                        The cell secretion BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cellSurfaceExpression">
+                <xs:annotation>
+                    <xs:documentation>
+                        The cell surface expression BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="reaction">
+                <xs:annotation>
+                    <xs:documentation>
+                        The reaction BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="compositeAbundance">
+                <xs:annotation>
+                    <xs:documentation>
+                        The composite abundance BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="fusion">
+                <xs:annotation>
+                    <xs:documentation>
+                        The fusion BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="reactants">
+                <xs:annotation>
+                    <xs:documentation>
+                        The reactants BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="products">
+                <xs:annotation>
+                    <xs:documentation>
+                        The products BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="degradation">
+                <xs:annotation>
+                    <xs:documentation>
+                        The degradation BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="molecularActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The molecular activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="catalyticActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The catalytic activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="kinaseActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The kinase activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="phosphataseActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The phosphatase activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="peptidaseActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The peptidase activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ribosylationActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The ribosylation activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="transcriptionalActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The transcriptional activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="transportActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The transport activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="gtpBoundActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The gtp-bound activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="chaperoneActivity">
+                <xs:annotation>
+                    <xs:documentation>
+                        The chaperone activity BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="list">
+                <xs:annotation>
+                    <xs:documentation>
+                        The list BEL function.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>            
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Annotation type pattern (regular expressions). -->
+    <xs:element name="patternAnnotation" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Contains a pattern-based value.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Annotation list value. -->
+    <xs:element name="listValue" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Contains a list-based value.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- Annotation definition identifier. -->
+    <xs:simpleType name="annotationDefinitionIdentifier">
+        <xs:annotation>
+            <xs:documentation>
+                A unique identifier referencing an annotation
+                definition.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:NCName"/>
+    </xs:simpleType>
+
+    <!-- Annotation usage. -->
+    <xs:element name="usage" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Annotation usage explaining how to filter on
+                annotation values.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- General description. -->
+    <xs:element name="description" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                General element description.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <!-- BEL term functions. -->
+    <xs:attribute name="function" type="bel:function">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a function used within a BEL term expression.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <!-- Namespace default resource location. -->
+    <xs:attribute name="defaultResourceLocation" type="xs:anyURI">
+        <xs:annotation>
+            <xs:documentation>
+                Resource location of the default namespace used by
+                the document.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <!-- Namespace attribute. -->
+    <xs:attribute name="namespace" type="bel:resourceLocation">
+        <xs:annotation>
+            <xs:documentation>
+                Associated namespace.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
+    <!-- Namespace prefix. -->
+    <xs:simpleType name="prefix">
+        <xs:annotation>
+            <xs:documentation>
+                Prefix uniquely identifying a namespace within the
+                document.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:NCName" />
+    </xs:simpleType>
+    
+    <!-- Parameter values. -->
+    <xs:simpleType name="parameterValue">
+        <xs:annotation>
+            <xs:documentation>
+                Namespace values.
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- URL values. -->
+    <xs:simpleType name="url">
+        <xs:annotation>
+            <xs:documentation>
+                URL values.
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:restriction base="xs:anyURI">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Namespace resource location. -->
+    <xs:simpleType name="resourceLocation">
+        <xs:annotation>
+            <xs:documentation>
+                the URI of the resource defining a namespace.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:restriction base="xs:anyURI" />
+    </xs:simpleType>
+
+    <!-- COMPLEX TYPES -->
+
+    <!-- Annotation type list. -->
+    <xs:element name="listAnnotation">
+        <xs:annotation>
+            <xs:documentation>
+                Contains a list of values.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:listValue" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL document header. -->
+    <xs:element name="header">
+        <xs:annotation>
+            <xs:documentation>
+                Provides ownership and legal context for the document.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="bel:name" minOccurs="1" />
+                <xs:element ref="bel:description" minOccurs="1" /> 
+                <xs:element ref="bel:version" minOccurs="1" />
+                <xs:element ref="bel:copyright" minOccurs="0" />
+                <xs:element ref="bel:disclaimer" minOccurs="0" />
+                <xs:element ref="bel:contactInfo" minOccurs="0" />
+                <xs:element ref="bel:authorGroup" minOccurs="0" />
+                <xs:element ref="bel:licenseGroup" minOccurs="0" />
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL internal annotation definitions. -->
+    <xs:element name="internalAnnotationDefinition">
+        <xs:annotation>
+            <xs:documentation>
+                Internally defined annotations express knowledge about a
+                statement.  The annotation values are defined in the document.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:description" />
+                <xs:element ref="bel:usage" />
+                <xs:choice>
+                    <xs:element ref="bel:listAnnotation" />
+                    <xs:element ref="bel:patternAnnotation" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"
+                type="bel:annotationDefinitionIdentifier" />
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- BEL external annotation definitions. -->
+    <xs:element name="externalAnnotationDefinition">
+        <xs:annotation>
+            <xs:documentation>
+                Externally defined annotations express knowledge about a
+                statement.  The annotation values are defined by a URL.
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:complexType>
+                <xs:attribute name="url" use="required" type="bel:url"/>
+                <xs:attribute name="id" use="required"
+                    type="bel:annotationDefinitionIdentifier" />
+        </xs:complexType>
+        
+    </xs:element>
+
+    <!-- BEL statement annotation. -->
+    <xs:element name="annotation">
+        <xs:annotation>
+            <xs:documentation>
+                An annotation applied to a BEL statement,
+                referencing an annotation definition.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="refID" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Statement annotation group. -->
+    <xs:element name="annotationGroup">
+        <xs:annotation>
+            <xs:documentation>
+                A grouping of annotations, evidences, and citations. 
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="unbounded">
+                    <xs:element ref="bel:annotation" maxOccurs="unbounded" />
+                    <xs:element ref="bel:evidence" maxOccurs="1" minOccurs="0"/>
+                    <xs:element ref="bel:citation" maxOccurs="1" minOccurs="0"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Header license group. -->
+    <xs:element name="licenseGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Contains one or more document licenses.
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:license" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Owner author group. -->
+    <xs:element name="authorGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Contains one or more document authors.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="bel:author" maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL annotation definition group. -->
+    <xs:element name="annotationDefinitionGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Contains one or more annotation definitions.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:internalAnnotationDefinition"
+                    minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xs:element ref="bel:externalAnnotationDefinition"
+                    minOccurs="0"
+                    maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>            
+    </xs:element>
+
+    <!-- BEL document namespace. -->
+    <xs:element name="namespace">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies a namespace whose values may be used in
+                statements.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:attribute name="prefix" use="required" type="bel:prefix" />
+            <xs:attribute name="resourceLocation" use="required"
+                type="bel:resourceLocation" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL namespace group. -->
+    <xs:element name="namespaceGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Contains any number of namespaces.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:namespace" minOccurs="0"
+                    maxOccurs="unbounded" />
+            </xs:sequence>
+            <xs:attribute name="defaultResourceLocation" type="bel:resourceLocation" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL function parameters. -->
+    <xs:element name="parameter">
+        <xs:annotation>
+            <xs:documentation>
+                BEL term and function parameter.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="bel:parameterValue">
+                    <xs:attribute name="ns" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL terms. -->
+    <xs:element name="term">
+        <xs:annotation>
+            <xs:documentation>
+                BEL terms represent biological entities.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                <xs:element ref="bel:parameter" />
+                <xs:element ref="bel:term" />
+            </xs:choice>
+            <xs:attribute name="function" type="bel:function" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL statement subjects. -->
+    <xs:element name="subject">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the subject of a statement.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:term"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL statement objects. -->
+    <xs:element name="object">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the object of a statement.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="bel:term" />
+                <xs:element ref="bel:statement" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL statements. -->
+    <xs:element name="statement">
+        <xs:annotation>
+            <xs:documentation>
+                A statement is a specific assertion of a fact in
+                some context: it is implicitly based on some source of
+                knowledge, implicitly true in at least one specific situation.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:comment" minOccurs="0" />
+                <xs:element ref="bel:annotationGroup" minOccurs="0" />
+                <xs:element ref="bel:subject" />
+                <xs:element ref="bel:object" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="relationship" type="bel:relationship" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- BEL statement groups. -->
+    <xs:element name="statementGroup">
+        <xs:annotation>
+            <xs:documentation>
+                A group of BEL statements.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:name" minOccurs="0" />
+                <xs:element ref="bel:comment" minOccurs="0" />
+                <xs:element ref="bel:annotationGroup" minOccurs="0" />
+                <xs:element ref="bel:statement" minOccurs="0"
+                    maxOccurs="unbounded" />
+                <xs:element ref="bel:statementGroup" minOccurs="0"
+                    maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="document">
+        <xs:annotation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="bel:header" minOccurs="1" />
+                <xs:element ref="bel:namespaceGroup" minOccurs="0" />
+                <xs:element ref="bel:annotationDefinitionGroup"
+                    minOccurs="0" />
+                <xs:element ref="bel:statementGroup" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+
+        <!-- Unique key identity constraints. -->
+        <!-- Annotation id constraint - all IDs must be unique. -->
+        <xs:key name="annotationKEY">
+            <xs:selector xpath="
+                ./bel:annotationDefinitionGroup/bel:internalAnnotationDefinition|
+                ./bel:annotationDefinitionGroup/bel:externalAnnotationDefinition"
+            />
+            <xs:field xpath="@bel:id"/>
+        </xs:key>
+        <!-- Namespace prefix constraint - all prefixes must be unique. -->
+        <xs:key name="namespaceKEY">
+            <xs:selector xpath="./bel:namespaceGroup/bel:namespace"/>
+            <xs:field xpath="@bel:prefix"/>
+        </xs:key>
+        <!-- Annotation refID constraint - must refer to a valid annotation. -->
+        <xs:keyref name="annotationKEYREF" refer="bel:annotationKEY">
+            <xs:selector xpath=".//bel:annotation"/>
+            <xs:field xpath="@bel:refID"/>
+        </xs:keyref>
+        <!-- Parameter namespace constraint - must refer to a valid namespace. -->
+        <xs:keyref name="namespaceKEYREF" refer="bel:namespaceKEY">
+            <xs:selector xpath=".//bel:parameter"/>
+            <xs:field xpath="@bel:ns"/>
+        </xs:keyref>
+    </xs:element>
+</xs:schema>

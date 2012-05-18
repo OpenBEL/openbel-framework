@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BEL annotation definitions schema version 1.0. The "belanno" namespace 
+    is required on all elements and attributes within instance documents. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" attributeFormDefault="qualified"
+    targetNamespace="http://belframework.org/schema/1.0/xbel"
+    xmlns:bel="http://belframework.org/schema/1.0/xbel">
+
+    <!-- Definition of statement evidence text. -->
+    <xs:element name="evidence">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="4000" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <!-- Definition of statement citations. -->
+    <xs:element name="citation">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies information about the knowledge source on which a
+                statement is based.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>
+                    The citation annotation type to capture the knowledge source details.
+                </xs:documentation>
+            </xs:annotation>
+        
+            <xs:sequence>
+                <xs:element name="reference" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1" />
+                <xs:element name="date" type="xs:date" minOccurs="0" maxOccurs="1" />
+                <xs:element name="authorGroup" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Contains one or more citation authors.
+                        </xs:documentation>
+                    </xs:annotation>
+                
+                    <xs:complexType>
+                        <xs:annotation>
+                            <xs:documentation>
+                                The author type for a citation.
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:sequence>
+                            <xs:element name="author" maxOccurs="unbounded" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="type" type="bel:citationType" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="citationType">
+        <xs:annotation>
+            <xs:documentation>
+                Citation type (e.g., book, journal, online resource, other, pubmed) 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Book" />
+            <xs:enumeration value="Journal" />
+            <xs:enumeration value="Online Resource" />
+            <xs:enumeration value="Other" />
+            <xs:enumeration value="PubMed" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

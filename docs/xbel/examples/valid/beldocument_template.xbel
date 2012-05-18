@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bel:document xmlns:bel="http://belframework.org/schema/1.0/xbel"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://belframework.org/schema/1.0/xbel http://resource.belframework.org/belframework/1.0/schema/xbel.xsd">
+
+    <bel:header>
+        <bel:name>Template</bel:name>
+        <bel:description>Description</bel:description>
+        <bel:version>1.0</bel:version>
+    </bel:header>
+
+    <bel:namespaceGroup/>
+
+    <bel:statementGroup>
+    </bel:statementGroup>
+
+</bel:document>

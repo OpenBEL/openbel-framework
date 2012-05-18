@@ -1,0 +1,480 @@
+============================================================
+BEL Framework V2.0.0 (May 2012)
+============================================================
+
+CHANGELOG
+
+Changes in version V2.0.0 Release (2012-05-18)
+----------------------------------------------
+
+Updates
+- Open source version of the OpenBEL Framework launched on github.
+- Renamed packages from com.selventa.belframework to org.openbel.framework.
+- This package change will break client code that uses the Java API.
+  * Change "com.selventa.belframework.api" to "org.openbel.framework.api"
+  to update client code.
+
+- The context name of the Web Service server changed from BELFrameworkWebAPI to
+openbel-ws.  The default URL is now http://localhost:8080/openbel-ws/
+
+- Consolidated belframework classpath libraries to:
+  * org.openbel.bel (BEL language)
+  * org.openbel.framework.api (Java API)
+  * org.openbel.framework.common (Framework common layer)
+  * org.openbel.framework.compiler (Framework compiler)
+  * org.openbel.framework.core (Framework core layer)
+  * org.openbel.framework.tools (Framework command-line tools)
+  * org.openbel.framework.ws (Framework web-service server)
+  * org.openbel.framework.ws.client (Framework web-service Java client)
+
+Changes in version V1.3.0 Release (2012-04-26)
+----------------------------------------------
+
+Enhancements
+- Changes to the KAM Store:
+  * The KAMStore can now be system/dba-managed in PostgreSQL 8.3+.  For
+    details on PostgreSQL see http://www.postgresql.org/.
+  * The KAM Schema has been updated to include equivalencing UUIDs for
+    better performance.
+
+- Changes to the BEL Compiler:
+  * Efficiently skip Phase III when compiling with "--no-phaseIII".  In this
+    case the network resulting from Phase II will be used as input to Phase
+	IV.
+  * BEL documents with the same document name can be compiled together in the
+    same BEL Compiler execution.
+  * BEL documents can now be read from multiple directory paths.
+
+- Changes to the BEL Framework Tools:
+  * Consolidated KamExporter, KamImporter, and KamSummarizer into a KamManager
+    tool that handles the following operations:
+	- delete (--delete): Deletes a KAM from the KAMStore.
+	- export (--export): Exports a KAM to XGMML, Portable KAM, or RDF form.
+	- import (--import): Imports a Portable KAM into the KAMStore.
+	- list (--list): Lists KAMs in the KAMStore.
+	- rename (--rename): Renames a KAM in the KAMStore.
+	- set-description (--set-description): Update the description for a KAM
+	  in the KAMStore.
+	- summarize (--summarize): Provide summary statistics on a KAM in the
+	  KAMStore.
+  * Added a DocumentConverter tool that converts between BEL and XBEL.  This
+    tool outputs to standard output by default for convenient scripting.
+  * Added a KamComparator tool that compares the data and topology of two
+    KAMs in the KAMStore.
+  * Exporting a KAM to XGMML now includes colorization for better visuals.
+    This leverages standard XGMML graphic extensions.  For Cytoscape KAM
+	Nodes, KAM Edges, and a default layout is provided.
+
+
+- Changes to the BEL Framework Java API / WebAPI:
+  * Added "Dialect" support to the Java API / Java WebAPI that allows control
+    over labelling a KAM Node.  An ordered list of namespaces
+	can be assigned to the following namespace domains:
+	  Biological Process, Chemical, Gene/Protein
+	KAM Nodes will have valid BEL term labels based on the precedent set in
+	the ordered lists.  A Dialect can be provided to most API operations where
+	KAM Node labelling is important.
+  * Added GetDefaultDialect operation that creates the default dialect.  This
+    implementation will set the KAM node label based on the first supporting
+	BEL term.
+  * Added GetCustomDialect operation that creates a user-defined Dialect
+    based on namespace domain precedance, short / long BEL form, and whether
+	namespace prefixes should appear in the labels.  The Dialect is saved in
+	the WebAPI state for future referencing.
+  * Added ReleaseDialect operation that removes a Dialect from the WebAPI
+    state.
+  * Added GetAllNamespaces operation to retrieve all namespaces available to
+    the BEL Framework instance (not just namespaces referenced by a KAM).
+  * Added FindKamNodesByNamespaceValues operation to retrieve KAM nodes for
+    a given namespace value including equivalent namespace values.
+  * Added FindNamespaceValues operation that will find namespace values in a
+    BEL Framework instance given a set of regular expression patterns that
+	match against namespace values.
+
+- BEL Framework performance improvements:
+  * Reduced memory usage and compile time of proto network handling.  In
+    particular the performance of proto network IO was improved in Phases
+	I through IV.
+  * Speed improvements made to the API / Web API when equivalencing and
+    searching for KAM Nodes.  This improvement is obtained through the
+	inclusion of UUID information in the KAM.
+  * Decreased size of Web API payloads by using a shorter object ID in
+    webservice objects.  The object IDs are now encoded in 12 bytes.
+  * Phase III is intelligently skipped when "--no-phaseIII" is specified.
+  * Improved database performance and overall time to load a filtered KAM.
+
+	
+Resolved Issues
+  * Fixed Interconnect operation to honor maxDepth parameter.
+  * Fixed NullPointerException appearing when "--no-nested-statements" is
+    used in Phase I.
+  * Validate KAM Handles in webservice operations and provide better error
+    reporting.
+  * Fixed Phase I expansion of translocation terms to properly inject
+    translocates relationships.
+  * Corrected handling of default namespace in BEL formatted documents.
+    Previously namespace validation would not recognize a namespace value
+	as default if it was stated as such.
+  * Fixed GetBELFrameworkVersion webservice operation to reference an empty
+    XSD complexType.  This addresses WSDL generation issues from some client
+	libraries.
+
+Known Issues
+  * MySQL and Oracle JDBC drivers were removed from the distribution due
+    to license restrictions.  The JDBC drivers must be added manually to
+	both the compiler classpath as well as the tomcat server instance.
+
+
+Changes in version V1.2.4 Release (2012-02-17)
+----------------------------------------------
+
+Enhancements
+- Changes to the BEL Framework Tools:
+  * Added the ability to delete a KAM using the KamExporter and KamImporter
+    tools.  Provide the "-x" or "--delete-kam" option to either tools to delete
+    a KAM.
+- Changes to the BEL Framework API / WebAPI:
+  * Added the ability to load a filtered KAM.
+- Changes to the BEL Compiler:
+  * Prune statements that incorrectly using the LIST function without a
+    HAS_MEMBERS or HAS_COMPONENTS relationship.
+  * Improved warning output when validating annotations in the BEL Compiler.
+
+Resolved Issues
+- Fixed incorrect term expansion of protein modifications.
+- Fixed BEL Compiler failure when compiling documents without equivalenced
+  namespaces.
+
+Known Issues
+- The "docstore_url" and "kamstore_url" will need to be updated if you are
+  using DBA-managed schemas ('system_managed_schemas' set to '0').
+
+
+Changes in version V1.2.3 Release (2012-01-25)
+----------------------------------------------
+
+Enhancements
+- Changes to the BEL Compiler:
+  * Improved term expansion by processing a rule only if the term matches the
+    expected format.
+  * MySQL KAM schemas can be managed automatically by the framework if the
+    "system_managed_schemas" configuration option is set to "1" in the system
+    configuration.
+  * If the KAM Catalog does not exist it is created when importing a KAM into a
+    new KAM Store.
+  * Using BEL formats for Phase III resources (protein families, named complexes,
+    and gene scaffolding).  This is now the default in the resource index.
+- Changes to KAM Structure:
+  * The following relationships produce reciprocal KAM edges when compiled:
+    analogous, association, negativeCorrelation, orthologous,
+    positiveCorrelation
+- Changes to the BEL Framework Web API:
+  * Improved LoadKam request to load a KAM asynchronously. Subsequent LoadKam
+    requests can be interrogated to determine the load status of the target
+    KAM.
+  * Added GetBELFrameworkVersion request to the BEL Framework Web API to
+    retrieve the local version of the BEL Framework.  This webservice operation
+    can also serve as a heartbeat for applications running on top of the BEL
+    Framework Web API.
+- Changes to the BELFramework Java API:
+  * Removed hibernate dependencies from the API / Web API classpath.
+
+Resolved Issues
+- Fixed "Reason: null" error when attempting to export a KAM to RDF format.
+- Fixed DocStoreExport error generating an invalid XBEL document if the
+  annotation definition is invalid.
+- Fixed semantic validation for protein abundances to throw a semantic warning
+  on invalid protein modification terms.
+- Fixed reported error when the KAM schema does not exist in the KAM catalog.
+  Prior to this fix the error could report as "Table 'kam1.objects_type"
+  doesn't exist".
+- Fixed GetSupportingEvidence to return valid AnnotationType objects in the
+  BEL Framework Web API.
+- Fixed truncation of compile time when retrieving a KAM from the
+  BEL Framework Web API.
+
+Known Issues
+- The "docstore_url" and "kamstore_url" will need to be updated if you are
+  using DBA-managed schemas ('system_managed_schemas' set to '0').
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+
+
+Changes in version V1.2.2 Release (2011-11-23)
+----------------------------------------------
+
+Resolved Issues
+- Fixed storage of duplicate KAM node parameters in the KAM schema.  This issue
+  affected Phase IV of the BEL Compiler and can lead to duplicate edge errors
+  while loading a KAM with the duplicated parameters.
+- Fixed KAM catalog to report a KAM's last compiled in both date and time part.
+- Fixed SOAPFaultException error "null" with ResolveEdges webservice operation
+  by return null in the response.  This allows the request edge's cardinality
+  to be equal to the response KAM edges.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+
+
+Changes in version V1.2.1 Release (2011-11-09)
+----------------------------------------------
+
+Resolved Issues
+- Fixed empty response issue with the FindKamEdges webservice operation.
+- Added support in getSupportingEvidence to use an annotation filter to
+  restrict returned BEL statements.
+- Retrieving annotation types from the KAM now returns a single Citation object
+  and not the individual citation fields.
+- Fixed BEL Compiler issue where specifying the "--pedantic" flag always fails
+  Phase I.
+- Fixed Docstore Import/Export tools to expect a UTF-8 encoded BEL document.
+- Fixed DocstoreExport's default output format to be XBEL (.xbel).
+- Fixed issue where DocstoreExport writes an empty file if the output format is
+  not provided.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+
+
+Changes in version V1.2.0 Release (2011-10-24)
+----------------------------------------------
+
+Enhancements
+- Changes to the BEL Compiler:
+  * Stage 5 of Phase I compiles a BEL document to a proto network and
+    Stage 6 of Phase I expands BEL statements and BEL terms.
+- Changes to KAM Structure:
+  * BEL statement and BEL term expansion expand to KAM edges with a link back
+    to the original statement as supporting evidence.
+- Changes to semantic validation:
+  * BEL statements that contain multiple levels of nesting are now pruned and
+    will not be compiled to the KAM.  These BEL statements are considered
+    semantically invalid.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.2.0 Preview (2011-10-14)
+----------------------------------------------
+
+New Features
+- Additional methods added to the BELFramework Web API.
+  * Added MapData webservice operation to map values in a specific namespace to
+    a KAM.  An optional node filter can be provided to further constrain which
+    KAM nodes return.
+
+Enhancements
+- Changes to the BELFramework Java API:
+  * Enhanced database connections to attempt a reconnection if it found to be
+    invalid or closed.
+- Changes to KAM Structure:
+  * Enhanced phase III of the BEL Compiler by augmenting proto-network with
+    inferred "isA" relationships between the molecular activity of a protein
+    member and the molecular activity of a protein family.  The same molecular
+    activity function must be defined for the protein member and protein family
+    term.
+
+Resolved Issues
+- Fixed BELFramework Web API endpoints to return a proper SOAP fault if the
+  webservice operation's request object is null.
+- Fixed reporting of incorrectly formatted namespace, equivalence, or
+  annotation resource file to output the formatting error.
+- Fixed reporting of database errors in phase IV of the BEL Compiler.
+- Fixed BEL Compiler and Tool scripts to respect the BELFRAMEWORK_HOME
+  environment variable.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.2.0 Preview (2011-09-12)
+----------------------------------------------
+Enhancements
+- Changes to the BELFramework Java API:
+  * Changed KAM caching mechanism to cache KAM by its name.  This allows
+    caching both full KAMs and filtered KAMs by differentiating the name.
+- Updated RelationshipType model to provide indirect relationship types in
+  addition to direct relationship types.
+
+Resolved Issues
+- Fixed resolving of KAM nodes when the BEL terms contain parameters without
+  a namespaced defined.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.2.0 Preview (2011-09-02)
+----------------------------------------------
+
+New Features
+- Additional methods and classes added to the BEL Framework Java API:
+  * Added new getKamNodes(KamNode) methods to find KAM nodes that share
+    parameters with the input KamNode.
+
+Resolved Issues
+- Fixed phase I term expansion, in the BEL Compiler, to process all BEL terms
+  within the subject and object of a BEL statement.
+- Fixed classpath issues with running the DocstoreImport and DocstoreExport tools.
+- Escaping ampersands in XGMML export to allow for XGMML viewers to process the
+  file correctly.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.2.0 Preview (2011-08-23)
+----------------------------------------------
+
+New Features
+- Additional methods and classes added to the BELFramework Java API:
+  * Added BasicPathFinder API to provide simple path finding capabilities over
+    a KAM.
+  * Added Equivalencer API to allow for namespace value equivalencing within
+    the BEL Framework instance.
+  * Added Resolver API to allow resolving BEL expression to KAM nodes and
+    edges.
+- Additional methods added to the BELFramework Web API.
+  * Added FindPaths, Scan, and Interconnect web-service operations to be able
+    to path find over a KAM.
+  * Added ResolveKamNodes and ResolveKamEdges operations to be able to find
+    KAM nodes or edges by BEL expression.
+  * Added FindNamespaceEquivalence and FindEquivalences operations to be able
+    to equivalence namespace values within the BEL Framework instance.
+
+Resolved Issues
+- Fixed handling of BEL term labels, in the KAM, when term parameters are not
+  qualified with a namespace.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.2.0 Preview (2011-08-16)
+----------------------------------------------
+
+New Features
+- Additional methods and classes added to the BELFramework Java API:
+  * Added BasicPathFinder API to provide simple path finding capabilities over
+    a KAM.
+  * Added Equivalencer API to allow for namespace value equivalencing within
+    the BEL Framework instance.
+  * Added Resolver API to allow resolving BEL expression to KAM nodes and
+    edges.
+- Additional methods added to the BELFramework Web API.
+  * Added FindPaths, Scan, and Interconnect web-service operations to be able
+    to path find over a KAM.
+  * Added ResolveKamNodes and ResolveKamEdges operations to be able to find
+    KAM nodes or edges by BEL expression.
+  * Added FindNamespaceEquivalence and FindEquivalences operations to be able
+    to equivalence namespace values within the BEL Framework instance.
+- Export to BEL Script added to the DocStoreExporter tool.
+- Additional BEL Compiler switch
+  * "--no-nested-statements" switch added to phase one to disable the relationship between subject term and nested statement.
+
+Known Issues
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when loading a KAM.
+- Specifying a KAM Filter in the Web API does not respect the filter components
+  when calling getSupportingEvidenceRequest().
+
+
+Changes in version V1.1.1 (2011-08-12)
+--------------------------------------
+
+Resolved Issues
+- Fixed NullPointerException encountered in Phase II of the BEL compiler.
+- Fixed DocStore compilation issue when handling nested statements.
+
+Known Issues
+- Specifying a KAM Filter in the web api does not respect the filter components
+  when loading a KAM
+- Specifying a KAM Filter in the web api does not respect the filter components
+  when calling getSupportingEvidenceRequest()
+- Retrieving Annotations from the BELFramework Java API or BELFramework Web API
+  will not retrieve all fields if it is defined in an external BEL Annotation
+  file.
+
+
+Changes in version V1.1.0 (2011-08-03)
+--------------------------------------
+
+New Features
+- Export to BEL Script added to the DocStoreExporter tool.
+- Additional methods and classes added to the BELFramework Java API:
+  * getEdges() enables a user to retrieve KAM edges from the KAM.
+  * findEdge() enables a user to find a KAM edge given the KAM source node,
+    relationship type, and KAM target node.
+  * getKamNode() enables a user to retrieve a KAM node given either a BelTerm
+    or a BelTerm string.
+  * getKamNodes() enables a user to retrieve all KAM nodes that contain a
+    TermParameter string from a given Namespace.
+  * getNamespace() enables a user to find a KAM Namespace given the namespace's
+    resource location.
+  * Added additional findNode() methods that take a node filter.
+  * Added a Resolver class that enables retrieving KAM nodes represented by BEL
+    Terms.
+  * Added a KAM cache service that allows a user to manage their KAMs in a
+    memory cache.
+- Additional methods added to the BELFramework Web API.
+  * FindEdgesRequest() enables a user to retrieve KAM edges in the KAM by an
+    edge filter.
+- Additional BEL Compiler switch
+  * "--no-nested-statements" switch added to Phase One to disable the
+    relationship between subject term and nested statement.
+
+Enhancements
+- Reduced the overall memory footprint of the BEL compiler.
+- Reduced the memory footprint for loading and querying KAMs.
+- Improved the speed for loading and querying KAMs.
+- Improved XBEL format to specify canonical schema location and to standardize
+  on "bel" as the Namespace prefix.
+- Improved node filtering in BELFramework Java API and BELFramework Web API to
+  support filtering by a node's function type.
+
+Resolved Issues
+- Fixed issue with table truncation when compiling a KAM to an Oracle KAMStore.
+- Fixed Web API request FindNodes() to restrict retrieved KAM nodes by a node
+  filter, if provided.
+- Fixed Web API request GetAdjacentEdges() to restrict adjacent KAM edges by an
+  edge filter, if provided.
+- Fixed Web API request GetAdjacentNodes() to restrict adjacent KAM nodes by a
+  node filter and adjacent edges by an edge filter, if provided.
+- Fixed issue with unencoded quotes when exporting a KAM to XGMML.
+- Fixed issue in KAM where annotation definitions are assigned to annotation
+  incorrectly.
+
+Known Issues
+- Specifying a KAM Filter in the web api does not respect the filter components
+  when loading a KAM
+- Specifying a KAM Filter in the web api does not respect the filter components
+  when calling getSupportingEvidenceRequest()
+- Compiling BEL documents, only from the DocStore, will not compile if a
+  document contains nested statements
+- Retrieving Annotations from the BELFramework Java API or BELFramework Web API
+  will not retrieve all fields if it is defined in an external BEL Annotation
+  file.
+
+
+Changes in version V1.0.0 (2011-06-30)
+--------------------------------------
+
+* Initial release of the BEL Framework.

@@ -1,0 +1,41 @@
+##################################################################################
+#                                                                                #
+# Test equivalencing between two families using different prefixes.  Also since  #
+# the author declared a hasMember relationship for the target family we will not #
+# add a redundant extra hasMember relationship.                                  #
+#                                                                                #
+#   No compiler arguments
+#       13 nodes, 12 edges:
+#           p(HGNC:AKT1) -> p(PFH:"AKT Family")
+#           p(HGNC:AKT1) >> r(HGNC:AKT1)
+#           r(HGNC:AKT1) :> g(HGNC:AKT1)
+#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO1)
+#           p(HGNC:FOXO1) >> r(HGNC:FOXO1)
+#           r(HGNC:FOXO1) :> g(HGNC:FOXO1)
+#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO3)
+#           p(HGNC:FOXO3) >> r(HGNC:FOXO3)
+#           r(HGNC:FOXO3) :> g(HGNC:FOXO3)
+#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO4)
+#           p(HGNC:FOXO4) >> r(HGNC:FOXO4)
+#           r(HGNC:FOXO4) :> g(HGNC:FOXO4)
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Unit Test #7"
+SET DOCUMENT Description = "Gene Activation Pathways test"
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2011, Selventa. All rights reserved."
+SET DOCUMENT Authors = "Selventa, Inc."
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE SFH AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE HSF AS URL "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-protein-families.belns"
+DEFINE NAMESPACE HUGO AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+
+##################################################################################
+# Statements Section
+
+p(HUGO:RELA) -> p(SFH:"FOXO Family")
+p(HSF:"FOXO Family") hasMember p(HUGO:FOXO4)
