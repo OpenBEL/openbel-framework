@@ -77,6 +77,7 @@ contractual assumptions directly impose on those licensors and authors.
 Further Reference
 -----------------
 
+ * API documentation: http://openbel.github.com/openbel-framework
  * GitHub: https://github.com/belframework-org
  * BEL Portal: http://belframework.org/
  * Selventa: http://www.selventa.com/
@@ -86,3 +87,4 @@ Further Reference
  * OpenBEL build server: http://ci.selventa.com
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
+
