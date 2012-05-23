@@ -24,6 +24,43 @@ knowledge repositories. The combined knowledge can be made available to a
 variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
 
+The OpenBEL Ecosystem
+---------------------
+
+Various smaller projects are connected with the framework. Each project is
+intended on serving a particular purpose.
+
+`openbel-framework-resources`_
+  The framework's resources provide a set of files derived from biological and
+  chemical ontologies. These resources are used to better describe biological
+  statements and their context.
+
+`openbel-framework-examples`_
+  This repository is for helping developers get started with different uses of
+  the framework. It contains a number of examples in various programming
+  languages.
+
+`Cytoscape Plugins`_
+  The `Cytoscape`_ plugins enable Cytoscape to access and manipulate the OpenBEL
+  Framework knowledge assembly models using the framework's web service API.
+
+`OpenBEL Eclipse Repository`_
+  The OpenBEL Eclipse p2 repository. It currently holds the stable and unstable
+  repositories of the OpenBEL Workbench.
+
+`OpenBEL Workbench`_
+  The OpenBEL Workbench enables the BEL language and the framework to be used
+  in `Eclipse`_ - from the syntax and semantics of the BEL language to the
+  compilation of BEL knowledge into knowledge assembly models.
+
+.. _openbel-framework-resources: https://github.com/OpenBEL/openbel-framework-resources
+.. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
+.. _Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins#readme
+.. _OpenBEL Eclipse Repository: https://github.com/belframework-org/eclipse
+.. _OpenBEL Workbench: https://github.com/belframework-org/OpenBEL-Workbench
+.. _Cytoscape: http://www.cytoscape.org/
+.. _Eclipse: http://eclipse.org
+
 Distribution
 ------------
 
