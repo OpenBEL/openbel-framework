@@ -24,6 +24,8 @@ knowledge repositories. The combined knowledge can be made available to a
 variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
 
+.. contents::
+
 The OpenBEL Ecosystem
 ---------------------
 
