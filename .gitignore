@@ -7,3 +7,8 @@ org.openbel.framework.compiler/target
 org.openbel.framework.tools/target
 org.openbel.framework.ws/target
 org.openbel.framework.ws.client/target
+
+# eclipse ignores
+*/.classpath
+*/.project
+*/.settings
