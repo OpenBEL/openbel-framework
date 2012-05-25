@@ -36,13 +36,44 @@
 package org.openbel.framework.ws.endpoint;
 
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.*;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetAnnotationTypesResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetBelDocumentsResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetCatalogResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetCitationsResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetNamespacesResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetSupportingEvidenceResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetSupportingTermsResponse;
 
 import java.util.List;
 
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.AnnotationType;
+import org.openbel.framework.ws.model.BelDocument;
+import org.openbel.framework.ws.model.BelStatement;
+import org.openbel.framework.ws.model.BelTerm;
+import org.openbel.framework.ws.model.Citation;
+import org.openbel.framework.ws.model.CitationType;
+import org.openbel.framework.ws.model.GetAnnotationTypesRequest;
+import org.openbel.framework.ws.model.GetAnnotationTypesResponse;
+import org.openbel.framework.ws.model.GetBelDocumentsRequest;
+import org.openbel.framework.ws.model.GetBelDocumentsResponse;
+import org.openbel.framework.ws.model.GetCatalogRequest;
+import org.openbel.framework.ws.model.GetCatalogResponse;
+import org.openbel.framework.ws.model.GetCitationsRequest;
+import org.openbel.framework.ws.model.GetCitationsResponse;
+import org.openbel.framework.ws.model.GetNamespacesRequest;
+import org.openbel.framework.ws.model.GetNamespacesResponse;
+import org.openbel.framework.ws.model.GetSupportingEvidenceRequest;
+import org.openbel.framework.ws.model.GetSupportingEvidenceResponse;
+import org.openbel.framework.ws.model.GetSupportingTermsRequest;
+import org.openbel.framework.ws.model.GetSupportingTermsResponse;
+import org.openbel.framework.ws.model.Kam;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamFilter;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.Namespace;
 import org.openbel.framework.ws.service.KamStoreService;
 import org.openbel.framework.ws.service.KamStoreServiceException;
 import org.springframework.beans.factory.annotation.Autowired;

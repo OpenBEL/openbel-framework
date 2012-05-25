@@ -44,7 +44,7 @@ import java.util.Random;
 
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Edge;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
 

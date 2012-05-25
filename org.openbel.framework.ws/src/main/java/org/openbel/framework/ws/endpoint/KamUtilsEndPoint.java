@@ -36,11 +36,11 @@
 package org.openbel.framework.ws.endpoint;
 
 import static java.lang.String.format;
+import static org.openbel.framework.api.KamCacheService.LoadStatus.LOADING;
 import static org.openbel.framework.api.KamUtils.difference;
 import static org.openbel.framework.api.KamUtils.intersection;
 import static org.openbel.framework.api.KamUtils.newInstance;
 import static org.openbel.framework.api.KamUtils.union;
-import static org.openbel.framework.api.service.KamCacheService.LoadStatus.LOADING;
 import static org.openbel.framework.common.BELUtilities.getFirstMessage;
 import static org.openbel.framework.common.BELUtilities.noItems;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM;
@@ -48,22 +48,42 @@ import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_NAME;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_NAME;
 import static org.openbel.framework.ws.model.KAMLoadStatus.FAILED;
-import static org.openbel.framework.ws.model.ObjectFactory.*;
+import static org.openbel.framework.ws.model.ObjectFactory.createDifferenceKamsResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createGetNewInstanceResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createIntersectKamsResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createKamHandle;
+import static org.openbel.framework.ws.model.ObjectFactory.createLoadKamResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createReleaseKamResponse;
+import static org.openbel.framework.ws.model.ObjectFactory.createUnionKamsResponse;
 import static org.openbel.framework.ws.utils.Converter.convert;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.api.service.KamCacheServiceException;
-import org.openbel.framework.api.service.KamCacheService.LoadKAMResult;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamCacheService.LoadKAMResult;
+import org.openbel.framework.api.KamCacheServiceException;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.DifferenceKamsRequest;
+import org.openbel.framework.ws.model.DifferenceKamsResponse;
+import org.openbel.framework.ws.model.GetNewInstanceRequest;
+import org.openbel.framework.ws.model.GetNewInstanceResponse;
+import org.openbel.framework.ws.model.IntersectKamsRequest;
+import org.openbel.framework.ws.model.IntersectKamsResponse;
+import org.openbel.framework.ws.model.KAMLoadStatus;
+import org.openbel.framework.ws.model.Kam;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.LoadKamRequest;
+import org.openbel.framework.ws.model.LoadKamResponse;
+import org.openbel.framework.ws.model.ReleaseKamRequest;
+import org.openbel.framework.ws.model.ReleaseKamResponse;
+import org.openbel.framework.ws.model.UnionKamsRequest;
+import org.openbel.framework.ws.model.UnionKamsResponse;
 import org.openbel.framework.ws.service.KamStoreServiceException;
 import org.openbel.framework.ws.utils.Converter;
 import org.openbel.framework.ws.utils.InvalidIdException;
@@ -143,7 +163,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             return resp;
         }
 
-        KamFilter filter;
+        KAMCatalogDao.KamFilter filter;
         try {
             filter = convert(request.getFilter(), kamInfo);
         } catch (InvalidIdException ex) {
@@ -219,7 +239,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         }
 
         // Get the real Kam from the KamCache
-        org.openbel.framework.core.kamstore.model.Kam objKam =
+        org.openbel.framework.api.Kam objKam =
                 kamCacheService.getKam(kamHandle.getHandle());
         if (objKam == null) {
             throw new RequestException(format(KAM_REQUEST_NO_KAM_FOR_HANDLE,
@@ -227,7 +247,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         }
 
         // Use the KamUtils class to do the work
-        org.openbel.framework.core.kamstore.model.Kam objNewKamInstance;
+        org.openbel.framework.api.Kam objNewKamInstance;
         objNewKamInstance = newInstance(objKam);
 
         // Set up the response
@@ -260,16 +280,16 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             throw new RequestException(msg);
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objKam1;
+        org.openbel.framework.api.Kam objKam1;
         objKam1 = kamCacheService.getKam(kam1.getHandle());
         if (objKam1 == null) {
             throw new RequestException(format(KAM_REQUEST_NO_KAM_FOR_HANDLE,
                     kam1.getHandle()));
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objNewKam = null;
+        org.openbel.framework.api.Kam objNewKam = null;
         if (null != kam2) {
-            org.openbel.framework.core.kamstore.model.Kam objKam2;
+            org.openbel.framework.api.Kam objKam2;
             objKam2 = kamCacheService.getKam(kam2.getHandle());
             if (objKam2 == null) {
                 throw new RequestException(format(
@@ -278,7 +298,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
 
             objNewKam = union(objKam1, objKam2);
         } else {
-            List<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges =
+            List<org.openbel.framework.api.Kam.KamEdge> edges =
                     convertEdges(
                             kamEdges, objKam1);
             objNewKam = union(objKam1, edges);
@@ -319,17 +339,17 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             throw new RequestException(msg);
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objKam1;
+        org.openbel.framework.api.Kam objKam1;
         objKam1 = kamCacheService.getKam(kam1.getHandle());
         if (objKam1 == null) {
             throw new RequestException(format(KAM_REQUEST_NO_KAM_FOR_HANDLE,
                     kam1.getHandle()));
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objNewKam = null;
+        org.openbel.framework.api.Kam objNewKam = null;
         if (null != kam2) {
             // Get the real Kam from the KamCache
-            org.openbel.framework.core.kamstore.model.Kam objKam2;
+            org.openbel.framework.api.Kam objKam2;
             objKam2 = kamCacheService.getKam(kam2.getHandle());
             if (objKam2 == null) {
                 throw new RequestException(format(
@@ -337,7 +357,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             }
             objNewKam = intersection(objKam1, objKam2);
         } else {
-            List<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges =
+            List<org.openbel.framework.api.Kam.KamEdge> edges =
                     convertEdges(
                             kamEdges, objKam1);
             objNewKam = intersection(objKam1, edges);
@@ -377,16 +397,16 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             throw new RequestException(msg);
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objKam1;
+        org.openbel.framework.api.Kam objKam1;
         objKam1 = kamCacheService.getKam(kam1.getHandle());
         if (objKam1 == null) {
             throw new RequestException(format(KAM_REQUEST_NO_KAM_FOR_HANDLE,
                     kam1.getHandle()));
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objNewKam = null;
+        org.openbel.framework.api.Kam objNewKam = null;
         if (null != kam2) {
-            org.openbel.framework.core.kamstore.model.Kam objKam2;
+            org.openbel.framework.api.Kam objKam2;
             objKam2 = kamCacheService.getKam(kam2.getHandle());
             if (objKam2 == null) {
                 throw new RequestException(format(
@@ -394,7 +414,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             }
             objNewKam = difference(objKam1, objKam2);
         } else {
-            List<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges =
+            List<org.openbel.framework.api.Kam.KamEdge> edges =
                     convertEdges(
                             kamEdges, objKam1);
             objNewKam = difference(objKam1, edges);
@@ -411,7 +431,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
     }
 
     private KamHandle cacheDerivedKam(
-            org.openbel.framework.core.kamstore.model.Kam derivedKam)
+            org.openbel.framework.api.Kam derivedKam)
             throws KamCacheServiceException {
 
         String kamHandleString = kamCacheService.cacheKam(derivedKam
@@ -423,16 +443,16 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         return kamHandle;
     }
 
-    private List<org.openbel.framework.core.kamstore.model.Kam.KamEdge>
+    private List<org.openbel.framework.api.Kam.KamEdge>
             convertEdges(
                     List<KamEdge> kamEdges,
-                    org.openbel.framework.core.kamstore.model.Kam objKam1)
+                    org.openbel.framework.api.Kam objKam1)
                     throws RequestException {
-        List<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges =
-                new ArrayList<org.openbel.framework.core.kamstore.model.Kam.KamEdge>();
+        List<org.openbel.framework.api.Kam.KamEdge> edges =
+                new ArrayList<org.openbel.framework.api.Kam.KamEdge>();
         for (final KamEdge wke : kamEdges) {
             try {
-                org.openbel.framework.core.kamstore.model.Kam.KamEdge edge =
+                org.openbel.framework.api.Kam.KamEdge edge =
                         Converter
                                 .convert(wke, objKam1);
 

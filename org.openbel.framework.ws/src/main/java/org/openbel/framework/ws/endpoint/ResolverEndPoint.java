@@ -44,14 +44,23 @@ import static org.openbel.framework.ws.model.ObjectFactory.createResolveNodesRes
 
 import java.util.List;
 
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.Resolver;
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
-import org.openbel.framework.core.kamstore.model.dialect.KamDialect;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.DialectHandle;
+import org.openbel.framework.ws.model.Edge;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.Node;
+import org.openbel.framework.ws.model.RelationshipType;
+import org.openbel.framework.ws.model.ResolveEdgesRequest;
+import org.openbel.framework.ws.model.ResolveEdgesResponse;
+import org.openbel.framework.ws.model.ResolveNodesRequest;
+import org.openbel.framework.ws.model.ResolveNodesResponse;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.ResolverService;
 import org.openbel.framework.ws.service.ResolverServiceException;
@@ -104,7 +113,7 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final Kam kam = verifyKam(handle, dialect);
+        final org.openbel.framework.api.Kam kam = verifyKam(handle, dialect);
 
         final List<Node> nodes = request.getNodes();
         if (nodes.isEmpty()) {
@@ -145,7 +154,7 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final Kam kam = verifyKam(handle, dialect);
+        final org.openbel.framework.api.Kam kam = verifyKam(handle, dialect);
 
         final List<Edge> edges = request.getEdges();
         if (edges.isEmpty()) {
@@ -206,9 +215,10 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         return dialect;
     }
 
-    private Kam verifyKam(final KamHandle handle, Dialect dialect)
+    private org.openbel.framework.api.Kam verifyKam(final KamHandle handle,
+            Dialect dialect)
             throws RequestException {
-        org.openbel.framework.core.kamstore.model.Kam kam = null;
+        org.openbel.framework.api.Kam kam = null;
         kam = kamCacheService.getKam(handle.getHandle());
 
         if (kam == null) {

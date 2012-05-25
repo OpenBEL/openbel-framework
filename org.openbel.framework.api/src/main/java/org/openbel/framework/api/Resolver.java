@@ -40,15 +40,13 @@ import static org.openbel.framework.common.BELUtilities.nulls;
 import java.text.ParseException;
 
 import org.antlr.runtime.RecognitionException;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 
 /**
  * Resolver defines a utility to resolve BEL expressions to elements within

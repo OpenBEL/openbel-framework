@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>org.openbel</groupId>
-            <artifactId>org.openbel.framework.core</artifactId>
+            <artifactId>org.openbel.framework.api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

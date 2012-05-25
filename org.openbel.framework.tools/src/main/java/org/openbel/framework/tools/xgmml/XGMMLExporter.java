@@ -41,19 +41,19 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Edge;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
 
 /**
  * XGMMLExporter leverages the KAM API to export a KAM in XGMML graph format.
- * 
+ *
  * @see <a href="http://en.wikipedia.org/wiki/XGMML">http://en.wikipedia.org/wiki/XGMML</a>
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
@@ -67,13 +67,13 @@ public class XGMMLExporter {
 
     /**
      * Export KAM to XGMML format using the KAM API.
-     * 
+     *
      * @param kam {@link Kam} the kam to export to XGMML
      * @param kamStore {@link KAMStore} the kam store to read kam details from
      * @param outputPath {@link String} the output path to write XGMML file to,
      * which can be null, in which case the kam's name will be used and it will
      * be written to the current directory (user.dir).
-     * 
+     *
      * @throws KamStoreException Thrown if an error occurred retrieving the KAM
      * @throws FileNotFoundException Thrown if the export file cannot be
      * written to

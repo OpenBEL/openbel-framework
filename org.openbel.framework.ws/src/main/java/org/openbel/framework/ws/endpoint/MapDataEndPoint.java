@@ -42,15 +42,14 @@ import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
-import org.openbel.framework.core.kamstore.model.dialect.KamDialect;
+import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.model.DialectHandle;
@@ -73,7 +72,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 /**
  * {@link MapDataEndPoint} is a {@link WebServiceEndpoint webservice endpoint}
  * to provide endpoints to map namespace data to a {@link Kam}.
- * 
+ *
  * @see MapDataService#mapData(Kam, Namespace, List, NodeFilter)
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
@@ -97,11 +96,11 @@ public class MapDataEndPoint extends WebServiceEndpoint {
     private Equivalencer equivalencer = new Equivalencer();
 
     /**
-     * 
+     *
      * Endpoint method to handle the {@link MapDataEndPoint#MAP_DATA_REQUEST}
      * request. Receives {@link Namespace namespace} values and returns
      * {@link KamNode kam nodes}.
-     * 
+     *
      * @param req {@link MapDataRequest}, the endpoint request
      * @return the endpoint response
      * @throws RequestException Thrown if an error occurred executing this
@@ -126,7 +125,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         }
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(req.getDialect());
-        final org.openbel.framework.core.kamstore.model.Kam kam = getKam(
+        final org.openbel.framework.api.Kam kam = getKam(
                 handle, dialect);
 
         final Namespace ns = req.getNamespace();
@@ -152,7 +151,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         }
 
         // delegate to findKamNodesByNamespaceValues
-        List<Kam.KamNode> nodes;
+        List<org.openbel.framework.api.Kam.KamNode> nodes;
         try {
             nodes =
                     KamEndPoint.findKamNodesByNamespacevalues(nvs, nf, kam,
@@ -166,7 +165,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
 
         KamInfo kamInfo = kam.getKamInfo();
         final MapDataResponse res = ObjectFactory.createMapDataResponse();
-        for (Kam.KamNode kn : nodes) {
+        for (org.openbel.framework.api.Kam.KamNode kn : nodes) {
             res.getKamNodes().add(Converter.convert(kamInfo, kn));
         }
 
@@ -190,10 +189,10 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         return dialect;
     }
 
-    private org.openbel.framework.core.kamstore.model.Kam getKam(
+    private org.openbel.framework.api.Kam getKam(
             final KamHandle kamHandle, final Dialect dialect)
             throws RequestException {
-        org.openbel.framework.core.kamstore.model.Kam objKam;
+        org.openbel.framework.api.Kam objKam;
         objKam = kamCacheService.getKam(kamHandle.getHandle());
 
         if (objKam == null) {

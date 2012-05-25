@@ -39,13 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openbel.framework.api.BasicPathFinder;
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.PathFinder;
-import org.openbel.framework.core.kamstore.model.Kam;
 import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.SimplePath;
 import org.openbel.framework.ws.utils.Converter;
-import org.openbel.framework.ws.utils.InvalidIdException;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
+import org.openbel.framework.ws.utils.InvalidIdException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -61,10 +61,10 @@ public class PathFindServiceImpl implements PathFindService {
             throws PathFindServiceException {
         final PathFinder pathFinder = new BasicPathFinder(kam);
 
-        final org.openbel.framework.core.kamstore.model.Kam.KamNode[] sourceKamNodes =
+        final Kam.KamNode[] sourceKamNodes =
                 convert(kam, sources);
 
-        final org.openbel.framework.core.kamstore.model.Kam.KamNode[] targetKamNodes =
+        final Kam.KamNode[] targetKamNodes =
                 convert(kam, targets);
 
         final org.openbel.framework.api.SimplePath[] paths = pathFinder
@@ -90,7 +90,7 @@ public class PathFindServiceImpl implements PathFindService {
             throws PathFindServiceException {
         final PathFinder pathFinder = new BasicPathFinder(kam);
 
-        final org.openbel.framework.core.kamstore.model.Kam.KamNode[] sourceKamNodes =
+        final Kam.KamNode[] sourceKamNodes =
                 convert(kam, sources);
 
         final org.openbel.framework.api.SimplePath[] paths = pathFinder
@@ -116,7 +116,7 @@ public class PathFindServiceImpl implements PathFindService {
             throws PathFindServiceException {
         final PathFinder pathFinder = new BasicPathFinder(kam, maxSearchDepth);
 
-        final org.openbel.framework.core.kamstore.model.Kam.KamNode[] sourceKamNodes =
+        final Kam.KamNode[] sourceKamNodes =
                 convert(kam, sources);
 
         final org.openbel.framework.api.SimplePath[] paths = pathFinder
@@ -132,11 +132,11 @@ public class PathFindServiceImpl implements PathFindService {
         return wsSimplePaths;
     }
 
-    private org.openbel.framework.core.kamstore.model.Kam.KamNode[] convert(
+    private Kam.KamNode[] convert(
             final Kam kam, final List<KamNode> wsn)
             throws PathFindServiceException {
-        final org.openbel.framework.core.kamstore.model.Kam.KamNode[] nodes =
-                new org.openbel.framework.core.kamstore.model.Kam.KamNode[wsn
+        final Kam.KamNode[] nodes =
+                new Kam.KamNode[wsn
                         .size()];
 
         for (int i = 0; i < wsn.size(); i++) {
@@ -151,8 +151,7 @@ public class PathFindServiceImpl implements PathFindService {
             }
 
             int kamNodeId = kamElementRef.getKamStoreObjectId();
-            org.openbel.framework.core.kamstore.model.Kam.KamNode kamNode = kam
-                    .findNode(kamNodeId);
+            Kam.KamNode kamNode = kam.findNode(kamNodeId);
 
             if (kamNode == null) {
                 throw new PathFindServiceException("KamNode with id '"
