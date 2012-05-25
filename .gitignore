@@ -1,12 +1,4 @@
-target
-org.openbel.bel/target
-org.openbel.framework.common/target
-org.openbel.framework.core/target
-org.openbel.framework.api/target
-org.openbel.framework.compiler/target
-org.openbel.framework.tools/target
-org.openbel.framework.ws/target
-org.openbel.framework.ws.client/target
+*/target
 
 # eclipse ignores
 */.classpath
