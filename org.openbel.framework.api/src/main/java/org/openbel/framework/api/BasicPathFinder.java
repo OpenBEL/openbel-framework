@@ -35,8 +35,8 @@
  */
 package org.openbel.framework.api;
 
+import static org.openbel.framework.api.EdgeDirectionType.BOTH;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
-import static org.openbel.framework.core.kamstore.model.EdgeDirectionType.BOTH;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,11 +44,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamElement;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
 
 /**
  * Implements a basic {@link PathFinder} implementation with a max depth

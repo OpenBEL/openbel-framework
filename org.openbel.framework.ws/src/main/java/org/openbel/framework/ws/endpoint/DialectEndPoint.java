@@ -38,11 +38,11 @@ package org.openbel.framework.ws.endpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openbel.framework.api.service.KamCacheService;
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.model.Namespace;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.dialect.DialectFactory;
@@ -64,7 +64,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 /**
  * Endpoint for {@link Dialect}s
- * 
+ *
  * @author Steve Ungerer
  */
 @Endpoint

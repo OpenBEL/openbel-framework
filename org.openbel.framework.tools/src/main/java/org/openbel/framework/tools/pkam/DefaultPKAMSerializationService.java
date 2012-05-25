@@ -52,9 +52,9 @@ import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.encryption.EncryptionServiceException;
 import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
-import org.openbel.framework.core.kamstore.KamDbObject;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;

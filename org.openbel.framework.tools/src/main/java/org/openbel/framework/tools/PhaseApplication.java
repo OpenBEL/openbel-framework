@@ -46,7 +46,12 @@ import static org.openbel.framework.common.Strings.TIME_HELP;
 import static org.openbel.framework.common.Strings.WARNINGS_AS_ERRORS;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.ExitCode.GENERAL_FAILURE;
-import static org.openbel.framework.core.StandardOptions.*;
+import static org.openbel.framework.core.StandardOptions.ARG_SYSCFG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_DEBUG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_SYSCFG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_TIME;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_VERBOSE;
+import static org.openbel.framework.core.StandardOptions.SHRT_OPT_SYSCFG;
 
 import java.io.File;
 import java.io.IOException;

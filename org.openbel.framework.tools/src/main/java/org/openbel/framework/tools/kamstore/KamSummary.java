@@ -41,8 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamSummary implements Serializable {
 

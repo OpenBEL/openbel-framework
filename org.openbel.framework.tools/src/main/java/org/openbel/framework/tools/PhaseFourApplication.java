@@ -37,7 +37,13 @@ package org.openbel.framework.tools;
 
 import static java.lang.String.format;
 import static org.openbel.framework.common.BELUtilities.asPath;
-import static org.openbel.framework.common.Strings.*;
+import static org.openbel.framework.common.Strings.KAM_DESCRIPTION_HELP;
+import static org.openbel.framework.common.Strings.KAM_NAME_HELP;
+import static org.openbel.framework.common.Strings.MISSING_KAM_DESCRIPTION;
+import static org.openbel.framework.common.Strings.MISSING_KAM_NAME;
+import static org.openbel.framework.common.Strings.NOT_A_DIRECTORY;
+import static org.openbel.framework.common.Strings.NO_PRESERVE_HELP;
+import static org.openbel.framework.common.Strings.PHASE4_STAGE1_HDR;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.tools.PhaseFourOptions.phaseFourOptions;
 
@@ -56,8 +62,8 @@ import org.openbel.framework.common.enums.ExitCode;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.util.BELPathFilters.GlobalProtonetworkFilter;
-import org.openbel.framework.compiler.PhaseFourImpl;
 import org.openbel.framework.compiler.DefaultPhaseFour;
+import org.openbel.framework.compiler.PhaseFourImpl;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaServiceImpl;
 import org.openbel.framework.core.compiler.CreateKAMFailure;
@@ -66,10 +72,10 @@ import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.core.kamstore.KamDbObject;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkDescriptor;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkExternalizer;
 import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL phase four compiler.

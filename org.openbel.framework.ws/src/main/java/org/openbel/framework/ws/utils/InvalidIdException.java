@@ -37,7 +37,7 @@ package org.openbel.framework.ws.utils;
 
 import static java.lang.String.format;
 
-import org.openbel.framework.core.kamstore.model.KamElement;
+import org.openbel.framework.api.KamElement;
 
 /**
  * {@link InvalidIdException} represents an invalid id for a

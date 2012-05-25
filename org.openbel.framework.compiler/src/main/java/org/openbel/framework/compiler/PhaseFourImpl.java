@@ -45,10 +45,10 @@ import java.util.Set;
 
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.common.protonetwork.model.NamespaceTable;
-import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.DocumentTable.DocumentHeader;
+import org.openbel.framework.common.protonetwork.model.NamespaceTable;
 import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
+import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
 import org.openbel.framework.core.compiler.CreateKAMFailure;
 import org.openbel.framework.core.df.DBConnection;
@@ -56,7 +56,7 @@ import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.kam.JdbcKAMLoaderImpl;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.core.kamstore.KamDbObject;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL compiler phase four implementation.

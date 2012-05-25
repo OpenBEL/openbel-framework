@@ -37,11 +37,10 @@ package org.openbel.framework.ws.dialect;
 
 import java.util.List;
 
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.model.Namespace;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * Factory class for creation of {@link Dialect}s
