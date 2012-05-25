@@ -42,20 +42,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.BELObject;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Term;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 
 /**
  * {@link Dialect} implementation that allows control over the {@link Namespace}
@@ -75,7 +75,7 @@ import org.openbel.framework.core.kamstore.model.dialect.Dialect;
  * single {@link Kam}. Usage across {@link Kam}s is not guarded against but will
  * cause unpredictable results.<br>
  * This implementation is thread-safe.
- * 
+ *
  * @author Steve Ungerer
  */
 public class CustomDialect implements Dialect {
@@ -101,7 +101,7 @@ public class CustomDialect implements Dialect {
      * Construct a new instance of a {@link CustomDialect}.
      * Post-construction the appropriate mutation must occur with
      * {@link #initialize()} being invoked prior to usage.
-     * 
+     *
      * @param kamStore
      * @throws KamStoreException
      */
@@ -112,7 +112,7 @@ public class CustomDialect implements Dialect {
     /**
      * Set the {@link Namespace} priority for {@link NamespaceDomain#Gene}
      * namespaces.
-     * 
+     *
      * @param geneNamespaces
      */
     void setGeneNamespaces(List<Namespace> geneNamespaces) {
@@ -126,7 +126,7 @@ public class CustomDialect implements Dialect {
     /**
      * Set the {@link Namespace} priority for
      * {@link NamespaceDomain#BiologicalProcess} namespaces.
-     * 
+     *
      * @param bpNamespaces
      */
     void setBpNamespaces(List<Namespace> bpNamespaces) {
@@ -140,7 +140,7 @@ public class CustomDialect implements Dialect {
     /**
      * Set the {@link Namespace} priority for {@link NamespaceDomain#Chemical}
      * namespaces.
-     * 
+     *
      * @param chemNamespaces
      */
     void setChemNamespaces(List<Namespace> chemNamespaces) {
@@ -156,7 +156,7 @@ public class CustomDialect implements Dialect {
      * for a namespace prefix.<br>
      * Map key: the namespace prefix used in the {@link Kam}<br>
      * Map value: resource location of the namespace.
-     * 
+     *
      * @param kamNamespaces
      */
     void setKamNamespaces(Map<String, Namespace> kamNamespaces) {
@@ -172,7 +172,7 @@ public class CustomDialect implements Dialect {
      * of a particular {@link Namespace}.<br>
      * Map key: the namespace prefix used in the {@link Kam}<br>
      * Map value: {@link NamespaceDomain} of the namespace.
-     * 
+     *
      * @param nsDomains
      */
     void setNsDomains(Map<String, NamespaceDomain> nsDomains) {
@@ -185,7 +185,7 @@ public class CustomDialect implements Dialect {
 
     /**
      * Set the dialect to display labels in BEL long form
-     * 
+     *
      * @param displayLongForm
      */
     void setDisplayLongForm(boolean displayLongForm) {
@@ -201,7 +201,7 @@ public class CustomDialect implements Dialect {
      * Note that prefixes will remain in place if none of the user-configured
      * namespaces can be used to display the label and the default label is
      * used.
-     * 
+     *
      * @param removeNamespacePrefix
      */
     void setRemoveNamespacePrefix(boolean removeNamespacePrefix) {
@@ -251,7 +251,7 @@ public class CustomDialect implements Dialect {
      * Internal method to obtain a label for a node. Grabs the first
      * {@link BelTerm} that supports the node, parses it, and converts it to the
      * preferred namespaces to obtain a label.
-     * 
+     *
      * @param node
      * @return
      * @throws KamStoreException
@@ -276,7 +276,7 @@ public class CustomDialect implements Dialect {
 
     /**
      * Convert a {@link Term} to preferred namespaces
-     * 
+     *
      * @param orig
      * @return
      */
@@ -291,7 +291,7 @@ public class CustomDialect implements Dialect {
     /**
      * Convert a {@link BELObject}. Currently handles only {@link Term}s and
      * {@link Parameter}s as these are the only objects supported by Term.
-     * 
+     *
      * @param o
      * @return
      * @see Term#addFunctionArgument(BELObject)
@@ -310,7 +310,7 @@ public class CustomDialect implements Dialect {
 
     /**
      * Convert a parameter to the preferred namespaces.
-     * 
+     *
      * @param orig
      * @return the converted {@link Parameter} or the original parameter if no
      *         conversion was possible
@@ -368,7 +368,7 @@ public class CustomDialect implements Dialect {
     /**
      * Get a fully populated namespace object with valid resource location.
      * (namespaces parsed by BELParser will not have a valid resource location)
-     * 
+     *
      * @param ns
      * @return
      */

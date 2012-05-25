@@ -39,12 +39,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.core.df.beldata.namespace.NamespaceHeader;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.NamespaceResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ import org.springframework.stereotype.Service;
  * This service will always create new {@link Dialect} instances. As many
  * implementations benefit from caching, it is recommended that constructed
  * {@link Dialect}s be cached with the {@link DialectCacheService}.
- * 
+ *
  * @author Steve Ungerer
  */
 @Service
@@ -88,8 +88,7 @@ public class DialectFactoryImpl implements DialectFactory {
         Map<String, Namespace> kamNamespaces = new HashMap<String, Namespace>();
         Map<String, NamespaceDomain> domains =
                 new HashMap<String, NamespaceDomain>();
-        for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Namespace ns : kamStore
-                .getNamespaces(kamInfo)) {
+        for (org.openbel.framework.internal.KAMStoreDaoImpl.Namespace ns : kamStore.getNamespaces(kamInfo)) {
             Namespace cns = new Namespace(ns.getPrefix(),
                     ns.getResourceLocation());
             kamNamespaces.put(cns.getPrefix(), cns);

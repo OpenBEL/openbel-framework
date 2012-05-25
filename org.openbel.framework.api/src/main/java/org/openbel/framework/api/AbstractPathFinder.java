@@ -44,9 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
 
 /**
  * {@code AbstractPathFinder} is the base path finding class implementing the

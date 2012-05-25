@@ -38,11 +38,8 @@ package org.openbel.framework.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.EdgeFilter;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamImpl;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
 
 /**
  * Utility class for operating on Kams

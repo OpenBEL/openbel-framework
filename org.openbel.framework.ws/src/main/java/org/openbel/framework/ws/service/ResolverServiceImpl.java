@@ -41,11 +41,11 @@ import static org.openbel.framework.ws.utils.Converter.convert;
 import java.text.ParseException;
 import java.util.List;
 
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.Resolver;
 import org.openbel.framework.api.ResolverException;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
 import org.openbel.framework.ws.model.Edge;
 import org.openbel.framework.ws.model.KamEdge;
 import org.openbel.framework.ws.model.KamNode;
@@ -56,12 +56,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implements a resolver service that resolves nodes and edges to a KAM.
- * 
+ *
  * <p>
  * The namespace values do not have to exist in a specific KAM, but they must
  * be discoverable within the current BELFramework instance.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 @Service
@@ -133,7 +133,7 @@ public class ResolverServiceImpl implements ResolverService {
 
             String subLbl = subject.getLabel();
             String objLbl = object.getLabel();
-            final org.openbel.framework.core.kamstore.model.Kam.KamEdge re;
+            final Kam.KamEdge re;
             org.openbel.framework.common.enums.RelationshipType rel;
             rel = convert(edge.getRelationship());
 
@@ -156,7 +156,7 @@ public class ResolverServiceImpl implements ResolverService {
 
     /**
      * Build the BEL expression syntax for the {@link Edge}.
-     * 
+     *
      * @param edge {@link Edge}, the edge to build BEL expression from
      * @return {@link String}, the BEL expression for the <tt>edge</tt>
      */

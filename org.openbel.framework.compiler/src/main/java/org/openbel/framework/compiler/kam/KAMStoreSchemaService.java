@@ -40,7 +40,7 @@ import java.sql.SQLException;
 
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.kamstore.KamDbObject;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
  * KAMSchemaSetupService defines a service to setup a KAM schema instance

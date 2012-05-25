@@ -42,12 +42,12 @@ import static org.openbel.framework.common.Strings.DIALECT_REQUEST_NO_DIALECT_FO
 import java.sql.SQLException;
 import java.util.List;
 
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.api.service.KamCacheServiceException;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamCacheServiceException;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.model.DialectHandle;
@@ -63,8 +63,8 @@ import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.PathFindService;
 import org.openbel.framework.ws.service.PathFindServiceException;
 import org.openbel.framework.ws.utils.Converter;
-import org.openbel.framework.ws.utils.InvalidIdException;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
+import org.openbel.framework.ws.utils.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

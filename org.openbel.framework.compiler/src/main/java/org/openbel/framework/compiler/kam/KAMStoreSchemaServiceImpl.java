@@ -45,8 +45,8 @@ import java.sql.SQLException;
 import org.apache.commons.io.IOUtils;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
-import org.openbel.framework.core.kamstore.KamDbObject;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KamDbObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

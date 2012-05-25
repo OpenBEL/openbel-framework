@@ -45,17 +45,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openbel.framework.api.KamCacheService;
 import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.ws.model.AnnotationFilterCriteria;
+import org.openbel.framework.ws.model.AnnotationType;
+import org.openbel.framework.ws.model.BelDocument;
+import org.openbel.framework.ws.model.BelStatement;
+import org.openbel.framework.ws.model.BelTerm;
+import org.openbel.framework.ws.model.Citation;
+import org.openbel.framework.ws.model.CitationType;
+import org.openbel.framework.ws.model.Kam;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamFilter;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.Namespace;
+import org.openbel.framework.ws.model.Node;
 import org.openbel.framework.ws.utils.Converter;
-import org.openbel.framework.ws.utils.InvalidIdException;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
+import org.openbel.framework.ws.utils.InvalidIdException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +105,7 @@ public class KamStoreServiceImpl implements KamStoreService {
         final String handle = kamHandle.getHandle();
 
         try {
-            org.openbel.framework.core.kamstore.model.Kam objKam;
+            org.openbel.framework.api.Kam objKam;
             objKam = kamCacheService.getKam(handle);
             if (objKam == null) {
                 throw new KamStoreServiceException(format(
@@ -103,7 +116,7 @@ public class KamStoreServiceImpl implements KamStoreService {
             citation = convert(citationType);
 
             KamInfo ki = objKam.getKamInfo();
-            List<org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Citation> citations;
+            List<org.openbel.framework.internal.KAMStoreDaoImpl.Citation> citations;
             if (belDocument != null) {
                 BelDocumentInfo info;
                 try {
@@ -121,7 +134,7 @@ public class KamStoreServiceImpl implements KamStoreService {
                 citations = kamStore.getCitations(ki, citation);
             }
 
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Citation c : citations) {
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.Citation c : citations) {
                 Citation c2 = convert(c);
                 list.add(c2);
             }
@@ -155,7 +168,7 @@ public class KamStoreServiceImpl implements KamStoreService {
 
             final KamInfo kamInfo =
                     getKamInfo(kamElementRef, "Error processing KAM node");
-            final org.openbel.framework.core.kamstore.model.Kam objKam =
+            final org.openbel.framework.api.Kam objKam =
                     kamCacheService.getKam(kamInfo.getName());
             if (objKam == null) {
                 throw new KamStoreServiceException(
@@ -163,10 +176,10 @@ public class KamStoreServiceImpl implements KamStoreService {
             }
 
             // Get the real KamNode from the Kam
-            org.openbel.framework.core.kamstore.model.Kam.KamNode objKamNode =
+            org.openbel.framework.api.Kam.KamNode objKamNode =
                     objKam.findNode(kamElementRef.getKamStoreObjectId());
             // Get the supporting terms for the node
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm objBelTerm : kamStore
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm objBelTerm : kamStore
                     .getSupportingTerms(objKamNode)) {
                 list.add(convert(objBelTerm, kamInfo));
             }
@@ -198,7 +211,7 @@ public class KamStoreServiceImpl implements KamStoreService {
 
             final KamInfo kamInfo =
                     getKamInfo(kamElementRef, "Error processing KAM edge");
-            final org.openbel.framework.core.kamstore.model.Kam objKam =
+            final org.openbel.framework.api.Kam objKam =
                     kamCacheService.getKam(kamInfo.getName());
             if (objKam == null) {
                 throw new KamStoreServiceException(
@@ -206,19 +219,19 @@ public class KamStoreServiceImpl implements KamStoreService {
             }
 
             // Get the real KamEdge from the Kam
-            org.openbel.framework.core.kamstore.model.Kam.KamEdge objKamEdge =
+            org.openbel.framework.api.Kam.KamEdge objKamEdge =
                     objKam.findEdge(kamElementRef.getKamStoreObjectId());
 
             // Get the supporting evidence for the edge
-            final List<org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement> evidence;
+            final List<org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement> evidence;
             if (kamFilter != null) {
                 // including edge and filter
                 final List<AnnotationFilterCriteria> criteria =
                         kamFilter.getAnnotationCriteria();
 
-                final List<org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType> al =
-                        new ArrayList<org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType>();
-                for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType a : kamStore
+                final List<org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType> al =
+                        new ArrayList<org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType>();
+                for (org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType a : kamStore
                         .getAnnotationTypes(objKam)) {
                     al.add(a);
                 }
@@ -229,10 +242,10 @@ public class KamStoreServiceImpl implements KamStoreService {
                 for (AnnotationFilterCriteria c : criteria) {
                     final AnnotationType type = c.getAnnotationType();
 
-                    for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType a : al) {
+                    for (org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType a : al) {
                         if (type.getName().equals(a.getName())) {
-                            org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria afc =
-                                    new org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria(
+                            org.openbel.framework.api.AnnotationFilterCriteria afc =
+                                    new org.openbel.framework.api.AnnotationFilterCriteria(
                                             a);
                             afc.getValues().addAll(c.getValueSet());
                             afc.setInclude(c.isIsInclude());
@@ -252,7 +265,7 @@ public class KamStoreServiceImpl implements KamStoreService {
             }
 
             // Convert and return
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement statement : evidence) {
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement statement : evidence) {
                 list.add(convert(statement, kamInfo));
             }
 
@@ -275,14 +288,14 @@ public class KamStoreServiceImpl implements KamStoreService {
 
         try {
             // Get the real Kam from the KamCache
-            org.openbel.framework.core.kamstore.model.Kam objKam =
+            org.openbel.framework.api.Kam objKam =
                     kamCacheService.getKam(handle);
             if (objKam == null) {
                 throw new KamStoreServiceException(format(
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the namespaces for this Kam
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Namespace objNamespace : kamStore
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.Namespace objNamespace : kamStore
                     .getNamespaces(objKam)) {
                 list.add(convert(objNamespace, objKam.getKamInfo()));
             }
@@ -305,14 +318,14 @@ public class KamStoreServiceImpl implements KamStoreService {
 
         try {
             // Get the real Kam from the KamCache
-            org.openbel.framework.core.kamstore.model.Kam objKam =
+            org.openbel.framework.api.Kam objKam =
                     kamCacheService.getKam(handle);
             if (objKam == null) {
                 throw new KamStoreServiceException(format(
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the annotationTypes for this Kam
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType objAnnotationType : kamStore
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType objAnnotationType : kamStore
                     .getAnnotationTypes(objKam)) {
                 list.add(convert(objAnnotationType, objKam.getKamInfo()));
             }
@@ -335,14 +348,14 @@ public class KamStoreServiceImpl implements KamStoreService {
 
         try {
             // Get the real Kam from the KamCache
-            org.openbel.framework.core.kamstore.model.Kam objKam =
+            org.openbel.framework.api.Kam objKam =
                     kamCacheService.getKam(handle);
             if (objKam == null) {
                 throw new KamStoreServiceException(format(
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the belDocuments for this Kam
-            for (org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo objBelDocument : kamStore
+            for (org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo objBelDocument : kamStore
                     .getBelDocumentInfos(objKam)) {
                 list.add(convert(objBelDocument, objKam.getKamInfo()));
             }
@@ -381,7 +394,7 @@ public class KamStoreServiceImpl implements KamStoreService {
 
         final String handle = kamHandle.getHandle();
         try {
-            final org.openbel.framework.core.kamstore.model.Kam kam =
+            final org.openbel.framework.api.Kam kam =
                     kamCacheService
                             .getKam(handle);
 

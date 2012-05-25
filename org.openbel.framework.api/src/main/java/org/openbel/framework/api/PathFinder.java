@@ -35,9 +35,8 @@
  */
 package org.openbel.framework.api;
 
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
 
 /**
  * PathFinder defines a utility to find paths within a {@link Kam}. The path

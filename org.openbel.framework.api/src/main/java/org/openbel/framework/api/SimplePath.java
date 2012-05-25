@@ -41,10 +41,9 @@ import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
 
 /**
  * SimplePath represents a path within a {@link Kam} without cycles.

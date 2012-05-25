@@ -35,7 +35,7 @@
  */
 package org.openbel.framework.ws.service;
 
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.api.Dialect;
 
 /**
  * Provides server-side caching of {@link Dialect}s

@@ -37,7 +37,48 @@ package org.openbel.framework.tools.rdf;
 
 import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.nulls;
-import static org.openbel.framework.tools.rdf.KAMVocabulary.*;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.AnnotationDefinition;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.BelDocument;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.KAM;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.KAMEdge;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.KAMNode;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.Namespace;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.Parameter;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.Statement;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.Term;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.composedOf;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.definedBy;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.defines;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasAnnotation;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasArguments;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasAuthor;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasContactInfo;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasCopyright;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasDescription;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasDisclaimer;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasFunction;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasId;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasLabel;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasLicense;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasList;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasName;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasNamespace;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasObjectNode;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasObjectTerm;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasPattern;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasPrefix;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasRelationship;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasResourceLocation;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasSubjectNode;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasSubjectTerm;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasType;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasURL;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasUsage;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasValue;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.hasVersion;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.isRepresentedBy;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.resourceForFunction;
+import static org.openbel.framework.tools.rdf.KAMVocabulary.resourceForRelationship;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,21 +90,21 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.TermParameter;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
+import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.AnonId;
@@ -76,11 +117,11 @@ import com.hp.hpl.jena.vocabulary.RDF;
 /**
  * RDFExporter builds an RDF object model from the KAM data using the
  * Jena framework and then serializes it to RDF in N3 format.
- * 
+ *
  * Data left to capture:
  * TODO Support nested terms in a Term's arguments.  Currently only support Parameter resources.
  * TODO Support nested statement as a statement's object.  Currently only support object Term.
- * 
+ *
  * @see <a href="http://jena.sourceforge.net/">http://jena.sourceforge.net/</a>
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
@@ -104,7 +145,7 @@ public final class RDFExporter {
 
     /**
      * Exports an rdf {@link Model} from the KAM data.
-     * 
+     *
      * @param kam {@link Kam} the kam, which cannot be null
      * @param kamInfo {@link KamInfo} the kam info, which cannot be null
      * @param kamStore {@link KAMStore} the kamstore, which cannot be null

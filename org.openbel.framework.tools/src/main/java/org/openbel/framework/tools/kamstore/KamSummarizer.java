@@ -51,7 +51,12 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.AnnotationFilterCriteria;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.Reportable;
 import org.openbel.framework.common.enums.FunctionEnum;
@@ -61,18 +66,13 @@ import org.openbel.framework.common.model.CitationCommentAnnotationDefinition;
 import org.openbel.framework.common.model.CitationDateAnnotationDefinition;
 import org.openbel.framework.common.model.CitationNameAnnotationDefinition;
 import org.openbel.framework.common.model.CitationTypeAnnotationDefinition;
-import org.openbel.framework.core.kamstore.KAMStoreConstants;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationDefinitionType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
-import org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria;
+import org.openbel.framework.internal.KAMStoreConstants;
+import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
 
 @SuppressWarnings("unused")
 public final class KamSummarizer {

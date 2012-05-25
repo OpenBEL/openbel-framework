@@ -41,7 +41,7 @@ import org.openbel.framework.core.compiler.CreateKAMFailure;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.core.kamstore.KamDbObject;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL compiler phase four interface.
@@ -52,7 +52,7 @@ import org.openbel.framework.core.kamstore.KamDbObject;
  * Create the KAMstore schema using the database connection.</li>
  * </ol>
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface DefaultPhaseFour {
@@ -60,7 +60,7 @@ public interface DefaultPhaseFour {
     /**
      * Executes stage on creation of {@link DBConnection} for the KAMstore
      * identified by the {@code jdbcUrl}, {@code user}, and {@code pass}.
-     * 
+     *
      * @param jdbcUrl {@link String}, the jdbc url
      * @param user {@link String}, the database username
      * @param pass {@link String}, the database password
@@ -74,7 +74,7 @@ public interface DefaultPhaseFour {
 
     /**
      * Executes stage two updating of the kam entry in the KAM catalog.
-     * 
+     *
      * @param kamDb {@link KamDbObject}, the kam database object to save
      * @throws KAMCatalogFailure Thrown if an error occurred when setting up or
      * updating the KAM catalog
@@ -85,7 +85,7 @@ public interface DefaultPhaseFour {
     /**
      * Executes stage three creation of KAMstore using a {@link DBConnection}
      * database connection.
-     * 
+     *
      * @param dbConnection {@link DBConnection} the database connection
      * @param schemaName {@link String}, the schema name to create KAM in
      * @throws CreateKAMFailure - Thrown if an error occurred while creating the
@@ -97,7 +97,7 @@ public interface DefaultPhaseFour {
     /**
      * Executes stage four loading of KAM using a {@link DBConnection} database
      * connection against a KAMstore schema.
-     * 
+     *
      * @param dbConnection {@link DBConnection}, the database connection
      * @param p2pn {@link ProtoNetwork}, the phase II proto network output
      * @throws CreateKAMFailure Thrown if the KAM schema to be loaded does not

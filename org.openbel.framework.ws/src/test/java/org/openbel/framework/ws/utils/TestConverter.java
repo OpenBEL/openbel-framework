@@ -54,8 +54,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openbel.framework.core.kamstore.model.KamStoreObject;
-import org.openbel.framework.ws.utils.Converter;
+import org.openbel.framework.api.KamStoreObject;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
 
 public class TestConverter {

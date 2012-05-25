@@ -37,8 +37,8 @@ package org.openbel.framework.ws.service;
 
 import java.util.List;
 
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.core.kamstore.model.Kam;
 import org.openbel.framework.ws.model.Edge;
 import org.openbel.framework.ws.model.KamEdge;
 import org.openbel.framework.ws.model.KamNode;
@@ -46,7 +46,7 @@ import org.openbel.framework.ws.model.Node;
 
 /**
  * Defines a resolver service that resolves nodes and edges to a KAM.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface ResolverService {
@@ -54,7 +54,7 @@ public interface ResolverService {
     /**
      * Resolves a list of {@link Node} objects to a list of {@link KamNode}
      * objects if they exist in the KAM pointed to by <tt>handle</tt>.
-     * 
+     *
      * @param kam {@link Kam}, the KAM to find {@link KamNode} objects within
      * @param nodes list of {@link Node}, the nodes to resolve to the KAM
      * @return list of {@link KamNode} that were resolved to the KAM, and
@@ -69,7 +69,7 @@ public interface ResolverService {
     /**
      * Resolves a list of {@link Edge} objects to a list of {@link KamEdge}
      * objects if they exist in the KAM pointed to by <tt>handle</tt>.
-     * 
+     *
      * @param kam {@link Kam}, the KAM to find {@link KamEdge} objects within
      * @param edges list of {@link Edge}, the edges to resolve to the KAM
      * @return list of {@link KamEdge} that were resolved to the KAM, and

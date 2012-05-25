@@ -35,7 +35,13 @@
  */
 package org.openbel.framework.tools;
 
-import static org.openbel.framework.common.Strings.*;
+import static org.openbel.framework.common.Strings.HASH;
+import static org.openbel.framework.common.Strings.LIST_CACHE;
+import static org.openbel.framework.common.Strings.LOAD_INDEX_FILE;
+import static org.openbel.framework.common.Strings.LOAD_INDEX_FROM_SYSCONFIG;
+import static org.openbel.framework.common.Strings.LOAD_RESOURCE;
+import static org.openbel.framework.common.Strings.PURGE_CACHE;
+import static org.openbel.framework.common.Strings.SYSTEM_CONFIG_PATH;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.ExitCode.GENERAL_FAILURE;
 import static org.openbel.framework.core.StandardOptions.ARG_SYSCFG;

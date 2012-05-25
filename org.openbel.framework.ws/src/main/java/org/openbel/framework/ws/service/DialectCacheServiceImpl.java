@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.api.Dialect;
 import org.springframework.stereotype.Service;
 
 /**
