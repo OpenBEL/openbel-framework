@@ -372,6 +372,78 @@ public final class KamDialect implements Kam {
                 "union() is not supported by DialectKam");
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamEdge createEdge(Integer kamEdgeId, KamNode sourceNode,
+            RelationshipType relationshipType, KamNode targetNode)
+            throws InvalidArgument {
+        return kam.createEdge(kamEdgeId, sourceNode, relationshipType,
+                targetNode);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeEdge(KamEdge kamEdge) {
+        kam.removeEdge(kamEdge);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction,
+            String sourceLabel, RelationshipType relationship,
+            FunctionEnum targetFunction, String targetLabel) {
+        return kam.replaceEdge(kamEdge, sourceFunction, sourceLabel,
+                relationship, targetFunction, targetLabel);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode createNode(Integer id, FunctionEnum functionType,
+            String label) throws InvalidArgument {
+        return kam.createNode(id, functionType, label);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeNode(KamNode kamNode) {
+        kam.removeNode(kamNode);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode replaceNode(KamNode kamNode, FunctionEnum function,
+            String label) {
+        return kam.replaceNode(kamNode, function, label);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode replaceNode(KamNode kamNode, KamNode replacement) {
+        return kam.replaceNode(kamNode, replacement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void collapseNode(KamNode from, KamNode to) {
+        kam.collapseNode(from, to);
+    }
+
     private Set<KamNode> wrapNodes(Collection<KamNode> nodes) {
         Set<KamNode> ret = new LinkedHashSet<KamNode>(nodes.size());
         for (KamNode n : nodes) {
@@ -504,5 +576,4 @@ public final class KamDialect implements Kam {
         }
 
     }
-
 }

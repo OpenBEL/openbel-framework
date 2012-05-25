@@ -175,11 +175,17 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return new EdgeFilter(this.kamInfo);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KamNode findNode(String label) {
         return findNode(label, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KamNode findNode(String label, NodeFilter filter) {
         for (KamNode kamNode : idNodeMap.values()) {
@@ -197,11 +203,17 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KamNode findNode(Integer kamNodeId) {
         return findNode(kamNodeId, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KamNode findNode(Integer kamNodeId, NodeFilter filter) {
         final KamNode kamNode = idNodeMap.get(kamNodeId);
@@ -220,9 +232,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param labelPattern
-     * @return {@link Set} of {@link KamNode KAM nodes}
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> findNode(Pattern labelPattern) {
@@ -230,9 +240,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     * @param labelPattern
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> findNode(Pattern labelPattern, NodeFilter filter) {
@@ -253,9 +261,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @return {@link Set} of {@link KamNode KAM nodes}
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode) {
@@ -263,13 +269,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     * Provides a list of nodes which are adjacent to the selected
-     * node. If edge direction is Forward, Node j is adjacent to node i if there
-     * is some edge (i,j) element of A in the graph, if graphDirection is Reverse
-     * the determination is the existence of some edge (j, i)
-     *
-     * @param kamNode
-     * @return {@link Set} of {@link KamNode KAM nodes}
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
@@ -278,11 +278,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param edgeDirection
-     * @param edgeFilter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
@@ -291,11 +287,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param edgeDirection
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
@@ -303,6 +295,9 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return getAdjacentNodes(kamNode, edgeDirection, null, filter);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeFilter edgeFilter, NodeFilter nodeFilter) {
@@ -311,12 +306,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param edgeDirection
-     * @param edgeFilter
-     * @param nodeFilter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
@@ -374,9 +364,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @return {@link Set} of {@link KamEdge KAM edges}
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode) {
@@ -384,10 +372,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode, EdgeFilter filter) {
@@ -395,10 +380,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param edgeDirection
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
@@ -407,10 +389,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @param edgeDirection
-     * @return {@link Set} of {@link KamEdge KAM edges}
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
@@ -448,10 +427,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param sourceNode
-     * @param targetNode
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode) {
@@ -459,11 +435,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param sourceNode
-     * @param targetNode
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode,
@@ -487,15 +459,16 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamEdgeId
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public KamEdge findEdge(Integer kamEdgeId) {
         return idEdgeMap.get(kamEdgeId);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public KamEdge findEdge(KamNode sourceNode,
             RelationshipType relationshipType, KamNode targetNode)
@@ -524,9 +497,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean contains(KamNode kamNode) {
@@ -534,9 +505,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamEdge
-     * @return boolean
+     * {@inheritDoc}
      */
     @Override
     public boolean contains(KamEdge kamEdge) {
@@ -544,14 +513,10 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamEdgeId
-     * @param sourceNode
-     * @param relationshipType
-     * @param targetNode
-     * @return
+     * {@inheritDoc}
      */
-    protected KamEdge createEdge(Integer kamEdgeId, KamNode sourceNode,
+    @Override
+    public KamEdge createEdge(Integer kamEdgeId, KamNode sourceNode,
             RelationshipType relationshipType, KamNode targetNode)
             throws InvalidArgument {
 
@@ -577,7 +542,11 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return kamEdge;
     }
 
-    protected void removeEdge(final KamEdge kamEdge) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeEdge(final KamEdge kamEdge) {
         // remove storage of kam edge
         idEdgeMap.remove(kamEdge.getId());
         edgeIdMap.remove(kamEdge);
@@ -590,7 +559,11 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         this.hashCode = generateHashCode();
     }
 
-    protected KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction,
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction,
             String sourceLabel,
             RelationshipType relationship, FunctionEnum targetFunction,
             String targetLabel) {
@@ -643,10 +616,6 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return replacement;
     }
 
-    /**
-     *
-     * @param kamEdge
-     */
     private void addEdge(KamEdge kamEdge) {
 
         // Save the edge
@@ -662,13 +631,10 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param id
-     * @param functionType
-     * @param label
-     * @return
+     * {@inheritDoc}
      */
-    protected KamNode createNode(Integer id, FunctionEnum functionType,
+    @Override
+    public KamNode createNode(Integer id, FunctionEnum functionType,
             String label) throws InvalidArgument {
 
         // See if the node already exists
@@ -686,7 +652,11 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return kamNode;
     }
 
-    protected void removeNode(KamNode kamNode) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeNode(KamNode kamNode) {
         idNodeMap.remove(kamNode.getId());
         nodeIdMap.remove(kamNode);
         nodeSourceMap.remove(kamNode);
@@ -696,12 +666,22 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         this.hashCode = generateHashCode();
     }
 
-    protected KamNode replaceNode(KamNode kamNode, FunctionEnum function,
-            String label) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode replaceNode(KamNode kamNode, FunctionEnum function, String label) {
         final int nodeId = kamNode.getId();
+        final KamNode replacement = new KamNodeImpl(this, nodeId, function, label);
+        return replaceNode(kamNode, replacement);
+    }
 
-        final KamNode replacement =
-                new KamNodeImpl(this, nodeId, function, label);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode replaceNode(KamNode kamNode, KamNode replacement) {
+        final int nodeId = kamNode.getId();
 
         // establish id to replacement node
         idNodeMap.put(nodeId, replacement);
@@ -718,9 +698,34 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param kamNode
+     * {@inheritDoc}
      */
+    @Override
+    public void collapseNode(final KamNode from, KamNode to) {
+        // redirect FROM's outgoing edges to TO
+        Set<KamEdge> edges = nodeSourceMap.get(from);
+        Set<KamEdge> dest = nodeSourceMap.get(to);
+        for (final KamEdge e : edges) {
+            ((KamEdgeImpl) e).setSourceNode(to);
+
+            edges.remove(e);
+            dest.add(e);
+        }
+
+        // redirect FROM's incoming edges to TO
+        edges = nodeTargetMap.get(from);
+        dest = nodeTargetMap.get(to);
+        for (final KamEdge e : edges) {
+            ((KamEdgeImpl) e).setTargetNode(to);
+
+            edges.remove(e);
+            dest.add(e);
+        }
+
+        // remove the FROM node
+        removeNode(from);
+    }
+
     private void addNode(KamNode kamNode) {
 
         // Add it to the id index
@@ -740,8 +745,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @return {@link Collection} of {@link KamEdge KAMEdges}
+     * {@inheritDoc}
      */
     @Override
     public Collection<KamEdge> getEdges() {
@@ -749,8 +753,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @return {@link Collection} of {@link KamNode KAMNodes}
+     * {@inheritDoc}
      */
     @Override
     public Collection<KamNode> getNodes() {
@@ -758,9 +761,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Collection<KamNode> getNodes(NodeFilter filter) {
@@ -779,9 +780,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     *
-     * @param filter
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Collection<KamEdge> getEdges(EdgeFilter filter) {
@@ -800,11 +799,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
     }
 
     /**
-     * Unions the set of edges with this Kam
-     *
-     * @param edges
-     * @return
-     * @throws InvalidArgument
+     * {@inheritDoc}
      */
     @Override
     public void union(Collection<KamEdge> kamEdges) throws InvalidArgument {
@@ -836,11 +831,17 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return this.hashCode != 0 ? hashCode : generateHashCode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -875,20 +876,20 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
      */
     public final class KamEdgeImpl extends KamElementImpl implements KamEdge {
 
-        private final KamNode sourceNode;
-        private final KamNode targetNode;
-        private final RelationshipType relationshipType;
+        private KamNode sourceNode;
+        private KamNode targetNode;
+        private RelationshipType relationshipType;
 
         /**
          * Precalculate the kam edge hash code since the object is immutable.
          */
-        private final int hashCode;
+        private int hashCode;
 
         /**
          * Precalculate the {@link KamEdge kam edge} label since the object
          * is immutable.
          */
-        private final String label;
+        private String label;
 
         /**
          * Private constructor to create a {@link KamEdge kam edge}.
@@ -922,6 +923,21 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         }
 
         /**
+         * Changes the {@link KamNode source node} for this
+         * {@link KamEdge edge}.  The {@link KamEdgeImpl#hashCode} and
+         * {@link KamEdgeImpl#label} is then regenerated to preserve the
+         * identity.
+         *
+         * @param sourceNode {@link KamNode} new node
+         */
+        private void setSourceNode(final KamNode sourceNode) {
+            this.sourceNode = sourceNode;
+
+            this.hashCode = generateHashCode();
+            this.label = generateLabel();
+        }
+
+        /**
          * Retrieve the {@link KamNode target node} of this edge.
          *
          * @return the {@link KamNode target node}
@@ -929,6 +945,21 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         @Override
         public KamNode getTargetNode() {
             return targetNode;
+        }
+
+        /**
+         * Changes the {@link KamNode target node} for this
+         * {@link KamEdge edge}.  The {@link KamEdgeImpl#hashCode} and
+         * {@link KamEdgeImpl#label} is then regenerated to preserve the
+         * identity.
+         *
+         * @param targetNode {@link KamNode} new node
+         */
+        private void setTargetNode(final KamNode targetNode) {
+            this.targetNode = targetNode;
+
+            this.hashCode = generateHashCode();
+            this.label = generateLabel();
         }
 
         /**

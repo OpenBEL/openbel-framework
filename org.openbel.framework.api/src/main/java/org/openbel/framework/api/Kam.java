@@ -45,14 +45,62 @@ import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
- * 
+ *
  * @author julianjray
  *
  */
 public interface Kam extends KamStoreObject {
 
+    public KamEdge createEdge(Integer kamEdgeId, KamNode sourceNode,
+            RelationshipType relationshipType, KamNode targetNode)
+            throws InvalidArgument;
+
+    public void removeEdge(final KamEdge kamEdge);
+
+    public KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction, String sourceLabel,
+            RelationshipType relationship, FunctionEnum targetFunction, String targetLabel);
+
+    public KamNode createNode(Integer id, FunctionEnum functionType,
+            String label) throws InvalidArgument;
+
+    public void removeNode(KamNode kamNode);
+
+    public KamNode replaceNode(KamNode kamNode, FunctionEnum function, String label);
+
+    public KamNode replaceNode(KamNode kamNode, KamNode replacement);
+
     /**
-     * 
+     * Remove the {@code from} {@link KamNode} and collapse its adjacent
+     * network to the {@code to} {@link KamNode}.  Any {@link KamEdge edges}
+     * shared between {@code from} and {@code to} are necessarily deleted.
+     *
+     * <p>
+     * For example given:
+     *
+     * <pre>
+     *    A -> B -> C
+     *         |
+     *         V
+     *    E <- D -> F
+     * </pre>
+     *
+     * if we replace {@code B} with {@code D} we end up with:
+     * <pre>
+     *    A -> D -> C
+     *        / \
+     *       v   v
+     *      E     F
+     * </pre>
+     * </p>
+     *
+     * @param from {@link KamNode} node to collapse
+     * @param to {@link KamNode} node that is preserved and subsumes the
+     * network of {@code from}
+     */
+    public void collapseNode(final KamNode from, KamNode to);
+
+    /**
+     *
      * @return {@link KamInfo}
      */
     KamInfo getKamInfo();
@@ -78,7 +126,7 @@ public interface Kam extends KamStoreObject {
     KamNode findNode(Integer kamNodeId, NodeFilter filter);
 
     /**
-     * 
+     *
      * @param labelPattern
      * @return {@link Set} of {@link KamNode KAM nodes}
      */
@@ -93,7 +141,7 @@ public interface Kam extends KamStoreObject {
             NodeFilter filter);
 
     /**
-     * 
+     *
      * @param kamNode
      * @return {@link Set} of {@link KamNode KAM nodes}
      */
@@ -101,10 +149,10 @@ public interface Kam extends KamStoreObject {
 
     /**
      * Provides a list of nodes which are adjacent to the selected
-     * node. If edge direction is Forward, Node j is adjacent to node i if there 
+     * node. If edge direction is Forward, Node j is adjacent to node i if there
      * is some edge (i,j) element of A in the graph, if graphDirection is Reverse
      * the determination is the existence of some edge (j, i)
-     * 
+     *
      * @param kamNode
      * @return {@link Set} of {@link KamNode KAM nodes}
      */
@@ -112,7 +160,7 @@ public interface Kam extends KamStoreObject {
             EdgeDirectionType edgeDirection);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param edgeDirection
      * @param edgeFilter
@@ -122,7 +170,7 @@ public interface Kam extends KamStoreObject {
             EdgeDirectionType edgeDirection, EdgeFilter edgeFilter);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param edgeDirection
      * @param filter
@@ -135,7 +183,7 @@ public interface Kam extends KamStoreObject {
             EdgeFilter edgeFilter, NodeFilter nodeFilter);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param edgeDirection
      * @param edgeFilter
@@ -147,14 +195,14 @@ public interface Kam extends KamStoreObject {
             NodeFilter nodeFilter);
 
     /**
-     * 
+     *
      * @param kamNode
      * @return {@link Set} of {@link KamEdge KAM edges}
      */
     Set<KamEdge> getAdjacentEdges(KamNode kamNode);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param filter
      * @return
@@ -163,7 +211,7 @@ public interface Kam extends KamStoreObject {
             EdgeFilter filter);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param edgeDirection
      * @return
@@ -172,7 +220,7 @@ public interface Kam extends KamStoreObject {
             EdgeDirectionType edgeDirection);
 
     /**
-     * 
+     *
      * @param kamNode
      * @param edgeDirection
      * @return {@link Set} of {@link KamEdge KAM edges}
@@ -181,7 +229,7 @@ public interface Kam extends KamStoreObject {
             EdgeDirectionType edgeDirection, EdgeFilter filter);
 
     /**
-     * 
+     *
      * @param sourceNode
      * @param targetNode
      * @return
@@ -189,7 +237,7 @@ public interface Kam extends KamStoreObject {
     Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode);
 
     /**
-     * 
+     *
      * @param sourceNode
      * @param targetNode
      * @param filter
@@ -199,7 +247,7 @@ public interface Kam extends KamStoreObject {
             KamNode targetNode, EdgeFilter filter);
 
     /**
-     * 
+     *
      * @param kamEdgeId
      * @return boolean
      */
@@ -210,40 +258,40 @@ public interface Kam extends KamStoreObject {
             throws InvalidArgument;
 
     /**
-     * 
+     *
      * @param kamNode
      * @return boolean
      */
     boolean contains(KamNode kamNode);
 
     /**
-     * 
+     *
      * @param kamEdge
      * @return boolean
      */
     boolean contains(KamEdge kamEdge);
 
     /**
-     * 
+     *
      * @return {@link Collection} of {@link KamEdge KAMEdges}
      */
     Collection<KamEdge> getEdges();
 
     /**
-     * 
+     *
      * @return {@link Collection} of {@link KamNode KAMNodes}
      */
     Collection<KamNode> getNodes();
 
     /**
-     * 
+     *
      * @param filter
      * @return
      */
     Collection<KamNode> getNodes(NodeFilter filter);
 
     /**
-     * 
+     *
      * @param filter
      * @return
      */
@@ -251,7 +299,7 @@ public interface Kam extends KamStoreObject {
 
     /**
      * Unions the set of edges with this Kam
-     * 
+     *
      * @param edges
      * @return
      * @throws InvalidArgument
@@ -268,13 +316,13 @@ public interface Kam extends KamStoreObject {
         Integer getId();
 
         /**
-         * 
+         *
          * @return {@link FunctionEnum}
          */
         FunctionEnum getFunctionType();
 
         /**
-         * 
+         *
          * @return {@link String}
          */
         String getLabel();
@@ -292,21 +340,21 @@ public interface Kam extends KamStoreObject {
 
         /**
          * Retrieve the {@link KamNode source node} of this edge.
-         * 
+         *
          * @return the {@link KamNode source node}
          */
         KamNode getSourceNode();
 
         /**
          * Retrieve the {@link KamNode target node} of this edge.
-         * 
+         *
          * @return the {@link KamNode target node}
          */
         KamNode getTargetNode();
 
         /**
          * Retrieve the {@link RelationshipType relationship} of this edge.
-         * 
+         *
          * @return the {@link RelationshipType relationship}
          */
         RelationshipType getRelationshipType();
