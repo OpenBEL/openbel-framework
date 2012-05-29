@@ -33,31 +33,25 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.api;
+package org.openbel.framework.internal;
 
-import java.util.List;
-
-import org.openbel.framework.api.Kam.KamNode;
-import org.openbel.framework.common.model.Namespace;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
 import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
-/**
- * {@link SpeciesDialect} constrains a {@link Kam kam} to a specific species.
- * The {@link SpeciesDialect species dialect} must provide the
- * {@link Namespace namespaces} that supported the target species.
- *
- * @see Namespaces#getSpeciesNamespaces(int)
- * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
- */
-public interface SpeciesDialect {
+public class KamStoreUtil {
 
-    public String getLabel(KamNode kamNode, TermParameter speciesParam);
+    public static BelTerm createBelTerm(final Integer id, final String lbl) {
+        return new BelTerm(id, lbl);
+    }
 
-    /**
-     * Returns the {@link Namespace namespaces} that identify the target
-     * species for this {@link SpeciesDialect species dialect}.
-     *
-     * @return {@link List} of {@link Namespace}
-     */
-    public List<Namespace> getSpeciesNamespaces();
+    public static Namespace createNamespace(final Integer id,
+            final String prefix, final String resourceLocation) {
+        return new Namespace(id, prefix, resourceLocation);
+    }
+
+    public static TermParameter createTermParameter(final Integer id,
+            Namespace ns, String value) {
+        return new TermParameter(id, ns, value);
+    }
 }

@@ -406,6 +406,14 @@ public final class KamDialect implements Kam {
      * {@inheritDoc}
      */
     @Override
+    public KamEdge replaceEdge(KamEdge kamEdge, KamEdge replacement) {
+        return kam.replaceEdge(kamEdge, replacement);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public KamNode createNode(Integer id, FunctionEnum functionType,
             String label) throws InvalidArgument {
         return kam.createNode(id, functionType, label);
@@ -474,7 +482,7 @@ public final class KamDialect implements Kam {
         return kamEdge == null ? null : new KamDialectEdge(kamEdge);
     }
 
-    private final class KamDialectNode implements KamNode {
+    protected final class KamDialectNode implements KamNode {
         private final KamNode kamNode;
 
         protected KamDialectNode(KamNode kamNode) {
@@ -521,9 +529,16 @@ public final class KamDialect implements Kam {
             return kamNode.equals(obj);
         }
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            return getLabel();
+        }
     }
 
-    private final class KamDialectEdge implements KamEdge {
+    protected final class KamDialectEdge implements KamEdge {
         private final KamEdge kamEdge;
 
         protected KamDialectEdge(KamEdge kamEdge) {
@@ -575,5 +590,18 @@ public final class KamDialect implements Kam {
             return kamEdge.equals(obj);
         }
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(getSourceNode().toString());
+            sb.append(" ");
+            sb.append(getRelationshipType().getDisplayValue());
+            sb.append(" ");
+            sb.append(getTargetNode().toString());
+            return sb.toString();
+        }
     }
 }

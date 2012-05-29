@@ -2448,7 +2448,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         private final Namespace namespace;
         private final String parameterValue;
 
-        private TermParameter(Integer id, Namespace namespace,
+        protected TermParameter(Integer id, Namespace namespace,
                 String parameterValue) {
             super(null, id);
             this.namespace = namespace;
@@ -2734,7 +2734,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         private final String prefix;
         private final String resourceLocation;
 
-        private Namespace(Integer namespaceId, String prefix,
+        protected Namespace(Integer namespaceId, String prefix,
                 String resourceLocation) {
             super(namespaceId);
             this.prefix = prefix;
@@ -3202,7 +3202,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
     public final static class BelTerm extends BelElement {
         private final String label;
 
-        private BelTerm(Integer belTermId, String label) {
+        protected BelTerm(Integer belTermId, String label) {
             super(belTermId);
             this.label = label;
         }

@@ -60,6 +60,8 @@ public interface Kam extends KamStoreObject {
     public KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction, String sourceLabel,
             RelationshipType relationship, FunctionEnum targetFunction, String targetLabel);
 
+    public KamEdge replaceEdge(final KamEdge kamEdge, final KamEdge replacement);
+
     public KamNode createNode(Integer id, FunctionEnum functionType,
             String label) throws InvalidArgument;
 

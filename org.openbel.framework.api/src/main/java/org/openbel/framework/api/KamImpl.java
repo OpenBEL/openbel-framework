@@ -559,6 +559,49 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         this.hashCode = generateHashCode();
     }
 
+    public KamEdge replaceEdge(final KamEdge kamEdge, final KamEdge replacement) {
+        // replace source node
+        final int sourceNodeId = kamEdge.getSourceNode().getId();
+
+        // establish id to replacement node
+        idNodeMap.put(sourceNodeId, replacement.getSourceNode());
+        nodeIdMap.put(replacement.getSourceNode(), sourceNodeId);
+
+        //replace target node
+        final int targetNodeId = kamEdge.getTargetNode().getId();
+
+        // establish id to replacement node
+        idNodeMap.put(targetNodeId, replacement.getTargetNode());
+        nodeIdMap.put(replacement.getTargetNode(), targetNodeId);
+
+        final int edgeId = kamEdge.getId();
+
+        // establish id to replacement edge
+        idEdgeMap.put(edgeId, replacement);
+        edgeIdMap.put(replacement, edgeId);
+
+        // reconnect network
+        Set<KamEdge> sourceOutgoing =
+                nodeSourceMap.remove(kamEdge.getSourceNode());
+        sourceOutgoing.remove(kamEdge);
+        sourceOutgoing.add(replacement);
+        nodeSourceMap.put(replacement.getSourceNode(), sourceOutgoing);
+        Set<KamEdge> targetIncoming =
+                nodeTargetMap.remove(kamEdge.getTargetNode());
+        targetIncoming.remove(kamEdge);
+        targetIncoming.add(replacement);
+        nodeTargetMap.put(replacement.getTargetNode(), targetIncoming);
+
+        Set<KamEdge> sourceIncoming =
+                nodeTargetMap.remove(kamEdge.getSourceNode());
+        nodeTargetMap.put(replacement.getSourceNode(), sourceIncoming);
+
+        Set<KamEdge> targetOutgoing =
+                nodeSourceMap.remove(kamEdge.getTargetNode());
+        nodeSourceMap.put(replacement.getTargetNode(), targetOutgoing);
+        return replacement;
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -1,3 +1,38 @@
+/**
+ * Copyright (C) 2012 Selventa, Inc.
+ *
+ * This file is part of the OpenBEL Framework.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The OpenBEL Framework is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Additional Terms under LGPL v3:
+ *
+ * This license does not authorize you and you are prohibited from using the
+ * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
+ * or, in the discretion of other licensors or authors of the program, the
+ * name, trademarks, service marks, logos or similar indicia of such authors or
+ * licensors, in any marketing or advertising materials relating to your
+ * distribution of the program or any covered product. This restriction does
+ * not waive or limit your obligation to keep intact all copyright notices set
+ * forth in the program as delivered to you.
+ *
+ * If you distribute the program in whole or in part, or any modified version
+ * of the program, and you assume contractual liability to the recipient with
+ * respect to the program or modified version, then you will indemnify the
+ * authors and licensors of the program for any liabilities that these
+ * contractual assumptions directly impose on those licensors and authors.
+ */
 package org.openbel.framework.api;
 
 import static org.openbel.framework.api.EdgeDirectionType.FORWARD;
@@ -29,6 +64,13 @@ import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
 import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
+/**
+ * {@link KamSpecies} defines a {@link Kam kam} that provides a
+ * species-specific view using a {@link SpeciesDialect species dialect}.
+ *
+ * @see SpeciesDialect
+ * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
+ */
 public class KamSpecies implements Kam {
 
     private static final RelationshipType[] RELS = new RelationshipType[] {
@@ -40,20 +82,25 @@ public class KamSpecies implements Kam {
     /**
      * The original {@link Kam kam} to base species-specific filtering on.
      */
-    private final KamDialect kam;
+    private final Kam kam;
+
+    private final KamDialect kamDialect;
 
     /**
      * Defines {@link KamEdge KAM edges} that should be traversed when
      * inferring orthologous relationships.
      */
     private final EdgeFilter inferFilter;
-
-    private SpeciesDialect speciesDialect;
-
-    private KamStore kamStore;
+    private final SpeciesDialect speciesDialect;
+    private final KamStore kamStore;
 
     private Map<Integer, Integer> onodes;
-    private Map<Integer, String> sparams;
+    private Map<Integer, TermParameter> speciesParams;
+    private Map<Integer, TermParameter> nodeParamMap =
+            new HashMap<Integer, TermParameter>();
+    private Map<Integer, TermParameter> edgeParamMap =
+            new HashMap<Integer, TermParameter>();
+
 
     /**
      * Constructs a {@link SpeciesKam species-specific kam} from another
@@ -69,18 +116,18 @@ public class KamSpecies implements Kam {
      * </ol>
      *
      * @param kam {@link Kam}, which cannot be {@code null}
-     * @param onodes {@link Set} of {@link Integer kam node id} for
-     * orthologous node, which cannot be {@code null}
      * @throws KamStoreException
      * @throws InvalidArgument Thrown if {@code kam} or {@code orthoEdges} is
      * {@code null}
      */
     public KamSpecies(final Kam kam,
             final SpeciesDialect speciesDialect,
-            final KamStore kamStore) throws InvalidArgument, KamStoreException {
+            final Dialect defaultDialect,
+            final KamStore kamStore) throws KamStoreException {
+        this.kam = kam;
+        this.kamDialect = new KamDialect(kam, defaultDialect);
         this.speciesDialect = speciesDialect;
         this.kamStore = kamStore;
-        this.kam = new KamDialect(kam, speciesDialect);
 
         findOrthologs();
 
@@ -99,7 +146,7 @@ public class KamSpecies implements Kam {
 
         replaceOrthologousEdges(kam, onodes);
         removeOrthologousNodes(onodes);
-        inferOrthologs(species, sparams);
+        inferOrthologs(species);
     }
 
     /**
@@ -139,7 +186,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode findNode(String label) {
-        return kam.findNode(label);
+        return findNode(label, null);
     }
 
     /**
@@ -147,7 +194,17 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode findNode(String label, NodeFilter filter) {
-        return kam.findNode(label, filter);
+        for (KamNode kamNode : getNodes()) {
+            boolean passedFilter = (filter == null || filter.accept(kamNode));
+
+            if (passedFilter) {
+                String nodeLabel = kamNode.getLabel();
+                if (nodeLabel.equalsIgnoreCase(label)) {
+                    return kamNode;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -155,7 +212,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode findNode(Integer kamNodeId) {
-        return kam.findNode(kamNodeId);
+        return findNode(kamNodeId, null);
     }
 
     /**
@@ -163,7 +220,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode findNode(Integer kamNodeId, NodeFilter filter) {
-        return kam.findNode(kamNodeId, filter);
+        return wrapNode(kam.findNode(kamNodeId, filter));
     }
 
     /**
@@ -171,7 +228,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamNode> findNode(Pattern labelPattern) {
-        return kam.findNode(labelPattern);
+        return findNode(labelPattern, null);
     }
 
     /**
@@ -179,7 +236,15 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamNode> findNode(Pattern labelPattern, NodeFilter filter) {
-        return kam.findNode(labelPattern, filter);
+        Set<KamNode> results = new LinkedHashSet<KamNode>();
+        for (KamNode node : getNodes()) {
+            boolean passedFilter = (filter == null || filter.accept(node));
+
+            if (passedFilter && labelPattern.matcher(node.getLabel()).matches()) {
+                results.add(node);
+            }
+        }
+        return results;
     }
 
     /**
@@ -187,7 +252,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode) {
-        return kam.getAdjacentNodes(kamNode);
+        return wrapNodes(kam.getAdjacentNodes(kamNode));
     }
 
     /**
@@ -196,7 +261,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection) {
-        return kam.getAdjacentNodes(kamNode, edgeDirection);
+        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection));
     }
 
     /**
@@ -205,7 +270,8 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter edgeFilter) {
-        return kam.getAdjacentNodes(kamNode, edgeDirection, edgeFilter);
+        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection,
+                edgeFilter));
     }
 
     /**
@@ -214,7 +280,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, NodeFilter filter) {
-        return kam.getAdjacentNodes(kamNode, edgeDirection, filter);
+        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection, filter));
     }
 
     /**
@@ -223,7 +289,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeFilter edgeFilter, NodeFilter nodeFilter) {
-        return kam.getAdjacentNodes(kamNode, edgeFilter, nodeFilter);
+        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeFilter, nodeFilter));
     }
 
     /**
@@ -233,8 +299,8 @@ public class KamSpecies implements Kam {
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter edgeFilter,
             NodeFilter nodeFilter) {
-        return kam.getAdjacentNodes(kamNode, edgeDirection, edgeFilter,
-                nodeFilter);
+        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection,
+                edgeFilter, nodeFilter));
     }
 
     /**
@@ -242,7 +308,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode) {
-        return kam.getAdjacentEdges(kamNode);
+        return wrapEdges(kam.getAdjacentEdges(kamNode));
     }
 
     /**
@@ -250,7 +316,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode, EdgeFilter filter) {
-        return kam.getAdjacentEdges(kamNode, filter);
+        return wrapEdges(kam.getAdjacentEdges(kamNode, filter));
     }
 
     /**
@@ -259,7 +325,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
             EdgeDirectionType edgeDirection) {
-        return kam.getAdjacentEdges(kamNode, edgeDirection);
+        return wrapEdges(kam.getAdjacentEdges(kamNode, edgeDirection));
     }
 
     /**
@@ -268,7 +334,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter filter) {
-        return kam.getAdjacentEdges(kamNode, edgeDirection, filter);
+        return wrapEdges(kam.getAdjacentEdges(kamNode, edgeDirection, filter));
     }
 
     /**
@@ -276,7 +342,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode) {
-        return kam.getEdges(sourceNode, targetNode);
+        return wrapEdges(kam.getEdges(sourceNode, targetNode));
     }
 
     /**
@@ -285,7 +351,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode,
             EdgeFilter filter) {
-        return kam.getEdges(sourceNode, targetNode, filter);
+        return wrapEdges(kam.getEdges(sourceNode, targetNode, filter));
     }
 
     /**
@@ -293,7 +359,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamEdge findEdge(Integer kamEdgeId) {
-        return kam.findEdge(kamEdgeId);
+        return wrapEdge(kam.findEdge(kamEdgeId));
     }
 
     /**
@@ -303,7 +369,7 @@ public class KamSpecies implements Kam {
     public KamEdge findEdge(KamNode sourceNode,
             RelationshipType relationshipType, KamNode targetNode)
             throws InvalidArgument {
-        return kam.findEdge(sourceNode, relationshipType, targetNode);
+        return wrapEdge(kam.findEdge(sourceNode, relationshipType, targetNode));
     }
 
     /**
@@ -326,16 +392,8 @@ public class KamSpecies implements Kam {
      * {@inheritDoc}
      */
     @Override
-    public Collection<KamEdge> getEdges() {
-        return kam.getEdges();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Collection<KamNode> getNodes() {
-        return kam.getNodes();
+        return wrapNodes(kam.getNodes());
     }
 
     /**
@@ -343,7 +401,15 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamNode> getNodes(NodeFilter filter) {
-        return kam.getNodes(filter);
+        return wrapNodes(kam.getNodes(filter));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<KamEdge> getEdges() {
+        return wrapEdges(kam.getEdges());
     }
 
     /**
@@ -351,7 +417,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamEdge> getEdges(EdgeFilter filter) {
-        return kam.getEdges(filter);
+        return wrapEdges(kam.getEdges(filter));
     }
 
     /**
@@ -359,7 +425,9 @@ public class KamSpecies implements Kam {
      */
     @Override
     public void union(Collection<KamEdge> kamEdges) throws InvalidArgument {
-        kam.union(kamEdges);
+        // TODO does this need to be implemented?
+        throw new UnsupportedOperationException(
+                "union() is not supported by DialectKam");
     }
 
     /**
@@ -390,6 +458,14 @@ public class KamSpecies implements Kam {
             FunctionEnum targetFunction, String targetLabel) {
         return kam.replaceEdge(kamEdge, sourceFunction, sourceLabel,
                 relationship, targetFunction, targetLabel);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamEdge replaceEdge(KamEdge kamEdge, KamEdge replacement) {
+        return kam.replaceEdge(kamEdge, replacement);
     }
 
     /**
@@ -434,7 +510,64 @@ public class KamSpecies implements Kam {
         kam.collapseNode(from, to);
     }
 
-    private void findOrthologs() throws InvalidArgument, KamStoreException {
+    private Set<KamNode> wrapNodes(Collection<KamNode> nodes) {
+        Set<KamNode> ret = new LinkedHashSet<KamNode>(nodes.size());
+        for (KamNode n : nodes) {
+            KamNode w = wrapNode(n);
+            if (w != null) {
+                ret.add(w);
+            }
+        }
+        return ret;
+    }
+
+    private Set<KamEdge> wrapEdges(Collection<KamEdge> edges) {
+        Set<KamEdge> ret = new LinkedHashSet<KamEdge>(edges.size());
+        for (KamEdge e : edges) {
+            KamEdge w = wrapEdge(e);
+            if (w != null) {
+                ret.add(w);
+            }
+        }
+        return ret;
+    }
+
+    private KamNode wrapNode(KamNode kamNode) {
+        if (kamNode == null) {
+            return null;
+        }
+
+        TermParameter param = nodeParamMap.get(kamNode.getId());
+        if (param != null) {
+            return new OrthologousNode(kamNode, param);
+        }
+
+        return kamDialect.new KamDialectNode(kamNode);
+    }
+
+    private KamEdge wrapEdge(KamEdge kamEdge) {
+        if (kamEdge == null) {
+            return null;
+        }
+
+        TermParameter param = edgeParamMap.get(kamEdge.getId());
+        if (param != null) {
+            return new OrthologousEdge(kamEdge, param);
+        }
+
+        return kamDialect.new KamDialectEdge(kamEdge);
+    }
+
+    /**
+     * Find orthologous {@link KamNode nodes} for the target species namespaces
+     * using {@link SpeciesDialect#getSpeciesNamespaces()}.  Once the orthologs
+     * are found the {@link KamEdge edges} for the opposite orthologs are
+     * tracked.
+     *
+     * @throws KamStoreException Thrown if an error occurred accessing
+     * {@link BelTerm terms} from the {@link KamStore kam store}
+     */
+    private void findOrthologs() throws KamStoreException {
         // create resource location set for species namespaces
         final List<org.openbel.framework.common.model.Namespace> spl = speciesDialect
                 .getSpeciesNamespaces();
@@ -447,7 +580,7 @@ public class KamSpecies implements Kam {
         final Map<Integer, Set<Integer>> oedges =
                 new LinkedHashMap<Integer, Set<Integer>>();
         onodes = new LinkedHashMap<Integer, Integer>();
-        sparams = new HashMap<Integer, String>();
+        speciesParams = new HashMap<Integer, TermParameter>();
         for (final KamEdge e : edges) {
             // only evaluate orthologous edges
             if (ORTHOLOGOUS.equals(e.getRelationshipType())) {
@@ -475,10 +608,7 @@ public class KamSpecies implements Kam {
 
                     Integer speciesNodeId = sn.getId();
                     onodes.put(tn.getId(), speciesNodeId);
-
-                    String param = speciesParam.getNamespace().getPrefix()
-                            + ":" + speciesParam.getParameterValue();
-                    sparams.put(speciesNodeId, param);
+                    speciesParams.put(speciesNodeId, speciesParam);
                     continue;
                 }
 
@@ -503,10 +633,7 @@ public class KamSpecies implements Kam {
 
                     Integer speciesNodeId = tn.getId();
                     onodes.put(sn.getId(), speciesNodeId);
-
-                    String param = speciesParam.getNamespace().getPrefix()
-                            + ":" + speciesParam.getParameterValue();
-                    sparams.put(speciesNodeId, param);
+                    speciesParams.put(speciesNodeId, speciesParam);
                 }
             }
         }
@@ -527,8 +654,7 @@ public class KamSpecies implements Kam {
      * determined while retrieving supporting terms or parameters
      */
     private TermParameter findParameter(final KamNode node,
-            final Set<String> rlocs) throws InvalidArgument,
-            KamStoreException {
+            final Set<String> rlocs) throws KamStoreException {
 
         // no resource locations to match against, no match
         if (noItems(rlocs)) {
@@ -634,17 +760,16 @@ public class KamSpecies implements Kam {
      * @param species {@link Set} of {@link Integer} species replacement node
      * ids
      */
-    private void inferOrthologs(final Set<Integer> species,
-            final Map<Integer, String> sparams) {
+    private void inferOrthologs(final Set<Integer> species) {
         for (final Integer sid : species) {
             final KamNode snode = findNode(sid);
-            final String sparam = sparams.get(snode.getId());
+            final TermParameter param = speciesParams.get(snode.getId());
 
             // recurse incoming connectsion from species node
-            recurseConnections(snode, sparam, REVERSE);
+            recurseConnections(snode, param, REVERSE);
 
             // recurse outgoing connections from species node
-            recurseConnections(snode, sparam, FORWARD);
+            recurseConnections(snode, param, FORWARD);
         }
     }
 
@@ -660,11 +785,11 @@ public class KamSpecies implements Kam {
      * </p>
      *
      * @param snode {@link KamNode} species node to walk from
-     * @param sparams
+     * @param param {@link TermParameter} for orthologous species node
      * @param direction {@link EdgeDirectionType} direction to walk
      */
     private void recurseConnections(final KamNode snode,
-            String sparam, final EdgeDirectionType direction) {
+            TermParameter param, final EdgeDirectionType direction) {
         // map edges
         final Set<KamEdge> out = getAdjacentEdges(snode, direction, inferFilter);
         final Map<RelationshipType, Set<KamEdge>> emap = mapEdges(out);
@@ -686,11 +811,12 @@ public class KamSpecies implements Kam {
 
                     if (collapseNodes(collapseTo, n, e.getRelationshipType())) {
                         kam.collapseNode(n, collapseTo);
-                        kam.replaceNode(n, new OrthologousNode(n, sparam));
                     }
                 }
 
-                recurseConnections(collapseTo, sparam, direction);
+                nodeParamMap.put(collapseTo.getId(), param);
+                edgeParamMap.put(first.getId(), param);
+                recurseConnections(collapseTo, param, direction);
             }
         }
     }
@@ -740,14 +866,17 @@ public class KamSpecies implements Kam {
         return emap;
     }
 
-    private final class OrthologousNode implements KamNode {
+    protected final class OrthologousNode implements KamNode {
 
         private final KamNode node;
-        private final String label;
+        private final TermParameter speciesParameter;
+        private final int hashCode;
 
-        private OrthologousNode(final KamNode node, final String label) {
+        private OrthologousNode(final KamNode node,
+                final TermParameter speciesParameter) {
             this.node = node;
-            this.label = label;
+            this.speciesParameter = speciesParameter;
+            this.hashCode = generateHashCode();
         }
 
         @Override
@@ -767,17 +896,203 @@ public class KamSpecies implements Kam {
 
         @Override
         public String getLabel() {
-            return label;
+            return speciesDialect.getLabel(node, speciesParameter);
         }
 
+        public TermParameter getSpeciesParameter() {
+            return speciesParameter;
+        }
+
+        /**
+         * Generates the <tt>hashCode</tt> value for this immutable node.
+         *
+         * <p>
+         * This is used to calculate the hashCode once on construction.
+         * </p>
+         *
+         * @return the <tt>int</tt> hashCode
+         */
+        private int generateHashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + getKam().hashCode();
+            result = prime
+                    * result
+                    + ((getFunctionType() == null) ? 0 : getFunctionType()
+                            .hashCode());
+            result = prime * result
+                    + ((getLabel() == null) ? 0 : getLabel().hashCode());
+            return result;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int hashCode() {
-            return node.hashCode();
+            return hashCode;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!KamNode.class.isAssignableFrom(obj.getClass())) {
+                return false;
+            }
+            KamNode other = (KamNode) obj;
+            if (!getKam().equals(other.getKam())) {
+                return false;
+            }
+            if (getId() == null) {
+                if (other.getId() != null) {
+                    return false;
+                }
+            } else if (!getId().equals(other.getId())) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            return getLabel();
+        }
+    }
+
+    private final class OrthologousEdge implements KamEdge {
+
+        private final KamEdge kamEdge;
+        private final TermParameter speciesParameter;
+        private final int hashCode;
+
+        protected OrthologousEdge(final KamEdge kamEdge,
+                final TermParameter speciesParameter) {
+            this.kamEdge = kamEdge;
+            this.speciesParameter = speciesParameter;
+
+            this.hashCode = generateHashCode();
         }
 
         @Override
-        public boolean equals(Object o) {
-            return node.equals(o);
+        public Kam getKam() {
+            return kamEdge.getKam();
+        }
+
+        @Override
+        public Integer getId() {
+            return kamEdge.getId();
+        }
+
+        @Override
+        public KamNode getSourceNode() {
+            return new OrthologousNode(kamEdge.getSourceNode(),
+                    speciesParameter);
+        }
+
+        @Override
+        public KamNode getTargetNode() {
+            return new OrthologousNode(kamEdge.getTargetNode(),
+                    speciesParameter);
+        }
+
+        @Override
+        public RelationshipType getRelationshipType() {
+            return kamEdge.getRelationshipType();
+        }
+
+        /**
+         * Generates the <tt>hashCode</tt> value for this immutable edge.
+         *
+         * <p>
+         * This is used to calculate the hashCode once on construction.
+         * </p>
+         *
+         * @return the <tt>int</tt> hashCode
+         */
+        private int generateHashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + getKam().hashCode();
+            result = prime
+                    * result
+                    + ((getRelationshipType() == null) ? 0 : getRelationshipType()
+                            .hashCode());
+            result = prime * result
+                    + ((getSourceNode() == null) ? 0 : getSourceNode().hashCode());
+            result = prime * result
+                    + ((getTargetNode() == null) ? 0 : getTargetNode().hashCode());
+            return result;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int hashCode() {
+            return hashCode;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(KamEdge.class.isAssignableFrom(obj.getClass()))) {
+                return false;
+            }
+            KamEdge other = (KamEdge) obj;
+            if (!getKam().equals(other.getKam())) {
+                return false;
+            }
+            if (getRelationshipType() != other.getRelationshipType()) {
+                return false;
+            }
+            if (getSourceNode() == null) {
+                if (other.getSourceNode() != null) {
+                    return false;
+                }
+            } else if (!getSourceNode().equals(other.getSourceNode())) {
+                return false;
+            }
+            if (getTargetNode() == null) {
+                if (other.getTargetNode() != null) {
+                    return false;
+                }
+            } else if (!getTargetNode().equals(other.getTargetNode())) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append(getSourceNode().toString());
+            sb.append(" ");
+            sb.append(getRelationshipType().getDisplayValue());
+            sb.append(" ");
+            sb.append(getTargetNode().toString());
+            return sb.toString();
         }
     }
 }
