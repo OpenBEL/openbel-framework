@@ -7,15 +7,15 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.api.KamStoreImpl;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
 
 public class KAMStoreTest {
 
