@@ -302,8 +302,10 @@ public class TestEndPointKamHandleValidation {
             setHandle = request.getClass().getDeclaredMethod(setHandleMethodName, KamHandle.class);
         } catch (NoSuchMethodException e) {
             fail("Caught NoSuchMethodException:  " + e.getMessage());
+            return;
         } catch (SecurityException e) {
             fail("Caught SecurityException:  " + e.getMessage());
+            return;
         }
 
         try {
