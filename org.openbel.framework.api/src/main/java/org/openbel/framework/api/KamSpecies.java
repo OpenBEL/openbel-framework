@@ -801,6 +801,8 @@ public class KamSpecies implements Kam {
             final Set<KamEdge> edges = entry.getValue();
 
             if (edges.size() > 1) {
+                // XXX Fails for different activities.
+                
                 final Iterator<KamEdge> it = edges.iterator();
                 final KamEdge first = it.next();
                 final KamNode collapseTo = first.getTargetNode();
