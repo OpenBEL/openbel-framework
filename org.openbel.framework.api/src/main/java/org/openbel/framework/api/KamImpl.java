@@ -535,9 +535,6 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         if (!edgeIdMap.containsKey(kamEdge)) {
             // add this edge into the graph
             addEdge(kamEdge);
-        } else {
-            throw new InvalidArgument(
-                    "edge is already in graph. Can't add duplicates!");
         }
         return kamEdge;
     }
@@ -559,6 +556,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         this.hashCode = generateHashCode();
     }
 
+    @Override
     public KamEdge replaceEdge(final KamEdge kamEdge, final KamEdge replacement) {
         // replace source node
         final int sourceNodeId = kamEdge.getSourceNode().getId();
