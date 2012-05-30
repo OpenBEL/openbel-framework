@@ -73,7 +73,7 @@ public class DefaultDialect implements Dialect {
      * @param kamInfo
      * @param kamStore
      */
-    DefaultDialect(KamInfo kamInfo, KamStore kamStore, boolean displayLongForm) {
+    public DefaultDialect(KamInfo kamInfo, KamStore kamStore, boolean displayLongForm) {
         this.kamInfo = kamInfo;
         this.kamStore = kamStore;
         this.displayLongForm = displayLongForm;
