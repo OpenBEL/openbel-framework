@@ -1,122 +1,157 @@
-/**
- * Copyright (C) 2012 Selventa, Inc.
- *
- * This file is part of the OpenBEL Framework.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
- */
 package org.openbel.framework.tools;
 
 import static java.lang.String.format;
+import static java.lang.System.currentTimeMillis;
 import static org.openbel.framework.common.BELUtilities.asPath;
-import static org.openbel.framework.common.Strings.KAM_DESCRIPTION_HELP;
-import static org.openbel.framework.common.Strings.KAM_NAME_HELP;
-import static org.openbel.framework.common.Strings.MISSING_KAM_DESCRIPTION;
-import static org.openbel.framework.common.Strings.MISSING_KAM_NAME;
+import static org.openbel.framework.common.BELUtilities.createDirectories;
+import static org.openbel.framework.common.BELUtilities.hasItems;
+import static org.openbel.framework.common.BELUtilities.noItems;
+import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 import static org.openbel.framework.common.Strings.NOT_A_DIRECTORY;
-import static org.openbel.framework.common.Strings.NO_PRESERVE_HELP;
+import static org.openbel.framework.common.Strings.PHASE4_DESCRIPTION;
+import static org.openbel.framework.common.Strings.PHASE4_NAME;
+import static org.openbel.framework.common.Strings.PHASE4_NO_ORTHOLOGY_HELP;
+import static org.openbel.framework.common.Strings.PHASE4_NO_ORTHOLOGY_LONG_OPTION;
+import static org.openbel.framework.common.Strings.PHASE4_SHORT_NAME;
 import static org.openbel.framework.common.Strings.PHASE4_STAGE1_HDR;
+import static org.openbel.framework.common.Strings.PHASE4_STAGE2_HDR;
+import static org.openbel.framework.common.Strings.PHASE4_STAGE3_HDR;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
+import static org.openbel.framework.common.enums.ExitCode.NO_CONVERTED_DOCUMENTS;
+import static org.openbel.framework.common.enums.ExitCode.NO_PROTO_NETWORKS_SAVED;
+import static org.openbel.framework.common.enums.ExitCode.NO_VALID_DOCUMENTS;
+import static org.openbel.framework.core.df.cache.ResourceType.BEL;
+import static org.openbel.framework.core.df.cache.ResourceType.fromLocation;
 import static org.openbel.framework.tools.PhaseFourOptions.phaseFourOptions;
 
 import java.io.File;
-import java.util.Date;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
+import javax.xml.stream.XMLStreamException;
+
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.common.enums.ExitCode;
+import org.openbel.framework.common.index.Index;
+import org.openbel.framework.common.index.ResourceIndex;
+import org.openbel.framework.common.index.ResourceLocation;
+import org.openbel.framework.common.model.DataFileIndex;
+import org.openbel.framework.common.model.Document;
+import org.openbel.framework.common.model.EquivalenceDataIndex;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.util.BELPathFilters.GlobalProtonetworkFilter;
-import org.openbel.framework.compiler.DefaultPhaseFour;
+import org.openbel.framework.compiler.DefaultPhaseOne;
+import org.openbel.framework.compiler.DefaultPhaseOne.Stage1Output;
+import org.openbel.framework.compiler.DefaultPhaseThree;
+import org.openbel.framework.compiler.DefaultPhaseTwo;
 import org.openbel.framework.compiler.PhaseFourImpl;
-import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
-import org.openbel.framework.compiler.kam.KAMStoreSchemaServiceImpl;
-import org.openbel.framework.core.compiler.CreateKAMFailure;
-import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.DatabaseError;
-import org.openbel.framework.core.df.DatabaseService;
-import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.core.kam.KAMCatalogFailure;
+import org.openbel.framework.compiler.PhaseOneImpl;
+import org.openbel.framework.compiler.PhaseThreeImpl;
+import org.openbel.framework.compiler.PhaseTwoImpl;
+import org.openbel.framework.compiler.DefaultPhaseFour;
+import org.openbel.framework.core.BELConverterService;
+import org.openbel.framework.core.BELConverterServiceImpl;
+import org.openbel.framework.core.BELValidatorService;
+import org.openbel.framework.core.BELValidatorServiceImpl;
+import org.openbel.framework.core.XBELConverterService;
+import org.openbel.framework.core.XBELValidatorService;
+import org.openbel.framework.core.annotation.AnnotationDefinitionService;
+import org.openbel.framework.core.annotation.AnnotationService;
+import org.openbel.framework.core.annotation.DefaultAnnotationDefinitionService;
+import org.openbel.framework.core.annotation.DefaultAnnotationService;
+import org.openbel.framework.core.compiler.SemanticService;
+import org.openbel.framework.core.compiler.SemanticServiceImpl;
+import org.openbel.framework.core.compiler.ValidationError;
+import org.openbel.framework.core.compiler.expansion.ExpansionService;
+import org.openbel.framework.core.compiler.expansion.ExpansionServiceImpl;
+import org.openbel.framework.core.df.cache.CacheLookupService;
+import org.openbel.framework.core.df.cache.CacheableResourceService;
+import org.openbel.framework.core.df.cache.DefaultCacheLookupService;
+import org.openbel.framework.core.df.cache.DefaultCacheableResourceService;
+import org.openbel.framework.core.df.cache.ResolvedResource;
+import org.openbel.framework.core.df.cache.ResourceType;
+import org.openbel.framework.core.equivalence.EquivalenceIndexerService;
+import org.openbel.framework.core.equivalence.EquivalenceIndexerServiceImpl;
+import org.openbel.framework.core.equivalence.EquivalenceMapResolutionFailure;
+import org.openbel.framework.core.indexer.JDBMEquivalenceLookup;
+import org.openbel.framework.core.namespace.DefaultNamespaceService;
+import org.openbel.framework.core.namespace.NamespaceIndexerService;
+import org.openbel.framework.core.namespace.NamespaceIndexerServiceImpl;
+import org.openbel.framework.core.namespace.NamespaceService;
+import org.openbel.framework.core.protocol.ResourceDownloadError;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkDescriptor;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkExternalizer;
-import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
-import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.core.protonetwork.ProtoNetworkExternalizer;
+import org.openbel.framework.core.protonetwork.ProtoNetworkService;
+import org.openbel.framework.core.protonetwork.ProtoNetworkServiceImpl;
+import org.openbel.framework.core.protonetwork.TextProtoNetworkExternalizer;
 
 /**
- * BEL phase four compiler.
+ * {@link PhaseFourApplication} defines the BEL compiler phase four
+ * {@link PhaseApplication phase application}.
  *
- * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
+ * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
-public final class PhaseFourApplication extends PhaseApplication {
-    private final static String SHORT_OPT_KAM_NAME = "k";
-    private final static String LONG_OPT_KAM_NAME = "kam-name";
-    private final static String SHORT_OPT_KAM_DESCRIPTION = "d";
-    private final static String LONG_OPT_KAM_DESCRIPTION = "kam-description";
-    private final static String LONG_OPT_NO_PRESERVE = "no-preserve";
+public class PhaseFourApplication extends PhaseApplication {
+
+    public final static String DIR_ARTIFACT = "phaseIV";
+    private final static String NUM_PHASES = "3";
+    private final DefaultPhaseOne p1;
+    private final DefaultPhaseTwo p2;
+    private final DefaultPhaseThree p3;
     private final DefaultPhaseFour p4;
     private final SystemConfiguration sysconfig;
-
-    private final static String numPhases = "1";
-
-    /**
-     * Holds the value of the KAM name option.
-     */
-    private String kamName;
+    private final CacheableResourceService cache;
+    private Set<EquivalenceDataIndex> eqindexes;
+    private Map<String, JDBMEquivalenceLookup> eqlookups;
 
     /**
-     * Holds the value of the KAM description option.
-     */
-    private String kamDescription;
-
-    /**
-     * Phase four application constructor.
+     * Construct the BEL compiler {@link PhaseApplication phase four}
      *
-     * @param args Command-line arguments
+     * @param args {@code String[]} command-line arguments
      */
     public PhaseFourApplication(String[] args) {
         super(args);
 
         sysconfig = getSystemConfiguration();
-        DatabaseService dbservice = new DatabaseServiceImpl();
-        KAMStoreSchemaService kamStoreSchemaService =
-                new KAMStoreSchemaServiceImpl(
-                        dbservice);
-        p4 = new PhaseFourImpl(dbservice, kamStoreSchemaService);
+        cache = new DefaultCacheableResourceService();
+
+        final ProtoNetworkService pnsvc = new ProtoNetworkServiceImpl();
+        final EquivalenceIndexerService indexer = new EquivalenceIndexerServiceImpl();
+        final ExpansionService exsvc = new ExpansionServiceImpl();
+        final XBELValidatorService validator = createValidator();
+        final XBELConverterService converter = createConverter();
+        final BELValidatorService belValidator = new BELValidatorServiceImpl();
+        final BELConverterService belConverter = new BELConverterServiceImpl();
+        final NamespaceIndexerService nsindexer = new NamespaceIndexerServiceImpl();
+        final CacheLookupService cacheLookup = new DefaultCacheLookupService();
+        final NamespaceService nsService = new DefaultNamespaceService(
+                cache, cacheLookup, nsindexer);
+        final SemanticService semantics = new SemanticServiceImpl(nsService);
+        final ExpansionService expansion = new ExpansionServiceImpl();
+        final AnnotationService annotationService = new DefaultAnnotationService();
+        final AnnotationDefinitionService annotationDefinitionService =
+                new DefaultAnnotationDefinitionService(cache, cacheLookup);
+        
+        p1 = new PhaseOneImpl(validator, converter,
+                belValidator, belConverter, nsService, semantics,
+                expansion, pnsvc, annotationService,
+                annotationDefinitionService);
+
+        final PhaseTwoImpl phaseTwo = new PhaseTwoImpl(cache, indexer, pnsvc);
+        phaseTwo.setReportable(getReportable());
+        p2 = phaseTwo;
+
+        p3 = new PhaseThreeImpl(pnsvc, p2);
+
+        p4 = new PhaseFourImpl(pnsvc, exsvc);
     }
 
     /**
@@ -126,43 +161,446 @@ public final class PhaseFourApplication extends PhaseApplication {
     public void start() {
         super.start();
 
-        // Fail if no KAM name is available
-        kamName = getOptionValue(SHORT_OPT_KAM_NAME);
-        if (kamName == null) {
-            kamName = getPhaseConfiguration().getKAMName();
-            if (kamName == null) {
-                error(MISSING_KAM_NAME);
-                failUsage();
-            }
+        PhaseFourOptions options = getPhaseConfiguration();
+        if (hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION)) {
+            options.setNoOrthology(true);
         }
 
-        // Fail if no KAM description is available
-        kamDescription = getOptionValue(SHORT_OPT_KAM_DESCRIPTION);
-        if (kamDescription == null) {
-            kamDescription = getPhaseConfiguration().getKAMDescription();
-            if (kamDescription == null) {
-                error(MISSING_KAM_DESCRIPTION);
-                failUsage();
-            }
+        phaseOutput(format("=== %s ===", getApplicationName()));
+
+        if (options.isNoOrthology()) {
+            final StringBuilder bldr = new StringBuilder();
+            bldr.append(getApplicationShortName());
+            bldr.append(" has been skipped.");
+            phaseOutput(bldr.toString());
+            return;
         }
 
-        processOutputDirectory();
+        // load the resource index for phase IV use.
+        String resourceIndexURL = sysconfig.getResourceIndexURL();
+        try {
+            final ResolvedResource resource = cache.resolveResource(
+                    ResourceType.RESOURCE_INDEX, resourceIndexURL);
+            ResourceIndex.INSTANCE.loadIndex(resource.getCacheResourceCopy());
+        } catch (ResourceDownloadError e) {
+            failIndex(options, e.getUserFacingMessage());
+        } catch (FileNotFoundException e) {
+            failIndex(options, e.getMessage());
+        } catch (XMLStreamException e) {
+            failIndex(options, e.getMessage());
+        }
+
+        // create output directory for orthologized proto network
+        artifactPath = createDirectoryArtifact(outputDirectory, DIR_ARTIFACT);
+
+        final Index index = ResourceIndex.INSTANCE.getIndex();
+        final Set<ResourceLocation> resources = index.getOrthologyResources();
+        if (noItems(resources)) {
+            phaseOutput("No orthology documents included.");
+        } else {
+            // open equivalences
+            // XXX Should organize into a stage
+            openEquivalences();
+
+            // run stage 1
+            final ProtoNetwork merged = stage1pruning(index.getOrthologyResources());
+
+            if (withDebug()) {
+                final String rootpath = artifactPath.getAbsolutePath();
+                final String pfpath = asPath(rootpath, "merged");
+                createDirectories(pfpath);
+
+                try {
+                    TextProtoNetworkExternalizer textExternalizer =
+                            new TextProtoNetworkExternalizer();
+                    textExternalizer.writeProtoNetwork(merged, pfpath);
+                } catch (ProtoNetworkError e) {
+                    stageError(e.getUserFacingMessage());
+                }
+            }
+
+            // run stage 2
+            stage2equivalencing(merged);
+
+            if (withDebug()) {
+                final String rootpath = artifactPath.getAbsolutePath();
+                final String pfpath = asPath(rootpath, "equivalenced");
+                createDirectories(pfpath);
+
+                try {
+                    TextProtoNetworkExternalizer textExternalizer =
+                            new TextProtoNetworkExternalizer();
+                    textExternalizer.writeProtoNetwork(merged, pfpath);
+                } catch (ProtoNetworkError e) {
+                    stageError(e.getUserFacingMessage());
+                }
+            }
+
+            // run stage 3
+            stage3writing(merged);
+
+            // close equivalences
+            closeEquivalences();
+        }
+    }
+
+    public ProtoNetwork stage1pruning(final Set<ResourceLocation> resources) {
+        beginStage(PHASE4_STAGE1_HDR, "1", NUM_PHASES);
+        long t1 = currentTimeMillis();
+
+        final ProtoNetwork pn = reconstituteNetwork();
+
+        int i = 1;
+        final Iterator<ResourceLocation> it = resources.iterator();
+
+        final ResourceLocation first = it.next();
+        final ProtoNetwork orthoMerge = pruneResource(pn, first);
+        
+        while (it.hasNext()) {
+            final ResourceLocation resource = it.next();
+            final ProtoNetwork opn = pruneResource(pn, resource);
+
+            if (withDebug()) {
+                final String rootpath = artifactPath.getAbsolutePath();
+                final String pfpath = asPath(rootpath, "pruned"+(i++));
+                createDirectories(pfpath);
+
+                try {
+                    TextProtoNetworkExternalizer textExternalizer =
+                            new TextProtoNetworkExternalizer();
+                    textExternalizer.writeProtoNetwork(opn, pfpath);
+                } catch (ProtoNetworkError e) {
+                    stageError(e.getUserFacingMessage());
+                }
+            }
+
+            try {
+                p4.merge(orthoMerge, opn);
+            } catch (ProtoNetworkError e) {
+                e.printStackTrace();
+            }
+        }
+        
+        if (withDebug()) {
+            final String rootpath = artifactPath.getAbsolutePath();
+            final String pfpath = asPath(rootpath, "ortho-merge");
+            createDirectories(pfpath);
+
+            try {
+                TextProtoNetworkExternalizer textExternalizer =
+                        new TextProtoNetworkExternalizer();
+                textExternalizer.writeProtoNetwork(orthoMerge, pfpath);
+            } catch (ProtoNetworkError e) {
+                stageError(e.getUserFacingMessage());
+            }
+        }
+        
+        try {
+            runPhaseThree(orthoMerge);
+        } catch (ProtoNetworkError e) {
+            stageError(e.getUserFacingMessage());
+            bail(ExitCode.GENERAL_FAILURE);
+        }
+
+        try {
+            p4.merge(pn, orthoMerge);
+        } catch (ProtoNetworkError e) {
+            stageError(e.getUserFacingMessage());
+            bail(ExitCode.GENERAL_FAILURE);
+        }
+        
+        long t2 = currentTimeMillis();
+
+        final StringBuilder bldr = new StringBuilder();
+        markTime(bldr, t1, t2);
+        markEndStage(bldr);
+        stageOutput(bldr.toString());
+
+        return pn;
+    }
+    
+    private void runPhaseThree(final ProtoNetwork orthoPn)
+            throws ProtoNetworkError {
+        final Index resourceIndex = ResourceIndex.INSTANCE.getIndex();
+        final ResourceLocation pfResource = resourceIndex
+                .getProteinFamilyResource();
+        
+        final Document pfdoc = readResource(pfResource);
+        p3.pruneFamilies(false, pfdoc, orthoPn);
+        p3.inferFamilies(pfdoc, orthoPn);
+        final ProtoNetwork pfpn = p4.compile(pfdoc);
+        p4.merge(orthoPn, pfpn);
+        
+        final ResourceLocation ncResource = resourceIndex
+                .getNamedComplexesResource();
+        final Document ncdoc = readResource(ncResource);
+        p3.pruneComplexes(false, ncdoc, orthoPn);
+        final ProtoNetwork ncpn = p4.compile(ncdoc);
+        p4.merge(orthoPn, ncpn);
+        
+        final ResourceLocation gsResource = resourceIndex
+                .getGeneScaffoldingResource();
+        final Document gsdoc = readResource(gsResource);
+        p3.pruneGene(gsdoc, orthoPn);
+        final ProtoNetwork gspn = p4.compile(gsdoc);
+        p4.merge(orthoPn, gspn);
+     
+        equivalence(orthoPn);
+    }
+
+    private ProtoNetwork pruneResource(final ProtoNetwork pn,
+            final ResourceLocation resource) {
+        Document doc = readResource(resource);
+
+        stageOutput(format("Processing orthology document '%s'", doc.getName()));
+        p4.pruneOrthologyDocument(doc, pn, eqlookups);
+
+        final ProtoNetwork opn = p4.compile(doc);
+        return opn;
+    }
+
+    private Document readResource(final ResourceLocation resource) {
+        final String rloc = resource.getResourceLocation();
+        final ResourceType type = fromLocation(rloc);
+
+        File res = null;
+        try {
+            final ResolvedResource rsv = cache.resolveResource(type, rloc);
+            res = rsv.getCacheResourceCopy();
+        } catch (ResourceDownloadError e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        final Stage1Output output;
+        if (type == BEL) {
+            output = p1.stage1BELValidation(res);
+        } else {
+            output = p1.stage1XBELValidation(res);
+        }
+
+        if (output.hasValidationErrors()) {
+            for (final ValidationError error : output.getValidationErrors()) {
+                stageError(error.getUserFacingMessage());
+            }
+            bail(NO_VALID_DOCUMENTS);
+            return null; // Dead code
+        }
+        if (output.hasConversionError()) {
+            stageError(output.getConversionError().getUserFacingMessage());
+            bail(NO_CONVERTED_DOCUMENTS);
+            return null; // Dead code
+        }
+        if (output.getSymbolWarning() != null) {
+            stageError(output.getSymbolWarning().getUserFacingMessage());
+        }
+        Document doc = output.getDocument();
+        return doc;
+    }
+
+    public void stage2equivalencing(final ProtoNetwork pn) {
+        beginStage(PHASE4_STAGE2_HDR, "2", NUM_PHASES);
+
+        equivalence(pn);
+
+        final StringBuilder bldr = new StringBuilder();
+        markEndStage(bldr);
+        stageOutput(bldr.toString());
+    }
+
+    public void stage3writing(final ProtoNetwork pn) {
+        beginStage(PHASE4_STAGE3_HDR, "3", NUM_PHASES);
+
+        long t1 = currentTimeMillis();
+        final String rootpath = artifactPath.getAbsolutePath();
+        try {
+            p4.write(rootpath, pn);
+        } catch (ProtoNetworkError e) {
+            stageError(e.getUserFacingMessage());
+            bail(NO_PROTO_NETWORKS_SAVED);
+        }
+        long t2 = currentTimeMillis();
+
+        final StringBuilder bldr = new StringBuilder();
+        markTime(bldr, t1, t2);
+        markEndStage(bldr);
+        stageOutput(bldr.toString());
     }
 
     /**
-     * Process output directory.
+     * Open all {@link JDBMEquivalenceLookup equivalences} for BEL Framework
+     * namespaces.  The intention is to set up
+     * {@link PhaseFourApplication#eqindexes} and
+     * {@link PhaseFourApplication#eqlookups} fields.
      */
-    private void processOutputDirectory() {
+    private void openEquivalences() {
+        // Load the equivalences
+        try {
+            eqindexes = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure f) {
+            // Unrecoverable error
+            // TODO Real error handling
+            f.printStackTrace();
+            return;
+        }
 
-        // Phase IV may have to use the proto network output of phase II if
-        // phase III is skipped.
+        // Map namespace to lookup
+        eqlookups = sizedHashMap(eqindexes.size());
+        for (final EquivalenceDataIndex edi : eqindexes) {
+            String rl = edi.getNamespaceResourceLocation();
+            DataFileIndex dfi = edi.getEquivalenceIndex();
+            eqlookups.put(rl, new JDBMEquivalenceLookup(dfi.getIndexPath()));
+        }
 
+        // Open the indices
+        for (final JDBMEquivalenceLookup jl : eqlookups.values()) {
+            try {
+                jl.open();
+            } catch (IOException e) {
+                // TODO Real error handling
+                e.printStackTrace();
+                return;
+            }
+        }
+    }
+
+    /**
+     * Runs equivalencing of the proto-network.
+     *
+     * @param pn Proto-network, post-scaffolding
+     * @return Equivalenced proto-network
+     */
+    private ProtoNetwork equivalence(ProtoNetwork pn) {
+        final StringBuilder bldr = new StringBuilder();
+
+        // Load the equivalences
+        final Set<EquivalenceDataIndex> equivalences;
+        try {
+            equivalences = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure f) {
+            // Unrecoverable error
+            // TODO Real error handling
+            f.printStackTrace();
+            return null;
+        }
+
+        long t1 = currentTimeMillis();
+        int pct = stage4Parameter(pn, equivalences, bldr);
+        stage4Term(pn, pct);
+        stage4Statement(pn, pct);
+
+        long t2 = currentTimeMillis();
+
+        final int paramct = pn.getParameterTable().getTableParameters().size();
+        final int termct = pn.getTermTable().getTermValues().size();
+        final int stmtct = pn.getStatementTable().getStatements().size();
+
+        bldr.setLength(0);
+        bldr.append(stmtct);
+        bldr.append(" statements, ");
+        bldr.append(termct);
+        bldr.append(" terms, ");
+        bldr.append(paramct);
+        bldr.append(" parameters");
+        stageOutput(bldr.toString());
+
+        bldr.setLength(0);
+        markTime(bldr, t1, t2);
+        return pn;
+    }
+
+    /**
+     * Closes all {@link JDBMEquivalenceLookup equivalence lookups} referenced
+     * in {@link PhaseFourApplication#eqlookups}.
+     */
+    private void closeEquivalences() {
+        if (hasItems(eqlookups)) {
+            Collection<JDBMEquivalenceLookup> lookups = eqlookups.values();
+            for (final JDBMEquivalenceLookup l : lookups) {
+                try {
+                    l.close();
+                } catch (IOException e) {
+                    // TODO Real error handling
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Stage four parameter equivalencing.
+     *
+     * @param network the {@link ProtoNetwork network} to equivalence
+     * @param equivalences the {@link Set set} of {@link EquivalenceDataIndex}
+     * @param bldr the {@link StringBuilder}
+     * @return the {@code int} count of parameter equivalences
+     */
+    private int stage4Parameter(final ProtoNetwork network,
+            Set<EquivalenceDataIndex> equivalences, final StringBuilder bldr) {
+        bldr.append("Equivalencing parameters");
+        stageOutput(bldr.toString());
+        ProtoNetwork ret = network;
+        int ct = 0;
+        try {
+            ct = p2.stage3EquivalenceParameters(ret, equivalences);
+            stageOutput("(" + ct + " equivalences)");
+        } catch (IOException ioex) {
+            final String err = ioex.getMessage();
+            fatal(err);
+        }
+
+        return ct;
+    }
+
+    /**
+     * Stage four term equivalencing.
+     *
+     * @param network the {@link ProtoNetwork network} to equivalence
+     * @param pct the parameter equivalencing count to control output
+     */
+    private void stage4Term(final ProtoNetwork network, int pct) {
+        if (pct > 0) {
+            stageOutput("Equivalencing terms");
+            int tct = p2.stage3EquivalenceTerms(network);
+            stageOutput("(" + tct + " equivalences)");
+        } else {
+            stageOutput("Skipping term equivalencing");
+        }
+    }
+
+    /**
+     * Stage four statement equivalencing.
+     *
+     * @param network the {@link ProtoNetwork network} to equivalence
+     * @param pct the parameter equivalencing count to control output
+     */
+    private void stage4Statement(final ProtoNetwork network, int pct) {
+        if (pct > 0) {
+            stageOutput("Equivalencing statements");
+            int sct = p2.stage3EquivalenceStatements(network);
+            stageOutput("(" + sct + " equivalences)");
+        } else {
+            stageOutput("Skipping statement equivalencing");
+        }
+    }
+
+    /**
+     * Determine whether phase IV orthologization will be skipped (such as
+     * with the --no-orthology command line option).
+     *
+     * @return {@code true} if <tt>--no-orthology</tt> is set, {@code false}
+     * otherwise
+     */
+    public boolean isNoOrthology() {
+        return hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION);
+    }
+
+    private ProtoNetwork reconstituteNetwork() {
         final String outputPath = outputDirectory.getAbsolutePath();
         final PhaseThreeApplication p3App =
                 new PhaseThreeApplication(getCommandLineArguments());
-        final String folder =
-                (p3App.isSkipped() ? PhaseTwoApplication.DIR_ARTIFACT :
-                        PhaseThreeApplication.DIR_ARTIFACT);
+        final String folder = (p3App.isSkipped() ? PhaseTwoApplication.DIR_ARTIFACT :
+            PhaseThreeApplication.DIR_ARTIFACT);
 
         final File pnPath = new File(asPath(outputPath, folder));
 
@@ -177,96 +615,60 @@ public final class PhaseFourApplication extends PhaseApplication {
             bail(ExitCode.NO_GLOBAL_PROTO_NETWORK);
         }
 
-        processFiles(files[0]);
-    }
+        final File pnf = files[0];
+        final BinaryProtoNetworkDescriptor inputProtoNetworkDesc =
+                new BinaryProtoNetworkDescriptor(pnf);
+        final ProtoNetworkExternalizer pne = new BinaryProtoNetworkExternalizer();
 
-    /**
-     * Starts phase four creation of KAM.
-     *
-     * @param protoNetwork {@link File}, the proto network file
-     */
-
-    private void processFiles(File protoNetwork) {
-        // final StringBuilder bldr = new StringBuilder();
-        // bldr.append("Executing ");
-        // bldr.append(getApplicationName());
-        // bldr.append(" of ");
-        // bldr.append(protoNetwork);
-        // phaseOutput(bldr.toString());
-
-        phaseOutput(format("=== %s ===", getApplicationName()));
-
-        ProtoNetworkDescriptor pnd = new BinaryProtoNetworkDescriptor(
-                protoNetwork);
-
-        BinaryProtoNetworkExternalizer bpne =
-                new BinaryProtoNetworkExternalizer();
-        ProtoNetwork gpn = null;
+        ProtoNetwork global = null;
         try {
-            gpn = bpne.readProtoNetwork(pnd);
+            global = pne.readProtoNetwork(inputProtoNetworkDesc);
         } catch (ProtoNetworkError e) {
-            error("Unable to read merged network.");
-            exit(ExitCode.NO_GLOBAL_PROTO_NETWORK);
+            error(e.getUserFacingMessage());
+            final ExitCode ec = ExitCode.NO_GLOBAL_PROTO_NETWORK;
+            exit(ec);
         }
 
-        stage1(gpn);
+        return global;
     }
 
     /**
-     * Stage one connection to KAM store.
+     * Logic to recover from a missing resource index.
      *
-     * @return {@link DBConnection}, the KAM DB connection
+     * XXX Copied from PhaseThreeApplication!
      */
-    private void stage1(ProtoNetwork gpn) {
-        beginStage(PHASE4_STAGE1_HDR, "1", numPhases);
+    private void failIndex(PhaseFourOptions phasecfg, String errorMessage) {
+        stageError(errorMessage);
         final StringBuilder bldr = new StringBuilder();
+        bldr.append("Could not find resource index file.");
+        bldr.append("Orthology information will not be added.");
+        stageError(bldr.toString());
+        ResourceIndex.INSTANCE.loadIndex();
+        phasecfg.setNoOrthology(true);
+    }
 
-        final String kamURL = sysconfig.getKamURL();
-        final String kamUser = sysconfig.getKamUser();
-        final String kamPass = sysconfig.getKamPassword();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getApplicationShortName() {
+        return PHASE4_SHORT_NAME;
+    }
 
-        // stageOutput("Building KAM at - " + kamURL);
-        DBConnection dbc = null;
-        try {
-            dbc = p4.stage1ConnectKAMStore(kamURL, kamUser, kamPass);
-        } catch (DBConnectionFailure e) {
-            e.printStackTrace();
-            stageError(e.getUserFacingMessage());
-            exit(ExitCode.KAM_CONNECTION_FAILURE);
-        }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getApplicationName() {
+        return PHASE4_NAME;
+    }
 
-        KamDbObject kamDb = new KamDbObject(null, kamName, kamDescription,
-                new Date(), null);
-
-        String kamSchemaName = null;
-        try {
-            kamSchemaName = p4.stage2SaveToKAMCatalog(kamDb);
-        } catch (KAMCatalogFailure e) {
-            e.printStackTrace();
-            stageError(e.getUserFacingMessage());
-            exit(ExitCode.KAM_CONNECTION_FAILURE);
-        }
-
-        try {
-            p4.stage3CreateKAMstore(dbc, kamSchemaName);
-        } catch (CreateKAMFailure e) {
-            e.printStackTrace();
-            stageError("Unable to build KAM store - " + e.getMessage());
-            exit(ExitCode.KAM_CONNECTION_FAILURE);
-        }
-
-        try {
-            p4.stage4LoadKAM(dbc, gpn, kamSchemaName);
-        } catch (DatabaseError e) {
-            stageError("Unable to load KAM.");
-            stageError(e.getUserFacingMessage());
-            exit(ExitCode.KAM_LOAD_FAILURE);
-        } catch (CreateKAMFailure e) {
-            stageError("Unable to build KAM store - " + e.getMessage());
-            exit(ExitCode.KAM_CONNECTION_FAILURE);
-        }
-
-        markEndStage(bldr);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getApplicationDescription() {
+        return PHASE4_DESCRIPTION;
     }
 
     /**
@@ -282,34 +684,6 @@ public final class PhaseFourApplication extends PhaseApplication {
      */
     @Override
     public boolean validCommandLine() {
-        final CommandLineParser parser = new AntelopeParser();
-        List<Option> myOpts = getCommandLineOptions();
-        final Options options = new Options();
-        for (final Option option : myOpts) {
-            options.addOption(option);
-        }
-
-        CommandLine parse;
-        try {
-            parse = parser.parse(options, getCommandLineArguments(), false);
-        } catch (ParseException e) {
-            return false;
-        }
-
-        // Verify KAM name and description are present.
-
-        if (!parse.hasOption(SHORT_OPT_KAM_NAME)) {
-            if (getPhaseConfiguration().getKAMName() == null) {
-                return false;
-            }
-        }
-
-        if (!parse.hasOption(SHORT_OPT_KAM_DESCRIPTION)) {
-            if (getPhaseConfiguration().getKAMDescription() == null) {
-                return false;
-            }
-        }
-
         return true;
     }
 
@@ -317,72 +691,22 @@ public final class PhaseFourApplication extends PhaseApplication {
      * {@inheritDoc}
      */
     @Override
-    public List<Option> getCommandLineOptions() {
-        List<Option> options = super.getCommandLineOptions();
-
-        String help;
-        Option o;
-
-        help = KAM_NAME_HELP;
-        o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
-        o.setArgName("kam");
-        options.add(o);
-
-        help = KAM_DESCRIPTION_HELP;
-        o = new Option(SHORT_OPT_KAM_DESCRIPTION, LONG_OPT_KAM_DESCRIPTION,
-                true, help);
-        o.setArgName("description");
-        options.add(o);
-
-        help = NO_PRESERVE_HELP;
-        o = new Option(null, LONG_OPT_NO_PRESERVE, false, help);
-        options.add(o);
-
-        return options;
-    }
-
-    /**
-     * Returns {@code "Phase IV: Exporting final network to the KAM store"}.
-     *
-     * @return String
-     */
-    @Override
-    public String getApplicationName() {
-        return "Phase IV: Exporting final network to the KAM Store";
-    }
-
-    /**
-     * Returns {@code "Phase IV"}.
-     *
-     * @return String
-     */
-    @Override
-    public String getApplicationShortName() {
-        return "Phase IV";
-    }
-
-    /**
-     * Returns {@code "Compiles the global proto-network into a KAM."}.
-     *
-     * @return String
-     */
-    @Override
-    public String getApplicationDescription() {
-        return "Exports a completed network to the KAM Store.";
-    }
-
-    /**
-     * Returns phase four's usage.
-     *
-     * @return String
-     */
-    @Override
     public String getUsage() {
         StringBuilder bldr = new StringBuilder();
         bldr.append("[OPTION]...");
-        bldr.append(" -k <kam>");
-        bldr.append(" -d <description>");
         return bldr.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Option> getCommandLineOptions() {
+        final List<Option> ret = super.getCommandLineOptions();
+
+        ret.add(new Option(null, PHASE4_NO_ORTHOLOGY_LONG_OPTION, false,
+                PHASE4_NO_ORTHOLOGY_HELP));
+        return ret;
     }
 
     /**
@@ -394,12 +718,4 @@ public final class PhaseFourApplication extends PhaseApplication {
     public static void main(String[] args) {
         harness(new PhaseFourApplication(args));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public static String getRequiredArguments() {
-        return "-k <kam> --kam-description <description>";
-    }
-
 }

@@ -37,9 +37,15 @@ if %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-java %JAVA_OPTS% -classpath "%BELCOMPILER_CLASSPATH%" -Dderby.system.durability=test org.openbel.framework.tools.PhaseFourApplication %*
+java %JAVA_OPTS% -classpath "%BELCOMPILER_CLASSPATH%" org.openbel.framework.tools.PhaseFourApplication %*
 if %ERRORLEVEL% NEQ 0 (
     CALL :REPORT_ERROR %ERRORLEVEL% IV
+    EXIT /B %ERRORLEVEL%
+)
+
+java %JAVA_OPTS% -classpath "%BELCOMPILER_CLASSPATH%" -Dderby.system.durability=test org.openbel.framework.tools.PhaseFiveApplication %*
+if %ERRORLEVEL% NEQ 0 (
+    CALL :REPORT_ERROR %ERRORLEVEL% V
     EXIT /B %ERRORLEVEL%
 )
 

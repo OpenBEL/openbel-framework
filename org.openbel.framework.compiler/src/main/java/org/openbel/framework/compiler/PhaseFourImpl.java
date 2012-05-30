@@ -1,278 +1,292 @@
-/**
- * Copyright (C) 2012 Selventa, Inc.
- *
- * This file is part of the OpenBEL Framework.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
- */
 package org.openbel.framework.compiler;
 
-import static java.lang.String.format;
+import static org.openbel.framework.common.BELUtilities.hasItems;
+import static org.openbel.framework.common.BELUtilities.nulls;
+import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.common.protonetwork.model.DocumentTable.DocumentHeader;
-import org.openbel.framework.common.protonetwork.model.NamespaceTable;
-import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
+import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Document;
+import org.openbel.framework.common.model.Namespace;
+import org.openbel.framework.common.model.Parameter;
+import org.openbel.framework.common.model.Statement;
+import org.openbel.framework.common.model.StatementGroup;
+import org.openbel.framework.common.model.Term;
+import org.openbel.framework.common.protonetwork.model.ParameterTable;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
-import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
-import org.openbel.framework.core.compiler.CreateKAMFailure;
-import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.DatabaseError;
-import org.openbel.framework.core.df.DatabaseService;
-import org.openbel.framework.core.kam.JdbcKAMLoaderImpl;
-import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
+import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
+import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
+import org.openbel.framework.common.protonetwork.model.TermTable;
+import org.openbel.framework.compiler.DefaultPhaseThree.DocumentModificationResult;
+import org.openbel.framework.core.compiler.expansion.ExpansionService;
+import org.openbel.framework.core.indexer.JDBMEquivalenceLookup;
+import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
+import org.openbel.framework.core.protonetwork.ProtoNetworkService;
 
 /**
- * BEL compiler phase four implementation.
+ * {@link PhaseFourImpl} implements the BEL compiler phase four.
+ *
+ * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
 public class PhaseFourImpl implements DefaultPhaseFour {
 
-    /**
-     * Defines the DatabaseService used to connect/execute against a database.
-     */
-    private final DatabaseService ds;
+    private ProtoNetworkService protoNetworkService;
+    private ExpansionService expansionService;
 
     /**
-     * Defines the KAMStoreSchemaService used to create a KAMstore.
-     */
-    private final KAMStoreSchemaService ksss;
-
-    /**
-     * Creates a phase four implementation.
+     * Constructs {@link PhaseFourImpl}.
      *
-     * @param ds {@link DatabaseService}, the database service
-     * @param ksss {@link KAMStoreSchemaService}, the kam store schema service
+     * @param protoNetworkService {@link ProtoNetworkService} used to process
+     * the compiled {@link ProtoNetwork}, which cannot be {@code null}
+     * @param expansionService {@link ExpansionService} used to expand the
+     * {@link Term terms} and {@link Statement statements} of the
+     * {@link ProtoNetwork proto network}, which cannot be {@code null}
+     * @throws InvalidArgument Thrown if {@code protoNetworkService} is
+     * {@code null}
      */
-    public PhaseFourImpl(final DatabaseService ds,
-            final KAMStoreSchemaService ksss) {
-        this.ds = ds;
-        this.ksss = ksss;
+    public PhaseFourImpl(final ProtoNetworkService protoNetworkService,
+            final ExpansionService expansionService) {
+        if (nulls(protoNetworkService, expansionService)) {
+            throw new InvalidArgument("null parameter(s)");
+        }
+
+        this.protoNetworkService = protoNetworkService;
+        this.expansionService = expansionService;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public DBConnection stage1ConnectKAMStore(String jdbcUrl, String user,
-            String pass) throws DBConnectionFailure {
-        try {
-            return ds.dbConnection(jdbcUrl, user, pass);
-        } catch (SQLException e) {
-            // rethrow as fatal exception since we couldn't connect to KAMStore
-            throw new DBConnectionFailure(jdbcUrl, e.getMessage(), e);
-        }
-    }
+    public DocumentModificationResult pruneOrthologyDocument(final Document d,
+            final ProtoNetwork pn,
+            final Map<String, JDBMEquivalenceLookup> lookups) {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String stage2SaveToKAMCatalog(KamDbObject kamDb)
-            throws KAMCatalogFailure {
-        if (kamDb == null) {
-            throw new InvalidArgument("kamDb", kamDb);
-        }
+        // Approach
+        // 1.   map UUID to list of terms for proto network
+        // 2.   iterate ortho statements
+        //   a.   if valid orthologous statement
+        //      -   find subject parameter's uuid in a proto network term, if found
+        //          continue (orthologous statement intersects the proto network)
+        //      -   find object parameter's uuid in a proto network term, if found
+        //          continue (orthologous statement intersects the proto network)
 
-        try {
-            // Load the KAM catalog schema, if it doesn't exist.
-            ksss.setupKAMCatalogSchema();
+        // 1. Map parameter UUIDs to containing term ids in the proto network
+        final TermTable tt = pn.getTermTable();
+        final TermParameterMapTable tpmt = pn.getTermParameterMapTable();
+        final ParameterTable pt = pn.getParameterTable();
+        final Map<Integer, Integer> pglob = pt.getGlobalIndex();
+        final Map<Integer, SkinnyUUID> puuid = pt.getGlobalUUIDs();
+        final Set<Integer> tidset = tt.getIndexedTerms().keySet();
+        final Map<SkinnyUUID, Set<Integer>> uuidterms = sizedHashMap(puuid
+                .size());
+        // for each term
+        for (final Integer tid : tidset) {
+            // get its parameters
+            final List<Integer> pids = tpmt.getParameterIndexes(tid);
+            for (final Integer pid : pids) {
+                // find global parameter index for pid
+                Integer globalpid = pglob.get(pid);
 
-            // Saves to KAM catalog and retrieves schema name.
-            String schemaName = ksss.saveToKAMCatalog(kamDb);
+                // find UUID for global parameter index
+                final SkinnyUUID pu = puuid.get(globalpid);
 
-            return schemaName;
-        } catch (SQLException e) {
-            throw new KAMCatalogFailure(kamDb.getName(), e.getMessage());
-        } catch (IOException e) {
-            throw new KAMCatalogFailure(kamDb.getName(), e.getMessage());
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void stage3CreateKAMstore(final DBConnection db, String schemaName)
-            throws CreateKAMFailure {
-        if (db == null) {
-            throw new InvalidArgument("db", db);
-        }
-
-        try {
-            ksss.setupKAMStoreSchema(db, schemaName);
-        } catch (IOException e) {
-            throw new CreateKAMFailure(db, e.getMessage());
-        } catch (SQLException e) {
-            throw new CreateKAMFailure(db, e.getMessage());
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws SQLException
-     */
-    @Override
-    public void stage4LoadKAM(DBConnection dbConnection, ProtoNetwork p2pn,
-            String schema) throws DatabaseError, CreateKAMFailure {
-        JdbcKAMLoaderImpl jkl;
-
-        try {
-            jkl = new JdbcKAMLoaderImpl(dbConnection, schema);
-        } catch (SQLException e) {
-            final String msg = "Error creating KAM loader";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        if (!jkl.schemaExists()) {
-            final String fmt = "schema \"%s\" does not exist";
-            final String msg = format(fmt, jkl.getSchemaName());
-            throw new CreateKAMFailure(dbConnection, msg);
-        }
-
-        try {
-            // load type tables
-            jkl.loadObjectTypes();
-        } catch (SQLException e) {
-            final String msg = "Error loading object types";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            jkl.loadFunctionTypes();
-        } catch (SQLException e) {
-            final String msg = "Error loading function types";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            jkl.loadRelationshipTypes();
-        } catch (SQLException e) {
-            final String msg = "Error loading relationship types";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            jkl.loadAnnotationDefinitionTypes();
-        } catch (SQLException e) {
-            final String msg = "Error loading annotation definitions types";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        // load documents
-        List<DocumentHeader> dhs = p2pn.getDocumentTable().getDocumentHeaders();
-        try {
-            jkl.loadDocuments(dhs);
-        } catch (SQLException e) {
-            final String msg = "Error loading documents";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        // load namespaces
-        NamespaceTable nt = p2pn.getNamespaceTable();
-        Set<TableNamespace> nsl = nt.getNamespaces();
-        Map<TableNamespace, Integer> nsi = nt.getNamespaceIndex();
-        for (TableNamespace ns : nsl) {
-            try {
-                jkl.loadNamespace(nsi.get(ns), ns);
-            } catch (SQLException e) {
-                final String fmt = "Error loading namespace %s/%s";
-                final String msg =
-                        format(fmt, ns.getPrefix(), ns.getResourceLocation());
-                throw new DatabaseError(schema, msg, e);
+                // save this term to this UUID
+                Set<Integer> terms = uuidterms.get(pu);
+                if (terms == null) {
+                    terms = new HashSet<Integer>();
+                    uuidterms.put(pu, terms);
+                }
+                terms.add(tid);
             }
         }
 
-        // load annotation definitions
-        try {
-            jkl.loadAnnotationDefinitions(p2pn.getAnnotationDefinitionTable());
-        } catch (SQLException e) {
-            final String msg = "Error loading annotation definitions";
-            throw new DatabaseError(schema, msg, e);
+        // get all statement in orthology document
+        final List<Statement> orthoStmts = d.getAllStatements();
+        // map them to statement groups for efficient pruning
+        Map<StatementGroup, Set<Statement>> orthomap = d.mapStatements();
+
+        // set up pruning result
+        final DocumentModificationResult result = new DocumentModificationResult();
+        int total = orthoStmts.size();
+        int pruned = 0;
+
+        // establish cache to skinny uuids to avoid superfluous jdbm lookups
+        final Map<Parameter, SkinnyUUID> paramcache = sizedHashMap(total * 2);
+
+        // iterate all statements in the orthology document
+        ORTHO_STATEMENT: for (final Statement orthoStmt : orthoStmts) {
+
+            // rule out invalid or non-orthologous statements
+            if (validOrthologousStatement(orthoStmt)) {
+
+                final Term sub = orthoStmt.getSubject();
+                final FunctionEnum subf = sub.getFunctionEnum();
+                final List<Parameter> subp = sub.getParameters();
+                final Parameter subjectParam = subp.get(0);
+
+                // find UUID for subject parameter
+                SkinnyUUID uuid = paramcache.get(subjectParam);
+                if (uuid == null) {
+                    final Namespace ns = subjectParam.getNamespace();
+                    final JDBMEquivalenceLookup lookup = lookups.get(ns
+                            .getResourceLocation());
+                    if (lookup == null) {
+                        continue;
+                    }
+
+                    uuid = lookup.lookup(subjectParam.getValue());
+                    paramcache.put(subjectParam, uuid);
+                }
+
+                // if there is a proto network term with this UUID contained, then
+                // this orthologous statement intersects the proto network, continue
+                if (uuid != null) {
+                    Set<Integer> tids = uuidterms.get(uuid);
+                    if (hasItems(tids)) {
+                        for (final Integer tid : tids) {
+                            final Term t = tt.getIndexedTerms().get(tid);
+                            if (t.getFunctionEnum() == subf) {
+                                continue ORTHO_STATEMENT;
+                            }
+                        }
+                    }
+                }
+
+                final Term obj = orthoStmt.getObject().getTerm();
+                final FunctionEnum objf = obj.getFunctionEnum();
+                final List<Parameter> objp = obj.getParameters();
+                final Parameter objectParam = objp.get(0);
+
+                // find UUID for object parameter
+                uuid = paramcache.get(objectParam);
+                if (uuid == null) {
+                    final Namespace ns = objectParam.getNamespace();
+                    final JDBMEquivalenceLookup lookup = lookups.get(ns
+                            .getResourceLocation());
+                    if (lookup == null) {
+                        continue;
+                    }
+
+                    uuid = lookup.lookup(objectParam.getValue());
+                    paramcache.put(objectParam, uuid);
+                }
+
+                // if there is a proto network term with this UUID contained, then
+                // this orthologous statement intersects the proto network, continue
+                if (uuid != null) {
+                    Set<Integer> tids = uuidterms.get(uuid);
+                    if (hasItems(tids)) {
+                        for (final Integer tid : tids) {
+                            final Term t = tt.getIndexedTerms().get(tid);
+                            if (t.getFunctionEnum() == objf) {
+                                continue ORTHO_STATEMENT;
+                            }
+                        }
+                    }
+                }
+
+                // proto network does not contain either equivalent term so prune
+                // from its parent statement group
+                Set<Entry<StatementGroup, Set<Statement>>> entries = orthomap
+                        .entrySet();
+                for (final Entry<StatementGroup, Set<Statement>> e : entries) {
+                    StatementGroup group = e.getKey();
+                    Set<Statement> stmts = e.getValue();
+                    if (stmts.contains(orthoStmt)) {
+                        group.getStatements().remove(orthoStmt);
+                        pruned++;
+                        break;
+                    }
+                }
+            }
         }
 
-        try {
-            // load annotations
-            jkl.loadAnnotationValues(p2pn.getAnnotationValueTable());
-        } catch (SQLException e) {
-            final String msg = "Error loading annotation values";
-            throw new DatabaseError(schema, msg, e);
+        // set result data
+        result.setDeltaStatements(-pruned);
+        result.setTotalStatements(total);
+        result.setSuccess(true);
+
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ProtoNetwork compile(final Document d) {
+        // compile
+        ProtoNetwork pn = protoNetworkService.compile(d);
+
+        // expand statements to include reciprical orthologous edges
+        // XXX General statement expansion will process nested statements again!
+        // XXX Users should not be modelling nested statements in orthology BEL
+        expansionService.expandStatements(d, pn, true);
+
+        return pn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void merge(
+            final ProtoNetwork pnDestination,
+            final ProtoNetwork pndSource)
+            throws ProtoNetworkError {
+
+        protoNetworkService.merge(pnDestination, pndSource);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ProtoNetworkDescriptor write(final String path, final ProtoNetwork pn)
+            throws ProtoNetworkError {
+        return protoNetworkService.write(path, pn);
+    }
+
+    /**
+     * Determines whether the {@link Statement statement} is a valid
+     * {@link RelationshipType#ORTHOLOGOUS orthologous} statement.
+     *
+     * @param stmt {@link Statement} to evaluate
+     * @return {@code true} if it is valid, {@code false} otherwise
+     */
+    private boolean validOrthologousStatement(final Statement stmt) {
+        // test statement is well-formed
+        if (stmt.getRelationshipType() == RelationshipType.ORTHOLOGOUS
+                && stmt.getObject() != null
+                && stmt.getObject().getTerm() != null) {
+
+            // test subject has only one namespace parameter
+            final Term subject = stmt.getSubject();
+            List<Parameter> subparams = subject.getParameters();
+            if (subparams == null || subparams.size() != 1
+                    || subparams.get(0).getNamespace() == null) {
+                return false;
+            }
+
+            // test object has only one namespace parameter
+            final Term object = stmt.getObject().getTerm();
+            List<Parameter> objparams = object.getParameters();
+            if (objparams == null || objparams.size() != 1
+                    || objparams.get(0).getNamespace() == null) {
+                return false;
+            }
+
+            return true;
         }
 
-        try {
-            // load document to namespace map
-            jkl.loadDocumentNamespaceMap(nt.getDocumentNamespaces());
-        } catch (SQLException e) {
-            final String msg = "Error loading document namespaces";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            // load nodes
-            jkl.loadNodes(p2pn.getNamespaceTable(), p2pn.getParameterTable(),
-                    p2pn.getTermTable(),
-                    p2pn.getTermParameterMapTable(),
-                    p2pn.getProtoNodeTable());
-        } catch (SQLException e) {
-            final String msg = "Error loading nodes";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            // load edges
-            jkl.loadEdges(p2pn.getStatementTable(), p2pn.getTermTable(),
-                    p2pn.getProtoNodeTable(), p2pn.getProtoEdgeTable());
-        } catch (SQLException e) {
-            final String msg = "Error loading edges";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        try {
-            // associate annotations to statements
-            jkl.loadStatementAnnotationMap(p2pn
-                    .getStatementAnnotationMapTable());
-        } catch (SQLException e) {
-            final String msg = "Error loading statement annotations";
-            throw new DatabaseError(schema, msg, e);
-        }
-
-        // close loader dao
-        jkl.terminate();
+        return false;
     }
 }

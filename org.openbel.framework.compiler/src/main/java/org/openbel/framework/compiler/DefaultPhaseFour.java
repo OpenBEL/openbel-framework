@@ -1,110 +1,93 @@
-/**
- * Copyright (C) 2012 Selventa, Inc.
- *
- * This file is part of the OpenBEL Framework.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
- */
 package org.openbel.framework.compiler;
 
-import org.openbel.framework.common.DBConnectionFailure;
+import java.util.Map;
+
+import org.openbel.framework.common.InvalidArgument;
+import org.openbel.framework.common.model.Document;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
-import org.openbel.framework.core.compiler.CreateKAMFailure;
-import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.DatabaseError;
-import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
+import org.openbel.framework.compiler.DefaultPhaseThree.DocumentModificationResult;
+import org.openbel.framework.core.indexer.JDBMEquivalenceLookup;
+import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
 
 /**
- * BEL compiler phase four interface.
+ * {@link DefaultPhaseFour} defines the BEL compiler phase four interface.
  * <p>
- * Phase four compilation consists of:
+ * Phase four consists of the following stages and is meant to run sequentially
+ * for the number of orthologous BEL documents:
  * <ol>
- * <li><b>Stage 1 -- Create KAMstore</b><br>
- * Create the KAMstore schema using the database connection.</li>
+ * <li>Prunes orthologous BEL document based on {@link ProtoNetwork proto network}</li>
+ * <li>Compiles orthologous BEL document into a {@link ProtoNetwork proto network}</li>
+ * <li>Merges orthologous {@link ProtoNetwork proto network} into
+ * {@link ProtoNetwork proto network}</li>
+ * <li>Save orthologized {@link ProtoNetwork proto network}</li>
  * </ol>
  * </p>
  *
- * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
+ * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
 public interface DefaultPhaseFour {
 
     /**
-     * Executes stage on creation of {@link DBConnection} for the KAMstore
-     * identified by the {@code jdbcUrl}, {@code user}, and {@code pass}.
+     * Stage 1 pruning of orthology BEL {@link Document document} by:
+     * <p>
+     * Prune the {@link Document document}, relative to the
+     * {@link ProtoNetwork proto network} being compiled, using equivalencing
+     * to match up BEL terms.
+     * </p>
      *
-     * @param jdbcUrl {@link String}, the jdbc url
-     * @param user {@link String}, the database username
-     * @param pass {@link String}, the database password
-     * @return {@link DBConnection}, the database connection for the
-     * {@code jdbcUrl}
-     * @throws DBConnectionFailure Thrown if the KamStore database cannot be
-     * connected to
+     * @param d {@link Document} the orthology BEL document, which cannot be
+     * {@code null}
+     * @param pn {@link ProtoNetwork} the compiled proto network, which cannot
+     * be {@code null}
+     * @param lookups {@link Map} of {@link String resource location} to
+     * {@link JDBMEquivalenceLookup equivalence lookup}, which cannot be
+     * {@code null}
+     * @return {@link DocumentModificationResult} containing the pruning
+     * results
+     * @throws InvalidArgument Thrown if {@code d} or {@code pn} is
+     * {@code null}
      */
-    public DBConnection stage1ConnectKAMStore(String jdbcUrl, String user,
-            String pass) throws DBConnectionFailure;
+    public DocumentModificationResult pruneOrthologyDocument(final Document d,
+            final ProtoNetwork pn,
+            final Map<String, JDBMEquivalenceLookup> lookups);
 
     /**
-     * Executes stage two updating of the kam entry in the KAM catalog.
+     * Compiles {@link Document BEL common documents} to {@link ProtoNetwork
+     * proto-networks}.
      *
-     * @param kamDb {@link KamDbObject}, the kam database object to save
-     * @throws KAMCatalogFailure Thrown if an error occurred when setting up or
-     * updating the KAM catalog
+     * @param document {@link Document} the document to compile
+     * @return {@link ProtoNetwork} the compiled proto network
      */
-    public String stage2SaveToKAMCatalog(KamDbObject kamDb)
-            throws KAMCatalogFailure;
+    public ProtoNetwork compile(final Document d);
 
     /**
-     * Executes stage three creation of KAMstore using a {@link DBConnection}
-     * database connection.
+     * Deserialize and merge the proto network in <tt>protoNetworkSource</tt>
+     * into the proto network in <tt>protoNetworkSource</tt>.
      *
-     * @param dbConnection {@link DBConnection} the database connection
-     * @param schemaName {@link String}, the schema name to create KAM in
-     * @throws CreateKAMFailure - Thrown if an error occurred while creating the
-     * KAMstore schema.
+     * @param destination {@link ProtoNetwork}, the proto-network containing the
+     * merged results
+     * @param source {@link ProtoNetwork}, the proto-network to merge into
+     * {@code destination}
+     * @throws ProtoNetworkError Thrown if an error occurred reading the proto-
+     * network from the {@code source} descriptor.
      */
-    public void stage3CreateKAMstore(DBConnection dbConnection,
-            String schemaName) throws CreateKAMFailure;
+    public void merge(final ProtoNetwork destination, final ProtoNetwork source)
+            throws ProtoNetworkError;
 
     /**
-     * Executes stage four loading of KAM using a {@link DBConnection} database
-     * connection against a KAMstore schema.
+     * Stage 3 writing of the merged and equivalenced
+     * {@link ProtoNetwork proto network} that now included orthology data.
      *
-     * @param dbConnection {@link DBConnection}, the database connection
-     * @param p2pn {@link ProtoNetwork}, the phase II proto network output
-     * @throws CreateKAMFailure Thrown if the KAM schema to be loaded does not
-     * exist
-     * @throws DatabaseError Thrown if a database error occurred while loading
-     * the KAM.
+     * @param path {@link String} the path to write the
+     * {@link ProtoNetwork proto network} to, which cannot be {@code null}
+     * @param pn {@link ProtoNetwork} the merged and equivalenced network that
+     * contains orthologous data
+     * @return {@link ProtoNetworkDescriptor} providing access to the written
+     * proto network
+     * @throws InvalidArgument Thrown if {@code path} or {@code pn} is
+     * {@code null}
      */
-    public void stage4LoadKAM(DBConnection dbConnection, ProtoNetwork p2pn,
-            String kamSchemaName) throws DatabaseError, CreateKAMFailure;
+    public ProtoNetworkDescriptor write(final String path,
+            final ProtoNetwork pn) throws ProtoNetworkError;
 }
