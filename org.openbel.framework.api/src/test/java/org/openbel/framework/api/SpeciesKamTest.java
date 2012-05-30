@@ -202,10 +202,6 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             return;
         }
 
-        for (final KamNode n : skam.getNodes()) {
-            System.out.println(n.getLabel());
-        }
-
         // assert the topology of the graph
         assertThat(skam.getNodes().size(), is(3));
         assertThat(skam.getEdges().size(), is(2));
@@ -219,8 +215,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         // assert deterministic collapsing
         final Iterator<KamEdge> it = skam.getEdges().iterator();
-        assertThat(
-                it.next().toString(),
+        assertThat(it.next().toString(),
+                is("proteinAbundance(PFH:\"14-3-3 Family\") actsIn phosphataseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))"));
+        assertThat(it.next().toString(),
                 is("proteinAbundance(PFH:\"14-3-3 Family\") actsIn kinaseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))"));
     }
 

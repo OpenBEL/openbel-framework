@@ -47,12 +47,10 @@ import static org.openbel.framework.common.enums.RelationshipType.TRANSLATED_TO;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -790,82 +788,67 @@ public class KamSpecies implements Kam {
      */
     private void recurseConnections(final KamNode snode,
             TermParameter param, final EdgeDirectionType direction) {
-        // map edges
+        // get adjacent edges that can be inferred
         final Set<KamEdge> out = getAdjacentEdges(snode, direction, inferFilter);
-        final Map<RelationshipType, Set<KamEdge>> emap = mapEdges(out);
 
-        // consolidate edges
-        final Set<Entry<RelationshipType, Set<KamEdge>>> entries = emap
-                .entrySet();
-        for (final Entry<RelationshipType, Set<KamEdge>> entry : entries) {
-            final Set<KamEdge> edges = entry.getValue();
-
-            if (edges.size() > 1) {
-                // XXX Fails for different activities.
+        // map ACTS_IN edges by activity function
+        final Map<FunctionEnum, KamNode> acts = 
+                new HashMap<FunctionEnum, KamNode>();
+        final Map<RelationshipType, KamNode> rels =
+                new HashMap<RelationshipType, Kam.KamNode>();
+        for (final KamEdge e : out) {
+            // get correct edge opposite node based on search direction
+            final KamNode opnode = (direction == FORWARD ? e.getTargetNode()
+                    : e.getSourceNode());
+            
+            // handle ACTS_IN edge independently since we care about similar
+            // activity functions
+            if (e.getRelationshipType() == ACTS_IN) {
+                final FunctionEnum actfun = opnode.getFunctionType();
+    
+                // lookup first seen node for activity function
+                KamNode node = acts.get(actfun);
                 
-                final Iterator<KamEdge> it = edges.iterator();
-                final KamEdge first = it.next();
-                final KamNode collapseTo = first.getTargetNode();
-
-                while (it.hasNext()) {
-                    final KamEdge e = it.next();
-                    final KamNode n = e.getTargetNode();
-
-                    if (collapseNodes(collapseTo, n, e.getRelationshipType())) {
-                        kam.collapseNode(n, collapseTo);
-                    }
+                // if not yet seen mark opposite node and edge as species collapse
+                // target.  continue to next edge.
+                if (node == null) {
+                    acts.put(opnode.getFunctionType(), opnode);
+                    nodeParamMap.put(opnode.getId(), param);
+                    edgeParamMap.put(e.getId(), param);
+                    continue;
                 }
-
-                nodeParamMap.put(collapseTo.getId(), param);
-                edgeParamMap.put(first.getId(), param);
-                recurseConnections(collapseTo, param, direction);
+                
+                kam.collapseNode(opnode, node);
+            } else {
+                // handle all other edges by relationship type
+                final RelationshipType rel = e.getRelationshipType();
+                
+                // lookup first seen relationship type
+                KamNode node = rels.get(rel);
+                
+                // if not yet seen mark opposite node and edge as species collapse
+                // target.  continue to next edge.
+                if (node == null) {
+                    rels.put(rel, opnode);
+                    nodeParamMap.put(opnode.getId(), param);
+                    edgeParamMap.put(e.getId(), param);
+                    continue;
+                }
+                
+                kam.collapseNode(opnode, node);
             }
         }
-    }
-
-    /**
-     * Compares {@link KamNode nodes} for collapsibility when inferring
-     * orthologous {@link KamEdge edges}.
-     *
-     * @param n1 {@link KamNode} node 1
-     * @param n2 {@link KamNode} node 2
-     * @param rel {@link KamEdge} edge relationship common to {@code n1} and
-     * {@code n2}
-     * @return {@code true} if both nodes can collapse, {@code false} otherwise
-     */
-    private boolean collapseNodes(final KamNode n1, final KamNode n2,
-            final RelationshipType rel) {
-        // activity nodes are incompatible when the functions are different
-        if (rel == ACTS_IN && n1.getFunctionType() != n2.getFunctionType()) {
-            return false;
+        
+        // recursively process all collapsed nodes
+        Collection<KamNode> actn = acts.values();
+        Collection<KamNode> reln = rels.values();
+        final Set<KamNode> nodes = constrainedHashSet(actn.size()
+                + reln.size());
+        nodes.addAll(actn);
+        nodes.addAll(reln);
+        for (final KamNode n : nodes) {
+            recurseConnections(n, param, direction);
         }
-
-        return true;
-    }
-
-    /**
-     * Maps {@link KamEdge edges} to a restricted set of
-     * {@link RelationshipType relationships}.  This set is governed by
-     * {@link SpeciesKam#RELS} and applied as a {@link EdgeFilter filter}.
-     *
-     * @param in {@link Set} of {@link KamEdge} edges
-     * @return {@link Map} of K: {@link RelationshipType} and V: {@link Set} of
-     * {@link KamEdge}
-     */
-    private Map<RelationshipType, Set<KamEdge>> mapEdges(final Set<KamEdge> in) {
-        final Map<RelationshipType, Set<KamEdge>> emap = new LinkedHashMap<RelationshipType, Set<KamEdge>>(
-                inferFilter.getFilterCriteria().size());
-        for (final KamEdge e : in) {
-            final RelationshipType rel = e.getRelationshipType();
-            Set<KamEdge> edges = emap.get(rel);
-            if (edges == null) {
-                edges = new LinkedHashSet<Kam.KamEdge>();
-                emap.put(rel, edges);
-            }
-            edges.add(e);
-        }
-
-        return emap;
     }
 
     protected final class OrthologousNode implements KamNode {
