@@ -792,7 +792,7 @@ public class KamSpecies implements Kam {
         final Set<KamEdge> out = getAdjacentEdges(snode, direction, inferFilter);
 
         // map ACTS_IN edges by activity function
-        final Map<FunctionEnum, KamNode> acts = 
+        final Map<FunctionEnum, KamNode> acts =
                 new HashMap<FunctionEnum, KamNode>();
         final Map<RelationshipType, KamNode> rels =
                 new HashMap<RelationshipType, Kam.KamNode>();
@@ -800,15 +800,15 @@ public class KamSpecies implements Kam {
             // get correct edge opposite node based on search direction
             final KamNode opnode = (direction == FORWARD ? e.getTargetNode()
                     : e.getSourceNode());
-            
+
             // handle ACTS_IN edge independently since we care about similar
             // activity functions
             if (e.getRelationshipType() == ACTS_IN) {
                 final FunctionEnum actfun = opnode.getFunctionType();
-    
+
                 // lookup first seen node for activity function
                 KamNode node = acts.get(actfun);
-                
+
                 // if not yet seen mark opposite node and edge as species collapse
                 // target.  continue to next edge.
                 if (node == null) {
@@ -817,15 +817,15 @@ public class KamSpecies implements Kam {
                     edgeParamMap.put(e.getId(), param);
                     continue;
                 }
-                
+
                 kam.collapseNode(opnode, node);
             } else {
                 // handle all other edges by relationship type
                 final RelationshipType rel = e.getRelationshipType();
-                
+
                 // lookup first seen relationship type
                 KamNode node = rels.get(rel);
-                
+
                 // if not yet seen mark opposite node and edge as species collapse
                 // target.  continue to next edge.
                 if (node == null) {
@@ -834,11 +834,11 @@ public class KamSpecies implements Kam {
                     edgeParamMap.put(e.getId(), param);
                     continue;
                 }
-                
+
                 kam.collapseNode(opnode, node);
             }
         }
-        
+
         // recursively process all collapsed nodes
         Collection<KamNode> actn = acts.values();
         Collection<KamNode> reln = rels.values();
@@ -855,13 +855,11 @@ public class KamSpecies implements Kam {
 
         private final KamNode node;
         private final TermParameter speciesParameter;
-        private final int hashCode;
 
         private OrthologousNode(final KamNode node,
                 final TermParameter speciesParameter) {
             this.node = node;
             this.speciesParameter = speciesParameter;
-            this.hashCode = generateHashCode();
         }
 
         @Override
@@ -889,61 +887,23 @@ public class KamSpecies implements Kam {
         }
 
         /**
-         * Generates the <tt>hashCode</tt> value for this immutable node.
-         *
-         * <p>
-         * This is used to calculate the hashCode once on construction.
-         * </p>
-         *
-         * @return the <tt>int</tt> hashCode
-         */
-        private int generateHashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + getKam().hashCode();
-            result = prime
-                    * result
-                    + ((getFunctionType() == null) ? 0 : getFunctionType()
-                            .hashCode());
-            result = prime * result
-                    + ((getLabel() == null) ? 0 : getLabel().hashCode());
-            return result;
-        }
-
-        /**
-         * {@inheritDoc}
+         * Delegate to original {@link KamNode} to ensure an
+         * {@link OrthologousNode} can be used as a parameter for methods where
+         * map lookups are performed.
          */
         @Override
         public int hashCode() {
-            return hashCode;
+            return node.hashCode();
         }
 
         /**
-         * {@inheritDoc}
+         * Delegate to original {@link KamNode} to ensure an
+         * {@link OrthologousNode} can be used as a parameter for methods where
+         * map lookups are performed.
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!KamNode.class.isAssignableFrom(obj.getClass())) {
-                return false;
-            }
-            KamNode other = (KamNode) obj;
-            if (!getKam().equals(other.getKam())) {
-                return false;
-            }
-            if (getId() == null) {
-                if (other.getId() != null) {
-                    return false;
-                }
-            } else if (!getId().equals(other.getId())) {
-                return false;
-            }
-            return true;
+            return node.equals(obj);
         }
 
         /**
@@ -959,14 +919,11 @@ public class KamSpecies implements Kam {
 
         private final KamEdge kamEdge;
         private final TermParameter speciesParameter;
-        private final int hashCode;
 
         protected OrthologousEdge(final KamEdge kamEdge,
                 final TermParameter speciesParameter) {
             this.kamEdge = kamEdge;
             this.speciesParameter = speciesParameter;
-
-            this.hashCode = generateHashCode();
         }
 
         @Override
@@ -997,73 +954,23 @@ public class KamSpecies implements Kam {
         }
 
         /**
-         * Generates the <tt>hashCode</tt> value for this immutable edge.
-         *
-         * <p>
-         * This is used to calculate the hashCode once on construction.
-         * </p>
-         *
-         * @return the <tt>int</tt> hashCode
-         */
-        private int generateHashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + getKam().hashCode();
-            result = prime
-                    * result
-                    + ((getRelationshipType() == null) ? 0 : getRelationshipType()
-                            .hashCode());
-            result = prime * result
-                    + ((getSourceNode() == null) ? 0 : getSourceNode().hashCode());
-            result = prime * result
-                    + ((getTargetNode() == null) ? 0 : getTargetNode().hashCode());
-            return result;
-        }
-
-        /**
-         * {@inheritDoc}
+         * Delegate to original {@link KamEdge} to ensure an
+         * {@link OrthologousEdge} can be used as a parameter for methods where
+         * map lookups are performed.
          */
         @Override
         public int hashCode() {
-            return hashCode;
+            return kamEdge.hashCode();
         }
 
         /**
-         * {@inheritDoc}
+         * Delegate to original {@link KamEdge} to ensure an
+         * {@link OrthologousEdge} can be used as a parameter for methods where
+         * map lookups are performed.
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (!(KamEdge.class.isAssignableFrom(obj.getClass()))) {
-                return false;
-            }
-            KamEdge other = (KamEdge) obj;
-            if (!getKam().equals(other.getKam())) {
-                return false;
-            }
-            if (getRelationshipType() != other.getRelationshipType()) {
-                return false;
-            }
-            if (getSourceNode() == null) {
-                if (other.getSourceNode() != null) {
-                    return false;
-                }
-            } else if (!getSourceNode().equals(other.getSourceNode())) {
-                return false;
-            }
-            if (getTargetNode() == null) {
-                if (other.getTargetNode() != null) {
-                    return false;
-                }
-            } else if (!getTargetNode().equals(other.getTargetNode())) {
-                return false;
-            }
-            return true;
+            return kamEdge.equals(obj);
         }
 
         /**
