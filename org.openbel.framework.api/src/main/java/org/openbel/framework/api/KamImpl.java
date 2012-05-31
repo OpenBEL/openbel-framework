@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.api;
 
+import static org.openbel.framework.common.BELUtilities.hasItems;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -318,46 +320,52 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
         KamNode node = null;
         if (EdgeDirectionType.FORWARD == edgeDirection
                 || EdgeDirectionType.BOTH == edgeDirection) {
-            for (KamEdge kamEdge : nodeSourceMap.get(kamNode)) {
+            final Set<KamEdge> sources = nodeSourceMap.get(kamNode);
+            if (hasItems(sources)) {
+                for (KamEdge kamEdge : sources) {
 
-                // Check for an edge filter
-                if (null != edgeFilter) {
-                    if (!edgeFilter.accept(kamEdge)) {
-                        continue;
+                    // Check for an edge filter
+                    if (null != edgeFilter) {
+                        if (!edgeFilter.accept(kamEdge)) {
+                            continue;
+                        }
                     }
-                }
 
-                node = kamEdge.getTargetNode();
+                    node = kamEdge.getTargetNode();
 
-                // Check for a node filter
-                if (null != nodeFilter) {
-                    if (!nodeFilter.accept(node)) {
-                        continue;
+                    // Check for a node filter
+                    if (null != nodeFilter) {
+                        if (!nodeFilter.accept(node)) {
+                            continue;
+                        }
                     }
+                    adjacentNodes.add(node);
                 }
-                adjacentNodes.add(node);
             }
         }
         if (EdgeDirectionType.REVERSE == edgeDirection
                 || EdgeDirectionType.BOTH == edgeDirection) {
-            for (KamEdge kamEdge : nodeTargetMap.get(kamNode)) {
+            final Set<KamEdge> targets = nodeTargetMap.get(kamNode);
+            if (hasItems(targets)) {
+                for (KamEdge kamEdge : targets) {
 
-                // Check for an edge filter
-                if (null != edgeFilter) {
-                    if (!edgeFilter.accept(kamEdge)) {
-                        continue;
+                    // Check for an edge filter
+                    if (null != edgeFilter) {
+                        if (!edgeFilter.accept(kamEdge)) {
+                            continue;
+                        }
                     }
-                }
 
-                node = kamEdge.getSourceNode();
+                    node = kamEdge.getSourceNode();
 
-                // Check for a node filter
-                if (null != nodeFilter) {
-                    if (!nodeFilter.accept(node)) {
-                        continue;
+                    // Check for a node filter
+                    if (null != nodeFilter) {
+                        if (!nodeFilter.accept(node)) {
+                            continue;
+                        }
                     }
+                    adjacentNodes.add(node);
                 }
-                adjacentNodes.add(node);
             }
         }
         return adjacentNodes;
@@ -399,28 +407,35 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
 
         if (EdgeDirectionType.FORWARD == edgeDirection
                 || EdgeDirectionType.BOTH == edgeDirection) {
-            for (KamEdge kamEdge : nodeSourceMap.get(kamNode)) {
 
-                // Check for an edge filter
-                if (null != filter) {
-                    if (!filter.accept(kamEdge)) {
-                        continue;
+            final Set<KamEdge> sources = nodeSourceMap.get(kamNode);
+            if (hasItems(sources)) {
+                for (KamEdge kamEdge : sources) {
+
+                    // Check for an edge filter
+                    if (null != filter) {
+                        if (!filter.accept(kamEdge)) {
+                            continue;
+                        }
                     }
+                    adjacentEdges.add(kamEdge);
                 }
-                adjacentEdges.add(kamEdge);
             }
         }
         if (EdgeDirectionType.REVERSE == edgeDirection
                 || EdgeDirectionType.BOTH == edgeDirection) {
-            for (KamEdge kamEdge : nodeTargetMap.get(kamNode)) {
+            final Set<KamEdge> targets = nodeTargetMap.get(kamNode);
+            if (hasItems(targets)) {
+                for (KamEdge kamEdge : targets) {
 
-                // Check for an edge filter
-                if (null != filter) {
-                    if (!filter.accept(kamEdge)) {
-                        continue;
+                    // Check for an edge filter
+                    if (null != filter) {
+                        if (!filter.accept(kamEdge)) {
+                            continue;
+                        }
                     }
+                    adjacentEdges.add(kamEdge);
                 }
-                adjacentEdges.add(kamEdge);
             }
         }
         return adjacentEdges;
