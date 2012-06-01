@@ -36,13 +36,13 @@
         <constructor-arg ref="dbConnection" />
     </bean>
 
-    <bean id="kamCatalogDao" class="org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao">
+    <bean id="kamCatalogDao" class="org.openbel.framework.internal.KAMCatalogDao">
         <constructor-arg ref="dbConnection" />
         <constructor-arg index="1" value="#{belSystemConfiguration.getKamCatalogSchema()}" />
         <constructor-arg index="2" value="#{belSystemConfiguration.getKamSchemaPrefix()}" />
     </bean>
 
-    <bean id="kamCacheService" class="org.openbel.framework.api.service.DefaultKamCacheService">
+    <bean id="kamCacheService" class="org.openbel.framework.api.DefaultKamCacheService">
     	<constructor-arg ref="kamStore" />
     </bean>
 
