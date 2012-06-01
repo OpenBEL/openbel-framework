@@ -128,8 +128,8 @@ Further Reference
 -----------------
 
  * API documentation: http://openbel.github.com/openbel-framework
- * GitHub: https://github.com/belframework-org
- * BEL Portal: http://belframework.org/
+ * GitHub: https://github.com/OpenBEL
+ * BEL Portal: http://openbel.org
  * Selventa: http://www.selventa.com/
  * Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins
  * Eclipse integration: https://github.com/belframework-org/OpenBEL-Workbench
