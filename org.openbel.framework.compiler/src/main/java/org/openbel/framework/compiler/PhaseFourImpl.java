@@ -74,7 +74,11 @@ public class PhaseFourImpl implements DefaultPhaseFour {
         // 1.   map UUID to list of terms for proto network
         // 2.   iterate ortho statements
         //   a.   if valid orthologous statement
+        //      -   lookup exact match of subject term in proto network, if found
+        //          continue (orthologous statement intersects the proto network)
         //      -   find subject parameter's uuid in a proto network term, if found
+        //          continue (orthologous statement intersects the proto network)
+        //      -   lookup exact match of object term in proto network, if found
         //          continue (orthologous statement intersects the proto network)
         //      -   find object parameter's uuid in a proto network term, if found
         //          continue (orthologous statement intersects the proto network)
@@ -88,6 +92,7 @@ public class PhaseFourImpl implements DefaultPhaseFour {
         final Set<Integer> tidset = tt.getIndexedTerms().keySet();
         final Map<SkinnyUUID, Set<Integer>> uuidterms = sizedHashMap(puuid
                 .size());
+        final Set<Term> pnterms = tt.getVisitedTerms().keySet();
         // for each term
         for (final Integer tid : tidset) {
             // get its parameters
@@ -133,6 +138,11 @@ public class PhaseFourImpl implements DefaultPhaseFour {
                 final List<Parameter> subp = sub.getParameters();
                 final Parameter subjectParam = subp.get(0);
 
+                // lookup exact match of subject term
+                if (pnterms.contains(sub)) {
+                    continue;
+                }
+
                 // find UUID for subject parameter
                 SkinnyUUID uuid = paramcache.get(subjectParam);
                 if (uuid == null) {
@@ -165,6 +175,11 @@ public class PhaseFourImpl implements DefaultPhaseFour {
                 final FunctionEnum objf = obj.getFunctionEnum();
                 final List<Parameter> objp = obj.getParameters();
                 final Parameter objectParam = objp.get(0);
+
+                // lookup exact match of object term
+                if (pnterms.contains(obj)) {
+                    continue;
+                }
 
                 // find UUID for object parameter
                 uuid = paramcache.get(objectParam);
