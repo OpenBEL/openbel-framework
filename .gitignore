@@ -3,6 +3,7 @@ target
 docs/sphinx/_build
 
 # eclipse ignores
+.metadata
 */.classpath
 */.project
 */.settings
