@@ -11,6 +11,7 @@
 
 	<context:component-scan base-package="org.openbel.framework.ws.endpoint"/>
 
+	<!-- dynamically generated wsdl -->
 	<sws:dynamic-wsdl id="belframework"
 	    portTypeName="WebAPI"
 	    locationUri="/belframework/">
