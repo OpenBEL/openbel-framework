@@ -15,7 +15,7 @@
 	<sws:dynamic-wsdl id="belframework"
 	    portTypeName="WebAPI"
 	    locationUri="/belframework/">
-	  <sws:xsd location="classpath:belframework-web-api.xsd"/>
+		<sws:xsd location="/WEB-INF/xsd/belframework-web-api.xsd"/>
 	</sws:dynamic-wsdl>
 
     <!-- Exception resolver used for customizing soap fault messages -->
