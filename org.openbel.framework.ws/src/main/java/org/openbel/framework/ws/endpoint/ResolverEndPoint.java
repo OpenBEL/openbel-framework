@@ -39,8 +39,6 @@ import static java.lang.String.format;
 import static org.openbel.framework.common.BELUtilities.noLength;
 import static org.openbel.framework.common.Strings.DIALECT_REQUEST_NO_DIALECT_FOR_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.createResolveEdgesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createResolveNodesResponse;
 
 import java.util.List;
 
@@ -56,6 +54,7 @@ import org.openbel.framework.ws.model.KamEdge;
 import org.openbel.framework.ws.model.KamHandle;
 import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.Node;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.model.RelationshipType;
 import org.openbel.framework.ws.model.ResolveEdgesRequest;
 import org.openbel.framework.ws.model.ResolveEdgesResponse;
@@ -64,6 +63,7 @@ import org.openbel.framework.ws.model.ResolveNodesResponse;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.ResolverService;
 import org.openbel.framework.ws.service.ResolverServiceException;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -80,6 +80,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class ResolverEndPoint extends WebServiceEndpoint {
     private static final String RESOLVE_EDGES_REQUEST = "ResolveEdgesRequest";
     private static final String RESOLVE_NODES_REQUEST = "ResolveNodesRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private ResolverService resolverService;
@@ -120,7 +122,8 @@ public class ResolverEndPoint extends WebServiceEndpoint {
             throw new RequestException("No node to resolve");
         }
 
-        final ResolveNodesResponse response = createResolveNodesResponse();
+        final ResolveNodesResponse response = OBJECT_FACTORY
+                .createResolveNodesResponse();
 
         try {
             List<KamNode> kamNodes = resolverService.resolveNodes(kam, nodes);
@@ -183,7 +186,8 @@ public class ResolverEndPoint extends WebServiceEndpoint {
             }
         }
 
-        final ResolveEdgesResponse response = createResolveEdgesResponse();
+        final ResolveEdgesResponse response = OBJECT_FACTORY
+                .createResolveEdgesResponse();
 
         try {
             List<KamEdge> kamEdges = resolverService.resolveEdges(kam, edges);

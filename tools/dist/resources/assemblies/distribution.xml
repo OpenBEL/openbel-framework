@@ -289,7 +289,7 @@
             <includeSubModules>true</includeSubModules>
 
             <includes>
-                <include>org.openbel:org.openbel.framework.ws.client</include>
+                <include>org.openbel:org.openbel.framework.ws.model</include>
             </includes>
             <binaries>
                 <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/webapiclient</outputDirectory>

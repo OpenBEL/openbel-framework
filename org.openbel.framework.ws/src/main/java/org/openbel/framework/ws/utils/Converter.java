@@ -47,15 +47,6 @@ import static org.openbel.framework.common.enums.CitationType.JOURNAL;
 import static org.openbel.framework.common.enums.CitationType.ONLINE_RESOURCE;
 import static org.openbel.framework.common.enums.CitationType.OTHER;
 import static org.openbel.framework.common.enums.CitationType.PUBMED;
-import static org.openbel.framework.ws.model.ObjectFactory.createAnnotationType;
-import static org.openbel.framework.ws.model.ObjectFactory.createBelDocument;
-import static org.openbel.framework.ws.model.ObjectFactory.createBelStatement;
-import static org.openbel.framework.ws.model.ObjectFactory.createBelTerm;
-import static org.openbel.framework.ws.model.ObjectFactory.createCitation;
-import static org.openbel.framework.ws.model.ObjectFactory.createKam;
-import static org.openbel.framework.ws.model.ObjectFactory.createKamEdge;
-import static org.openbel.framework.ws.model.ObjectFactory.createKamNode;
-import static org.openbel.framework.ws.model.ObjectFactory.createNamespace;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -127,9 +118,11 @@ import org.openbel.framework.ws.model.SimplePath;
  */
 public class Converter {
 
-    private static Charset ASCII = Charset.forName("US-ASCII");
     public static final String FIELD_SEP = "|";
+    private static final Charset ASCII = Charset.forName("US-ASCII");
     private static final GregorianCalendar calendar = new GregorianCalendar();
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     /**
      * Converts a {@link KamEdge ws kam edge} to a
@@ -471,7 +464,7 @@ public class Converter {
      */
     public static BelTerm convert(KAMStoreDaoImpl.BelTerm objBelTerm,
             final KamInfo kamInfo) {
-        BelTerm belTerm = createBelTerm();
+        BelTerm belTerm = OBJECT_FACTORY.createBelTerm();
         belTerm.setId(KamStoreObjectRef.encode(kamInfo, objBelTerm));
         belTerm.setLabel(objBelTerm.getLabel());
 
@@ -485,7 +478,7 @@ public class Converter {
     public static BelStatement
             convert(KAMStoreDaoImpl.BelStatement objBelStatement,
                     final KamInfo kamInfo) {
-        BelStatement belStatement = createBelStatement();
+        BelStatement belStatement = OBJECT_FACTORY.createBelStatement();
         belStatement.setDocument(convert(objBelStatement
                 .getBelDocumentInfo(), kamInfo));
         belStatement.setId(KamStoreObjectRef.encode(kamInfo, objBelStatement));
@@ -610,7 +603,7 @@ public class Converter {
             return null;
         }
 
-        KamNode kamNode = createKamNode();
+        KamNode kamNode = OBJECT_FACTORY.createKamNode();
         kamNode.setFunction(convert(objKamNode.getFunctionType()));
         kamNode.setId(KamStoreObjectRef.encode(kamInfo, objKamNode));
         kamNode.setLabel(objKamNode.getLabel());
@@ -631,7 +624,7 @@ public class Converter {
             return null;
         }
 
-        KamEdge kamEdge = createKamEdge();
+        KamEdge kamEdge = OBJECT_FACTORY.createKamEdge();
         kamEdge.setId(KamStoreObjectRef.encode(kamInfo, objKamEdge));
         kamEdge.setRelationship(convert(objKamEdge.getRelationshipType()));
         kamEdge.setSource(convert(kamInfo, objKamEdge.getSourceNode()));
@@ -676,7 +669,7 @@ public class Converter {
     public static Citation
             convert(KAMStoreDaoImpl.Citation objCitation) {
 
-        Citation citation = createCitation();
+        Citation citation = OBJECT_FACTORY.createCitation();
         citation.setCitationType(convert(objCitation.getCitationType()));
         citation.setComment(objCitation.getComment());
         // citation id should not be encrypted, as it has a specific meaning
@@ -709,7 +702,7 @@ public class Converter {
     public static Kam
             convert(KAMCatalogDao.KamInfo kamInfo) {
 
-        Kam kam = createKam();
+        Kam kam = OBJECT_FACTORY.createKam();
         try {
             kam.setId(KamStoreObjectRef.encode(kamInfo, kamInfo));
             kam.setDescription(kamInfo.getKamDbObject().getDescription());
@@ -732,7 +725,7 @@ public class Converter {
                     final KamInfo kamInfo) {
 
         AnnotationType annotationType =
-                createAnnotationType();
+                OBJECT_FACTORY.createAnnotationType();
         annotationType.setDescription(objAnnotationType.getDescription());
         annotationType.setId(KamStoreObjectRef.encode(kamInfo,
                 objAnnotationType));
@@ -752,7 +745,7 @@ public class Converter {
     public static BelDocument convert(KAMStoreDaoImpl.BelDocumentInfo docinfo,
             final KamInfo kamInfo) {
 
-        BelDocument belDocument = createBelDocument();
+        BelDocument belDocument = OBJECT_FACTORY.createBelDocument();
         String authors = docinfo.getAuthors();
         if (authors != null) {
             for (final String author : split(authors, FIELD_SEP)) {
@@ -825,7 +818,7 @@ public class Converter {
             convert(KAMStoreDaoImpl.Namespace objNamespace,
                     final KamInfo kamInfo) {
 
-        Namespace namespace = createNamespace();
+        Namespace namespace = OBJECT_FACTORY.createNamespace();
         namespace.setId(KamStoreObjectRef.encode(kamInfo, objNamespace));
         namespace.setPrefix(objNamespace.getPrefix());
         namespace.setResourceLocation(objNamespace.getResourceLocation());
@@ -852,7 +845,7 @@ public class Converter {
      */
     public static Namespace convert(
             final org.openbel.framework.common.model.Namespace ns) {
-        Namespace ws = ObjectFactory.createNamespace();
+        Namespace ws = OBJECT_FACTORY.createNamespace();
         ws.setPrefix(ns.getPrefix());
         ws.setResourceLocation(ns.getResourceLocation());
         return ws;
