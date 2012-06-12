@@ -128,13 +128,15 @@ Further Reference
 -----------------
 
  * API documentation: http://openbel.github.com/openbel-framework
- * GitHub: https://github.com/belframework-org
- * BEL Portal: http://belframework.org/
+ * User documentation: http://readthedocs.org/projects/openbel-framework/
+ * GitHub: https://github.com/OpenBEL
+ * BEL Portal: http://openbel.org
  * Selventa: http://www.selventa.com/
  * Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins
  * Eclipse integration: https://github.com/belframework-org/OpenBEL-Workbench
  * OpenBEL Eclipse repository: https://github.com/belframework-org/eclipse
  * OpenBEL build server: http://ci.selventa.com
+ * Nightly builds: http://ci.selventa.com/browse/FWEXP-NIGHTLY/latest/artifact
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
 
