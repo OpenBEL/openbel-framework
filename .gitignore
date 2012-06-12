@@ -7,3 +7,7 @@ docs/sphinx/_build
 */.classpath
 */.project
 */.settings
+Servers
+
+#vim swap files
+*.swp

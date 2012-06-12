@@ -84,8 +84,8 @@
         <module>org.openbel.framework.core</module>
         <module>org.openbel.framework.compiler</module>
         <module>org.openbel.framework.api</module>
+        <module>org.openbel.framework.ws.model</module>
         <module>org.openbel.framework.ws</module>
-        <module>org.openbel.framework.ws.client</module>
         <module>org.openbel.framework.tools</module>
     </modules>
 
