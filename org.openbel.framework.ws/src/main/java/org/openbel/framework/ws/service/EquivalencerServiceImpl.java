@@ -47,6 +47,7 @@ import org.openbel.framework.ws.model.EquivalenceId;
 import org.openbel.framework.ws.model.Namespace;
 import org.openbel.framework.ws.model.NamespaceValue;
 import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.stereotype.Service;
 
 /**
@@ -56,6 +57,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EquivalencerServiceImpl implements EquivalencerService {
+    
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
     private final Equivalencer equivalencer;
 
     public EquivalencerServiceImpl() {
@@ -167,7 +171,7 @@ public class EquivalencerServiceImpl implements EquivalencerService {
         if (uuid == null) {
             return null;
         }
-        EquivalenceId eq = ObjectFactory.createEquivalenceId();
+        EquivalenceId eq = OBJECT_FACTORY.createEquivalenceId();
         eq.setMsb(uuid.getMostSignificantBits());
         eq.setLsb(uuid.getLeastSignificantBits());
         return eq;

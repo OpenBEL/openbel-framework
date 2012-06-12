@@ -51,6 +51,7 @@ import org.openbel.framework.core.df.cache.ResourceType;
 import org.openbel.framework.ws.model.Namespace;
 import org.openbel.framework.ws.model.NamespaceDescriptor;
 import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -65,6 +66,8 @@ public class NamespaceResourceServiceImpl implements InitializingBean,
         NamespaceResourceService {
     private static final Logger logger = LoggerFactory
             .getLogger(NamespaceResourceServiceImpl.class);
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private CacheableResourceService cacheableResourceService;
@@ -106,7 +109,7 @@ public class NamespaceResourceServiceImpl implements InitializingBean,
             Namespace ns = new Namespace();
             ns.setPrefix(entry.getValue().getNamespaceBlock().getKeyword());
             ns.setResourceLocation(entry.getKey());
-            NamespaceDescriptor nsd = ObjectFactory.createNamespaceDescriptor();
+            NamespaceDescriptor nsd = OBJECT_FACTORY.createNamespaceDescriptor();
             nsd.setNamespace(ns);
             nsd.setName(entry.getValue().getNamespaceBlock().getNameString());
             l.add(nsd);

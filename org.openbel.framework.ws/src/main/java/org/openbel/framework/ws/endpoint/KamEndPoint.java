@@ -42,13 +42,6 @@ import static org.openbel.framework.common.BELUtilities.sizedArrayList;
 import static org.openbel.framework.common.Strings.DIALECT_REQUEST_NO_DIALECT_FOR_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindKamNodesByIdsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindKamNodesByLabelsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindKamNodesByNamespaceValuesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindKamNodesByPatternsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetAdjacentKamEdgesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetAdjacentKamNodesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetKamResponse;
 import static org.openbel.framework.ws.utils.Converter.convert;
 
 import java.sql.SQLException;
@@ -100,8 +93,10 @@ import org.openbel.framework.ws.model.KamHandle;
 import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.NamespaceValue;
 import org.openbel.framework.ws.model.NodeFilter;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.utils.Converter;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
 import org.openbel.framework.ws.utils.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +126,8 @@ public class KamEndPoint extends WebServiceEndpoint {
             "GetAdjacentKamEdgesRequest";
     private static final String FIND_KAM_NODES_BY_NAMESPACE_VALUES_REQUEST =
             "FindKamNodesByNamespaceValuesRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired
     private KAMCatalogDao kamCatalogDao;
@@ -167,7 +164,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, null);
 
-        GetKamResponse response = createGetKamResponse();
+        GetKamResponse response = OBJECT_FACTORY.createGetKamResponse();
         response.setKam(convert(objKam.getKamInfo()));
 
         return response;
@@ -226,7 +223,8 @@ public class KamEndPoint extends WebServiceEndpoint {
             }
         }
 
-        FindKamNodesByIdsResponse response = createFindKamNodesByIdsResponse();
+        FindKamNodesByIdsResponse response = OBJECT_FACTORY
+                .createFindKamNodesByIdsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -278,7 +276,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         FindKamNodesByLabelsResponse response =
-                createFindKamNodesByLabelsResponse();
+                OBJECT_FACTORY.createFindKamNodesByLabelsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -335,7 +333,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         final FindKamNodesByPatternsResponse response =
-                createFindKamNodesByPatternsResponse();
+                OBJECT_FACTORY.createFindKamNodesByPatternsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -436,7 +434,7 @@ public class KamEndPoint extends WebServiceEndpoint {
 
         // Process the request
         GetAdjacentKamNodesResponse response =
-                createGetAdjacentKamNodesResponse();
+                OBJECT_FACTORY.createGetAdjacentKamNodesResponse();
 
         // Get the adjacent nodes
         Set<org.openbel.framework.api.Kam.KamNode> adjnodes;
@@ -525,7 +523,7 @@ public class KamEndPoint extends WebServiceEndpoint {
                         .findNode(kamElementRef.getKamStoreObjectId());
 
         GetAdjacentKamEdgesResponse response =
-                createGetAdjacentKamEdgesResponse();
+                OBJECT_FACTORY.createGetAdjacentKamEdgesResponse();
 
         // Get the adjacent edges
         Set<org.openbel.framework.api.Kam.KamEdge> adjedges;
@@ -576,7 +574,7 @@ public class KamEndPoint extends WebServiceEndpoint {
 
         KamInfo kamInfo = objKam.getKamInfo();
         FindKamNodesByNamespaceValuesResponse response =
-                createFindKamNodesByNamespaceValuesResponse();
+                OBJECT_FACTORY.createFindKamNodesByNamespaceValuesResponse();
         for (org.openbel.framework.api.Kam.KamNode node : nodes) {
             response.getKamNodes().add(convert(kamInfo, node));
         }

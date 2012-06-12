@@ -36,13 +36,6 @@
 package org.openbel.framework.ws.endpoint;
 
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetAnnotationTypesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetBelDocumentsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetCatalogResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetCitationsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetNamespacesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetSupportingEvidenceResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetSupportingTermsResponse;
 
 import java.util.List;
 
@@ -74,8 +67,10 @@ import org.openbel.framework.ws.model.KamFilter;
 import org.openbel.framework.ws.model.KamHandle;
 import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.Namespace;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.service.KamStoreService;
 import org.openbel.framework.ws.service.KamStoreServiceException;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -98,6 +93,8 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
             "GetSupportingEvidenceRequest";
     private static final String GET_SUPPORTING_TERMS_REQUEST =
             "GetSupportingTermsRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private KamStoreService kamStoreService;
@@ -135,7 +132,8 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
 
         // Create the response
 
-        GetCitationsResponse response = createGetCitationsResponse();
+        GetCitationsResponse response = OBJECT_FACTORY
+                .createGetCitationsResponse();
         try {
             for (Citation citation : kamStoreService.getCitations(kamHandle,
                     citationType, referenceIds, belDocument)) {
@@ -180,7 +178,8 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
             throw new RequestException(msg, e);
         }
 
-        GetBelDocumentsResponse response = createGetBelDocumentsResponse();
+        GetBelDocumentsResponse response = OBJECT_FACTORY
+                .createGetBelDocumentsResponse();
         for (BelDocument document : documents) {
             response.getDocuments().add(document);
         }
@@ -213,7 +212,7 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
         }
 
         GetAnnotationTypesResponse response =
-                createGetAnnotationTypesResponse();
+                OBJECT_FACTORY.createGetAnnotationTypesResponse();
 
         List<AnnotationType> types =
                 kamStoreService.getAnnotationTypes(kamHandle);
@@ -246,7 +245,8 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
             throw new KamStoreServiceException("Kam payload is missing");
         }
 
-        GetNamespacesResponse response = createGetNamespacesResponse();
+        GetNamespacesResponse response = OBJECT_FACTORY
+                .createGetNamespacesResponse();
         for (Namespace namespace : kamStoreService.getNamespaces(kamHandle)) {
             response.getNamespaces().add(namespace);
         }
@@ -267,7 +267,7 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
                     @SuppressWarnings("unused") @RequestPayload GetCatalogRequest request)
                     throws Exception {
 
-        GetCatalogResponse response = createGetCatalogResponse();
+        GetCatalogResponse response = OBJECT_FACTORY.createGetCatalogResponse();
         for (Kam kam : kamStoreService.getCatalog()) {
             response.getKams().add(kam);
         }
@@ -302,7 +302,7 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
         KamFilter kamFilter = request.getFilter();
 
         GetSupportingEvidenceResponse response =
-                createGetSupportingEvidenceResponse();
+                OBJECT_FACTORY.createGetSupportingEvidenceResponse();
 
         for (BelStatement belStatement : kamStoreService.getSupportingEvidence(
                 kamEdge, kamFilter)) {
@@ -337,7 +337,7 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
         }
 
         GetSupportingTermsResponse response =
-                createGetSupportingTermsResponse();
+                OBJECT_FACTORY.createGetSupportingTermsResponse();
         for (BelTerm belTerm : kamStoreService.getSupportingTerms(kamNode)) {
             response.getTerms().add(belTerm);
         }
