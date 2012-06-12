@@ -8,3 +8,6 @@ docs/sphinx/_build
 */.project
 */.settings
 Servers
+
+#vim swap files
+*.swp
