@@ -47,6 +47,10 @@ public class ObjectFactorySingleton {
 
     private static final ObjectFactory INSTANCE = new ObjectFactory();
     
+    private ObjectFactorySingleton() {
+        // private constructor to insure no instances of class
+    }
+    
     public static ObjectFactory getInstance() {
         return INSTANCE;
     }
