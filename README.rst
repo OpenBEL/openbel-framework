@@ -32,6 +32,21 @@ The OpenBEL Ecosystem
 Various smaller projects are connected with the framework. Each project is
 intended on serving a particular purpose.
 
+`OpenBEL Discussion Group`_
+  This group is used to discuss OpenBEL technologies, the BEL language, and
+  anything relevant to the OpenBEL ecosystem as a whole.
+
+  You can subscribe to these announcements by visiting the link, or by sending
+  an email to ``openbel-discuss+subscribe@googlegroups.com`` with the subject
+  ``subscribe``.
+
+`OpenBEL Announcement Group`_
+  This group is used to issue announcements related to OpenBEL.
+
+  You can subscribe to these announcements by visting the link, or by sending an
+  email to ``openbel-announce+subscribe@googlegroups.com`` with the subject
+  ``subscribe``.
+
 `openbel-framework-resources`_
   The framework's resources provide a set of files derived from biological and
   chemical ontologies. These resources are used to better describe biological
@@ -55,6 +70,8 @@ intended on serving a particular purpose.
   in `Eclipse`_ - from the syntax and semantics of the BEL language to the
   compilation of BEL knowledge into knowledge assembly models.
 
+.. _OpenBEL Discussion Group: https://groups.google.com/forum/#!forum/openbel-discuss
+.. _OpenBEL Announcement Group: https://groups.google.com/forum/#!forum/openbel-announce
 .. _openbel-framework-resources: https://github.com/OpenBEL/openbel-framework-resources
 .. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
 .. _Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins#readme
@@ -76,7 +93,7 @@ The OpenBEL Framework is built using `Apache Maven`_.
 
     mvn -Pdistribution clean package assembly:assembly install
 
-Alternatively, you can use `package.sh` which does the same thing.
+Alternatively, you can use ``package.sh`` which does the same thing.
 
 .. _Apache Maven: http://maven.apache.org/
 
