@@ -93,7 +93,7 @@ The OpenBEL Framework is built using `Apache Maven`_.
 
     mvn -Pdistribution clean package assembly:assembly install
 
-Alternatively, you can use `package.sh` which does the same thing.
+Alternatively, you can use ``package.sh`` which does the same thing.
 
 .. _Apache Maven: http://maven.apache.org/
 
