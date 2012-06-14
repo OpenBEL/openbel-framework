@@ -1,3 +1,5 @@
+.. _building_custom_namespaces:
+
 Building Custom Namespaces
 ==========================
 
