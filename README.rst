@@ -145,7 +145,7 @@ Further Reference
 -----------------
 
  * API documentation: http://openbel.github.com/openbel-framework
- * User documentation: http://readthedocs.org/projects/openbel-framework/
+ * User documentation: http://openbel-framework.readthedocs.org/en/latest/
  * GitHub: https://github.com/OpenBEL
  * BEL Portal: http://openbel.org
  * Selventa: http://www.selventa.com/
