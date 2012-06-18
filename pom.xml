@@ -19,20 +19,6 @@
         <url>https://github.com/belframework-org</url>
     </issueManagement>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>vm-build</id>
-            <name>vm-build-snapshots</name>
-            <url>http://vm-build/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-
-        <repository>
-            <id>vm-build</id>
-            <name>vm-build Artifactory</name>
-            <url>http://vm-build/artifactory/libs-release-local</url>
-        </repository>
-    </distributionManagement>
-
     <properties>
         <!-- source encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
