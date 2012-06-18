@@ -65,9 +65,9 @@ intended on serving a particular purpose.
   The OpenBEL Eclipse p2 repository. It currently holds the stable and unstable
   repositories of the OpenBEL Workbench.
 
-`OpenBEL Workbench`_
-  The OpenBEL Workbench enables the BEL language and the framework to be used
-  in `Eclipse`_ - from the syntax and semantics of the BEL language to the
+`BEL Editor`_
+  The BEL Editor enables the BEL language and the framework to be used in
+  `Eclipse`_ - from the syntax and semantics of the BEL language to the
   compilation of BEL knowledge into knowledge assembly models.
 
 .. _OpenBEL Discussion Group: https://groups.google.com/forum/#!forum/openbel-discuss
@@ -76,7 +76,7 @@ intended on serving a particular purpose.
 .. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
 .. _Cytoscape Plugins: https://github.com/OpenBEL/Cytoscape-Plugins#readme
 .. _OpenBEL Eclipse Repository: https://github.com/OpenBEL/eclipse
-.. _OpenBEL Workbench: https://github.com/OpenBEL/bel-editor
+.. _BEL Editor: https://github.com/OpenBEL/bel-editor
 .. _Cytoscape: http://www.cytoscape.org/
 .. _Eclipse: http://eclipse.org
 
@@ -146,14 +146,11 @@ Further Reference
 
  * API documentation: http://openbel.github.com/openbel-framework
  * User documentation: http://openbel-framework.readthedocs.org/en/master/
+ * Nightly builds: http://ci.selventa.com/browse/FWMASTER-NIGHTLY/latest/artifact
+ * OpenBEL build server: http://ci.selventa.com
  * GitHub: https://github.com/OpenBEL
  * BEL Portal: http://openbel.org
  * Selventa: http://www.selventa.com/
- * Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins
- * Eclipse integration: https://github.com/belframework-org/OpenBEL-Workbench
- * OpenBEL Eclipse repository: https://github.com/belframework-org/eclipse
- * OpenBEL build server: http://ci.selventa.com
- * Nightly builds: http://ci.selventa.com/browse/FWEXP-NIGHTLY/latest/artifact
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
 
