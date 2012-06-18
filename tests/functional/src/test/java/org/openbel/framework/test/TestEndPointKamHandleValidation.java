@@ -1,12 +1,12 @@
 package org.openbel.framework.test;
 
-import static org.openbel.framework.ws.client.ObjectFactory.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,8 +19,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.openbel.framework.ws.client.*;
+import org.openbel.framework.ws.model.*;
 
 /**
  * A JUnit test case to check that all BEL Framework Web API requests that take
@@ -49,6 +48,7 @@ import org.openbel.framework.ws.client.*;
  * </ul>
  */
 public class TestEndPointKamHandleValidation {
+    private final static ObjectFactory factory = new ObjectFactory();
 
     private static WebAPI api;
     private static final KamHandle invalidKamHandle = new KamHandle();
@@ -72,7 +72,7 @@ public class TestEndPointKamHandleValidation {
         if (hasItems(catalog)) {
             validKamHandle = loadKam(catalog.get(0));
 
-            final GetNamespacesRequest nsRequest = createGetNamespacesRequest();
+            final GetNamespacesRequest nsRequest = factory.createGetNamespacesRequest();
             nsRequest.setHandle(validKamHandle);
             final GetNamespacesResponse nsResponse = api.getNamespaces(nsRequest);
             if (nsResponse != null) {
@@ -86,22 +86,22 @@ public class TestEndPointKamHandleValidation {
 
     @Test
     public void testThatGetKamValidatesKamHandle() {
-        check("getKam", createGetKamRequest());
+        check("getKam", factory.createGetKamRequest());
     }
 
     @Test
     public void testThatGetBelDocumentsValidatesKamHandle() {
-        check("getBelDocuments", createGetBelDocumentsRequest());
+        check("getBelDocuments", factory.createGetBelDocumentsRequest());
     }
 
     @Test
     public void testThatGetAnnotationTypesValidatesKamHandle() {
-        check("getAnnotationTypes", createGetAnnotationTypesRequest());
+        check("getAnnotationTypes", factory.createGetAnnotationTypesRequest());
     }
 
     @Test
     public void testThatGetNamespacesValidatesKamHandle() {
-        check("getNamespaces", createGetNamespacesRequest());
+        check("getNamespaces", factory.createGetNamespacesRequest());
     }
 
     @Test
@@ -110,14 +110,14 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatGetCitationsValidatesKamHandle(final CitationType citationType) {
-        final GetCitationsRequest request = createGetCitationsRequest();
+        final GetCitationsRequest request = factory.createGetCitationsRequest();
         request.setCitationType(citationType);
         check("getCitations", request);
     }
 
     @Test
     public void testThatGetNewInstanceValidatesKamHandle() {
-        check("getNewInstance", createGetNewInstanceRequest());
+        check("getNewInstance", factory.createGetNewInstanceRequest());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatMapDataValidatesKamHandle(final Namespace namespace) {
-        final MapDataRequest request = createMapDataRequest();
+        final MapDataRequest request = factory.createMapDataRequest();
         request.setNamespace(namespace);
         check("mapData", request);
     }
@@ -141,11 +141,11 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatUnionKamsValidatesKamHandle(final KamHandle validKamHandle) {
-        final UnionKamsRequest request1 = createUnionKamsRequest();
+        final UnionKamsRequest request1 = factory.createUnionKamsRequest();
         request1.setKam2(validKamHandle);
         check("unionKams", request1, "setKam1");
 
-        final UnionKamsRequest request2 = createUnionKamsRequest();
+        final UnionKamsRequest request2 = factory.createUnionKamsRequest();
         request2.setKam1(validKamHandle);
         check("unionKams", request2, "setKam2");
     }
@@ -158,11 +158,11 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatIntersectKamsValidatesKamHandle(final KamHandle validKamHandle) {
-        final IntersectKamsRequest request1 = createIntersectKamsRequest();
+        final IntersectKamsRequest request1 = factory.createIntersectKamsRequest();
         request1.setKam2(validKamHandle);
         check("intersectKams", request1, "setKam1");
 
-        final IntersectKamsRequest request2 = createIntersectKamsRequest();
+        final IntersectKamsRequest request2 = factory.createIntersectKamsRequest();
         request2.setKam1(validKamHandle);
         check("intersectKams", request2, "setKam2");
     }
@@ -175,11 +175,11 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatDifferenceKamsValidatesKamHandle(final KamHandle validKamHandle) {
-        final DifferenceKamsRequest request1 = createDifferenceKamsRequest();
+        final DifferenceKamsRequest request1 = factory.createDifferenceKamsRequest();
         request1.setKam2(validKamHandle);
         check("differenceKams", request1, "setKam1");
 
-        final DifferenceKamsRequest request2 = createDifferenceKamsRequest();
+        final DifferenceKamsRequest request2 = factory.createDifferenceKamsRequest();
         request2.setKam1(validKamHandle);
         check("differenceKams", request2, "setKam2");
     }
@@ -190,7 +190,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatResolveNodesValidatesKamHandle(final List<Node> nodes) {
-        final ResolveNodesRequest request = createResolveNodesRequest();
+        final ResolveNodesRequest request = factory.createResolveNodesRequest();
         request.getNodes().addAll(nodes);
         check("resolveNodes", request);
     }
@@ -201,14 +201,14 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatResolveEdgesValidatesKamHandle(final List<Edge> edges) {
-        final ResolveEdgesRequest request = createResolveEdgesRequest();
+        final ResolveEdgesRequest request = factory.createResolveEdgesRequest();
         request.getEdges().addAll(edges);
         check("resolveEdges", request);
     }
 
     @Test
     public void testThatReleaseKamValidatesKamHandle() {
-        check("releaseKam", createReleaseKamRequest(), "setKam");
+        check("releaseKam", factory.createReleaseKamRequest(), "setKam");
     }
 
     @Test
@@ -217,7 +217,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatFindEdgesValidatesKamHandle(final EdgeFilter edgeFilter) {
-        final FindKamEdgesRequest request = createFindKamEdgesRequest();
+        final FindKamEdgesRequest request = factory.createFindKamEdgesRequest();
         request.setFilter(edgeFilter);
         check("findKamEdges", request);
     }
@@ -229,7 +229,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatFindKamNodesByIdsValidatesKamHandle(final List<String> ids) {
-        final FindKamNodesByIdsRequest request = createFindKamNodesByIdsRequest();
+        final FindKamNodesByIdsRequest request = factory.createFindKamNodesByIdsRequest();
         request.getIds().addAll(ids);
         check("findKamNodesByIds", request);
     }
@@ -241,7 +241,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatFindKamNodesByLabelsValidatesKamHandle(final List<String> labels) {
-        final FindKamNodesByLabelsRequest request = createFindKamNodesByLabelsRequest();
+        final FindKamNodesByLabelsRequest request = factory.createFindKamNodesByLabelsRequest();
         request.getLabels().addAll(labels);
         check("findKamNodesByLabels", request);
     }
@@ -252,7 +252,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private void testThatFindKamNodesByPatternsValidateKamHandle(final List<String> patterns) {
-        final FindKamNodesByPatternsRequest request = createFindKamNodesByPatternsRequest();
+        final FindKamNodesByPatternsRequest request = factory.createFindKamNodesByPatternsRequest();
         request.getPatterns().addAll(patterns);
         check("findKamNodesByPatterns", request);
     }
@@ -267,7 +267,7 @@ public class TestEndPointKamHandleValidation {
     }
 
     private static KamHandle loadKam(final Kam kam) {
-        final LoadKamRequest lkreq = createLoadKamRequest();
+        final LoadKamRequest lkreq = factory.createLoadKamRequest();
         lkreq.setKam(kam);
         LoadKamResponse lkres = api.loadKam(lkreq);
         KAMLoadStatus status = lkres.getLoadStatus();

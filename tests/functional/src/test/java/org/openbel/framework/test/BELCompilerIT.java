@@ -1,8 +1,5 @@
 package org.openbel.framework.test;
 
-import static org.openbel.framework.ws.client.ObjectFactory.createFindKamEdgesRequest;
-import static org.openbel.framework.ws.client.ObjectFactory.createFindKamNodesByPatternsRequest;
-import static org.openbel.framework.ws.client.ObjectFactory.createLoadKamRequest;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -15,31 +12,15 @@ import java.util.Map;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.openbel.framework.ws.client.EdgeFilter;
-import org.openbel.framework.ws.client.FindKamEdgesRequest;
-import org.openbel.framework.ws.client.FindKamEdgesResponse;
-import org.openbel.framework.ws.client.FindKamNodesByPatternsRequest;
-import org.openbel.framework.ws.client.FindKamNodesByPatternsResponse;
-import org.openbel.framework.ws.client.GetCatalogResponse;
-import org.openbel.framework.ws.client.KAMLoadStatus;
-import org.openbel.framework.ws.client.Kam;
-import org.openbel.framework.ws.client.KamEdge;
-import org.openbel.framework.ws.client.KamHandle;
-import org.openbel.framework.ws.client.KamNode;
-import org.openbel.framework.ws.client.LoadKamRequest;
-import org.openbel.framework.ws.client.LoadKamResponse;
-import org.openbel.framework.ws.client.RelationshipType;
-import org.openbel.framework.ws.client.RelationshipTypeFilterCriteria;
-import org.openbel.framework.ws.client.WebAPI;
-import org.openbel.framework.ws.client.WebAPIService;
+import org.openbel.framework.ws.model.*;
 
 public class BELCompilerIT {
+    private static final ObjectFactory factory = new ObjectFactory();
     private static WebAPI api;
     private static Map<String, Kam> name2Kams;
     private static EdgeFilter allEdges;
     static {
-        // create edge filter for all rtypes
+        // factory.create edge filter for all rtypes
         allEdges = new EdgeFilter();
         final RelationshipTypeFilterCriteria rcrit =
                 new RelationshipTypeFilterCriteria();
@@ -148,7 +129,7 @@ public class BELCompilerIT {
         final Kam kam = name2Kams.get(kamName);
         assertThat(kam, is(not(nullValue())));
 
-        final LoadKamRequest lkreq = createLoadKamRequest();
+        final LoadKamRequest lkreq = factory.createLoadKamRequest();
         lkreq.setKam(kam);
         LoadKamResponse lkres = api.loadKam(lkreq);
         KAMLoadStatus status = lkres.getLoadStatus();
@@ -168,7 +149,7 @@ public class BELCompilerIT {
         assertThat(handle, is(not(nullValue())));
 
         final FindKamNodesByPatternsRequest fknreq =
-                createFindKamNodesByPatternsRequest();
+                factory.createFindKamNodesByPatternsRequest();
         fknreq.getPatterns().add(".*");
         fknreq.setHandle(handle);
 
@@ -179,7 +160,7 @@ public class BELCompilerIT {
         assertThat(kamNodes, is(not(nullValue())));
         assertThat(kamNodes.size(), is(nodes));
 
-        final FindKamEdgesRequest fkereq = createFindKamEdgesRequest();
+        final FindKamEdgesRequest fkereq = factory.createFindKamEdgesRequest();
         fkereq.setFilter(allEdges);
         fkereq.setHandle(handle);
 
