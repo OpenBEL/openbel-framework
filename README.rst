@@ -74,9 +74,9 @@ intended on serving a particular purpose.
 .. _OpenBEL Announcement Group: https://groups.google.com/forum/#!forum/openbel-announce
 .. _openbel-framework-resources: https://github.com/OpenBEL/openbel-framework-resources
 .. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
-.. _Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins#readme
-.. _OpenBEL Eclipse Repository: https://github.com/belframework-org/eclipse
-.. _OpenBEL Workbench: https://github.com/belframework-org/OpenBEL-Workbench
+.. _Cytoscape Plugins: https://github.com/OpenBEL/Cytoscape-Plugins#readme
+.. _OpenBEL Eclipse Repository: https://github.com/OpenBEL/eclipse
+.. _OpenBEL Workbench: https://github.com/OpenBEL/OpenBEL-Workbench
 .. _Cytoscape: http://www.cytoscape.org/
 .. _Eclipse: http://eclipse.org
 
