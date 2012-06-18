@@ -102,8 +102,8 @@ API Documentation
 
 Pushes to the `master` branch instruct our build server to update the
 `API documentation`_. It will always be up-to-date for the current
-master. The documentation is published under the `gh-pages`_ branch of this
-repository.
+master. The documentation is published under the `gh-pages`_ branch of the
+official repository.
 
 .. _API documentation: http://openbel.github.com/openbel-framework
 .. _gh-pages: https://github.com/OpenBEL/openbel-framework/tree/gh-pages
