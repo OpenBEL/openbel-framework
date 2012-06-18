@@ -76,7 +76,7 @@ intended on serving a particular purpose.
 .. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
 .. _Cytoscape Plugins: https://github.com/OpenBEL/Cytoscape-Plugins#readme
 .. _OpenBEL Eclipse Repository: https://github.com/OpenBEL/eclipse
-.. _OpenBEL Workbench: https://github.com/OpenBEL/OpenBEL-Workbench
+.. _OpenBEL Workbench: https://github.com/OpenBEL/bel-editor
 .. _Cytoscape: http://www.cytoscape.org/
 .. _Eclipse: http://eclipse.org
 
