@@ -71,6 +71,12 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String ALL_DOCUMENTS_PASSED_VALIDATION =
+            "All documents passed validation";
+
+    /**
+     * {@value}
+     */
     public static final String ANNOTATION_WARNING =
             "%s is not found in annotation type %s";
 

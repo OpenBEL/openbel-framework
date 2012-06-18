@@ -40,12 +40,7 @@ import static org.openbel.framework.common.BELUtilities.isBELDocument;
 import static org.openbel.framework.common.BELUtilities.isBELScript;
 import static org.openbel.framework.common.BELUtilities.isXBEL;
 import static org.openbel.framework.common.BELUtilities.readable;
-import static org.openbel.framework.common.Strings.CHECK_PEDANTIC;
-import static org.openbel.framework.common.Strings.CHECK_PEDANTIC_PERMISSIVE_ERROR;
-import static org.openbel.framework.common.Strings.CHECK_PERMISSIVE;
-import static org.openbel.framework.common.Strings.CHECK_QUIET;
-import static org.openbel.framework.common.Strings.CHECK_SUMMARY;
-import static org.openbel.framework.common.Strings.SYSTEM_CONFIG_PATH;
+import static org.openbel.framework.common.Strings.*;
 import static org.openbel.framework.core.StandardOptions.ARG_SYSCFG;
 import static org.openbel.framework.core.StandardOptions.LONG_OPT_SYSCFG;
 import static org.openbel.framework.core.StandardOptions.SHRT_OPT_SYSCFG;
@@ -166,7 +161,7 @@ public class BelCheck extends CommandLineApplication {
 
         List<String> fileArgs = getExtraneousArguments();
         if (!hasItems(fileArgs)) {
-            reportable.error("No documents specified.");
+            reportable.error(NO_DOCUMENT_FILES);
             end();
         }
         if (fileArgs.size() > 1) {
@@ -296,6 +291,7 @@ public class BelCheck extends CommandLineApplication {
                 printSummary(fileArg, numWarnings, numErrors);
             }
             if (numErrors == 0) {
+                reportable.output(ALL_DOCUMENTS_PASSED_VALIDATION);
                 bail(ExitCode.SUCCESS);
             } else {
                 bail(ExitCode.VALIDATION_FAILURE);
