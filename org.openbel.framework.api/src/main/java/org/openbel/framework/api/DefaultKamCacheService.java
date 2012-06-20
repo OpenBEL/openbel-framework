@@ -35,10 +35,10 @@
  */
 package org.openbel.framework.api;
 
-import static java.util.concurrent.Executors.newFixedThreadPool;
-import static org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
-import static org.openbel.framework.api.KamCacheService.LoadStatus.LOADED;
-import static org.openbel.framework.api.KamCacheService.LoadStatus.LOADING;
+import static java.lang.String.*;
+import static java.util.concurrent.Executors.*;
+import static org.apache.commons.lang.RandomStringUtils.*;
+import static org.openbel.framework.api.KamCacheService.LoadStatus.*;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -48,6 +48,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
@@ -129,7 +130,7 @@ public class DefaultKamCacheService implements KamCacheService {
         read = rwlock.readLock();
         write = rwlock.writeLock();
 
-        execSvc = newFixedThreadPool(CONCURRENT_LOAD);
+        execSvc = newFixedThreadPool(CONCURRENT_LOAD, new _ThreadFactory());
     }
 
     /**
@@ -503,6 +504,25 @@ public class DefaultKamCacheService implements KamCacheService {
             // fltr is non-null by contract
             if (!fltr.equals(f.fltr)) return false;
             return true;
+        }
+
+    }
+
+    /**
+     * Creates daemon threads with names {@code kam-cache-thread-%d}.
+     */
+    private class _ThreadFactory implements ThreadFactory {
+        int thread_num = 0;
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Thread newThread(Runnable r) {
+            final Thread t = new Thread(r);
+            t.setName(format("kam-cache-thread-%d", thread_num++));
+            t.setDaemon(true);
+            return t;
         }
 
     }
