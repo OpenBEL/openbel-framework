@@ -50,9 +50,9 @@ intended on serving a particular purpose.
 `freenode IRC network`_
   We maintain the ``#openbel`` channel on the freenode network.
 
-  To connect to freenode, you can use the ``chat.freenode.net`` server. On Linux
-  and Windows, you can use `XChat`_ as an IRC client. On Mac OS X, there is
-  `Xirc`_.
+  To connect to freenode, you can use ``chat.freenode.net`` as an IRC server.
+  On Linux and Windows, you can use `XChat`_ as an IRC client. On Mac OS X,
+  there is `Xirc`_.
 
 `openbel-framework-resources`_
   The framework's resources provide a set of files derived from biological and
