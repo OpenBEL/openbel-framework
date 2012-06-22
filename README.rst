@@ -47,6 +47,13 @@ intended on serving a particular purpose.
   email to ``openbel-announce+subscribe@googlegroups.com`` with the subject
   ``subscribe``.
 
+`freenode IRC network`_
+  We maintain the ``#openbel`` channel on the freenode network.
+
+  To connect to freenode, you can use the ``chat.freenode.net`` server. On Linux
+  and Windows, you can use `XChat`_ as an IRC client. On Mac OS X, there is
+  `Xirc`_.
+
 `openbel-framework-resources`_
   The framework's resources provide a set of files derived from biological and
   chemical ontologies. These resources are used to better describe biological
@@ -79,6 +86,9 @@ intended on serving a particular purpose.
 .. _BEL Editor: https://github.com/OpenBEL/bel-editor
 .. _Cytoscape: http://www.cytoscape.org/
 .. _Eclipse: http://eclipse.org
+.. _freenode IRC network: http://www.freenode.net/
+.. _XChat: http://xchat.org/
+.. _Xirc: http://www.aquaticx.com/
 
 Distribution
 ------------
