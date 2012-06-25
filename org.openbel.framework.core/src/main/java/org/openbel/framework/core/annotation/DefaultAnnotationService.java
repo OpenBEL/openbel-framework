@@ -37,11 +37,14 @@ package org.openbel.framework.core.annotation;
 
 import static java.lang.String.format;
 import static org.openbel.framework.common.Strings.INVALID_ANNOTATIONS;
+import static org.openbel.framework.common.util.ValidationUtilities.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import org.openbel.framework.common.model.Annotation;
+import org.openbel.framework.common.model.AnnotationDefinition;
 import org.openbel.framework.common.model.Document;
 import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.util.ValidationUtilities;
@@ -59,15 +62,24 @@ public class DefaultAnnotationService implements AnnotationService {
      */
     @Override
     public void verify(Annotation annotation) throws AnnotationSyntaxWarning {
-        if (!ValidationUtilities.isValid(annotation)) {
-            if (annotation.getDefinition().getURL() == null) {
-                throw new AnnotationSyntaxWarning(annotation.getDefinition()
-                        .getId(), annotation.getValue());
-            }
-            throw new AnnotationSyntaxWarning(annotation.getDefinition()
-                    .getURL(), annotation.getDefinition().getId(),
-                    annotation.getValue());
+        try {
+            if (isValid(annotation)) return;
+        } catch (PatternSyntaxException e) {
+            // ignore it
         }
+        // Pattern syntax is bad or annotation is not valid
+
+        // The annotation is defined by its annotation definition.
+        AnnotationDefinition annodef = annotation.getDefinition();
+
+        String annodefID = annodef.getId();
+        String url = annodef.getURL();
+        String annoval = annotation.getValue();
+
+        if (url == null) {
+            throw new AnnotationSyntaxWarning(annodefID, annoval);
+        }
+        throw new AnnotationSyntaxWarning(url, annodefID, annoval);
     }
 
     /**
