@@ -47,7 +47,6 @@ import org.openbel.framework.common.model.Annotation;
 import org.openbel.framework.common.model.AnnotationDefinition;
 import org.openbel.framework.common.model.Document;
 import org.openbel.framework.common.model.Statement;
-import org.openbel.framework.common.util.ValidationUtilities;
 import org.openbel.framework.core.compiler.SymbolWarning;
 
 /**
