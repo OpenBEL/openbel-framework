@@ -65,10 +65,8 @@ public class BELParser {
         // parse and extract syntax errors
         BELScriptParser.document_return result = null;
         try {
-            result = parser.document();
-        } catch (RecognitionException e) {
-            // swallow since we have already captured syntax errors
-        }
+        result = parser.document();
+        } catch (RecognitionException e) {}
         List<BELParseErrorException> syntaxErrors = parser.getSyntaxErrors();
         List<BELParseWarningException> syntaxWarnings =
                 new ArrayList<BELParseWarningException>();
@@ -81,10 +79,8 @@ public class BELParser {
             BELScriptWalker walker = new BELScriptWalker(nodeStream);
             document_return document = null;
             try {
-                document = walker.document();
-            } catch (RecognitionException e) {
-                // swallow since we have already captured syntax errors
-            }
+            document = walker.document();
+            } catch (RecognitionException e) {}
 
             if (document != null) {
                 doc = document.doc;

@@ -35,7 +35,7 @@ options {
     public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         String context = "";
         if (paraphrases.size() > 0) {
-            context = (String)paraphrases.peek();
+            context = paraphrases.peek();
         }
         syntaxErrors.add(new BELParseErrorException.SyntaxException(e.line, e.charPositionInLine, context, e));
     }
@@ -260,6 +260,7 @@ OBJECT_IDENT:
 
 QUOTED_VALUE:
     '"' ( EscapeSequence | '\\\n' | '\\\r\n' | ~('\\'|'"') )* '"'
+    { System.out.println("this: " + getText()); setText(getText().replace("\\\\", "\\")); System.out.println("became this: " + getText()); }
     ;
 
 OPEN_PAREN:
