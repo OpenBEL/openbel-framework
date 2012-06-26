@@ -1,25 +1,22 @@
 OpenBEL Framework
 =================
 
-The OpenBEL Framework is an open-platform technology specifically designed to
+The OpenBEL Framework is an open-platform technology for managing, publishing, and using biological knowledge represented using the Biological Expression Language (BEL). BEL is an easy to understand, computable format for representing biological knowledge. The OpenBEL Framework is specifically designed to
 overcome many of the challenges associated with capturing, integrating, and
-storing knowledge within an organization, and sharing the knowledge across the
+storing biological knowledge within an organization, and sharing the knowledge across the
 organization and between business partners. The framework provides mechanisms
 for: 
 
- #. Knowledge capture and management
- #. Integration of knowledge from multiple disparate knowledge streams
- #. Knowledge representation and standardization in an open use-neutral format
- #. Creating customizable and computable biological networks from captured
+ #. Capture and management of biological knowledge
+ #. Integration of knowledge from multiple sources
+ #. Knowledge representation in a standard and open format
+ #. Creation of custom, computable biological networks from captured
     knowledge
- #. Quickly enabling knowledge-aware applications using standardized APIs
-    across all major platforms
+ #. Enabling applications to query knowledge networks using web and Java APIs
 
 Central to the design of the framework is the ability to integrate knowledge
-across different representational vocabularies and ontologies. This is unique
-within the industry and for the first time allows organizations to combine
-knowledge from disparate sources such as existing applications, internal
-sources, and knowledge acquired from business partners, into centralized
+across different representational vocabularies and ontologies. This allows organizations to combine
+knowledge from disparate sources into centralized
 knowledge repositories. The combined knowledge can be made available to a
 variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
