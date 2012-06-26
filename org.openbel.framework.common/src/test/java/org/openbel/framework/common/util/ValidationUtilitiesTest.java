@@ -43,7 +43,6 @@ import org.junit.Test;
 
 /**
  * {@link ValidationUtilities} tests.
- * TODO Type description
  */
 public class ValidationUtilitiesTest {
 
