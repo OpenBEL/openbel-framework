@@ -35,7 +35,8 @@
  */
 package org.openbel.framework.common.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.regex.PatternSyntaxException;
 
@@ -47,7 +48,7 @@ import org.junit.Test;
 public class ValidationUtilitiesTest {
 
     /**
-     * https://github.com/OpenBEL/openbel-framework/issues/15
+     * @see https://github.com/OpenBEL/openbel-framework/issues/15
      */
     @Test(expected = PatternSyntaxException.class)
     public void issue15() {
