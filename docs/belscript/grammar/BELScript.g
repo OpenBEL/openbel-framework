@@ -35,7 +35,7 @@ options {
     public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         String context = "";
         if (paraphrases.size() > 0) {
-            context = (String)paraphrases.peek();
+            context = paraphrases.peek();
         }
         syntaxErrors.add(new BELParseErrorException.SyntaxException(e.line, e.charPositionInLine, context, e));
     }
