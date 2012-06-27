@@ -27,13 +27,6 @@ public class KamBuilder {
         this.usingLongForm = usingLongForm;
     }
 
-    public KamBuilder(final KamInfo kamInfo, final boolean usingLongForm) {
-        this.kamInfo = kamInfo;
-        this.knodes = new LinkedHashMap<String, TestKamNode>();
-        this.kedges = new LinkedHashMap<String, TestKamEdge>();
-        this.usingLongForm = usingLongForm;
-    }
-
     public KamBuilder addNodes(final String... nodes) {
         if (hasItems(nodes)) {
             for (final String n : nodes) {
