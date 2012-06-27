@@ -59,7 +59,8 @@ import static org.openbel.framework.common.Strings.PHASE3_STAGE2_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE3_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE4_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE5_HDR;
-import static org.openbel.framework.common.Strings.PHASE4_STAGE1_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE6_HDR;
+import static org.openbel.framework.common.Strings.PHASE4_NO_ORTHOLOGY_LONG_OPTION;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.ExitCode.FAILED_TO_MERGE_PROTO_NETWORKS;
 import static org.openbel.framework.common.enums.ExitCode.NO_CONVERTED_DOCUMENTS;
@@ -169,7 +170,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
     public final static String INJECTED_PF_NETWORK = "injected-protfam";
     public final static String INJECTED_GS_NETWORK = "injected-genescaff";
 
-    private final static String NUM_PHASES = "5";
+    private final static String NUM_PHASES = "6";
 
     /**
      * Phase three application constructor.
@@ -223,9 +224,10 @@ public final class PhaseThreeApplication extends PhaseApplication {
      */
     public boolean isSkipped() {
         // --no-phaseIII is the same as:
-        // --no-gene-scaffolding --no-named-complexes --no-protein-families
+        // --no-gene-scaffolding --no-named-complexes --no-protein-families --no-orthology
         return (hasOption(NO_P3_LONG_OPT) || (hasOption(NO_GS_LONG_OPT)
-                && hasOption(NO_NC_LONG_OPT) && hasOption(NO_PF_LONG_OPT)));
+                && hasOption(NO_NC_LONG_OPT) && hasOption(NO_PF_LONG_OPT)
+                && hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION)));
     }
 
     /**
@@ -250,6 +252,9 @@ public final class PhaseThreeApplication extends PhaseApplication {
         }
         if (hasOption(NO_GS_LONG_OPT)) {
             phasecfg.setInjectGeneScaffolding(false);
+        }
+        if (hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION)) {
+            phasecfg.setInjectOrthology(false);
         }
 
         phaseOutput(format("=== %s ===", getApplicationName()));
@@ -997,26 +1002,14 @@ public final class PhaseThreeApplication extends PhaseApplication {
      * @return the {@link ProtoNetwork} with homology knowledge injected
      */
     private ProtoNetwork stage4(final ProtoNetwork pn) {
+        beginStage(PHASE3_STAGE4_HDR, "4", NUM_PHASES);
+
         if (!getPhaseConfiguration().getInjectOrthology()) {
             final StringBuilder bldr = new StringBuilder();
             bldr.append(getApplicationShortName());
             bldr.append(" has been skipped.");
             phaseOutput(bldr.toString());
             return pn;
-        }
-
-        // load the resource index for phase IV use.
-        String resourceIndexURL = sysconfig.getResourceIndexURL();
-        try {
-            final ResolvedResource resource = cache.resolveResource(
-                    ResourceType.RESOURCE_INDEX, resourceIndexURL);
-            ResourceIndex.INSTANCE.loadIndex(resource.getCacheResourceCopy());
-        } catch (ResourceDownloadError e) {
-            failIndex(getPhaseConfiguration(), e.getUserFacingMessage());
-        } catch (FileNotFoundException e) {
-            failIndex(getPhaseConfiguration(), e.getMessage());
-        } catch (XMLStreamException e) {
-            failIndex(getPhaseConfiguration(), e.getMessage());
         }
 
         // create output directory for orthologized proto network
@@ -1029,14 +1022,8 @@ public final class PhaseThreeApplication extends PhaseApplication {
             return pn;
         }
 
-        return stage1pruning(resources, pn);
-    }
-
-    public ProtoNetwork stage1pruning(Set<ResourceLocation> resources, final ProtoNetwork pn) {
-        beginStage(PHASE4_STAGE1_HDR, "1", NUM_PHASES);
         long t1 = currentTimeMillis();
 
-        int i = 1;
         final Iterator<ResourceLocation> it = resources.iterator();
 
         final ResourceLocation first = it.next();
@@ -1046,38 +1033,10 @@ public final class PhaseThreeApplication extends PhaseApplication {
             final ResourceLocation resource = it.next();
             final ProtoNetwork opn = pruneResource(pn, resource);
 
-            if (withDebug()) {
-                final String rootpath = artifactPath.getAbsolutePath();
-                final String pfpath = asPath(rootpath, "pruned"+(i++));
-                createDirectories(pfpath);
-
-                try {
-                    TextProtoNetworkExternalizer textExternalizer =
-                            new TextProtoNetworkExternalizer();
-                    textExternalizer.writeProtoNetwork(opn, pfpath);
-                } catch (ProtoNetworkError e) {
-                    stageError(e.getUserFacingMessage());
-                }
-            }
-
             try {
                 p3.merge(orthoMerge, opn);
             } catch (ProtoNetworkError e) {
                 e.printStackTrace();
-            }
-        }
-
-        if (withDebug()) {
-            final String rootpath = artifactPath.getAbsolutePath();
-            final String pfpath = asPath(rootpath, "ortho-merge");
-            createDirectories(pfpath);
-
-            try {
-                TextProtoNetworkExternalizer textExternalizer =
-                        new TextProtoNetworkExternalizer();
-                textExternalizer.writeProtoNetwork(orthoMerge, pfpath);
-            } catch (ProtoNetworkError e) {
-                stageError(e.getUserFacingMessage());
             }
         }
 
@@ -1236,7 +1195,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
      * @return Equivalenced proto-network
      */
     private ProtoNetwork stage5(ProtoNetwork pn) {
-        beginStage(PHASE3_STAGE4_HDR, "4", NUM_PHASES);
+        beginStage(PHASE3_STAGE5_HDR, "5", NUM_PHASES);
         final StringBuilder bldr = new StringBuilder();
 
         if (!withGeneScaffoldingInjection() &&
@@ -1347,7 +1306,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
      * @param pn Proto-network
      */
     private void stage6(ProtoNetwork pn) {
-        beginStage(PHASE3_STAGE5_HDR, "5", NUM_PHASES);
+        beginStage(PHASE3_STAGE6_HDR, "6", NUM_PHASES);
         stageOutput("Saving augmented network");
 
         final String rootpath = artifactPath.getAbsolutePath();

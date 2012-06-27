@@ -80,12 +80,6 @@ public class PhaseZeroApplication extends CommandLineApplication {
             bail(GENERAL_FAILURE);
         }
 
-        PhaseFiveApplication p5App = new PhaseFiveApplication(commandLineArgs);
-        if (!p5App.validCommandLine()) {
-            printUsage();
-            bail(GENERAL_FAILURE);
-        }
-
         initializeSystemConfiguration();
         SystemConfiguration syscfg = getSystemConfiguration();
 

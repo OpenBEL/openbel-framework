@@ -2,34 +2,45 @@ package org.openbel.framework.tools;
 
 import static java.lang.System.out;
 import static org.openbel.framework.common.Strings.RC_READ_FAILURE;
-import static org.openbel.framework.common.enums.ExitCode.UNRECOVERABLE_ERROR;
 
 import java.io.IOException;
 
 import org.openbel.framework.common.BELRuntimeException;
-import org.openbel.framework.common.Strings;
 import org.openbel.framework.common.cfg.RuntimeConfiguration;
+import org.openbel.framework.common.enums.ExitCode;
 
 /**
- * {@link PhaseFourOptions} defines compiler options for the execution of phase
- * four.
+ * Phase four compiler options.
+ * <p>
+ * This is a {@link #phaseFourOptions() singleton object} that sets its
+ * properties based on the presence and contents of a file.
+ * </p>
  *
- * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
+ * @see com.selventa.belframework.common.PathConstants BEL framework path
+ * constants
  */
 public class PhaseFourOptions extends RuntimeConfiguration {
 
-    private boolean noOrthology;
+    /**
+     * KAM setting name: {@value #KAM_NAME_DESC}
+     */
+    public static final String KAM_NAME_DESC = "kam_name";
 
     /**
-     * Singleton instance initialized statically at load time.
+     * KAM setting name: {@value #KAM_DESCRIPTION_DESC}
      */
+    public static final String KAM_DESCRIPTION_DESC = "kam_description";
+
+    private String kamName;
+    private String kamDescription;
+
     private static final PhaseFourOptions self;
     static {
         try {
             self = new PhaseFourOptions();
         } catch (IOException e) {
             final String err = RC_READ_FAILURE;
-            throw new BELRuntimeException(err, UNRECOVERABLE_ERROR, e);
+            throw new BELRuntimeException(err, ExitCode.UNRECOVERABLE_ERROR, e);
         }
     }
 
@@ -45,31 +56,59 @@ public class PhaseFourOptions extends RuntimeConfiguration {
     /**
      * Returns the phase four compiler options.
      *
-     * @return {@link PhaseFourOptions} the phase four options
+     * @return PhaseFourOptions
      */
     public static PhaseFourOptions phaseFourOptions() {
         return self;
     }
 
     /**
-     * Return whether the {@link Strings#PHASE4_NO_ORTHOLOGY_LONG_OPTION}
-     * option is set.
+     * Returns phase four's KAM name option.
      *
-     * @return {@code true} if orthology knowledge should not be added,
-     * {@code false} if orthology knowledge should be added
+     * @return String; may be null
      */
-    public boolean isNoOrthology() {
-        return noOrthology;
+    public final String getKAMName() {
+        return kamName;
     }
 
     /**
-     * Sets the {@link Strings#PHASE4_NO_ORTHOLOGY_LONG_OPTION} option.
+     * Sets phase four's KAM name option.
      *
-     * @param noOrthology {@code true} if orthology knowledge should not be
-     * added, {@code false} if orthology knowledge should be added
+     * @param kamName Phase four's KAM name
      */
-    public void setNoOrthology(boolean noOrthology) {
-        this.noOrthology = noOrthology;
+    public final void setKAMName(String kamName) {
+        this.kamName = kamName;
+    }
+
+    /**
+     * Returns phase four's KAM description option value.
+     *
+     * @return {@link String}, the kam description option value
+     */
+    public final String getKAMDescription() {
+        return kamDescription;
+    }
+
+    /**
+     * Sets phase four's KAM description option value.
+     *
+     * @param kamDescription {@link String}, the kam description option value
+     */
+    public final void setKAMDescription(String kamDescription) {
+        this.kamDescription = kamDescription;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void processSetting(String name, String value) {
+        super.processSetting(name, value);
+        if (KAM_NAME_DESC.equals(name)) {
+            kamName = value;
+        } else if(KAM_DESCRIPTION_DESC.equals(name)) {
+            kamDescription = value;
+        }
     }
 
     /**
@@ -78,7 +117,7 @@ public class PhaseFourOptions extends RuntimeConfiguration {
      * @param args Ignored command-line arguments
      */
     public static void main(String... args) {
-        out.println("Phase three defaults are:");
+        out.println("Phase four defaults are:");
         out.println(phaseFourOptions().defaultConfiguration());
     }
 }
