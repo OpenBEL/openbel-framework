@@ -37,6 +37,7 @@ package org.openbel.framework.compiler;
 
 import static java.util.Collections.emptySet;
 import static org.openbel.framework.common.BELUtilities.constrainedHashSet;
+import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.noItems;
 import static org.openbel.framework.common.BELUtilities.sizedArrayList;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
@@ -56,6 +57,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.lang.ComplexAbundance;
 import org.openbel.framework.common.lang.ProteinAbundance;
 import org.openbel.framework.common.model.DataFileIndex;
@@ -64,17 +66,18 @@ import org.openbel.framework.common.model.EquivalenceDataIndex;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Statement;
+import org.openbel.framework.common.model.Statement.Object;
 import org.openbel.framework.common.model.StatementGroup;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.common.model.Statement.Object;
 import org.openbel.framework.common.protonetwork.model.NamespaceTable;
+import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
 import org.openbel.framework.common.protonetwork.model.ParameterTable;
+import org.openbel.framework.common.protonetwork.model.ParameterTable.TableParameter;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
+import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
 import org.openbel.framework.common.protonetwork.model.TermTable;
-import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
-import org.openbel.framework.common.protonetwork.model.ParameterTable.TableParameter;
 import org.openbel.framework.core.equivalence.EquivalenceMapResolutionFailure;
 import org.openbel.framework.core.indexer.JDBMEquivalenceLookup;
 import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
@@ -869,6 +872,252 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
         }
 
         return ret;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DocumentModificationResult pruneOrthologyDocument(final Document d,
+            final ProtoNetwork pn) {
+
+        DocumentModificationResult result = new DocumentModificationResult();
+
+        // Load the equivalences
+        Set<EquivalenceDataIndex> equivs;
+        try {
+            equivs = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure f) {
+            // Unrecoverable error
+            result.addError(f.getUserFacingMessage());
+            result.setSuccess(false);
+            return result;
+        }
+
+        // Map namespace to lookup
+        Map<String, JDBMEquivalenceLookup> lookups =
+                sizedHashMap(equivs.size());
+        for (final EquivalenceDataIndex edi : equivs) {
+            String rl = edi.getNamespaceResourceLocation();
+            DataFileIndex dfi = edi.getEquivalenceIndex();
+            lookups.put(rl, new JDBMEquivalenceLookup(dfi.getIndexPath()));
+        }
+
+        // Open the indices
+        for (final JDBMEquivalenceLookup jl : lookups.values()) {
+            try {
+                jl.open();
+            } catch (IOException e) {
+                result.addError(e.getMessage());
+                result.setSuccess(false);
+                return result;
+            }
+        }
+
+        // Approach
+        // 1.   map UUID to list of terms for proto network
+        // 2.   iterate ortho statements
+        //   a.   if valid orthologous statement
+        //      -   lookup exact match of subject term in proto network, if found
+        //          continue (orthologous statement intersects the proto network)
+        //      -   find subject parameter's uuid in a proto network term, if found
+        //          continue (orthologous statement intersects the proto network)
+        //      -   lookup exact match of object term in proto network, if found
+        //          continue (orthologous statement intersects the proto network)
+        //      -   find object parameter's uuid in a proto network term, if found
+        //          continue (orthologous statement intersects the proto network)
+
+        // 1. Map parameter UUIDs to containing term ids in the proto network
+        final TermTable tt = pn.getTermTable();
+        final TermParameterMapTable tpmt = pn.getTermParameterMapTable();
+        final ParameterTable pt = pn.getParameterTable();
+        final Map<Integer, Integer> pglob = pt.getGlobalIndex();
+        final Map<Integer, SkinnyUUID> puuid = pt.getGlobalUUIDs();
+        final Set<Integer> tidset = tt.getIndexedTerms().keySet();
+        final Map<SkinnyUUID, Set<Integer>> uuidterms = sizedHashMap(puuid
+                .size());
+        final Set<Term> pnterms = tt.getVisitedTerms().keySet();
+        // for each term
+        for (final Integer tid : tidset) {
+            // get its parameters
+            final List<Integer> pids = tpmt.getParameterIndexes(tid);
+            for (final Integer pid : pids) {
+                // find global parameter index for pid
+                Integer globalpid = pglob.get(pid);
+
+                // find UUID for global parameter index
+                final SkinnyUUID pu = puuid.get(globalpid);
+
+                // save this term to this UUID
+                Set<Integer> terms = uuidterms.get(pu);
+                if (terms == null) {
+                    terms = new HashSet<Integer>();
+                    uuidterms.put(pu, terms);
+                }
+                terms.add(tid);
+            }
+        }
+
+        // get all statement in orthology document
+        final List<Statement> orthoStmts = d.getAllStatements();
+        // map them to statement groups for efficient pruning
+        Map<StatementGroup, Set<Statement>> orthomap = d.mapStatements();
+
+        // set up pruning result
+        int total = orthoStmts.size();
+        int pruned = 0;
+
+        // establish cache to skinny uuids to avoid superfluous jdbm lookups
+        final Map<Parameter, SkinnyUUID> paramcache = sizedHashMap(total * 2);
+
+        // iterate all statements in the orthology document
+        ORTHO_STATEMENT: for (final Statement orthoStmt : orthoStmts) {
+
+            // rule out invalid or non-orthologous statements
+            if (validOrthologousStatement(orthoStmt)) {
+
+                final Term sub = orthoStmt.getSubject();
+                final FunctionEnum subf = sub.getFunctionEnum();
+                final List<Parameter> subp = sub.getParameters();
+                final Parameter subjectParam = subp.get(0);
+
+                // lookup exact match of subject term
+                if (pnterms.contains(sub)) {
+                    continue;
+                }
+
+                // find UUID for subject parameter
+                SkinnyUUID uuid = paramcache.get(subjectParam);
+                if (uuid == null) {
+                    final Namespace ns = subjectParam.getNamespace();
+                    final JDBMEquivalenceLookup lookup = lookups.get(ns
+                            .getResourceLocation());
+                    if (lookup == null) {
+                        continue;
+                    }
+
+                    uuid = lookup.lookup(subjectParam.getValue());
+                    paramcache.put(subjectParam, uuid);
+                }
+
+                // if there is a proto network term with this UUID contained, then
+                // this orthologous statement intersects the proto network, continue
+                if (uuid != null) {
+                    Set<Integer> tids = uuidterms.get(uuid);
+                    if (hasItems(tids)) {
+                        for (final Integer tid : tids) {
+                            final Term t = tt.getIndexedTerms().get(tid);
+                            if (t.getFunctionEnum() == subf) {
+                                continue ORTHO_STATEMENT;
+                            }
+                        }
+                    }
+                }
+
+                final Term obj = orthoStmt.getObject().getTerm();
+                final FunctionEnum objf = obj.getFunctionEnum();
+                final List<Parameter> objp = obj.getParameters();
+                final Parameter objectParam = objp.get(0);
+
+                // lookup exact match of object term
+                if (pnterms.contains(obj)) {
+                    continue;
+                }
+
+                // find UUID for object parameter
+                uuid = paramcache.get(objectParam);
+                if (uuid == null) {
+                    final Namespace ns = objectParam.getNamespace();
+                    final JDBMEquivalenceLookup lookup = lookups.get(ns
+                            .getResourceLocation());
+                    if (lookup == null) {
+                        continue;
+                    }
+
+                    uuid = lookup.lookup(objectParam.getValue());
+                    paramcache.put(objectParam, uuid);
+                }
+
+                // if there is a proto network term with this UUID contained, then
+                // this orthologous statement intersects the proto network, continue
+                if (uuid != null) {
+                    Set<Integer> tids = uuidterms.get(uuid);
+                    if (hasItems(tids)) {
+                        for (final Integer tid : tids) {
+                            final Term t = tt.getIndexedTerms().get(tid);
+                            if (t.getFunctionEnum() == objf) {
+                                continue ORTHO_STATEMENT;
+                            }
+                        }
+                    }
+                }
+
+                // proto network does not contain either equivalent term so prune
+                // from its parent statement group
+                Set<Entry<StatementGroup, Set<Statement>>> entries = orthomap
+                        .entrySet();
+                for (final Entry<StatementGroup, Set<Statement>> e : entries) {
+                    StatementGroup group = e.getKey();
+                    Set<Statement> stmts = e.getValue();
+                    if (stmts.contains(orthoStmt)) {
+                        group.getStatements().remove(orthoStmt);
+                        pruned++;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // close equivalences
+        for (final JDBMEquivalenceLookup jl : lookups.values()) {
+            try {
+                jl.close();
+            } catch (IOException e) {
+                result.addWarning(e.getMessage());
+            }
+        }
+
+        // set result data
+        result.setDeltaStatements(-pruned);
+        result.setTotalStatements(total);
+        result.setSuccess(true);
+
+        return result;
+    }
+
+    /**
+     * Determines whether the {@link Statement statement} is a valid
+     * {@link RelationshipType#ORTHOLOGOUS orthologous} statement.
+     *
+     * @param stmt {@link Statement} to evaluate
+     * @return {@code true} if it is valid, {@code false} otherwise
+     */
+    private boolean validOrthologousStatement(final Statement stmt) {
+        // test statement is well-formed
+        if (stmt.getRelationshipType() == RelationshipType.ORTHOLOGOUS
+                && stmt.getObject() != null
+                && stmt.getObject().getTerm() != null) {
+
+            // test subject has only one namespace parameter
+            final Term subject = stmt.getSubject();
+            List<Parameter> subparams = subject.getParameters();
+            if (subparams == null || subparams.size() != 1
+                    || subparams.get(0).getNamespace() == null) {
+                return false;
+            }
+
+            // test object has only one namespace parameter
+            final Term object = stmt.getObject().getTerm();
+            List<Parameter> objparams = object.getParameters();
+            if (objparams == null || objparams.size() != 1
+                    || objparams.get(0).getNamespace() == null) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
