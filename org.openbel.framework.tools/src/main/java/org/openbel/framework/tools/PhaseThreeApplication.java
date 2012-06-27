@@ -1008,7 +1008,8 @@ public final class PhaseThreeApplication extends PhaseApplication {
             final StringBuilder bldr = new StringBuilder();
             bldr.append(getApplicationShortName());
             bldr.append(" has been skipped.");
-            phaseOutput(bldr.toString());
+            markEndStage(bldr);
+            stageOutput(bldr.toString());
             return pn;
         }
 
@@ -1018,7 +1019,10 @@ public final class PhaseThreeApplication extends PhaseApplication {
         final Index index = ResourceIndex.INSTANCE.getIndex();
         final Set<ResourceLocation> resources = index.getOrthologyResources();
         if (noItems(resources)) {
-            phaseOutput("No orthology documents included.");
+            final StringBuilder bldr = new StringBuilder();
+            bldr.append("No orthology documents included.");
+            markEndStage(bldr);
+            stageOutput(bldr.toString());
             return pn;
         }
 
