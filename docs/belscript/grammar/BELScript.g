@@ -35,7 +35,7 @@ options {
     public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         String context = "";
         if (paraphrases.size() > 0) {
-            context = paraphrases.peek();
+            context = (String)paraphrases.peek();
         }
         syntaxErrors.add(new BELParseErrorException.SyntaxException(e.line, e.charPositionInLine, context, e));
     }
@@ -53,21 +53,29 @@ set_document
     @init { paraphrases.push("in set document."); }
     @after { paraphrases.pop(); }
     :
-    ('SET' DOCUMENT_KEYWORD) document_property '=' (OBJECT_IDENT | VALUE_LIST | QUOTED_VALUE)
+    ('SET' DOCUMENT_KEYWORD) document_property '=' (OBJECT_IDENT | vl=VALUE_LIST | quoted_value)
+    {
+        // https://github.com/OpenBEL/openbel-framework/issues/14
+        if ($vl != null) $vl.setText($vl.getText().replace("\\\\", "\\"));
+    }
     ;
 
 set_statement_group
     @init { paraphrases.push("in set statement group."); }
     @after { paraphrases.pop(); }
     :
-    'SET' STATEMENT_GROUP_KEYWORD '=' (QUOTED_VALUE | OBJECT_IDENT)
+    'SET' STATEMENT_GROUP_KEYWORD '=' (quoted_value | OBJECT_IDENT)
     ;
 
 set_annotation
     @init { paraphrases.push("in set annotation."); }
     @after { paraphrases.pop(); }
     :
-    'SET' OBJECT_IDENT '=' (QUOTED_VALUE | VALUE_LIST | OBJECT_IDENT)
+    'SET' OBJECT_IDENT '=' (quoted_value | vl=VALUE_LIST | OBJECT_IDENT)
+    {
+        // https://github.com/OpenBEL/openbel-framework/issues/14
+        if ($vl != null) $vl.setText($vl.getText().replace("\\\\", "\\"));
+    }
     ;
 
 unset_statement_group
@@ -88,14 +96,26 @@ define_namespace
     @init { paraphrases.push("in define namespace."); }
     @after { paraphrases.pop(); }
     :
-    ('DEFINE' (('DEFAULT')? 'NAMESPACE')) OBJECT_IDENT 'AS' 'URL' QUOTED_VALUE
+    ('DEFINE' (('DEFAULT')? 'NAMESPACE')) OBJECT_IDENT 'AS' 'URL' quoted_value
     ;
 
 define_annotation
     @init { paraphrases.push("in define annotation."); }
     @after { paraphrases.pop(); }
     :
-    ('DEFINE' 'ANNOTATION') OBJECT_IDENT 'AS' ((('URL' | 'PATTERN') QUOTED_VALUE) | ('LIST' VALUE_LIST))
+    ('DEFINE' 'ANNOTATION') OBJECT_IDENT 'AS' ((('URL' | 'PATTERN') quoted_value) | ('LIST' vl=VALUE_LIST))
+    {
+        // https://github.com/OpenBEL/openbel-framework/issues/14
+        if ($vl != null) $vl.setText($vl.getText().replace("\\\\", "\\"));
+    }
+    ;
+
+quoted_value
+    : qv=QUOTED_VALUE
+    {
+        // https://github.com/OpenBEL/openbel-framework/issues/14
+        $qv.setText($qv.getText().replace("\\\\", "\\"));
+    }
     ;
 
 document_property:
@@ -130,7 +150,7 @@ term:
 
 /* XXX OBJECT_IDENT is used for namespace value because otherwise parsing will fail using a token like (LETTER | DIGIT)+ */
 fragment param:
-    NS_PREFIX? (OBJECT_IDENT | QUOTED_VALUE)
+    NS_PREFIX? (OBJECT_IDENT | quoted_value)
     ;
 
 function returns [String r]:
@@ -260,7 +280,6 @@ OBJECT_IDENT:
 
 QUOTED_VALUE:
     '"' ( EscapeSequence | '\\\n' | '\\\r\n' | ~('\\'|'"') )* '"'
-    { System.out.println("this: " + getText()); setText(getText().replace("\\\\", "\\")); System.out.println("became this: " + getText()); }
     ;
 
 OPEN_PAREN:
