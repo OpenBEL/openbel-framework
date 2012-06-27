@@ -98,7 +98,7 @@ public class RecordFileTest {
      * Test {@link RecordFile} appending.
      */
     @Test
-    public void testAppend() throws IOException {
+    public void testAppend() {
         assertEquals(test.mocksize, test.size);
         byte[] buffer = new byte[test.recordSize];
         random.nextBytes(buffer);
@@ -116,7 +116,7 @@ public class RecordFileTest {
      * Test {@link RecordFile} writing.
      */
     @Test
-    public void testWrite() throws IOException {
+    public void testWrite() {
         testAppend();
 
         // size shouldn't be zero
@@ -287,7 +287,7 @@ public class RecordFileTest {
      * @throws InterruptedException
      */
     @Test
-    public void loadtest() throws IOException, InterruptedException {
+    public void loadtest() throws InterruptedException {
         byte[] buffer = new byte[test.recordSize];
         fill(buffer, (byte) 127);
         long t1 = currentTimeMillis();

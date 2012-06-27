@@ -303,12 +303,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         }
 
         UnionKamsResponse response = OBJECT_FACTORY.createUnionKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
@@ -363,12 +358,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
 
         IntersectKamsResponse response = OBJECT_FACTORY
                 .createIntersectKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
@@ -421,18 +411,12 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
 
         DifferenceKamsResponse response = OBJECT_FACTORY
                 .createDifferenceKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
     private KamHandle cacheDerivedKam(
-            org.openbel.framework.api.Kam derivedKam)
-            throws KamCacheServiceException {
+            org.openbel.framework.api.Kam derivedKam) {
 
         String kamHandleString = kamCacheService.cacheKam(derivedKam
                 .getKamInfo().getName(), derivedKam);

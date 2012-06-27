@@ -248,8 +248,7 @@ public class ResourceEndPoint extends WebServiceEndpoint {
     public
             GetAllNamespacesResponse
             getAllNamespaces(
-                    @SuppressWarnings("unused") @RequestPayload GetAllNamespacesRequest request)
-                    throws RequestException {
+                    @SuppressWarnings("unused") @RequestPayload GetAllNamespacesRequest request) {
         GetAllNamespacesResponse response = OBJECT_FACTORY
                 .createGetAllNamespacesResponse();
         for (NamespaceDescriptor nd : namespaceResourceService

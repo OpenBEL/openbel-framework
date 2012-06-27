@@ -265,7 +265,7 @@ public class SemanticServiceImplTest {
     }
 
     @Test
-    public void testProperListUsage() throws SemanticWarning {
+    public void testProperListUsage() {
         err.println("testProperListUsage");
 
         // Test that SemanticServiceImpl#checkListUsage() does not fail

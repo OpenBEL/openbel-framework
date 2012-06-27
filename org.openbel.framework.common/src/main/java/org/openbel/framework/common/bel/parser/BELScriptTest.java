@@ -35,8 +35,6 @@
  */
 package org.openbel.framework.common.bel.parser;
 
-import java.io.IOException;
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -45,8 +43,7 @@ import org.antlr.runtime.TokenStream;
 
 public class BELScriptTest {
 
-    public static void main(String[] args) throws RecognitionException,
-            IOException {
+    public static void main(String[] args) throws RecognitionException {
 
         for (String test : "\"Test\", \"Records\", ,,\"Another\"".split("\\,")) {
             System.out.println(test.trim());

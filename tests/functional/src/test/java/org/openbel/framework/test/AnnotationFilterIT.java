@@ -47,7 +47,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
     }
 
     @Test
-    public void includeOnlyFilter() throws KamStoreException {
+    public void includeOnlyFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
 
         AnnotationType cellLine = findAnnotationType("CellLine");

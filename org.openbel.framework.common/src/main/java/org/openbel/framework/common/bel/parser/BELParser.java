@@ -93,8 +93,7 @@ public class BELParser {
         return new BELParseResults(syntaxWarnings, syntaxErrors, doc);
     }
 
-    public static final Term parseTerm(final String belTermSyntax)
-            throws RecognitionException {
+    public static final Term parseTerm(final String belTermSyntax) {
         CharStream stream = new ANTLRStringStream(belTermSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
@@ -103,8 +102,7 @@ public class BELParser {
     }
 
     public static final Statement
-            parseStatement(final String belStatementSyntax)
-                    throws RecognitionException {
+            parseStatement(final String belStatementSyntax) {
         CharStream stream = new ANTLRStringStream(belStatementSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
