@@ -1101,10 +1101,18 @@ public final class PhaseThreeApplication extends PhaseApplication {
             final ResourceLocation resource) {
         Document doc = readResource(resource);
 
+        long t1 = currentTimeMillis();
+
         stageOutput(format("Processing orthology document '%s'", doc.getName()));
         p3.pruneOrthologyDocument(doc, pn);
-
         final ProtoNetwork opn = p3.compile(doc);
+
+        long t2 = currentTimeMillis();
+
+        final StringBuilder bldr = new StringBuilder();
+        markTime(bldr, t1, t2);
+        stageOutput(bldr.toString());
+
         return opn;
     }
 
