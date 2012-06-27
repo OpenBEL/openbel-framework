@@ -51,7 +51,7 @@ import org.openbel.framework.common.model.Statement.Object;
 /**
  * Molecular activities connect to its abundance term with ACTS_IN relationship.
  */
-class MolecularActivityExpansionRule extends TermExpansionRule {
+class MolecularActivityExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

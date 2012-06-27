@@ -51,7 +51,7 @@ import org.openbel.framework.common.model.Statement.Object;
 /**
  * Complex connects to its components with HAS_COMPONENT relationship.
  */
-class ComplexAbundanceExpansionRule extends TermExpansionRule {
+class ComplexAbundanceExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

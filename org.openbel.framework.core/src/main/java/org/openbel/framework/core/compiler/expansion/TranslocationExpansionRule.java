@@ -50,7 +50,7 @@ import org.openbel.framework.common.model.Statement.Object;
 /**
  * Tranlocation connects the abundance term with TRANSLOCATES relationship.
  */
-class TranslocationExpansionRule extends TermExpansionRule {
+class TranslocationExpansionRule extends ExpansionRule<Term> {
 
     @Override
     public String getName() {
