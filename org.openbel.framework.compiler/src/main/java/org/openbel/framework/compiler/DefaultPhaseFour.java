@@ -1,26 +1,20 @@
 package org.openbel.framework.compiler;
 
-import java.util.Map;
-
-import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.common.model.Document;
+import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
-import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
-import org.openbel.framework.compiler.DefaultPhaseThree.DocumentModificationResult;
-import org.openbel.framework.core.indexer.JDBMEquivalenceLookup;
-import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
+import org.openbel.framework.core.compiler.CreateKAMFailure;
+import org.openbel.framework.core.df.DBConnection;
+import org.openbel.framework.core.df.DatabaseError;
+import org.openbel.framework.core.kam.KAMCatalogFailure;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
- * {@link DefaultPhaseFour} defines the BEL compiler phase four interface.
+ * BEL compiler phase four interface.
  * <p>
- * Phase four consists of the following stages and is meant to run sequentially
- * for the number of orthologous BEL documents:
+ * Phase four compilation consists of:
  * <ol>
- * <li>Prunes orthologous BEL document based on {@link ProtoNetwork proto network}</li>
- * <li>Compiles orthologous BEL document into a {@link ProtoNetwork proto network}</li>
- * <li>Merges orthologous {@link ProtoNetwork proto network} into
- * {@link ProtoNetwork proto network}</li>
- * <li>Save orthologized {@link ProtoNetwork proto network}</li>
+ * <li><b>Stage 1 -- Create KAMstore</b><br>
+ * Create the KAMstore schema using the database connection.</li>
  * </ol>
  * </p>
  *
@@ -29,65 +23,53 @@ import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
 public interface DefaultPhaseFour {
 
     /**
-     * Stage 1 pruning of orthology BEL {@link Document document} by:
-     * <p>
-     * Prune the {@link Document document}, relative to the
-     * {@link ProtoNetwork proto network} being compiled, using equivalencing
-     * to match up BEL terms.
-     * </p>
+     * Executes stage one creation of {@link DBConnection} for the KAMstore
+     * identified by the {@code jdbcUrl}, {@code user}, and {@code pass}.
      *
-     * @param d {@link Document} the orthology BEL document, which cannot be
-     * {@code null}
-     * @param pn {@link ProtoNetwork} the compiled proto network, which cannot
-     * be {@code null}
-     * @param lookups {@link Map} of {@link String resource location} to
-     * {@link JDBMEquivalenceLookup equivalence lookup}, which cannot be
-     * {@code null}
-     * @return {@link DocumentModificationResult} containing the pruning
-     * results
-     * @throws InvalidArgument Thrown if {@code d} or {@code pn} is
-     * {@code null}
+     * @param jdbcUrl {@link String}, the jdbc url
+     * @param user {@link String}, the database username
+     * @param pass {@link String}, the database password
+     * @return {@link DBConnection}, the database connection for the
+     * {@code jdbcUrl}
+     * @throws DBConnectionFailure Thrown if the KamStore database cannot be
+     * connected to
      */
-    public DocumentModificationResult pruneOrthologyDocument(final Document d,
-            final ProtoNetwork pn,
-            final Map<String, JDBMEquivalenceLookup> lookups);
+    public DBConnection stage1ConnectKAMStore(String jdbcUrl, String user,
+            String pass) throws DBConnectionFailure;
 
     /**
-     * Compiles {@link Document BEL common documents} to {@link ProtoNetwork
-     * proto-networks}.
+     * Executes stage two updating of the kam entry in the KAM catalog.
      *
-     * @param document {@link Document} the document to compile
-     * @return {@link ProtoNetwork} the compiled proto network
+     * @param kamDb {@link KamDbObject}, the kam database object to save
+     * @throws KAMCatalogFailure Thrown if an error occurred when setting up or
+     * updating the KAM catalog
      */
-    public ProtoNetwork compile(final Document d);
+    public String stage2SaveToKAMCatalog(KamDbObject kamDb)
+            throws KAMCatalogFailure;
 
     /**
-     * Deserialize and merge the proto network in <tt>protoNetworkSource</tt>
-     * into the proto network in <tt>protoNetworkSource</tt>.
+     * Executes stage three creation of KAMstore using a {@link DBConnection}
+     * database connection.
      *
-     * @param destination {@link ProtoNetwork}, the proto-network containing the
-     * merged results
-     * @param source {@link ProtoNetwork}, the proto-network to merge into
-     * {@code destination}
-     * @throws ProtoNetworkError Thrown if an error occurred reading the proto-
-     * network from the {@code source} descriptor.
+     * @param dbConnection {@link DBConnection} the database connection
+     * @param schemaName {@link String}, the schema name to create KAM in
+     * @throws CreateKAMFailure - Thrown if an error occurred while creating the
+     * KAMstore schema.
      */
-    public void merge(final ProtoNetwork destination, final ProtoNetwork source)
-            throws ProtoNetworkError;
+    public void stage3CreateKAMstore(DBConnection dbConnection,
+            String schemaName) throws CreateKAMFailure;
 
     /**
-     * Stage 3 writing of the merged and equivalenced
-     * {@link ProtoNetwork proto network} that now included orthology data.
+     * Executes stage four loading of KAM using a {@link DBConnection} database
+     * connection against a KAMstore schema.
      *
-     * @param path {@link String} the path to write the
-     * {@link ProtoNetwork proto network} to, which cannot be {@code null}
-     * @param pn {@link ProtoNetwork} the merged and equivalenced network that
-     * contains orthologous data
-     * @return {@link ProtoNetworkDescriptor} providing access to the written
-     * proto network
-     * @throws InvalidArgument Thrown if {@code path} or {@code pn} is
-     * {@code null}
+     * @param dbConnection {@link DBConnection}, the database connection
+     * @param p2pn {@link ProtoNetwork}, the phase II proto network output
+     * @throws CreateKAMFailure Thrown if the KAM schema to be loaded does not
+     * exist
+     * @throws DatabaseError Thrown if a database error occurred while loading
+     * the KAM.
      */
-    public ProtoNetworkDescriptor write(final String path,
-            final ProtoNetwork pn) throws ProtoNetworkError;
+    public void stage4LoadKAM(DBConnection dbConnection, ProtoNetwork p2pn,
+            String kamSchemaName) throws DatabaseError, CreateKAMFailure;
 }

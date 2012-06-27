@@ -93,7 +93,7 @@ public class KamComparator extends CommandLineApplication {
 
     private enum Mode {
         LIST, HELP, COMPARE
-    };
+    }
 
     private Mode mode;
     private String kam1Name, kam2Name;

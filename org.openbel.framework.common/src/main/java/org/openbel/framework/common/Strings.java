@@ -918,15 +918,20 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE4_HDR =
+    public final static String PHASE3_STAGE4_HDR = "Incorporating orthology information";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE3_STAGE5_HDR =
             "Equivalencing merged network";
 
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE5_HDR = "Saving augmented network";
+    public final static String PHASE3_STAGE6_HDR = "Saving augmented network";
 
-   /**                                                                                                                                                                                                                                                                   
+    /**
      * {@value}
      */
     public final static String PHASE4_STAGE1_HDR = "Incorporating orthology information";

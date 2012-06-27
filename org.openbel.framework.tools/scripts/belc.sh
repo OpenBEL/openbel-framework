@@ -46,10 +46,3 @@ if [ "${EC}" -ne 0 ]; then
     echo -en "BEL Compiler exited with error code ${EC} in phase IV.\n"
     exit ${EC}
 fi
-
-java $JAVA_OPTS -Dderby.system.durability=test -classpath "$BELCOMPILER_CLASSPATH" org.openbel.framework.tools.PhaseFiveApplication "$@"
-EC="$?"
-if [ "${EC}" -ne 0 ]; then
-    echo -en "BEL Compiler exited with error code ${EC} in phase V.\n"
-    exit ${EC}
-fi

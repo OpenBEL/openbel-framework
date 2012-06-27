@@ -310,7 +310,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      * @throws RecognitionException
      */
     private Kam simpleKam() throws RecognitionException {
-        final KamBuilder kb = new KamBuilder(info, kamstore, true);
+        final KamBuilder kb = new KamBuilder(info, true);
         Kam kam = kb.addNodes(
                 "kinaseActivity(proteinAbundance(MGI:Mapk1))",
                 "proteinAbundance(MGI:Mapk1)",
@@ -455,7 +455,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      * @throws RecognitionException
      */
     private Kam familyKam() throws RecognitionException {
-        final KamBuilder kb = new KamBuilder(info, kamstore, true);
+        final KamBuilder kb = new KamBuilder(info, true);
         Kam kam = kb.addNodes(
                 "phosphataseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))",
                 "kinaseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))",
@@ -587,7 +587,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      * @throws RecognitionException
      */
     private Kam complexKam() throws RecognitionException {
-        final KamBuilder kb = new KamBuilder(info, kamstore, true);
+        final KamBuilder kb = new KamBuilder(info, true);
         Kam kam = kb.addNodes(
                 "kinaseActivity(complexAbundance(NCH:\"AP-1 Complex\"))",
                 "complexAbundance(NCH:\"AP-1 Complex\")",

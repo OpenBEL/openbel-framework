@@ -20,14 +20,7 @@ public class KamBuilder {
     private final Map<String, TestKamEdge> kedges;
     private final boolean usingLongForm;
 
-    /**
-     * @deprecated Deprecated in favor of {@link #KamBuilder(KamInfo, boolean)}.
-     * A {@link KamBuilder} does not need access to a {@link KamStore}.
-     */
-    @Deprecated
-    public KamBuilder(final KamInfo kamInfo,
-            @SuppressWarnings("unused") final KamStore kamStore,
-            final boolean usingLongForm) {
+    public KamBuilder(final KamInfo kamInfo, final boolean usingLongForm) {
         this.kamInfo = kamInfo;
         this.knodes = new LinkedHashMap<String, TestKamNode>();
         this.kedges = new LinkedHashMap<String, TestKamEdge>();
