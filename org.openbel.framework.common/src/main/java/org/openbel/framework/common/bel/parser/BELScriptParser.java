@@ -277,7 +277,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "document"
     // BELScript.g:44:1: document : ( NEWLINE | DOCUMENT_COMMENT | record )+ EOF ;
@@ -468,7 +468,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "record"
     // BELScript.g:48:1: record : ( define_namespace | define_annotation | set_annotation | set_document | set_statement_group | unset_statement_group | unset | statement ) ;
@@ -767,7 +767,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "set_document"
     // BELScript.g:52:1: set_document : ( 'SET' DOCUMENT_KEYWORD ) document_property '=' ( OBJECT_IDENT |vl= VALUE_LIST | quoted_value ) ;
@@ -932,7 +932,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "set_statement_group"
     // BELScript.g:63:1: set_statement_group : 'SET' STATEMENT_GROUP_KEYWORD '=' ( quoted_value | OBJECT_IDENT ) ;
@@ -1060,7 +1060,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "set_annotation"
     // BELScript.g:70:1: set_annotation : 'SET' OBJECT_IDENT '=' ( quoted_value |vl= VALUE_LIST | OBJECT_IDENT ) ;
@@ -1210,7 +1210,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "unset_statement_group"
     // BELScript.g:81:1: unset_statement_group : 'UNSET' STATEMENT_GROUP_KEYWORD ;
@@ -1281,7 +1281,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "unset"
     // BELScript.g:88:1: unset : 'UNSET' ( OBJECT_IDENT | IDENT_LIST ) ;
@@ -1359,7 +1359,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "define_namespace"
     // BELScript.g:95:1: define_namespace : ( 'DEFINE' ( ( 'DEFAULT' )? 'NAMESPACE' ) ) OBJECT_IDENT 'AS' 'URL' quoted_value ;
@@ -1500,7 +1500,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "define_annotation"
     // BELScript.g:102:1: define_annotation : ( 'DEFINE' 'ANNOTATION' ) OBJECT_IDENT 'AS' ( ( ( 'URL' | 'PATTERN' ) quoted_value ) | ( 'LIST' vl= VALUE_LIST ) ) ;
@@ -1681,7 +1681,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "quoted_value"
     // BELScript.g:113:1: quoted_value : qv= QUOTED_VALUE ;
@@ -1744,7 +1744,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "document_property"
     // BELScript.g:121:1: document_property : ( 'Authors' | 'ContactInfo' | 'Copyright' | 'Description' | 'Disclaimer' | 'Licenses' | 'Name' | 'Version' );
@@ -1815,7 +1815,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "statement"
     // BELScript.g:132:1: statement : outer_term ( relationship ( ( OPEN_PAREN outer_term relationship outer_term CLOSE_PAREN ) | outer_term ) )? ( STATEMENT_COMMENT )? ;
@@ -2033,7 +2033,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "outer_term"
     // BELScript.g:139:1: outer_term : function OPEN_PAREN ( ( ',' )? argument )* CLOSE_PAREN ;
@@ -2177,7 +2177,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "argument"
     // BELScript.g:143:1: argument : ( param | term );
@@ -2280,7 +2280,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "term"
     // BELScript.g:147:1: term : function OPEN_PAREN ( ( ',' )? ( term | param ) )* CLOSE_PAREN ;
@@ -2473,7 +2473,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "param"
     // BELScript.g:152:10: fragment param : ( NS_PREFIX )? ( OBJECT_IDENT | quoted_value ) ;
@@ -2598,7 +2598,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "function"
     // BELScript.g:156:1: function returns [String r] : (fv= 'proteinAbundance' |fv= 'p' |fv= 'rnaAbundance' |fv= 'r' |fv= 'abundance' |fv= 'a' |fv= 'microRNAAbundance' |fv= 'm' |fv= 'geneAbundance' |fv= 'g' |fv= 'biologicalProcess' |fv= 'bp' |fv= 'pathology' |fv= 'path' |fv= 'complexAbundance' |fv= 'complex' |fv= 'translocation' |fv= 'tloc' |fv= 'cellSecretion' |fv= 'sec' |fv= 'cellSurfaceExpression' |fv= 'surf' |fv= 'reaction' |fv= 'rxn' |fv= 'compositeAbundance' |fv= 'composite' |fv= 'fusion' |fv= 'fus' |fv= 'degradation' |fv= 'deg' |fv= 'molecularActivity' |fv= 'act' |fv= 'catalyticActivity' |fv= 'cat' |fv= 'kinaseActivity' |fv= 'kin' |fv= 'phosphataseActivity' |fv= 'phos' |fv= 'peptidaseActivity' |fv= 'pep' |fv= 'ribosylationActivity' |fv= 'ribo' |fv= 'transcriptionalActivity' |fv= 'tscript' |fv= 'transportActivity' |fv= 'tport' |fv= 'gtpBoundActivity' |fv= 'gtp' |fv= 'chaperoneActivity' |fv= 'chap' |fv= 'proteinModification' |fv= 'pmod' |fv= 'substitution' |fv= 'sub' |fv= 'truncation' |fv= 'trunc' |fv= 'reactants' |fv= 'products' |fv= 'list' ) ;
@@ -3611,7 +3611,7 @@ public class BELScriptParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "relationship"
     // BELScript.g:220:1: relationship returns [String r] : (rv= 'increases' |rv= '->' |rv= 'decreases' |rv= '-|' |rv= 'directlyIncreases' |rv= '=>' |rv= 'directlyDecreases' |rv= '=|' |rv= 'causesNoChange' |rv= 'positiveCorrelation' |rv= 'negativeCorrelation' |rv= 'translatedTo' |rv= '>>' |rv= 'transcribedTo' |rv= ':>' |rv= 'isA' |rv= 'subProcessOf' |rv= 'rateLimitingStepOf' |rv= 'biomarkerFor' |rv= 'prognosticBiomarkerFor' |rv= 'orthologous' |rv= 'analogous' |rv= 'association' |rv= '--' |rv= 'hasMembers' |rv= 'hasComponents' |rv= 'hasMember' |rv= 'hasComponent' ) ;
