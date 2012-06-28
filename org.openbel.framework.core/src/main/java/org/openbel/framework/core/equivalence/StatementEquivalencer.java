@@ -40,14 +40,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.openbel.framework.common.protonetwork.model.ParameterTable;
 import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable;
+import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNodeTable;
-import org.openbel.framework.common.protonetwork.model.StatementTable;
-import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
-import org.openbel.framework.common.protonetwork.model.TermTable;
-import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
 
 /**
  * StatementEquivalencer equivalences {@link ProtoNetwork} statements by
