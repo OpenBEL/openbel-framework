@@ -384,6 +384,7 @@ public class ProtoEdgeTable extends ExternalType {
          * @param relName the {@link String relationship name}
          * @param target the {@code int} target index
          */
+        // FIXME: replace string relName with enum
         public TableProtoEdge(final int source, final String relName,
                 final int target) {
             this.source = source;
