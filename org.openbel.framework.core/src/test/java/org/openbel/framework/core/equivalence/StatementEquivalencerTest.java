@@ -56,9 +56,17 @@ import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProto
  */
 public class StatementEquivalencerTest {
 
+    // TODO create a more generalized test that makes sure equivalent edges
+    // have the same statements
+    /**
+     * Test for loss of statement support backing equal edges
+     * 
+     * see https://github.com/OpenBEL/openbel-framework/issues/10
+     */
     @Test
     public void testIssue10() {
         // test data from nick's test, this won't make sense in isolation
+        // see https://gist.github.com/2919455 for documentation
         List<TableProtoEdge> edges = new ArrayList<TableProtoEdge>();
         edges.add(new TableProtoEdge(0, RelationshipType.DIRECTLY_INCREASES.getDisplayValue(), 1));
         edges.add(new TableProtoEdge(0, RelationshipType.DIRECTLY_INCREASES.getDisplayValue(), 1));
