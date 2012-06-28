@@ -111,6 +111,7 @@ public class StatementEquivalencer extends Equivalencer {
                 final Set<Integer> eqEdgeStmts =
                         edgeStmts.get(revEq.get(cachedEdge));
                 eqEdgeStmts.addAll(curEdgeStmts);
+                curEdgeStmts.addAll(eqEdgeStmts);
 
                 eqct++;
                 continue;
