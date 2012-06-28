@@ -66,6 +66,18 @@ import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
  * {@link KamSpecies} defines a {@link Kam kam} that provides a
  * species-specific view using a {@link SpeciesDialect species dialect}.
  *
+ * The {@link KamSpecies} orthologization occurs on construction in
+ * {@link KamSpecies#KamSpecies(Kam, SpeciesDialect, KamStore)}.  The
+ * existing {@link Kam} is cloned to preserve the original {@link Kam}.
+ *
+ * The process of {@link Kam} orthologization involves:
+ * <ol>
+ * <li>Removing orthologous edges.</li>
+ * <li>Redirecting (remove/create) ortholog's edges to the species node
+ * being collapsed to.</li>
+ * <li>Remove ortholog nodes.  This is done at construction of
+ * {@link KamSpecies}.</ol>
+ *
  * @see SpeciesDialect
  * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
@@ -81,8 +93,6 @@ public class KamSpecies implements Kam {
      * The original {@link Kam kam} to base species-specific filtering on.
      */
     private final Kam kam;
-
-    private final KamDialect kamDialect;
 
     /**
      * Defines {@link KamEdge KAM edges} that should be traversed when
@@ -101,29 +111,22 @@ public class KamSpecies implements Kam {
 
 
     /**
-     * Constructs a {@link SpeciesKam species-specific kam} from another
-     * {@link Kam kam} by:
-     * <ol>
-     * <li>Removing orthologous edges.  This is done at construction of
-     * {@link SpeciesKam}.</li>
-     * <li>Redirecting (remove/create) ortholog's edges to the species node
-     * being collapsed to.  This is done at construction of
-     * {@link SpeciesKam}.</li>
-     * <li>Remove ortholog nodes.  This is done at construction of
-     * {@link SpeciesKam}.  TODO The ortholog terms do not collapse!</li>
-     * </ol>
+     * Constructs a {@link KamSpecies species-specific kam}.
      *
-     * @param kam {@link Kam}, which cannot be {@code null}
-     * @throws KamStoreException
-     * @throws InvalidArgument Thrown if {@code kam} or {@code orthoEdges} is
-     * {@code null}
+     * @param kam {@link Kam} to orthologize, which cannot be {@code null}
+     * @param speciesDialect {@link SpeciesDialect} to control species
+     * ortholgization, which cannot be {@code null}
+     * @param kamStore {@link KamStore} to find {@link BelTerm}s for
+     * {@link KamNode}, which cannot be {@code null}
+     * @throws KamStoreException Thrown if an issue arose accessing the
+     * {@link KamStore}
+     * @throws InvalidArgument Thrown if {@code kam}, {@code speciesDialect},
+     * or {@code kamStore} is {@code null}
      */
     public KamSpecies(final Kam kam,
             final SpeciesDialect speciesDialect,
-            final Dialect defaultDialect,
             final KamStore kamStore) throws KamStoreException {
         this.kam = kam;
-        this.kamDialect = new KamDialect(kam, defaultDialect);
         this.speciesDialect = speciesDialect;
         this.kamStore = kamStore;
 
@@ -530,6 +533,18 @@ public class KamSpecies implements Kam {
         return ret;
     }
 
+    /**
+     * Wrap a {@link KamNode} as an {@link OrthologousNode} to allow conversion
+     * of the node label by the {@link SpeciesDialect}.
+     *
+     * @param kamNode {@link KamNode}
+     * @return the wrapped kam node,
+     * <ol>
+     * <li>{@code null} if {@code kamNode} input is {@code null}</li>
+     * <li>{@link OrthologousNode} if {@code kamNode} has orthologized</li>
+     * <li>the original {@code kamNode} input if it has not orthologized</li>
+     * </ol>
+     */
     private KamNode wrapNode(KamNode kamNode) {
         if (kamNode == null) {
             return null;
@@ -540,9 +555,22 @@ public class KamSpecies implements Kam {
             return new OrthologousNode(kamNode, param);
         }
 
-        return kamDialect.new KamDialectNode(kamNode);
+        return kamNode;
     }
 
+    /**
+     * Wrap a {@link KamEdge} as an {@link OrthologousEdge} to allow conversion
+     * of the edge label by the {@link SpeciesDialect}.  The edge's
+     * {@link KamNode}s are also wrapped.
+     *
+     * @param kamEdge {@link KamEdge}
+     * @return the wrapped kam edge,
+     * <ol>
+     * <li>{@code null} if {@code kamEdge} input is {@code null}</li>
+     * <li>{@link OrthologousEdge} if {@code kamEdge} has orthologized</li>
+     * <li>the original {@code kamEdge} input if it has not orthologized</li>
+     * </ol>
+     */
     private KamEdge wrapEdge(KamEdge kamEdge) {
         if (kamEdge == null) {
             return null;
@@ -553,7 +581,7 @@ public class KamSpecies implements Kam {
             return new OrthologousEdge(kamEdge, param);
         }
 
-        return kamDialect.new KamDialectEdge(kamEdge);
+        return kamEdge;
     }
 
     /**
@@ -772,7 +800,7 @@ public class KamSpecies implements Kam {
     }
 
     /**
-     * Walks {@link SpeciesKam#RELS certain relationship types} and infers
+     * Walks {@link KamSpecies#RELS certain relationship types} and infers
      * orthologous edges based on matching relationships.
      *
      * <p>
