@@ -152,8 +152,8 @@ public class TestConverter {
             for (Object type : kamStoreObjectTypeClass.getEnumConstants()) {
                 int kamInfoId = random.nextInt();
                 int id = 0;
-                while ((id = random.nextInt()) < 1)
-                    ; // A valid ID is not less than 1
+                // A valid ID is not less than 1
+                while ((id = random.nextInt()) < 1) {}
                 final byte prefix =
                         ((Byte) getRepresentation.invoke(type)).byteValue();
                 final Class<? extends KamStoreObject> typeClass =

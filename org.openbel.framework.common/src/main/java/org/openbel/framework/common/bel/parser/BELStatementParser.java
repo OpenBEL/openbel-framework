@@ -229,7 +229,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "statement"
     // BELStatement.g:28:1: statement returns [Statement r] : st= outer_term (rel= relationship ( ( OPEN_PAREN nst=
@@ -418,7 +418,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "outer_term"
     // BELStatement.g:62:1: outer_term returns [Term r] : f= function OPEN_PAREN ( ( ',' )? arg= argument )* CLOSE_PAREN
@@ -548,7 +548,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "argument"
     // BELStatement.g:73:1: argument returns [BELObject r] : (fp= param | ff= term );
@@ -636,7 +636,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "term"
     // BELStatement.g:78:1: term returns [Term r] : pfv= function OPEN_PAREN ( ( ',' )? (it= term | pp= param ) )*
@@ -805,7 +805,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "param"
     // BELStatement.g:95:1: param returns [Parameter r] : (nsp= NS_PREFIX )? ( NS_VALUE | QUOTED_VALUE ) ;
@@ -943,7 +943,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "function"
     // BELStatement.g:127:1: function returns [FunctionEnum r] : (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance'
@@ -1931,7 +1931,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "relationship"
     // BELStatement.g:191:1: relationship returns [RelationshipType r] : (rv= 'increases' | rv= '->' | rv= 'decreases' |
