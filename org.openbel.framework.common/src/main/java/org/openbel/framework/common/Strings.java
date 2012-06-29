@@ -702,6 +702,11 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String ORTHO_INJECTION_DISABLED = "Orthology scaffolding disabled";
+
+    /**
+     * {@value}
+     */
     public static final String OXIDOREDUCTASE_ACTIVITY =
             "oxidoreductaseActivity";
 
