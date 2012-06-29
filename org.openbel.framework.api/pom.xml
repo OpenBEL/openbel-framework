@@ -337,7 +337,7 @@
                         <Bundle-Version>${belframework-release.version}</Bundle-Version>
                         <Bundle-Name>OpenBEL Framework API</Bundle-Name>
                         <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
-                        <!-- <Private-Package>org.openbel...</Private-Package> -->
+                        <Private-Package>org.openbel.framework.internal</Private-Package>
                         <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
                         <!--
                         <Import-Package>
