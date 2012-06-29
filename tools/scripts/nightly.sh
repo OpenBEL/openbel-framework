@@ -6,7 +6,7 @@ fi
 
 REL_VERSION=$(grep -F "<belframework-release.version>" pom.xml \
               | grep ">.*<" -o | tr -d '<>')
-BUILD_VERSION="${REL_VERSION}-${bamboo.buildNumber}"
+BUILD_VERSION="${REL_VERSION}-${buildNumber}"
 
 echo "REL_VERSION: ${REL_VERSION}"
 echo "BUILD_VERSION: ${BUILD_VERSION}"
