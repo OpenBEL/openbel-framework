@@ -132,7 +132,7 @@ public class KamSpecies implements Kam {
         this.kamCopy = copy(kam);
         this.speciesDialect = speciesDialect;
         this.kamStore = kamStore;
-        
+
         findOrthologs();
 
         // TODO Degredations using DIRECTLY_DECREASES
@@ -517,7 +517,7 @@ public class KamSpecies implements Kam {
     /**
      * Copy the {@link Kam} by creating a new {@link KamImpl} instance with
      * new {@link KamNode}s and {@link KamEdge}s.
-     * 
+     *
      * @param kam {@link Kam}
      * @return the new instance {@link Kam}
      */
@@ -525,7 +525,7 @@ public class KamSpecies implements Kam {
         if (kam == null) {
             return null;
         }
-        
+
         final Kam copy = new KamImpl(kam.getKamInfo());
 
         final Collection<KamNode> nodes = kam.getNodes();
@@ -535,7 +535,7 @@ public class KamSpecies implements Kam {
                         node.getLabel());
             }
         }
-        
+
         final Collection<KamEdge> edges = kam.getEdges();
         if (hasItems(edges)) {
             for (final KamEdge edge : edges) {
@@ -543,18 +543,18 @@ public class KamSpecies implements Kam {
                         .getId());
                 final KamNode target = copy.findNode(edge.getTargetNode()
                         .getId());
-                
-                assert source == null;
-                assert target == null;
-                
+
+                assert source != null;
+                assert target != null;
+
                 copy.createEdge(edge.getId(), source,
                         edge.getRelationshipType(), target);
             }
         }
-        
+
         return copy;
     }
-    
+
     private Set<KamNode> wrapNodes(Collection<KamNode> nodes) {
         Set<KamNode> ret = new LinkedHashSet<KamNode>(nodes.size());
         for (KamNode n : nodes) {
