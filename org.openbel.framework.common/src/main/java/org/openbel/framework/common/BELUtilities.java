@@ -75,7 +75,7 @@ import java.util.regex.Pattern;
 
 /**
  * Utility methods used throughout the BEL codebase.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BELUtilities {
@@ -90,7 +90,7 @@ public class BELUtilities {
      * Returns a hash set of type {@code E} optimized to the
      * {@link Collection#size() size} of the supplied {@link Collection
      * collection}.
-     * 
+     *
      * @param <E> Formal type parameter collection element
      * @param c {@link Collection}; may be null
      * @return Hash set of type {@code E}
@@ -105,7 +105,7 @@ public class BELUtilities {
     /**
      * Inserts the platform-specific filesystem path separator between the
      * provided strings.
-     * 
+     *
      * @param strings
      * @return String in the following form:
      * {@code strings[0]<path_separator>strings[1]<path_separator>...<strings[n]>}
@@ -124,7 +124,7 @@ public class BELUtilities {
     /**
      * Inserts the platform-specific filesystem path separator between
      * {@code directory} and {@code filename} and returns the resulting string.
-     * 
+     *
      * @param directory Non-null string
      * @param filename Non-null string
      * @return String following the format
@@ -140,7 +140,7 @@ public class BELUtilities {
      * <p>
      * This method is a no-op if {@code closeable} is {@code null}.
      * </p>
-     * 
+     *
      * @param closeable the {@link Closeable closeable} to close
      */
     public static void closeQuietly(Closeable closeable) {
@@ -156,7 +156,7 @@ public class BELUtilities {
      * <p>
      * Using a 64bit hash code minimizes collisions at the cost of size.
      * </p>
-     * 
+     *
      * @param cs the {@link CharSequence character sequence} to hash
      * @return the 64bit hash
      */
@@ -175,7 +175,7 @@ public class BELUtilities {
 
     /**
      * Computes a SHA-256 hash of data from the {@link InputStream input}.
-     * 
+     *
      * @param input the data {@link InputStream input stream}, which cannot be
      * {@code null}
      * @return the {@link String SHA-256 hash}
@@ -213,7 +213,7 @@ public class BELUtilities {
     /**
      * Concatenates the two arrays {@code a} and {@code b} and returns the
      * result.
-     * 
+     *
      * @param a {@code int[]} a
      * @param b {@code int[]} b
      * @return {@code int[]} concatenation
@@ -243,7 +243,7 @@ public class BELUtilities {
      * implementation will automatically adjust the size to the next nearest
      * power of two.
      * </p>
-     * 
+     *
      * @param <K> Formal type parameter key
      * @param <V> Formal type parameter value
      * @param s Initial hash map capacity
@@ -263,7 +263,7 @@ public class BELUtilities {
      * implementation will automatically adjust the size to the next nearest
      * power of two.
      * </p>
-     * 
+     *
      * @param <T> Formal type parameter
      * @param s Initial hash set capacity
      * @return Hash set of type {@code T}
@@ -275,7 +275,7 @@ public class BELUtilities {
     /**
      * Copy bytes from the {@link InputStream input stream} to the
      * {@link OutputStream output stream} in 4 kilobyte increments.
-     * 
+     *
      * @param input the {@link InputStream input stream} to read from, which
      * cannot be null
      * @param output the {@link OutputStream output stream} to write to, which
@@ -308,7 +308,7 @@ public class BELUtilities {
 
     /**
      * Copies a {@link File source file} to a {@link File destination file}.
-     * 
+     *
      * @param src the {@link File source file}, which must be non-null and
      * readable
      * @param dest the {@link File destination file}, which must be non-null and
@@ -373,7 +373,7 @@ public class BELUtilities {
     /**
      * Create the provided directory, and all necessary subdirectories, if they
      * do not already exist.
-     * 
+     *
      * @param directory Path to create
      * @throws RuntimeException Thrown if directory creation failed
      */
@@ -388,7 +388,7 @@ public class BELUtilities {
 
     /**
      * Create the provided directory, if it does not already exist.
-     * 
+     *
      * @param directory Path to create
      * @throws RuntimeException Thrown if directory creation failed
      */
@@ -403,7 +403,7 @@ public class BELUtilities {
 
     /**
      * Deletes the directory {@code dir}, and all of its contents.
-     * 
+     *
      * @param dir {@link File}
      * @return boolean {@true} if success, {@code false} otherwise
      */
@@ -418,7 +418,7 @@ public class BELUtilities {
     /**
      * Recursively deletes all files and folders within the directory
      * <tt>dir</tt>.
-     * 
+     *
      * @param dir {@link File}, the directory to empty contents for
      * @return boolean determines whether or not the delete was successful,
      * <tt>true</tt> if success, <tt>false</tt> otherwise
@@ -450,7 +450,7 @@ public class BELUtilities {
      * This method should <strong>always</strong> be preferred instead of
      * iterating a maps keys and invoking {@link Map#get(Object) get()} on each
      * iteration. The following code should never be used:
-     * 
+     *
      * <pre>
      * <code>
      * Map<String, String> map = [...]
@@ -460,9 +460,9 @@ public class BELUtilities {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * Instead, write:
-     * 
+     *
      * <pre>
      * <code>
      * Map<String, String> map = [...]
@@ -471,9 +471,9 @@ public class BELUtilities {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @param m {@link Map}; may be null
      * @return {@link Set} of {@link Map.Entry map entries}
      */
@@ -486,7 +486,7 @@ public class BELUtilities {
 
     /**
      * Extends {@code Object.equals()} to make {@code null}s equal.
-     * 
+     *
      * @param o1 an object
      * @param o2 another object
      * @return {@code true} if both {@code o1} and {@code o2} are null or
@@ -503,7 +503,7 @@ public class BELUtilities {
     /**
      * Returns the first cause (<em>primium movens</em>) for a {@link Throwable
      * throwable}.
-     * 
+     *
      * @param t the {@link Throwable throwable}
      * @return {@link Throwable} the first cause for the throwable, the original
      * throwable if this is the first cause, or <tt>null</tt> if the <tt>t</tt>
@@ -529,7 +529,7 @@ public class BELUtilities {
      * {@link Exception#getMessage() the exception message} through a series of
      * {@link Exception#getCause() causes}.
      * </p>
-     * 
+     *
      * @param t the {@link Throwable throwable}
      * @return {@link String}; may be null
      */
@@ -551,7 +551,7 @@ public class BELUtilities {
 
     /**
      * Returns the virtual machine's process identifier.
-     * 
+     *
      * @return {@code int}
      */
     public static int getPID() {
@@ -566,7 +566,7 @@ public class BELUtilities {
 
     /**
      * Returns the {@link Thread#currentThread() current thread's} identifier.
-     * 
+     *
      * @return {@code long}
      */
     public static long getThreadID() {
@@ -576,7 +576,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the collection is non-null and non-empty,
      * {@code false} otherwise.
-     * 
+     *
      * @param c Collection, may be null
      * @return boolean
      */
@@ -587,7 +587,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the map is non-null and is non-empty,
      * {@code false} otherwise.
-     * 
+     *
      * @param <K> Captured key type
      * @param <V> Captured value type
      * @param m Map of type {@code <K, V>}, may be null
@@ -600,7 +600,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the array is non-null and has a length greater
      * than zero, {@code false} otherwise.
-     * 
+     *
      * @param <T> Captured array type
      * @param t Array of type {@code <T>}
      * @return boolean
@@ -612,7 +612,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the string is non-null and non-empty,
      * {@code false} otherwise.
-     * 
+     *
      * @param s String, may be null
      * @return boolean
      */
@@ -630,7 +630,7 @@ public class BELUtilities {
      * Here is an example where the use of this method would be beneficial.
      * Given some {@code list} of 100,000 elements, an index is assigned to each
      * element of the list:
-     * 
+     *
      * <pre>
      * <code>
      * Map<Integer, MyObject> map = sizedHashMap(list.size());
@@ -639,9 +639,9 @@ public class BELUtilities {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * A typical use of {@code map} follows:
-     * 
+     *
      * <pre>
      * <code>
      * for (int i = 0; i < map.size(); i++) {
@@ -650,7 +650,7 @@ public class BELUtilities {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * The problem with such code is the costly invocation to
      * {@link Map#get(Object)} on every iteration. This becomes very expensive
      * with very large collections.
@@ -660,7 +660,7 @@ public class BELUtilities {
      * using a {@link List list} structure and calling {@link List#get(int)},
      * see guidelines below). Taking this a step further, we can very easily
      * rewrite this map as an array and get considerable speed improvements.
-     * 
+     *
      * <pre>
      * <code>
      * </code>
@@ -670,7 +670,7 @@ public class BELUtilities {
      *     // use "m"
      * }
      * </pre>
-     * 
+     *
      * Whatever costs you pay up front for indexing the map quickly vanish on
      * each iteration of the loop.
      * </p>
@@ -685,7 +685,7 @@ public class BELUtilities {
      * <li>Index access into an array always beats accessing either a
      * {@link List list} or {@link Map map}.
      * </ol>
-     * 
+     *
      * @param map The {@link Map map} to index. The keys used by the map
      * <b>should never</b> be greater than the {@link Map#size() size} of the
      * map. Under ideal conditions, each value {@code 0 <= x < = map.size()}
@@ -711,7 +711,7 @@ public class BELUtilities {
     /**
      * Applies the function {@code fx} to each of the
      * {@link BELUtilities#entries(Map) entries} within the supplied map.
-     * 
+     *
      * @param fx Non-null {@link MapFunction} to apply
      * @param map Non-null {@link Map}
      */
@@ -727,7 +727,7 @@ public class BELUtilities {
     /**
      * Returns true if a string contains one or more alphanumeric (i.e., the
      * {@code Alnum} character class) characters and nothing else.
-     * 
+     *
      * @param s {@link String}
      * @return boolean
      */
@@ -741,10 +741,26 @@ public class BELUtilities {
     }
 
     /**
+     * Returns {@code true} if {@link String s} is numeric (i.e., the
+     * {@code Digit} POSIX character class) characters and nothing else.
+     *
+     * @param s {@link String}
+     * @return boolean
+     */
+    public static boolean isNumeric(String s) {
+        if (!hasLength(s)) {
+            return false;
+        }
+        Pattern p = Pattern.compile("\\p{Digit}+");
+        Matcher m = p.matcher(s);
+        return m.matches();
+    }
+
+    /**
      * Returns {@code true} if {@code file} ends with
      * {@value PathConstants#BEL_SCRIPT_EXTENSION} or
      * {@value PathConstants#XBEL_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param file {@link File}
      * @return boolean
      */
@@ -759,7 +775,7 @@ public class BELUtilities {
      * Returns {@code true} if {@code path} ends with
      * {@value PathConstants#BEL_SCRIPT_EXTENSION} or
      * {@value PathConstants#XBEL_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param path {@link String} path
      * @return boolean
      */
@@ -779,7 +795,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if {@code file} ends with
      * {@value PathConstants#BEL_SCRIPT_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param file {@link File}
      * @return boolean
      */
@@ -793,7 +809,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if {@code path} ends with
      * {@value PathConstants#BEL_SCRIPT_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param path {@link String} path
      * @return boolean
      */
@@ -810,7 +826,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if {@code file} ends with
      * {@value PathConstants#XBEL_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param file {@link File}
      * @return boolean
      */
@@ -824,7 +840,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if {@code path} ends with
      * {@value PathConstants#XBEL_EXTENSION}, {@code false} otherwise.
-     * 
+     *
      * @param path {@link String} path
      * @return boolean
      */
@@ -848,7 +864,7 @@ public class BELUtilities {
      * </blockquote> returns<br>
      * <blockquote> {@code "foo*bar"} </blockquote>
      * </p>
-     * 
+     *
      * @param strings {@link String Strings} to join together
      * @param separator Separator {@link String string}
      * @return String
@@ -870,7 +886,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the collection is null or empty, {@code false}
      * otherwise.
-     * 
+     *
      * @param c Collection, may be null
      * @return boolean
      */
@@ -881,7 +897,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the map is null or empty, {@code false}
      * otherwise.
-     * 
+     *
      * @param <K> Captured key type
      * @param <V> Captured value type
      * @param m Map of type {@code <K, V>}, may be null
@@ -894,7 +910,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the array is null or has no elements,
      * {@code false} otherwise.
-     * 
+     *
      * @param <T> Captured array type
      * @param t Array of type {@code <T>}, may be null
      * @return boolean
@@ -906,7 +922,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if the string is null or empty, {@code false}
      * otherwise.
-     * 
+     *
      * @param s String, may be null
      * @return boolean
      */
@@ -917,7 +933,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if any {@link String} in <tt>strings</tt> is null or
      * empty, {@code false} otherwise.
-     * 
+     *
      * @param strings {@link String[]}, may be null
      * @return boolean
      */
@@ -938,7 +954,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if no null arguments are provided, {@code false}
      * otherwise.
-     * 
+     *
      * @param objects Objects, may be null
      * @return boolean
      */
@@ -953,7 +969,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if null arguments are provided, {@code false}
      * otherwise.
-     * 
+     *
      * @param objects Objects, may be null
      * @return boolean
      */
@@ -974,7 +990,7 @@ public class BELUtilities {
      * desired to control resizing behavior. The hash map implementation will
      * automatically adjust the size to the next nearest power of two.
      * </p>
-     * 
+     *
      * @param <K> Formal type parameter key
      * @param <V> Formal type parameter value
      * @param s Initial hash map capacity
@@ -995,7 +1011,7 @@ public class BELUtilities {
      * desired to control resizing behavior. The hash set implementation will
      * automatically adjust the size to the next nearest power of two.
      * </p>
-     * 
+     *
      * @param <T> Formal type parameter
      * @param s Initial hash set capacity
      * @param lf Hash set load factor
@@ -1008,7 +1024,7 @@ public class BELUtilities {
     /**
      * Returns {@code true} if {@code file} is non-null and can be read,
      * {@code false} otherwise.
-     * 
+     *
      * @param file File; may be null
      * @return boolean
      */
@@ -1019,7 +1035,7 @@ public class BELUtilities {
 
     /**
      * Returns a sized array list of type {@code T}.
-     * 
+     *
      * @param <T> Formal type parameter
      * @param size Array list size
      * @return Array list of type {@code T}
@@ -1037,7 +1053,7 @@ public class BELUtilities {
      * implementation will automatically adjust the size to the next nearest
      * power of two.
      * </p>
-     * 
+     *
      * @param <K> Formal type parameter key
      * @param <V> Formal type parameter value
      * @param size Hash map initial capacity
@@ -1055,7 +1071,7 @@ public class BELUtilities {
      * implementation will automatically adjust the size to the next nearest
      * power of two.
      * </p>
-     * 
+     *
      * @param <T> Formal type parameter
      * @param size Hash set initial capacity
      * @return Hash set of type {@code T}
@@ -1067,7 +1083,7 @@ public class BELUtilities {
     /**
      * Check equality of two substrings. This method does not create
      * intermediate {@link String} objects and is roughly equivalent to:
-     * 
+     *
      * <pre>
      * <code>
      * String sub1 = s1.substring(fromIndex1, toIndex1);
@@ -1075,7 +1091,7 @@ public class BELUtilities {
      * sub1.equals(sub2);
      * </code>
      * </pre>
-     * 
+     *
      * @param s1 First string
      * @param fromIndex1 Starting index within {@code s1}
      * @param toIndex1 Ending index within {@code s1}
@@ -1113,7 +1129,7 @@ public class BELUtilities {
     /**
      * Converts into seconds and returns a string in the format
      * {@code <seconds>.<milliseconds>}.
-     * 
+     *
      * @param milliseconds
      * @return String
      */
@@ -1126,7 +1142,7 @@ public class BELUtilities {
     /**
      * Captures all objects of type {@code <T>} contained in the provided list
      * as a new checked list.
-     * 
+     *
      * @param <T> Captured type for new checked list
      * @param objects List of objects
      * @param t Class type to capture

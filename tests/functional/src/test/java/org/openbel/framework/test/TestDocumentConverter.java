@@ -227,7 +227,7 @@ public class TestDocumentConverter {
     }
 
     private static Document transformTest(final InputStream is)
-            throws IOException, SAXException, TransformerException, XPathExpressionException {
+            throws IOException, SAXException, TransformerException {
 
         final Document d = XMLUnit.buildTestDocument(new InputSource(is));
         return new Transform(d, nornalizeXbelXslt).getResultDocument();
@@ -277,7 +277,7 @@ public class TestDocumentConverter {
                         node.getNamespaceURI().equals(BEL_NAMESPACE_URI))) {
 
             for (Node el : new NodeListIterable((NodeList) annotationGroupExp.evaluate(node, NODESET))) {
-                mergeInto((Element) el, annotationGroup);
+                mergeInto(el, annotationGroup);
             }
         }
     }
@@ -299,18 +299,16 @@ public class TestDocumentConverter {
         public String getNamespaceURI(String prefix) {
             if ("bel".equals(prefix)) {
                 return BEL_NAMESPACE_URI;
-            } else {
-                return null;
             }
+            return null;
         }
 
         @Override
         public String getPrefix(String namespace) {
             if (BEL_NAMESPACE_URI.equals(namespace)) {
                 return "bel";
-            } else {
-                return null;
             }
+            return null;
         }
 
         @SuppressWarnings("rawtypes")
@@ -369,11 +367,10 @@ public class TestDocumentConverter {
         public XPathExpression compile(final String expression) throws XPathExpressionException {
             if (memo.containsKey(expression)) {
                 return memo.get(expression);
-            } else {
-                final XPathExpression exp = xpath.compile(expression);
-                memo.put(expression, exp);
-                return exp;
             }
+            final XPathExpression exp = xpath.compile(expression);
+            memo.put(expression, exp);
+            return exp;
         }
 
         public XPath getXPath() {
@@ -455,36 +452,35 @@ public class TestDocumentConverter {
                         // If there are no more control or test child nodes then
                         // control and test qualify for comparison, so return true.
                         return true;
-                    } else {
-                        final short nodeType = testChild.getNodeType();
-                        if (nodeType == Node.TEXT_NODE || nodeType == Node.CDATA_SECTION_NODE) {
-                            // Collect the data in consecutive text and cdata sections
-                            final String value = ((CharacterData) testChild).getData();
-                            if (value != null) {
-                                testTextBldr.append(value.trim());
-                            }
-                            lastTestChildWasText = true;
-                        } else if (nodeType == Node.ELEMENT_NODE) {
-
-                            if (lastControlChildWasText != lastTestChildWasText) {
-                                return false;
-                            } else if (lastTestChildWasText) {
-                                if (! controlTextBldr.toString().equals(testTextBldr.toString())) {
-                                    return false;
-                                }
-
-                                controlTextBldr.delete(0, controlTextBldr.length());
-                                testTextBldr.delete(0, testTextBldr.length());
-                                lastTestChildWasText = false;
-                            }
-
-                            if (! qualifyForComparison((Element) controlChild, (Element) testChild)) {
-                                return false;
-                            }
-
-                            wantNextControlChild = true;
-                            lastControlChildWasText = false;
+                    }
+                    final short nodeType = testChild.getNodeType();
+                    if (nodeType == Node.TEXT_NODE || nodeType == Node.CDATA_SECTION_NODE) {
+                        // Collect the data in consecutive text and cdata sections
+                        final String value = ((CharacterData) testChild).getData();
+                        if (value != null) {
+                            testTextBldr.append(value.trim());
                         }
+                        lastTestChildWasText = true;
+                    } else if (nodeType == Node.ELEMENT_NODE) {
+
+                        if (lastControlChildWasText != lastTestChildWasText) {
+                            return false;
+                        } else if (lastTestChildWasText) {
+                            if (! controlTextBldr.toString().equals(testTextBldr.toString())) {
+                                return false;
+                            }
+
+                            controlTextBldr.delete(0, controlTextBldr.length());
+                            testTextBldr.delete(0, testTextBldr.length());
+                            lastTestChildWasText = false;
+                        }
+
+                        if (! qualifyForComparison((Element) controlChild, (Element) testChild)) {
+                            return false;
+                        }
+
+                        wantNextControlChild = true;
+                        lastControlChildWasText = false;
                     }
                 }
             }

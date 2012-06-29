@@ -1,83 +1,352 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.openbel</groupId>
         <artifactId>org.openbel.parent</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
         <relativePath>../</relativePath>
     </parent>
 
     <name>OpenBEL Framework API</name>
     <artifactId>org.openbel.framework.api</artifactId>
     <description>Java API for BEL Framework</description>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.openbel</groupId>
-            <artifactId>org.openbel.framework.core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-math</groupId>
-            <artifactId>commons-math</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>org.openbel</groupId>
-            <artifactId>org.openbel.framework.common</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.openbel</groupId>
-            <artifactId>org.openbel.framework.core</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-            <classifier>tests</classifier>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-nop</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                </dependency>            
+            
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                
+                <dependency>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                    <version>${commons-collections.version}</version>
+                </dependency>            
+            
+                <dependency>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                    <version>${commons-lang.version}</version>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr-runtime</artifactId>
+                    <version>${antlr.version}</version>
+                </dependency>            
+            
+                <!-- Test dependencies -->
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                    <scope>test</scope>
+                    <classifier>tests</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>${junit.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                    <version>1.9.0</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>bundle-all</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.bel</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                    <version>${logback.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-core</artifactId>
+                    <version>${logback.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch</artifactId>
+                    <version>${jsch.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils</artifactId>
+                    <version>${commons-beanutils.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-cli</groupId>
+                    <artifactId>commons-cli</artifactId>
+                    <version>${commons-cli.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                    <version>${commons-codec.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                    <version>${commons-collections.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-digester</groupId>
+                    <artifactId>commons-digester</artifactId>
+                    <version>${commons-digester.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                    <version>${commons-io.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                    <version>${commons-lang.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                    <version>${commons-logging.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-net</groupId>
+                    <artifactId>commons-net</artifactId>
+                    <version>${commons-net.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.opencsv</groupId>
+                    <artifactId>opencsv</artifactId>
+                    <version>${opencsv.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr-runtime</artifactId>
+                    <version>${antlr.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>stringtemplate</artifactId>
+                    <version>${antlr.stringtemplate.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.derby</groupId>
+                    <artifactId>derby</artifactId>
+                    <version>${derby.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.fusesource.jdbm</groupId>
+                    <artifactId>jdbm</artifactId>
+                    <version>${jdbm.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>${slf4j.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+
+                <!-- Test dependencies -->
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                    <classifier>tests</classifier>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>${junit.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                    <version>${mockito.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-nop</artifactId>
+                    <version>${slf4j.version}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <archive>
+                                <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <version>2.3.7</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>bundle-manifest</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>manifest</goal>
+                                </goals>
+                                <configuration>
+                                    <instructions>
+                                        <Import-Package>
+                                            javax.crypto,
+                                            javax.crypto.interfaces,
+                                            javax.crypto.spec,
+                                            javax.net,
+                                            javax.net.ssl,
+                                            javax.security.auth,
+                                            javax.security.auth.callback,
+                                            javax.security.auth.login,
+                                            javax.sql,
+                                            javax.xml.bind,
+                                            javax.xml.bind.annotation,
+                                            javax.xml.bind.annotation.adapters,
+                                            javax.xml.namespace,
+                                            javax.xml.parsers,
+                                            javax.xml.stream,
+                                            javax.xml.stream.events,
+                                            javax.xml.transform,
+                                            javax.xml.transform.dom,
+                                            javax.xml.transform.sax,
+                                            javax.xml.transform.stax,
+                                            javax.xml.transform.stream,
+                                            javax.xml.validation,
+                                            org.apache.log4j,
+                                            org.osgi.framework,
+                                            org.w3c.dom,
+                                            org.xml.sax,
+                                            org.xml.sax.helpers,
+                                            antlr.*;resolution:=optional,
+                                            javax.servlet;resolution:=optional,
+                                            com.jcraft.jzlib;resolution:=optional,
+                                            groovy.lang;resolution:=optional,
+                                            javax.jms;resolution:=optional,
+                                            javax.mail;resolution:=optional,
+                                            javax.mail.internet;resolution:=optional,
+                                            javax.management;resolution:=optional,
+                                            javax.naming;resolution:=optional,
+                                            javax.naming.directory;resolution:=optional,
+                                            javax.naming.spi;resolution:=optional,
+                                            javax.servlet.http;resolution:=optional,
+                                            javax.swing;resolution:=optional,
+                                            javax.swing.event;resolution:=optional,
+                                            javax.swing.tree;resolution:=optional,
+                                            javax.transaction.xa;resolution:=optional,
+                                            net.sf.cglib.asm.util;resolution:=optional,
+                                            org.apache.avalon.framework.logger;resolution:=optional,
+                                            org.apache.commons.discovery.tools;resolution:=optional,
+                                            org.apache.derby.impl.drda;resolution:=optional,
+                                            org.apache.log;resolution:=optional,
+                                            org.apache.tools.ant;resolution:=optional,
+                                            org.apache.tools.ant.types;resolution:=optional,
+                                            org.apache.xalan.serialize;resolution:=optional,
+                                            org.apache.xalan.templates;resolution:=optional,
+                                            org.apache.xml.utils;resolution:=optional,
+                                            org.apache.xpath;resolution:=optional,
+                                            org.apache.xpath.objects;resolution:=optional,
+                                            org.codehaus.groovy.*;resolution:=optional,
+                                            org.codehaus.janino;resolution:=optional,
+                                            org.ietf.jgss;resolution:=optional,
+                                            sun.reflect;resolution:=optional
+                                        </Import-Package>
+                                        <Export-Package>org.openbel.framework.api</Export-Package>
+                                        <Private-Package>org.openbel.framework.internal</Private-Package>
+                                        <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+                                        <Embed-Directory>lib</Embed-Directory>
+                                    </instructions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeScope>runtime</includeScope>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                            <overWriteSnapshots>true</overWriteSnapshots>
-                            <outputDirectory>${basedir}/target/dependencies</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
+                        <Bundle-Name>OpenBEL Framework API</Bundle-Name>
+                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
+                        <Private-Package>org.openbel.framework.internal</Private-Package>
+                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
+                        <!--
+                        <Import-Package>
+                        </Import-Package>
+                        -->
+                    </instructions>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
+

@@ -49,7 +49,7 @@ import org.openbel.framework.common.model.Statement;
  *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
-class ExtractStatementExpansionRule extends StatementExpansionRule {
+class ExtractStatementExpansionRule extends ExpansionRule<Statement> {
 
     /**
      * {@inheritDoc}

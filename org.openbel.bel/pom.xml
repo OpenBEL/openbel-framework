@@ -4,14 +4,14 @@
     <parent>
         <groupId>org.openbel</groupId>
         <artifactId>org.openbel.parent</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.0.0</version>
         <relativePath>../</relativePath>
     </parent>
 
     <name>BEL</name>
     <artifactId>org.openbel.bel</artifactId>
     <description>The BEL Language for the OpenBEL Framework</description>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,4 +25,30 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>The BEL Language</Bundle-Name>
+                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
+                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
+                        <!-- <Private-Package>org.openbel...</Private-Package> -->
+                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
+                        <!--
+                        <Import-Package>
+                        </Import-Package>
+                        -->
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+

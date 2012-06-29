@@ -54,8 +54,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openbel.framework.core.kamstore.model.KamStoreObject;
-import org.openbel.framework.ws.utils.Converter;
+import org.openbel.framework.api.KamStoreObject;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
 
 public class TestConverter {
@@ -153,8 +152,8 @@ public class TestConverter {
             for (Object type : kamStoreObjectTypeClass.getEnumConstants()) {
                 int kamInfoId = random.nextInt();
                 int id = 0;
-                while ((id = random.nextInt()) < 1)
-                    ; // A valid ID is not less than 1
+                // A valid ID is not less than 1
+                while ((id = random.nextInt()) < 1) {}
                 final byte prefix =
                         ((Byte) getRepresentation.invoke(type)).byteValue();
                 final Class<? extends KamStoreObject> typeClass =

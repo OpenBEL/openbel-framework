@@ -35,20 +35,17 @@
  */
 package org.openbel.framework.common.bel.converters;
 
-import static org.openbel.framework.common.BELUtilities.hasItems;
-import static org.openbel.framework.common.BELUtilities.sizedArrayList;
+import static org.openbel.framework.common.BELUtilities.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.antlr.runtime.RecognitionException;
 import org.openbel.bel.model.BELAnnotation;
 import org.openbel.bel.model.BELCitation;
 import org.openbel.bel.model.BELEvidence;
 import org.openbel.bel.model.BELStatement;
-import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.Annotation;
 import org.openbel.framework.common.model.AnnotationDefinition;
@@ -84,52 +81,47 @@ public class BELStatementConverter extends
         String comment = bs.getComment();
         String belSyntax = bs.getStatementSyntax();
 
-        try {
-            Statement s = BELParser.parseStatement(belSyntax);
-            repopulateNamespaces(s);
+        Statement s = BELParser.parseStatement(belSyntax);
+        repopulateNamespaces(s);
 
-            s.setComment(comment);
+        s.setComment(comment);
 
-            final BELAnnotationConverter bac =
-                    new BELAnnotationConverter(adefs);
-            List<BELAnnotation> annotations = bs.getAnnotations();
-            List<Annotation> alist = null;
-            if (hasItems(annotations)) {
-                alist = sizedArrayList(annotations.size());
-                for (BELAnnotation annotation : annotations) {
-                    alist.addAll(bac.convert(annotation));
-                }
+        final BELAnnotationConverter bac =
+                new BELAnnotationConverter(adefs);
+        List<BELAnnotation> annotations = bs.getAnnotations();
+        List<Annotation> alist = null;
+        if (hasItems(annotations)) {
+            alist = sizedArrayList(annotations.size());
+            for (BELAnnotation annotation : annotations) {
+                alist.addAll(bac.convert(annotation));
             }
-
-            BELCitation bc = bs.getCitation();
-            BELEvidence be = bs.getEvidence();
-
-            AnnotationGroup ag = new AnnotationGroup();
-            boolean hasAnnotation = false;
-            if (hasItems(alist)) {
-                ag.setAnnotations(alist);
-                hasAnnotation = true;
-            }
-
-            if (bc != null) {
-                ag.setCitation(bcc.convert(bc));
-                hasAnnotation = true;
-            }
-
-            if (be != null) {
-                ag.setEvidence(bec.convert(be));
-                hasAnnotation = true;
-            }
-
-            if (hasAnnotation) {
-                s.setAnnotationGroup(ag);
-            }
-
-            return s;
-        } catch (RecognitionException e) {
-            throw new InvalidArgument("statement syntax is invalid - "
-                    + belSyntax);
         }
+
+        BELCitation bc = bs.getCitation();
+        BELEvidence be = bs.getEvidence();
+
+        AnnotationGroup ag = new AnnotationGroup();
+        boolean hasAnnotation = false;
+        if (hasItems(alist)) {
+            ag.setAnnotations(alist);
+            hasAnnotation = true;
+        }
+
+        if (bc != null) {
+            ag.setCitation(bcc.convert(bc));
+            hasAnnotation = true;
+        }
+
+        if (be != null) {
+            ag.setEvidence(bec.convert(be));
+            hasAnnotation = true;
+        }
+
+        if (hasAnnotation) {
+            s.setAnnotationGroup(ag);
+        }
+
+        return s;
     }
 
     /**

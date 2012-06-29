@@ -273,6 +273,20 @@
     <target name="run_compiler_test">
         <echo>Compiling unit tests...</echo>
 
+    	<echo>Downloading small corpus...</echo>
+    	<get src="https://raw.github.com/OpenBEL/openbel-framework-resources/master/knowledge/small_corpus.bel" dest="small_corpus.bel"/>
+
+    	<!-- Small Corpus -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="small_corpus.bel" />
+            <param name="kam" value="small_corpus" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
         <!-- Unit Test 1 -->
         <antcall target="compiler_test">
             <param name="bel_file"

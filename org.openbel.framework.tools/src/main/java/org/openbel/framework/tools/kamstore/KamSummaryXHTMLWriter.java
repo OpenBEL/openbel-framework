@@ -41,9 +41,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationDefinitionType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
 
 public final class KamSummaryXHTMLWriter extends KamXHTMLWriter {
 

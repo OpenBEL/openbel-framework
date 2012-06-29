@@ -43,7 +43,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-import org.antlr.runtime.RecognitionException;
 import org.openbel.bel.model.*;
 
 /**
@@ -53,8 +52,7 @@ import org.openbel.bel.model.*;
  */
 public class BELScriptWalkerTest {
 
-    public static void main(String[] args) throws RecognitionException,
-            IOException {
+    public static void main(String[] args) throws IOException {
         parseBELScript(new File(
                 "/home/abargnesi/projects-bel/docs/BEL Script/example1.bel"));
         parseBELScript(new File(

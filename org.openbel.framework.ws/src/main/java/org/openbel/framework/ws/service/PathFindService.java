@@ -37,7 +37,7 @@ package org.openbel.framework.ws.service;
 
 import java.util.List;
 
-import org.openbel.framework.core.kamstore.model.Kam;
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.SimplePath;
 

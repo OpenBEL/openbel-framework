@@ -52,7 +52,7 @@ import org.openbel.framework.common.model.Statement.Object;
  * Composite Abundance connects to its abundance terms with INCLUDES
  * relationship.
  */
-class CompositeAbundanceExpansionRule extends TermExpansionRule {
+class CompositeAbundanceExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

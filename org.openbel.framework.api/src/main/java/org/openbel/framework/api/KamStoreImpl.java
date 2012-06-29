@@ -50,34 +50,31 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.external.ExternalResourceException;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.NamespaceFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDao.KamProtoNodesAndEdges;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoNode;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.TermParameter;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamImpl;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMStoreDao;
+import org.openbel.framework.internal.KAMStoreDaoImpl;
+import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMCatalogDao.NamespaceFilter;
+import org.openbel.framework.internal.KAMStoreDao.KamProtoNodesAndEdges;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
+import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 /**
  * Provides access to a KamStore and the KAMs.
@@ -721,8 +718,7 @@ public final class KamStoreImpl implements KamStore {
         }
     }
 
-    private KAMStoreDao getKamStoreDao(KamInfo kamInfo) throws SQLException,
-            KamStoreException {
+    private KAMStoreDao getKamStoreDao(KamInfo kamInfo) throws SQLException {
         KAMStoreDao dao = kamStoreDaoMap.get(kamInfo);
         if (null == dao) {
             dao = new KAMStoreDaoImpl(kamInfo.getKamDbObject()

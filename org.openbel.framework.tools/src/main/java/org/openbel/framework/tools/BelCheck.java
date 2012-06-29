@@ -35,7 +35,11 @@
  */
 package org.openbel.framework.tools;
 
-import static org.openbel.framework.common.BELUtilities.*;
+import static org.openbel.framework.common.BELUtilities.hasItems;
+import static org.openbel.framework.common.BELUtilities.isBELDocument;
+import static org.openbel.framework.common.BELUtilities.isBELScript;
+import static org.openbel.framework.common.BELUtilities.isXBEL;
+import static org.openbel.framework.common.BELUtilities.readable;
 import static org.openbel.framework.common.Strings.*;
 import static org.openbel.framework.core.StandardOptions.ARG_SYSCFG;
 import static org.openbel.framework.core.StandardOptions.LONG_OPT_SYSCFG;
@@ -60,7 +64,16 @@ import org.openbel.framework.common.bel.parser.BELParseResults;
 import org.openbel.framework.common.enums.ExitCode;
 import org.openbel.framework.common.model.AnnotationDefinition;
 import org.openbel.framework.common.model.Document;
-import org.openbel.framework.core.*;
+import org.openbel.framework.core.BELConverterService;
+import org.openbel.framework.core.BELConverterServiceImpl;
+import org.openbel.framework.core.BELValidatorService;
+import org.openbel.framework.core.BELValidatorServiceImpl;
+import org.openbel.framework.core.CommandLineApplication;
+import org.openbel.framework.core.StandardOptions;
+import org.openbel.framework.core.XBELConverterService;
+import org.openbel.framework.core.XBELConverterServiceImpl;
+import org.openbel.framework.core.XBELValidatorService;
+import org.openbel.framework.core.XBELValidatorServiceImpl;
 import org.openbel.framework.core.annotation.AnnotationDefinitionService;
 import org.openbel.framework.core.annotation.AnnotationService;
 import org.openbel.framework.core.annotation.DefaultAnnotationDefinitionService;
@@ -148,7 +161,7 @@ public class BelCheck extends CommandLineApplication {
 
         List<String> fileArgs = getExtraneousArguments();
         if (!hasItems(fileArgs)) {
-            reportable.error("No documents specified.");
+            reportable.error(NO_DOCUMENT_FILES);
             end();
         }
         if (fileArgs.size() > 1) {
@@ -278,6 +291,7 @@ public class BelCheck extends CommandLineApplication {
                 printSummary(fileArg, numWarnings, numErrors);
             }
             if (numErrors == 0) {
+                reportable.output(ALL_DOCUMENTS_PASSED_VALIDATION);
                 bail(ExitCode.SUCCESS);
             } else {
                 bail(ExitCode.VALIDATION_FAILURE);

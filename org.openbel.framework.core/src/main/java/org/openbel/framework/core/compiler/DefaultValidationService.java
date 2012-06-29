@@ -99,15 +99,10 @@ public class DefaultValidationService implements
             validationResult.getErrors().add(idxf.getUserFacingMessage());
         }
 
-        try {
-            List<SemanticWarning> semanticWarnings =
-                    semanticCheck(doc.getAllTerms());
-            semanticWarnings.addAll(semanticCheck(doc.getAllStatements()));
-            for (SemanticWarning sw : semanticWarnings) {
-                validationResult.getWarnings().add(sw.getUserFacingMessage());
-            }
-        } catch (IndexingFailure idxf) {
-            validationResult.getErrors().add(idxf.getUserFacingMessage());
+        List<SemanticWarning> semanticWarnings = semanticCheck(doc.getAllTerms());
+        semanticWarnings.addAll(semanticCheck(doc.getAllStatements()));
+        for (SemanticWarning sw : semanticWarnings) {
+            validationResult.getWarnings().add(sw.getUserFacingMessage());
         }
 
         try {
@@ -144,15 +139,11 @@ public class DefaultValidationService implements
             validationResult.getErrors().add(idxf.getUserFacingMessage());
         }
 
-        try {
-            List<SemanticWarning> semanticWarnings = semanticCheck(statement
-                    .getAllTerms());
-            semanticWarnings.addAll(semanticCheck(statement));
-            for (SemanticWarning sw : semanticWarnings) {
-                validationResult.getWarnings().add(sw.getUserFacingMessage());
-            }
-        } catch (IndexingFailure idxf) {
-            validationResult.getErrors().add(idxf.getUserFacingMessage());
+        List<SemanticWarning> semanticWarnings = semanticCheck(statement
+                .getAllTerms());
+        semanticWarnings.addAll(semanticCheck(statement));
+        for (SemanticWarning sw : semanticWarnings) {
+            validationResult.getWarnings().add(sw.getUserFacingMessage());
         }
 
         try {
@@ -191,7 +182,7 @@ public class DefaultValidationService implements
     }
 
     private List<SemanticWarning> semanticCheck(
-            final Collection<Term> terms) throws IndexingFailure {
+            final Collection<Term> terms) {
         final List<SemanticWarning> ret = new LinkedList<SemanticWarning>();
 
         // Signature verification

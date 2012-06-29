@@ -38,28 +38,34 @@ package org.openbel.framework.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import static org.openbel.framework.common.enums.FunctionEnum.*;
-import static org.openbel.framework.common.enums.RelationshipType.*;
+import static org.openbel.framework.common.enums.FunctionEnum.ABUNDANCE;
+import static org.openbel.framework.common.enums.FunctionEnum.CATALYTIC_ACTIVITY;
+import static org.openbel.framework.common.enums.FunctionEnum.COMPLEX_ABUNDANCE;
+import static org.openbel.framework.common.enums.FunctionEnum.COMPOSITE_ABUNDANCE;
+import static org.openbel.framework.common.enums.FunctionEnum.GENE_ABUNDANCE;
+import static org.openbel.framework.common.enums.FunctionEnum.PROTEIN_ABUNDANCE;
+import static org.openbel.framework.common.enums.FunctionEnum.RNA_ABUNDANCE;
+import static org.openbel.framework.common.enums.RelationshipType.ACTS_IN;
+import static org.openbel.framework.common.enums.RelationshipType.HAS_COMPONENT;
+import static org.openbel.framework.common.enums.RelationshipType.INCLUDES;
+import static org.openbel.framework.common.enums.RelationshipType.INCREASES;
+import static org.openbel.framework.common.enums.RelationshipType.TRANSCRIBED_TO;
+import static org.openbel.framework.common.enums.RelationshipType.TRANSLATED_TO;
 
 import java.util.List;
 
 import org.junit.Test;
-import org.openbel.framework.api.BasicPathFinder;
-import org.openbel.framework.api.PathFinder;
-import org.openbel.framework.api.SimplePath;
-import org.openbel.framework.core.kamstore.data.jdbc.KamInfoUtil;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamTestUtil;
-import org.openbel.framework.core.kamstore.model.Kam.KamEdge;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
-import org.openbel.framework.core.kamstore.model.KamTestUtil.TestKamEdge;
-import org.openbel.framework.core.kamstore.model.KamTestUtil.TestKamNode;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.KamTestUtil.TestKamEdge;
+import org.openbel.framework.api.KamTestUtil.TestKamNode;
+import org.openbel.framework.internal.KamInfoUtil;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * BasicPathFinderTest tests the {@link BasicPathFinder} findPaths, scan, and
  * interconnect APIs.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BasicPathFinderTest {
@@ -241,7 +247,7 @@ public class BasicPathFinderTest {
 
     /**
      * Create a test KAM for testing path finds.
-     * 
+     *
      * @return {@link Kam} the test KAM
      */
     private Kam createTestKAM() {

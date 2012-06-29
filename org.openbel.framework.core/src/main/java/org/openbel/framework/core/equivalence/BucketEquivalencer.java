@@ -100,7 +100,7 @@ public final class BucketEquivalencer extends Equivalencer {
         return result;
     }
 
-    private int process() throws IOException {
+    private int process() {
         int equivalences = 0;
 
         // Establish access to all the necessary proto-network parts

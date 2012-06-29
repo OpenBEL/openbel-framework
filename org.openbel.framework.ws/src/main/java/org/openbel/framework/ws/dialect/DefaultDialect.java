@@ -39,14 +39,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.Kam.KamNode;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 
 /**
  * Simple dialect that uses the BEL short form of the first supporting term
@@ -57,7 +56,7 @@ import org.openbel.framework.core.kamstore.model.dialect.Dialect;
  * Construction of this class is limited to
  * {@link DialectFactory#createDefaultDialect(KamInfo)}<br>
  * This implementation is thread-safe.
- * 
+ *
  * @author Steve Ungerer
  */
 public class DefaultDialect implements Dialect {

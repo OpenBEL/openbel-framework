@@ -1,45 +1,10 @@
-/**
- * Copyright (C) 2012 Selventa, Inc.
- *
- * This file is part of the OpenBEL Framework.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
- */
 package org.openbel.framework.tools;
 
-import static java.lang.String.format;
-import static org.openbel.framework.common.BELUtilities.asPath;
+import static java.lang.String.*;
+import static org.openbel.framework.common.BELUtilities.*;
 import static org.openbel.framework.common.Strings.*;
-import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
-import static org.openbel.framework.tools.PhaseFourOptions.phaseFourOptions;
+import static org.openbel.framework.common.cfg.SystemConfiguration.*;
+import static org.openbel.framework.tools.PhaseFourOptions.*;
 
 import java.io.File;
 import java.util.Date;
@@ -56,8 +21,8 @@ import org.openbel.framework.common.enums.ExitCode;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.util.BELPathFilters.GlobalProtonetworkFilter;
-import org.openbel.framework.compiler.PhaseFourImpl;
 import org.openbel.framework.compiler.DefaultPhaseFour;
+import org.openbel.framework.compiler.PhaseFourImpl;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaServiceImpl;
 import org.openbel.framework.core.compiler.CreateKAMFailure;
@@ -66,10 +31,10 @@ import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.core.kamstore.KamDbObject;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkDescriptor;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkExternalizer;
 import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
+import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL phase four compiler.
@@ -107,9 +72,8 @@ public final class PhaseFourApplication extends PhaseApplication {
 
         sysconfig = getSystemConfiguration();
         DatabaseService dbservice = new DatabaseServiceImpl();
-        KAMStoreSchemaService kamStoreSchemaService =
-                new KAMStoreSchemaServiceImpl(
-                        dbservice);
+        KAMStoreSchemaService kamStoreSchemaService = new KAMStoreSchemaServiceImpl(
+                dbservice);
         p4 = new PhaseFourImpl(dbservice, kamStoreSchemaService);
     }
 
@@ -152,11 +116,17 @@ public final class PhaseFourApplication extends PhaseApplication {
         // phase III is skipped.
 
         final String outputPath = outputDirectory.getAbsolutePath();
-        final PhaseThreeApplication p3App =
-                new PhaseThreeApplication(getCommandLineArguments());
-        final String folder =
-                (p3App.isSkipped() ? PhaseTwoApplication.DIR_ARTIFACT :
-                        PhaseThreeApplication.DIR_ARTIFACT);
+        final String[] args = getCommandLineArguments();
+        final PhaseThreeApplication p3App = new PhaseThreeApplication(args);
+
+        String folder;
+
+        // if phase III was skipped or no orthology documents were merged
+        if (p3App.isSkipped()) {
+            folder = PhaseTwoApplication.DIR_ARTIFACT;
+        } else {
+            folder = PhaseThreeApplication.DIR_ARTIFACT;
+        }
 
         final File pnPath = new File(asPath(outputPath, folder));
 
@@ -336,23 +306,23 @@ public final class PhaseFourApplication extends PhaseApplication {
     }
 
     /**
-     * Returns {@code "Phase IV: Exporting final network to the KAM store"}.
+     * Returns {@code "Phase V: Exporting final network to the KAM store"}.
      *
      * @return String
      */
     @Override
     public String getApplicationName() {
-        return "Phase IV: Exporting final network to the KAM Store";
+        return PHASE4_NAME;
     }
 
     /**
-     * Returns {@code "Phase IV"}.
+     * Returns {@code "Phase V"}.
      *
      * @return String
      */
     @Override
     public String getApplicationShortName() {
-        return "Phase IV";
+        return PHASE4_SHORT_NAME;
     }
 
     /**
@@ -362,7 +332,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      */
     @Override
     public String getApplicationDescription() {
-        return "Exports a completed network to the KAM Store.";
+        return PHASE4_DESCRIPTION;
     }
 
     /**

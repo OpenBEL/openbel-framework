@@ -42,7 +42,6 @@ import static org.openbel.framework.common.BELUtilities.sizedArrayList;
 import static org.openbel.framework.common.Strings.DIALECT_REQUEST_NO_DIALECT_FOR_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.*;
 import static org.openbel.framework.ws.utils.Converter.convert;
 
 import java.sql.SQLException;
@@ -58,24 +57,48 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.service.KamCacheService;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
-import org.openbel.framework.core.kamstore.model.dialect.KamDialect;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.DialectHandle;
+import org.openbel.framework.ws.model.EdgeDirectionType;
+import org.openbel.framework.ws.model.EdgeFilter;
+import org.openbel.framework.ws.model.FindKamEdgesRequest;
+import org.openbel.framework.ws.model.FindKamEdgesResponse;
+import org.openbel.framework.ws.model.FindKamNodesByIdsRequest;
+import org.openbel.framework.ws.model.FindKamNodesByIdsResponse;
+import org.openbel.framework.ws.model.FindKamNodesByLabelsRequest;
+import org.openbel.framework.ws.model.FindKamNodesByLabelsResponse;
+import org.openbel.framework.ws.model.FindKamNodesByNamespaceValuesRequest;
+import org.openbel.framework.ws.model.FindKamNodesByNamespaceValuesResponse;
+import org.openbel.framework.ws.model.FindKamNodesByPatternsRequest;
+import org.openbel.framework.ws.model.FindKamNodesByPatternsResponse;
+import org.openbel.framework.ws.model.GetAdjacentKamEdgesRequest;
+import org.openbel.framework.ws.model.GetAdjacentKamEdgesResponse;
+import org.openbel.framework.ws.model.GetAdjacentKamNodesRequest;
+import org.openbel.framework.ws.model.GetAdjacentKamNodesResponse;
+import org.openbel.framework.ws.model.GetKamRequest;
+import org.openbel.framework.ws.model.GetKamResponse;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.NamespaceValue;
+import org.openbel.framework.ws.model.NodeFilter;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.utils.Converter;
-import org.openbel.framework.ws.utils.InvalidIdException;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
+import org.openbel.framework.ws.utils.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -103,6 +126,8 @@ public class KamEndPoint extends WebServiceEndpoint {
             "GetAdjacentKamEdgesRequest";
     private static final String FIND_KAM_NODES_BY_NAMESPACE_VALUES_REQUEST =
             "FindKamNodesByNamespaceValuesRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired
     private KAMCatalogDao kamCatalogDao;
@@ -136,10 +161,10 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         // Get the real Kam from the KamCache
-        final org.openbel.framework.core.kamstore.model.Kam objKam = getKam(
+        final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, null);
 
-        GetKamResponse response = createGetKamResponse();
+        GetKamResponse response = OBJECT_FACTORY.createGetKamResponse();
         response.setKam(convert(objKam.getKamInfo()));
 
         return response;
@@ -170,10 +195,10 @@ public class KamEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final org.openbel.framework.core.kamstore.model.Kam objKam = getKam(
+        final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, dialect);
 
-        final org.openbel.framework.core.kamstore.model.NodeFilter filter =
+        final org.openbel.framework.api.NodeFilter filter =
                 convertNodeFilterInRequest(
                         request.getFilter(), objKam);
 
@@ -187,7 +212,7 @@ public class KamEndPoint extends WebServiceEndpoint {
             }
 
             Integer elemid = kamElementRef.getKamStoreObjectId();
-            org.openbel.framework.core.kamstore.model.Kam.KamNode node;
+            org.openbel.framework.api.Kam.KamNode node;
             node = objKam.findNode(elemid, filter);
 
             if (node == null) {
@@ -198,7 +223,8 @@ public class KamEndPoint extends WebServiceEndpoint {
             }
         }
 
-        FindKamNodesByIdsResponse response = createFindKamNodesByIdsResponse();
+        FindKamNodesByIdsResponse response = OBJECT_FACTORY
+                .createFindKamNodesByIdsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -228,16 +254,16 @@ public class KamEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final org.openbel.framework.core.kamstore.model.Kam objKam = getKam(
+        final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, dialect);
 
-        final org.openbel.framework.core.kamstore.model.NodeFilter filter =
+        final org.openbel.framework.api.NodeFilter filter =
                 convertNodeFilterInRequest(
                         request.getFilter(), objKam);
 
         List<KamNode> kamNodes = new ArrayList<KamNode>();
         for (String label : labels) {
-            org.openbel.framework.core.kamstore.model.Kam.KamNode ksKamNode =
+            org.openbel.framework.api.Kam.KamNode ksKamNode =
                     objKam
                             .findNode(label, filter);
             if (ksKamNode == null) {
@@ -250,7 +276,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         FindKamNodesByLabelsResponse response =
-                createFindKamNodesByLabelsResponse();
+                OBJECT_FACTORY.createFindKamNodesByLabelsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -281,9 +307,9 @@ public class KamEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final org.openbel.framework.core.kamstore.model.Kam objKam = getKam(
+        final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, dialect);
-        final org.openbel.framework.core.kamstore.model.NodeFilter filter =
+        final org.openbel.framework.api.NodeFilter filter =
                 convertNodeFilterInRequest(
                         request.getFilter(), objKam);
 
@@ -297,17 +323,17 @@ public class KamEndPoint extends WebServiceEndpoint {
                         + pattern, e);
             }
 
-            final Set<org.openbel.framework.core.kamstore.model.Kam.KamNode> nodes =
+            final Set<org.openbel.framework.api.Kam.KamNode> nodes =
                     objKam
                             .findNode(javaPattern, filter);
-            for (org.openbel.framework.core.kamstore.model.Kam.KamNode node : nodes) {
+            for (org.openbel.framework.api.Kam.KamNode node : nodes) {
                 final KamNode kamNode = convert(objKam.getKamInfo(), node);
                 kamNodes.add(kamNode);
             }
         }
 
         final FindKamNodesByPatternsResponse response =
-                createFindKamNodesByPatternsResponse();
+                OBJECT_FACTORY.createFindKamNodesByPatternsResponse();
         response.getKamNodes().addAll(kamNodes);
         return response;
     }
@@ -337,7 +363,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final org.openbel.framework.core.kamstore.model.Kam kam = getKam(hndl,
+        final org.openbel.framework.api.Kam kam = getKam(hndl,
                 dialect);
 
         return findEdges(filter, kam);
@@ -362,7 +388,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         // See if we got a DirectionType to use
-        org.openbel.framework.core.kamstore.model.EdgeDirectionType direction =
+        org.openbel.framework.api.EdgeDirectionType direction =
                 null;
         EdgeDirectionType edgeDirectionType = request.getDirection();
         if (null != edgeDirectionType) {
@@ -377,7 +403,7 @@ public class KamEndPoint extends WebServiceEndpoint {
             throw new RequestException("Error processing KAM node", e);
         }
 
-        org.openbel.framework.core.kamstore.model.Kam objKam;
+        org.openbel.framework.api.Kam objKam;
         final KamInfo kamInfo = getKamInfo(kamElementRef,
                 "Error processing KAM node");
         objKam = kamCacheService.getKam(kamInfo.getName());
@@ -393,32 +419,32 @@ public class KamEndPoint extends WebServiceEndpoint {
                     new InvalidIdException(kamElementRef.getEncodedString()));
         }
 
-        final org.openbel.framework.core.kamstore.model.NodeFilter nodes =
+        final org.openbel.framework.api.NodeFilter nodes =
                 convertNodeFilterInRequest(
                         request.getNodeFilter(), objKam);
 
-        final org.openbel.framework.core.kamstore.model.EdgeFilter edges =
+        final org.openbel.framework.api.EdgeFilter edges =
                 convertEdgeFilterInRequest(
                         request.getEdgeFilter(), objKam);
 
         // Get the real KamNode from the Kam
         Integer elemid = kamElementRef.getKamStoreObjectId();
-        org.openbel.framework.core.kamstore.model.Kam.KamNode objKamNode;
+        org.openbel.framework.api.Kam.KamNode objKamNode;
         objKamNode = objKam.findNode(elemid);
 
         // Process the request
         GetAdjacentKamNodesResponse response =
-                createGetAdjacentKamNodesResponse();
+                OBJECT_FACTORY.createGetAdjacentKamNodesResponse();
 
         // Get the adjacent nodes
-        Set<org.openbel.framework.core.kamstore.model.Kam.KamNode> adjnodes;
+        Set<org.openbel.framework.api.Kam.KamNode> adjnodes;
         if (direction == null) {
             adjnodes = objKam.getAdjacentNodes(objKamNode, edges, nodes);
         } else {
             adjnodes = objKam.getAdjacentNodes(objKamNode, direction, edges,
                     nodes);
         }
-        for (org.openbel.framework.core.kamstore.model.Kam.KamNode node : adjnodes) {
+        for (org.openbel.framework.api.Kam.KamNode node : adjnodes) {
             KamNode kn = convert(kamInfo, node);
             response.getKamNodes().add(kn);
         }
@@ -458,7 +484,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         // See if we got a DirectionType to use
-        org.openbel.framework.core.kamstore.model.EdgeDirectionType direction =
+        org.openbel.framework.api.EdgeDirectionType direction =
                 null;
         EdgeDirectionType edgeDirectionType = request.getDirection();
         if (edgeDirectionType != null) {
@@ -475,7 +501,7 @@ public class KamEndPoint extends WebServiceEndpoint {
 
         final KamInfo kamInfo = getKamInfo(kamElementRef,
                 "Error processing KAM node");
-        org.openbel.framework.core.kamstore.model.Kam objKam;
+        org.openbel.framework.api.Kam objKam;
         objKam = kamCacheService.getKam(kamInfo.getName());
         if (objKam == null) {
             throw new RequestException("Error processing KAM node",
@@ -487,27 +513,27 @@ public class KamEndPoint extends WebServiceEndpoint {
             objKam = new KamDialect(objKam, dialect);
         }
 
-        final org.openbel.framework.core.kamstore.model.EdgeFilter edges =
+        final org.openbel.framework.api.EdgeFilter edges =
                 convertEdgeFilterInRequest(
                         request.getFilter(), objKam);
 
         // Get the real KamNode from the Kam
-        org.openbel.framework.core.kamstore.model.Kam.KamNode objKamNode =
+        org.openbel.framework.api.Kam.KamNode objKamNode =
                 objKam
                         .findNode(kamElementRef.getKamStoreObjectId());
 
         GetAdjacentKamEdgesResponse response =
-                createGetAdjacentKamEdgesResponse();
+                OBJECT_FACTORY.createGetAdjacentKamEdgesResponse();
 
         // Get the adjacent edges
-        Set<org.openbel.framework.core.kamstore.model.Kam.KamEdge> adjedges;
+        Set<org.openbel.framework.api.Kam.KamEdge> adjedges;
         if (direction == null) {
             adjedges = objKam.getAdjacentEdges(objKamNode, edges);
         } else {
             adjedges = objKam.getAdjacentEdges(objKamNode, direction, edges);
         }
 
-        for (org.openbel.framework.core.kamstore.model.Kam.KamEdge edge : adjedges) {
+        for (org.openbel.framework.api.Kam.KamEdge edge : adjedges) {
             KamEdge ke = convert(kamInfo, edge);
             response.getKamEdges().add(ke);
         }
@@ -539,25 +565,25 @@ public class KamEndPoint extends WebServiceEndpoint {
 
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
-        final org.openbel.framework.core.kamstore.model.Kam objKam = getKam(
+        final org.openbel.framework.api.Kam objKam = getKam(
                 kamHandle, dialect);
 
-        List<Kam.KamNode> nodes = findKamNodesByNamespacevalues(
+        List<org.openbel.framework.api.Kam.KamNode> nodes = findKamNodesByNamespacevalues(
                 request.getNamespaceValues(), request.getFilter(), objKam,
                 kamStore, equivalencer);
 
         KamInfo kamInfo = objKam.getKamInfo();
         FindKamNodesByNamespaceValuesResponse response =
-                createFindKamNodesByNamespaceValuesResponse();
-        for (Kam.KamNode node : nodes) {
+                OBJECT_FACTORY.createFindKamNodesByNamespaceValuesResponse();
+        for (org.openbel.framework.api.Kam.KamNode node : nodes) {
             response.getKamNodes().add(convert(kamInfo, node));
         }
 
         return response;
     }
 
-    static List<Kam.KamNode> findKamNodesByNamespacevalues(
-            Collection<NamespaceValue> nvs, NodeFilter nodeFilter, Kam kam,
+    static List<org.openbel.framework.api.Kam.KamNode> findKamNodesByNamespacevalues(
+            Collection<NamespaceValue> nvs, NodeFilter nodeFilter, org.openbel.framework.api.Kam kam,
             KamStore kamStore, Equivalencer equivalencer)
             throws KamStoreException, EquivalencerException {
         // get uuids for namespaceValues
@@ -583,7 +609,7 @@ public class KamEndPoint extends WebServiceEndpoint {
             }
         }
 
-        List<Kam.KamNode> nodes = new ArrayList<Kam.KamNode>();
+        List<org.openbel.framework.api.Kam.KamNode> nodes = new ArrayList<org.openbel.framework.api.Kam.KamNode>();
         // find kam nodes by uuids
         if (!uuids.isEmpty()) {
             for (SkinnyUUID uuid : uuids) {
@@ -594,9 +620,8 @@ public class KamEndPoint extends WebServiceEndpoint {
         // find kam nodes that had no equivs
         if (!noEquivs.isEmpty()) {
             for (Map.Entry<String, Set<String>> entry : noEquivs.entrySet()) {
-                org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Namespace kamNs =
-                        kamStore
-                                .getNamespace(kam, entry.getKey());
+                org.openbel.framework.internal.KAMStoreDaoImpl.Namespace kamNs =
+                        kamStore.getNamespace(kam, entry.getKey());
                 if (kamNs == null) {
                     // ns not present in kam
                     continue;
@@ -608,11 +633,11 @@ public class KamEndPoint extends WebServiceEndpoint {
         }
 
         // apply nodeFilter if specified
-        final org.openbel.framework.core.kamstore.model.NodeFilter filter =
+        final org.openbel.framework.api.NodeFilter filter =
                 convertNodeFilterInRequest(
                         nodeFilter, kam);
         if (filter != null) {
-            Iterator<Kam.KamNode> it = nodes.iterator();
+            Iterator<org.openbel.framework.api.Kam.KamNode> it = nodes.iterator();
             while (it.hasNext()) {
                 if (!filter.accept(it.next())) {
                     it.remove();
@@ -624,21 +649,21 @@ public class KamEndPoint extends WebServiceEndpoint {
     }
 
     private FindKamEdgesResponse findEdges(EdgeFilter fltr,
-            org.openbel.framework.core.kamstore.model.Kam kam) {
+            org.openbel.framework.api.Kam kam) {
         FindKamEdgesResponse ret = new FindKamEdgesResponse();
 
-        org.openbel.framework.core.kamstore.model.EdgeFilter fltr2;
+        org.openbel.framework.api.EdgeFilter fltr2;
         fltr2 = convert(kam, fltr);
-        Collection<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges;
+        Collection<org.openbel.framework.api.Kam.KamEdge> edges;
         edges = kam.getEdges(fltr2);
-        List<org.openbel.framework.core.kamstore.model.Kam.KamEdge> edges2;
+        List<org.openbel.framework.api.Kam.KamEdge> edges2;
         edges2 = sizedArrayList(edges.size());
         edges2.addAll(edges);
 
         List<KamEdge> list = ret.getKamEdges();
 
-        org.openbel.framework.core.kamstore.model.Kam.KamEdge edge;
-        Iterator<org.openbel.framework.core.kamstore.model.Kam.KamEdge> iter;
+        org.openbel.framework.api.Kam.KamEdge edge;
+        Iterator<org.openbel.framework.api.Kam.KamEdge> iter;
         iter = edges2.iterator();
         while (iter.hasNext()) {
             edge = iter.next();
@@ -665,10 +690,10 @@ public class KamEndPoint extends WebServiceEndpoint {
         return dialect;
     }
 
-    private org.openbel.framework.core.kamstore.model.Kam getKam(
+    private org.openbel.framework.api.Kam getKam(
             final KamHandle kamHandle, final Dialect dialect)
             throws RequestException {
-        org.openbel.framework.core.kamstore.model.Kam objKam;
+        org.openbel.framework.api.Kam objKam;
         objKam = kamCacheService.getKam(kamHandle.getHandle());
 
         if (objKam == null) {
@@ -679,10 +704,10 @@ public class KamEndPoint extends WebServiceEndpoint {
         return dialect == null ? objKam : new KamDialect(objKam, dialect);
     }
 
-    private static org.openbel.framework.core.kamstore.model.NodeFilter
+    private static org.openbel.framework.api.NodeFilter
             convertNodeFilterInRequest(
                     final NodeFilter nodeFilter,
-                    final org.openbel.framework.core.kamstore.model.Kam objKam) {
+                    final org.openbel.framework.api.Kam objKam) {
         if (nodeFilter == null) {
             return null;
         }
@@ -690,10 +715,10 @@ public class KamEndPoint extends WebServiceEndpoint {
         return convert(objKam, nodeFilter);
     }
 
-    private static org.openbel.framework.core.kamstore.model.EdgeFilter
+    private static org.openbel.framework.api.EdgeFilter
             convertEdgeFilterInRequest(
                     final EdgeFilter edgeFilter,
-                    final org.openbel.framework.core.kamstore.model.Kam objKam) {
+                    final org.openbel.framework.api.Kam objKam) {
         if (edgeFilter == null) {
             return null;
         }

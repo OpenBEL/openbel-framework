@@ -37,13 +37,16 @@ package org.openbel.framework.ws.utils;
 
 import static java.util.Collections.emptyList;
 import static org.apache.commons.codec.binary.Base64.decodeBase64;
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
 import static org.apache.commons.lang.StringUtils.join;
 import static org.apache.commons.lang.StringUtils.split;
-import static org.apache.commons.codec.binary.Base64.*;
 import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.noLength;
-import static org.openbel.framework.common.enums.CitationType.*;
-import static org.openbel.framework.ws.model.ObjectFactory.*;
+import static org.openbel.framework.common.enums.CitationType.BOOK;
+import static org.openbel.framework.common.enums.CitationType.JOURNAL;
+import static org.openbel.framework.common.enums.CitationType.ONLINE_RESOURCE;
+import static org.openbel.framework.common.enums.CitationType.OTHER;
+import static org.openbel.framework.common.enums.CitationType.PUBMED;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -62,24 +65,50 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.openbel.framework.api.KamDialect;
+import org.openbel.framework.api.KamImpl;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KamStoreObject;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.ReturnType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoNode;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.TermParameter;
-import org.openbel.framework.core.kamstore.model.KamImpl;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.KamStoreObject;
-import org.openbel.framework.core.kamstore.model.dialect.KamDialect;
+import org.openbel.framework.internal.KAMCatalogDao;
+import org.openbel.framework.internal.KAMStoreDaoImpl;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
+import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.ws.dialect.BELSyntax;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.AnnotationDefinitionType;
+import org.openbel.framework.ws.model.AnnotationFilterCriteria;
+import org.openbel.framework.ws.model.AnnotationType;
+import org.openbel.framework.ws.model.BelDocument;
+import org.openbel.framework.ws.model.BelDocumentFilterCriteria;
+import org.openbel.framework.ws.model.BelStatement;
+import org.openbel.framework.ws.model.BelSyntax;
+import org.openbel.framework.ws.model.BelTerm;
+import org.openbel.framework.ws.model.Citation;
+import org.openbel.framework.ws.model.CitationFilterCriteria;
+import org.openbel.framework.ws.model.CitationType;
+import org.openbel.framework.ws.model.EdgeDirectionType;
+import org.openbel.framework.ws.model.EdgeFilter;
+import org.openbel.framework.ws.model.FunctionReturnType;
+import org.openbel.framework.ws.model.FunctionReturnTypeFilterCriteria;
+import org.openbel.framework.ws.model.FunctionType;
+import org.openbel.framework.ws.model.FunctionTypeFilterCriteria;
+import org.openbel.framework.ws.model.Kam;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamFilter;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.Namespace;
+import org.openbel.framework.ws.model.NamespaceFilterCriteria;
+import org.openbel.framework.ws.model.NodeFilter;
+import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.model.RelationshipType;
+import org.openbel.framework.ws.model.RelationshipTypeFilterCriteria;
+import org.openbel.framework.ws.model.SimplePath;
 
 /**
  * Provides static converter methods to go from KamStore objects to JAXB
@@ -89,26 +118,26 @@ import org.openbel.framework.ws.model.*;
  */
 public class Converter {
 
-    private static Charset ASCII = Charset.forName("US-ASCII");
     public static final String FIELD_SEP = "|";
+    private static final Charset ASCII = Charset.forName("US-ASCII");
     private static final GregorianCalendar calendar = new GregorianCalendar();
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     /**
      * Converts a {@link KamEdge ws kam edge} to a
-     * {@link org.openbel.framework.core.kamstore.model.Kam.KamEdge kam edge}
-     * using the {@link org.openbel.framework.core.kamstore.model.Kam kam}.
+     * {@link org.openbel.framework.api.Kam.KamEdge kam edge}
+     * using the {@link org.openbel.framework.api.Kam kam}.
      *
      * @param kamEdge the {@link KamEdge ws kam edge} to convert from
-     * @param kam the {@link org.openbel.framework.core.kamstore.model.Kam kam}
+     * @param kam the {@link org.openbel.framework.api.Kam kam}
      * to find the kam store kam edge
-     * @return the {@link org.openbel.framework.core.kamstore.model.Kam.KamEdge
+     * @return the {@link org.openbel.framework.api.Kam.KamEdge
      * kam edge} to convert to
      * @throws InvalidIdException Thrown if the kam edge id is invalid
      */
-    public static org.openbel.framework.core.kamstore.model.Kam.KamEdge
-            convert(
-                    KamEdge kamEdge,
-                    org.openbel.framework.core.kamstore.model.Kam kam)
+    public static org.openbel.framework.api.Kam.KamEdge
+            convert(KamEdge kamEdge, org.openbel.framework.api.Kam kam)
                     throws InvalidIdException {
         if (kamEdge == null) {
             return null;
@@ -124,26 +153,26 @@ public class Converter {
      * @param edgeDirectionType
      * @return
      */
-    public static org.openbel.framework.core.kamstore.model.EdgeDirectionType
+    public static org.openbel.framework.api.EdgeDirectionType
             convert(EdgeDirectionType edgeDirectionType) {
         if (null == edgeDirectionType) {
             return null;
         } else if (edgeDirectionType == EdgeDirectionType.FORWARD) {
-            return org.openbel.framework.core.kamstore.model.EdgeDirectionType.FORWARD;
+            return org.openbel.framework.api.EdgeDirectionType.FORWARD;
         } else if (edgeDirectionType == EdgeDirectionType.REVERSE) {
-            return org.openbel.framework.core.kamstore.model.EdgeDirectionType.REVERSE;
+            return org.openbel.framework.api.EdgeDirectionType.REVERSE;
         } else {
-            return org.openbel.framework.core.kamstore.model.EdgeDirectionType.BOTH;
+            return org.openbel.framework.api.EdgeDirectionType.BOTH;
         }
     }
 
-    public static org.openbel.framework.core.kamstore.model.EdgeFilter convert(
-            final org.openbel.framework.core.kamstore.model.Kam kam,
+    public static org.openbel.framework.api.EdgeFilter convert(
+            final org.openbel.framework.api.Kam kam,
             final EdgeFilter filter) {
         if (filter == null) {
             return null;
         }
-        org.openbel.framework.core.kamstore.model.EdgeFilter kamEdgeFilter;
+        org.openbel.framework.api.EdgeFilter kamEdgeFilter;
         kamEdgeFilter = kam.createEdgeFilter();
 
         final List<RelationshipTypeFilterCriteria> criterion;
@@ -156,11 +185,11 @@ public class Converter {
         return kamEdgeFilter;
     }
 
-    public static org.openbel.framework.core.kamstore.model.NodeFilter convert(
-            final org.openbel.framework.core.kamstore.model.Kam kam,
+    public static org.openbel.framework.api.NodeFilter convert(
+            final org.openbel.framework.api.Kam kam,
             NodeFilter nodeFilter) {
         if (null != nodeFilter) {
-            final org.openbel.framework.core.kamstore.model.NodeFilter kamNodeFilter =
+            final org.openbel.framework.api.NodeFilter kamNodeFilter =
                     kam
                             .createNodeFilter();
 
@@ -169,8 +198,8 @@ public class Converter {
                     .getFunctionTypeCriteria();
 
             for (final FunctionTypeFilterCriteria criteria : ftCriterion) {
-                final org.openbel.framework.core.kamstore.model.filter.FunctionTypeFilterCriteria kamNodeCriteria =
-                        new org.openbel.framework.core.kamstore.model.filter.FunctionTypeFilterCriteria();
+                final org.openbel.framework.api.FunctionTypeFilterCriteria kamNodeCriteria =
+                        new org.openbel.framework.api.FunctionTypeFilterCriteria();
 
                 kamNodeCriteria.setInclude(criteria.isIsInclude());
 
@@ -190,8 +219,8 @@ public class Converter {
                             .getFunctionReturnCriteria();
 
             for (final FunctionReturnTypeFilterCriteria criteria : frtCriterion) {
-                final org.openbel.framework.core.kamstore.model.filter.FunctionReturnFilterCriteria kamNodeCriteria =
-                        new org.openbel.framework.core.kamstore.model.filter.FunctionReturnFilterCriteria();
+                final org.openbel.framework.api.FunctionReturnFilterCriteria kamNodeCriteria =
+                        new org.openbel.framework.api.FunctionReturnFilterCriteria();
 
                 kamNodeCriteria.setInclude(criteria.isIsInclude());
 
@@ -245,19 +274,19 @@ public class Converter {
 
     /**
      * Converts a {@link AnnotationFilterCriteria ws annotation filter criteria} into
-     * an {@link org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria
+     * an {@link org.openbel.framework.api.AnnotationFilterCriteria
      * annotation filter criteria}.
      * @param wsFilterCriteria
      * @return
      * @throws InvalidIdException
      */
     public static
-            org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria
+            org.openbel.framework.api.AnnotationFilterCriteria
             convert(AnnotationFilterCriteria wsFilterCriteria)
                     throws InvalidIdException {
 
-        org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria filterCriteria =
-                new org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria(
+        org.openbel.framework.api.AnnotationFilterCriteria filterCriteria =
+                new org.openbel.framework.api.AnnotationFilterCriteria(
                         convert(wsFilterCriteria.getAnnotationType()));
 
         filterCriteria.setInclude(wsFilterCriteria.isIsInclude());
@@ -318,19 +347,19 @@ public class Converter {
 
     /**
      * Converts a {@link CitationFilterCriteria ws citation filter criteria} into a
-     * {@link org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria
+     * {@link org.openbel.framework.api.CitationFilterCriteria
      * citation filter criteria}.
      * @param wsFilterCriteria
      * @return
      * @throws InvalidIdException
      */
     public static
-            org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria
+            org.openbel.framework.api.CitationFilterCriteria
             convert(CitationFilterCriteria wsFilterCriteria)
                     throws InvalidIdException {
 
-        org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria objFilterCriteria =
-                new org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria();
+        org.openbel.framework.api.CitationFilterCriteria objFilterCriteria =
+                new org.openbel.framework.api.CitationFilterCriteria();
         objFilterCriteria.setInclude(wsFilterCriteria.isIsInclude());
 
         for (Citation citation : wsFilterCriteria.getValueSet()) {
@@ -377,11 +406,11 @@ public class Converter {
      * @return
      */
     public static
-            org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria
+            org.openbel.framework.api.CitationFilterCriteria
             convert(NamespaceFilterCriteria filterCriteria) {
 
-        org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria objFilterCriteria =
-                new org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria();
+        org.openbel.framework.api.CitationFilterCriteria objFilterCriteria =
+                new org.openbel.framework.api.CitationFilterCriteria();
         objFilterCriteria.setInclude(filterCriteria.isIsInclude());
         for (@SuppressWarnings("unused")
         Namespace namespace : filterCriteria.getValueSet()) {
@@ -395,12 +424,12 @@ public class Converter {
      * @return
      */
     public static
-            org.openbel.framework.core.kamstore.model.filter.BelDocumentFilterCriteria
+            org.openbel.framework.api.BelDocumentFilterCriteria
             convert(BelDocumentFilterCriteria wsFilterCriteria)
                     throws InvalidIdException {
 
-        org.openbel.framework.core.kamstore.model.filter.BelDocumentFilterCriteria objFilterCriteria =
-                new org.openbel.framework.core.kamstore.model.filter.BelDocumentFilterCriteria();
+        org.openbel.framework.api.BelDocumentFilterCriteria objFilterCriteria =
+                new org.openbel.framework.api.BelDocumentFilterCriteria();
         objFilterCriteria.setInclude(wsFilterCriteria.isIsInclude());
         for (BelDocument belDocument : wsFilterCriteria.getValueSet()) {
             objFilterCriteria.add(convert(belDocument));
@@ -413,11 +442,11 @@ public class Converter {
      * @return
      */
     public static
-            org.openbel.framework.core.kamstore.model.filter.RelationshipTypeFilterCriteria
+            org.openbel.framework.api.RelationshipTypeFilterCriteria
             convert(RelationshipTypeFilterCriteria wsFilterCriteria) {
 
-        org.openbel.framework.core.kamstore.model.filter.RelationshipTypeFilterCriteria objFilterCriteria =
-                new org.openbel.framework.core.kamstore.model.filter.RelationshipTypeFilterCriteria();
+        org.openbel.framework.api.RelationshipTypeFilterCriteria objFilterCriteria =
+                new org.openbel.framework.api.RelationshipTypeFilterCriteria();
 
         objFilterCriteria.setInclude(wsFilterCriteria.isIsInclude());
 
@@ -435,7 +464,7 @@ public class Converter {
      */
     public static BelTerm convert(KAMStoreDaoImpl.BelTerm objBelTerm,
             final KamInfo kamInfo) {
-        BelTerm belTerm = createBelTerm();
+        BelTerm belTerm = OBJECT_FACTORY.createBelTerm();
         belTerm.setId(KamStoreObjectRef.encode(kamInfo, objBelTerm));
         belTerm.setLabel(objBelTerm.getLabel());
 
@@ -449,7 +478,7 @@ public class Converter {
     public static BelStatement
             convert(KAMStoreDaoImpl.BelStatement objBelStatement,
                     final KamInfo kamInfo) {
-        BelStatement belStatement = createBelStatement();
+        BelStatement belStatement = OBJECT_FACTORY.createBelStatement();
         belStatement.setDocument(convert(objBelStatement
                 .getBelDocumentInfo(), kamInfo));
         belStatement.setId(KamStoreObjectRef.encode(kamInfo, objBelStatement));
@@ -569,12 +598,12 @@ public class Converter {
      * KamStore kam node was {@code null}
      */
     public static KamNode convert(final KamInfo kamInfo,
-            org.openbel.framework.core.kamstore.model.Kam.KamNode objKamNode) {
+            org.openbel.framework.api.Kam.KamNode objKamNode) {
         if (objKamNode == null) {
             return null;
         }
 
-        KamNode kamNode = createKamNode();
+        KamNode kamNode = OBJECT_FACTORY.createKamNode();
         kamNode.setFunction(convert(objKamNode.getFunctionType()));
         kamNode.setId(KamStoreObjectRef.encode(kamInfo, objKamNode));
         kamNode.setLabel(objKamNode.getLabel());
@@ -590,12 +619,12 @@ public class Converter {
      * KamStore kam edge was {@code null}
      */
     public static KamEdge convert(final KamInfo kamInfo,
-            org.openbel.framework.core.kamstore.model.Kam.KamEdge objKamEdge) {
+            org.openbel.framework.api.Kam.KamEdge objKamEdge) {
         if (objKamEdge == null) {
             return null;
         }
 
-        KamEdge kamEdge = createKamEdge();
+        KamEdge kamEdge = OBJECT_FACTORY.createKamEdge();
         kamEdge.setId(KamStoreObjectRef.encode(kamInfo, objKamEdge));
         kamEdge.setRelationship(convert(objKamEdge.getRelationshipType()));
         kamEdge.setSource(convert(kamInfo, objKamEdge.getSourceNode()));
@@ -640,7 +669,7 @@ public class Converter {
     public static Citation
             convert(KAMStoreDaoImpl.Citation objCitation) {
 
-        Citation citation = createCitation();
+        Citation citation = OBJECT_FACTORY.createCitation();
         citation.setCitationType(convert(objCitation.getCitationType()));
         citation.setComment(objCitation.getComment());
         // citation id should not be encrypted, as it has a specific meaning
@@ -673,7 +702,7 @@ public class Converter {
     public static Kam
             convert(KAMCatalogDao.KamInfo kamInfo) {
 
-        Kam kam = createKam();
+        Kam kam = OBJECT_FACTORY.createKam();
         try {
             kam.setId(KamStoreObjectRef.encode(kamInfo, kamInfo));
             kam.setDescription(kamInfo.getKamDbObject().getDescription());
@@ -696,7 +725,7 @@ public class Converter {
                     final KamInfo kamInfo) {
 
         AnnotationType annotationType =
-                createAnnotationType();
+                OBJECT_FACTORY.createAnnotationType();
         annotationType.setDescription(objAnnotationType.getDescription());
         annotationType.setId(KamStoreObjectRef.encode(kamInfo,
                 objAnnotationType));
@@ -716,7 +745,7 @@ public class Converter {
     public static BelDocument convert(KAMStoreDaoImpl.BelDocumentInfo docinfo,
             final KamInfo kamInfo) {
 
-        BelDocument belDocument = createBelDocument();
+        BelDocument belDocument = OBJECT_FACTORY.createBelDocument();
         String authors = docinfo.getAuthors();
         if (authors != null) {
             for (final String author : split(authors, FIELD_SEP)) {
@@ -789,7 +818,7 @@ public class Converter {
             convert(KAMStoreDaoImpl.Namespace objNamespace,
                     final KamInfo kamInfo) {
 
-        Namespace namespace = createNamespace();
+        Namespace namespace = OBJECT_FACTORY.createNamespace();
         namespace.setId(KamStoreObjectRef.encode(kamInfo, objNamespace));
         namespace.setPrefix(objNamespace.getPrefix());
         namespace.setResourceLocation(objNamespace.getResourceLocation());
@@ -798,7 +827,7 @@ public class Converter {
     }
 
     public static KAMStoreDaoImpl.Namespace convert(final Namespace src,
-            final org.openbel.framework.core.kamstore.model.Kam kam,
+            final org.openbel.framework.api.Kam kam,
             final KamStore kamStore) throws InvalidArgument, KamStoreException {
         if (src == null || src.getResourceLocation() == null) {
             return null;
@@ -810,13 +839,13 @@ public class Converter {
     /**
      * Convert a common namespace to a WS namespace. WS namespace will not have
      * its ID populated as it is not a {@link KamStoreObject}
-     * 
+     *
      * @param ns
      * @return
      */
     public static Namespace convert(
             final org.openbel.framework.common.model.Namespace ns) {
-        Namespace ws = ObjectFactory.createNamespace();
+        Namespace ws = OBJECT_FACTORY.createNamespace();
         ws.setPrefix(ns.getPrefix());
         ws.setResourceLocation(ns.getResourceLocation());
         return ws;
@@ -824,7 +853,7 @@ public class Converter {
 
     /**
      * Convert a WS namespace to a common namespace
-     * 
+     *
      * @param ns
      * @return
      */
@@ -863,7 +892,7 @@ public class Converter {
         wsSimplePath.setSource(convert(kamInfo, simplePath.getSource()));
         wsSimplePath.setTarget(convert(kamInfo, simplePath.getTarget()));
 
-        for (org.openbel.framework.core.kamstore.model.Kam.KamEdge kamEdge : simplePath
+        for (org.openbel.framework.api.Kam.KamEdge kamEdge : simplePath
                 .getEdges()) {
             wsSimplePath.getEdges().add(convert(kamInfo, kamEdge));
         }
@@ -1065,17 +1094,17 @@ public class Converter {
     }
 
     private static enum KamStoreObjectType {
-        ANNOTATION('M', Annotation.class),
+        ANNOTATION('M', KAMStoreDaoImpl.Annotation.class),
         ANNOTATION_TYPE('A', KAMStoreDaoImpl.AnnotationType.class),
         BEL_DOCUMENT_INFO('D', BelDocumentInfo.class),
         BEL_STATEMENT('S', KAMStoreDaoImpl.BelStatement.class),
         BEL_TERM('T', KAMStoreDaoImpl.BelTerm.class),
         KAM_EDGE(
                 'E',
-                org.openbel.framework.core.kamstore.model.Kam.KamEdge.class),
+                org.openbel.framework.api.Kam.KamEdge.class),
         KAM_NODE(
                 'N',
-                org.openbel.framework.core.kamstore.model.Kam.KamNode.class),
+                org.openbel.framework.api.Kam.KamNode.class),
         KAM_PROTO_EDGE('R', KamProtoEdge.class),
         KAM_PROTO_NODE('V', KamProtoNode.class),
         TERM_PARAMETER('P', TermParameter.class),

@@ -55,7 +55,7 @@ import org.openbel.framework.common.model.Statement.Object;
  * All reactants connect to the reaction with REACTANT_IN relationship. A
  * reaction connects to its products with HAS_PRODUCT relationship.
  */
-class ReactionExpansionRule extends TermExpansionRule {
+class ReactionExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

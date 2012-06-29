@@ -35,10 +35,11 @@
  */
 package org.openbel.framework.ws.core;
 
-import org.openbel.framework.core.kamstore.model.Kam;
+import org.openbel.framework.api.Kam;
+
 
 /**
- * 
+ *
  * @author julianjray
  *
  */

@@ -8,19 +8,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDao;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoNode;
-import org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.BelDocumentFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.FilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.RelationshipTypeFilterCriteria;
+import org.openbel.framework.api.AnnotationFilterCriteria;
+import org.openbel.framework.api.BelDocumentFilterCriteria;
+import org.openbel.framework.api.CitationFilterCriteria;
+import org.openbel.framework.api.FilterCriteria;
+import org.openbel.framework.api.RelationshipTypeFilterCriteria;
+import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.internal.KAMStoreDao;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
+
 
 /**
  * KAM Filtering Helper

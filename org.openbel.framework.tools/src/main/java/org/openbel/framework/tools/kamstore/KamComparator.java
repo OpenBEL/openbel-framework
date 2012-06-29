@@ -39,7 +39,14 @@ import static java.lang.String.format;
 import static org.openbel.framework.common.Strings.SYSTEM_CONFIG_PATH;
 import static org.openbel.framework.common.Strings.VERBOSE_HELP;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
-import static org.openbel.framework.core.StandardOptions.*;
+import static org.openbel.framework.core.StandardOptions.ARG_SYSCFG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_DEBUG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_HELP;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_SYSCFG;
+import static org.openbel.framework.core.StandardOptions.LONG_OPT_VERBOSE;
+import static org.openbel.framework.core.StandardOptions.SHORT_OPT_VERBOSE;
+import static org.openbel.framework.core.StandardOptions.SHRT_OPT_HELP;
+import static org.openbel.framework.core.StandardOptions.SHRT_OPT_SYSCFG;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -52,6 +59,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.api.KamStoreImpl;
 import org.openbel.framework.common.SimpleOutput;
 import org.openbel.framework.common.cfg.SystemConfiguration;
@@ -62,9 +70,8 @@ import org.openbel.framework.core.CommandLineApplication;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.core.kamstore.KamDbObject;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
+import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamComparator extends CommandLineApplication {
 
@@ -86,7 +93,7 @@ public class KamComparator extends CommandLineApplication {
 
     private enum Mode {
         LIST, HELP, COMPARE
-    };
+    }
 
     private Mode mode;
     private String kam1Name, kam2Name;

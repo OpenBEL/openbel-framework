@@ -38,11 +38,11 @@ package org.openbel.framework.ws.endpoint;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openbel.framework.api.service.KamCacheService;
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.model.Namespace;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.dialect.DialectFactory;
@@ -56,6 +56,7 @@ import org.openbel.framework.ws.model.ReleaseDialectRequest;
 import org.openbel.framework.ws.model.ReleaseDialectResponse;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.utils.Converter;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -64,7 +65,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 /**
  * Endpoint for {@link Dialect}s
- * 
+ *
  * @author Steve Ungerer
  */
 @Endpoint
@@ -76,6 +77,8 @@ public class DialectEndPoint extends WebServiceEndpoint {
             "GetCustomDialectRequest";
     private static final String RELEASE_DIALECT_REQUEST =
             "ReleaseDialectRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private DialectCacheService dialectService;
@@ -104,8 +107,8 @@ public class DialectEndPoint extends WebServiceEndpoint {
         Dialect d = dialectFactory.createDefaultDialect(kam.getKamInfo());
 
         GetDefaultDialectResponse resp =
-                ObjectFactory.createGetDefaultDialectResponse();
-        DialectHandle dh = ObjectFactory.createDialectHandle();
+                OBJECT_FACTORY.createGetDefaultDialectResponse();
+        DialectHandle dh = OBJECT_FACTORY.createDialectHandle();
         dh.setHandle(dialectService.cacheDialect(d));
         resp.setDialect(dh);
         return resp;
@@ -144,8 +147,8 @@ public class DialectEndPoint extends WebServiceEndpoint {
         }
 
         GetCustomDialectResponse resp =
-                ObjectFactory.createGetCustomDialectResponse();
-        DialectHandle dh = ObjectFactory.createDialectHandle();
+                OBJECT_FACTORY.createGetCustomDialectResponse();
+        DialectHandle dh = OBJECT_FACTORY.createDialectHandle();
         dh.setHandle(dialectService.cacheDialect(d));
         resp.setDialect(dh);
         return resp;
@@ -168,7 +171,7 @@ public class DialectEndPoint extends WebServiceEndpoint {
         dialectService.releaseDialect(dialect.getHandle());
 
         // Set up the response
-        return ObjectFactory.createReleaseDialectResponse();
+        return OBJECT_FACTORY.createReleaseDialectResponse();
     }
 
     private List<Namespace> convert(

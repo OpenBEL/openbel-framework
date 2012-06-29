@@ -71,6 +71,12 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String ALL_DOCUMENTS_PASSED_VALIDATION =
+            "All documents passed validation";
+
+    /**
+     * {@value}
+     */
     public static final String ANNOTATION_WARNING =
             "%s is not found in annotation type %s";
 
@@ -696,6 +702,11 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String ORTHO_INJECTION_DISABLED = "Orthology scaffolding disabled";
+
+    /**
+     * {@value}
+     */
     public static final String OXIDOREDUCTASE_ACTIVITY =
             "oxidoreductaseActivity";
 
@@ -912,13 +923,39 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE4_HDR =
+    public final static String PHASE3_STAGE4_HDR = "Incorporating orthology information";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE3_STAGE5_HDR =
             "Equivalencing merged network";
 
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE5_HDR = "Saving augmented network";
+    public final static String PHASE3_STAGE6_HDR = "Saving augmented network";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE3_NO_ORTHOLOGY_LONG_OPTION = "no-orthology";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE4_SHORT_NAME = "Phase IV";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE4_NAME = PHASE4_SHORT_NAME
+            + ": Exporting final network to the KAM Store";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE4_DESCRIPTION = "Exports a completed network to the KAM Store.";
 
     /**
      * {@value}

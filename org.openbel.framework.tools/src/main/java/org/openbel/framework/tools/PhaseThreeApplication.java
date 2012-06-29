@@ -40,7 +40,28 @@ import static java.lang.System.currentTimeMillis;
 import static java.util.Collections.emptySet;
 import static org.openbel.framework.common.BELUtilities.asPath;
 import static org.openbel.framework.common.BELUtilities.createDirectories;
-import static org.openbel.framework.common.Strings.*;
+import static org.openbel.framework.common.BELUtilities.noItems;
+import static org.openbel.framework.common.Strings.EXPAND_NAMED_COMPLEXES_HELP;
+import static org.openbel.framework.common.Strings.EXPAND_PROTEIN_FAMILIES_HELP;
+import static org.openbel.framework.common.Strings.EXPECTED_ONE_NETWORK;
+import static org.openbel.framework.common.Strings.GS_INJECTION_DISABLED;
+import static org.openbel.framework.common.Strings.INJECTIONS_DISABLED;
+import static org.openbel.framework.common.Strings.INPUT_FILE_UNREADABLE;
+import static org.openbel.framework.common.Strings.NC_INJECTION_DISABLED;
+import static org.openbel.framework.common.Strings.NOT_A_PHASE2_DIR;
+import static org.openbel.framework.common.Strings.NO_GENE_SCAFFOLDING_HELP;
+import static org.openbel.framework.common.Strings.NO_NAMED_COMPLEXES_HELP;
+import static org.openbel.framework.common.Strings.NO_PHASE_THREE;
+import static org.openbel.framework.common.Strings.NO_PROTEIN_FAMILIES_HELP;
+import static org.openbel.framework.common.Strings.ORTHO_INJECTION_DISABLED;
+import static org.openbel.framework.common.Strings.PF_INJECTION_DISABLED;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE1_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE2_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE3_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE4_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE5_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_STAGE6_HDR;
+import static org.openbel.framework.common.Strings.PHASE3_NO_ORTHOLOGY_LONG_OPTION;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.ExitCode.FAILED_TO_MERGE_PROTO_NETWORKS;
 import static org.openbel.framework.common.enums.ExitCode.NO_CONVERTED_DOCUMENTS;
@@ -53,6 +74,7 @@ import static org.openbel.framework.tools.PhaseThreeOptions.phaseThreeOptions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -70,14 +92,14 @@ import org.openbel.framework.common.model.EquivalenceDataIndex;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.util.BELPathFilters.GlobalProtonetworkFilter;
+import org.openbel.framework.compiler.DefaultPhaseOne;
+import org.openbel.framework.compiler.DefaultPhaseOne.Stage1Output;
+import org.openbel.framework.compiler.DefaultPhaseThree;
+import org.openbel.framework.compiler.DefaultPhaseThree.DocumentModificationResult;
+import org.openbel.framework.compiler.DefaultPhaseTwo;
 import org.openbel.framework.compiler.PhaseOneImpl;
 import org.openbel.framework.compiler.PhaseThreeImpl;
 import org.openbel.framework.compiler.PhaseTwoImpl;
-import org.openbel.framework.compiler.DefaultPhaseOne;
-import org.openbel.framework.compiler.DefaultPhaseThree;
-import org.openbel.framework.compiler.DefaultPhaseTwo;
-import org.openbel.framework.compiler.DefaultPhaseOne.Stage1Output;
-import org.openbel.framework.compiler.DefaultPhaseThree.DocumentModificationResult;
 import org.openbel.framework.core.BELConverterService;
 import org.openbel.framework.core.BELConverterServiceImpl;
 import org.openbel.framework.core.BELValidatorService;
@@ -149,7 +171,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
     public final static String INJECTED_PF_NETWORK = "injected-protfam";
     public final static String INJECTED_GS_NETWORK = "injected-genescaff";
 
-    private final static String NUM_PHASES = "5";
+    private final static String NUM_PHASES = "6";
 
     /**
      * Phase three application constructor.
@@ -203,9 +225,10 @@ public final class PhaseThreeApplication extends PhaseApplication {
      */
     public boolean isSkipped() {
         // --no-phaseIII is the same as:
-        // --no-gene-scaffolding --no-named-complexes --no-protein-families
+        // --no-gene-scaffolding --no-named-complexes --no-protein-families --no-orthology
         return (hasOption(NO_P3_LONG_OPT) || (hasOption(NO_GS_LONG_OPT)
-                && hasOption(NO_NC_LONG_OPT) && hasOption(NO_PF_LONG_OPT)));
+                && hasOption(NO_NC_LONG_OPT) && hasOption(NO_PF_LONG_OPT)
+                && hasOption(PHASE3_NO_ORTHOLOGY_LONG_OPTION)));
     }
 
     /**
@@ -230,6 +253,9 @@ public final class PhaseThreeApplication extends PhaseApplication {
         }
         if (hasOption(NO_GS_LONG_OPT)) {
             phasecfg.setInjectGeneScaffolding(false);
+        }
+        if (hasOption(PHASE3_NO_ORTHOLOGY_LONG_OPTION)) {
+            phasecfg.setInjectOrthology(false);
         }
 
         phaseOutput(format("=== %s ===", getApplicationName()));
@@ -269,13 +295,14 @@ public final class PhaseThreeApplication extends PhaseApplication {
         stageError(errorMessage);
         final StringBuilder bldr = new StringBuilder();
         bldr.append("Could not find resource index file.");
-        bldr.append("Expansion of protein families, named complexes, and");
-        bldr.append("gene scaffolding will not occur.");
+        bldr.append("Expansion of protein families, named complexes, ");
+        bldr.append("gene scaffolding, and orthology will not occur.");
         stageError(bldr.toString());
         ResourceIndex.INSTANCE.loadIndex();
         phasecfg.setInjectProteinFamilies(false);
         phasecfg.setInjectNamedComplexes(false);
         phasecfg.setInjectGeneScaffolding(false);
+        phasecfg.setInjectOrthology(false);
     }
 
     /*
@@ -347,9 +374,11 @@ public final class PhaseThreeApplication extends PhaseApplication {
         ProtoNetwork ncMerged = stage2(pfamMerged);
         // Inject gene scaffolding
         ProtoNetwork geneMerged = stage3(ncMerged);
+        // Inject homology knowledge
+        ProtoNetwork orthoMerged = stage4(geneMerged);
         // Equivalence the network
-        ProtoNetwork equived = stage4(geneMerged);
-        stage5(equived);
+        ProtoNetwork equived = stage5(orthoMerged);
+        stage6(equived);
     }
 
     /**
@@ -968,13 +997,217 @@ public final class PhaseThreeApplication extends PhaseApplication {
     }
 
     /**
-     * Runs stage four equivalencing of the proto-network.
+     * Runs stage four injecting of homology knowledge.
+     *
+     * @param pn {@link ProtoNetwork}
+     * @return the {@link ProtoNetwork} with homology knowledge injected
+     */
+    private ProtoNetwork stage4(final ProtoNetwork pn) {
+        beginStage(PHASE3_STAGE4_HDR, "4", NUM_PHASES);
+
+        if (!getPhaseConfiguration().getInjectOrthology()) {
+            final StringBuilder bldr = new StringBuilder();
+            bldr.append(ORTHO_INJECTION_DISABLED);
+            markEndStage(bldr);
+            stageOutput(bldr.toString());
+            return pn;
+        }
+
+        // create output directory for orthologized proto network
+        artifactPath = createDirectoryArtifact(outputDirectory, DIR_ARTIFACT);
+
+        final Index index = ResourceIndex.INSTANCE.getIndex();
+        final Set<ResourceLocation> resources = index.getOrthologyResources();
+        if (noItems(resources)) {
+            final StringBuilder bldr = new StringBuilder();
+            bldr.append("No orthology documents included.");
+            markEndStage(bldr);
+            stageOutput(bldr.toString());
+            return pn;
+        }
+
+        long t1 = currentTimeMillis();
+
+        final Iterator<ResourceLocation> it = resources.iterator();
+
+        final ResourceLocation first = it.next();
+        final ProtoNetwork orthoMerge = pruneResource(pn, first);
+
+        while (it.hasNext()) {
+            final ResourceLocation resource = it.next();
+            final ProtoNetwork opn = pruneResource(pn, resource);
+
+            try {
+                p3.merge(orthoMerge, opn);
+            } catch (ProtoNetworkError e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            runPhaseThree(orthoMerge);
+        } catch (ProtoNetworkError e) {
+            stageError(e.getUserFacingMessage());
+            bail(ExitCode.GENERAL_FAILURE);
+        }
+
+        try {
+            p3.merge(pn, orthoMerge);
+        } catch (ProtoNetworkError e) {
+            stageError(e.getUserFacingMessage());
+            bail(ExitCode.GENERAL_FAILURE);
+        }
+
+        long t2 = currentTimeMillis();
+
+        final StringBuilder bldr = new StringBuilder();
+        markTime(bldr, t1, t2);
+        markEndStage(bldr);
+        stageOutput(bldr.toString());
+
+        return pn;
+    }
+
+    private void runPhaseThree(final ProtoNetwork orthoPn)
+            throws ProtoNetworkError {
+        final Index resourceIndex = ResourceIndex.INSTANCE.getIndex();
+        final ResourceLocation pfResource = resourceIndex
+                .getProteinFamilyResource();
+
+        final Document pfdoc = readResource(pfResource);
+        p3.pruneFamilies(false, pfdoc, orthoPn);
+        p3.inferFamilies(pfdoc, orthoPn);
+        final ProtoNetwork pfpn = p3.compile(pfdoc);
+        p3.merge(orthoPn, pfpn);
+
+        final ResourceLocation ncResource = resourceIndex
+                .getNamedComplexesResource();
+        final Document ncdoc = readResource(ncResource);
+        p3.pruneComplexes(false, ncdoc, orthoPn);
+        final ProtoNetwork ncpn = p3.compile(ncdoc);
+        p3.merge(orthoPn, ncpn);
+
+        final ResourceLocation gsResource = resourceIndex
+                .getGeneScaffoldingResource();
+        final Document gsdoc = readResource(gsResource);
+        p3.pruneGene(gsdoc, orthoPn);
+        final ProtoNetwork gspn = p3.compile(gsdoc);
+        p3.merge(orthoPn, gspn);
+
+        equivalence(orthoPn);
+    }
+
+    private ProtoNetwork pruneResource(final ProtoNetwork pn,
+            final ResourceLocation resource) {
+        Document doc = readResource(resource);
+
+        long t1 = currentTimeMillis();
+
+        stageOutput(format("Processing orthology document '%s'", doc.getName()));
+        p3.pruneOrthologyDocument(doc, pn);
+        final ProtoNetwork opn = p3.compile(doc);
+
+        long t2 = currentTimeMillis();
+
+        final StringBuilder bldr = new StringBuilder();
+        markTime(bldr, t1, t2);
+        stageOutput(bldr.toString());
+
+        return opn;
+    }
+
+    private Document readResource(final ResourceLocation resource) {
+        final String rloc = resource.getResourceLocation();
+        final ResourceType type = fromLocation(rloc);
+
+        File res = null;
+        try {
+            final ResolvedResource rsv = cache.resolveResource(type, rloc);
+            res = rsv.getCacheResourceCopy();
+        } catch (ResourceDownloadError e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        final Stage1Output output;
+        if (type == BEL) {
+            output = p1.stage1BELValidation(res);
+        } else {
+            output = p1.stage1XBELValidation(res);
+        }
+
+        if (output.hasValidationErrors()) {
+            for (final ValidationError error : output.getValidationErrors()) {
+                stageError(error.getUserFacingMessage());
+            }
+            bail(NO_VALID_DOCUMENTS);
+            return null; // Dead code
+        }
+        if (output.hasConversionError()) {
+            stageError(output.getConversionError().getUserFacingMessage());
+            bail(NO_CONVERTED_DOCUMENTS);
+            return null; // Dead code
+        }
+        if (output.getSymbolWarning() != null) {
+            stageError(output.getSymbolWarning().getUserFacingMessage());
+        }
+        Document doc = output.getDocument();
+        return doc;
+    }
+
+    /**
+     * Runs equivalencing of the proto-network.
      *
      * @param pn Proto-network, post-scaffolding
      * @return Equivalenced proto-network
      */
-    private ProtoNetwork stage4(ProtoNetwork pn) {
-        beginStage(PHASE3_STAGE4_HDR, "4", NUM_PHASES);
+    private ProtoNetwork equivalence(ProtoNetwork pn) {
+        final StringBuilder bldr = new StringBuilder();
+
+        // Load the equivalences
+        final Set<EquivalenceDataIndex> equivalences;
+        try {
+            equivalences = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure f) {
+            // Unrecoverable error
+            // TODO Real error handling
+            f.printStackTrace();
+            return null;
+        }
+
+        long t1 = currentTimeMillis();
+        int pct = stage5Parameter(pn, equivalences, bldr);
+        stage5Term(pn, pct);
+        stage5Statement(pn, pct);
+
+        long t2 = currentTimeMillis();
+
+        final int paramct = pn.getParameterTable().getTableParameters().size();
+        final int termct = pn.getTermTable().getTermValues().size();
+        final int stmtct = pn.getStatementTable().getStatements().size();
+
+        bldr.setLength(0);
+        bldr.append(stmtct);
+        bldr.append(" statements, ");
+        bldr.append(termct);
+        bldr.append(" terms, ");
+        bldr.append(paramct);
+        bldr.append(" parameters");
+        stageOutput(bldr.toString());
+
+        bldr.setLength(0);
+        markTime(bldr, t1, t2);
+        return pn;
+    }
+
+    /**
+     * Runs stage five equivalencing of the proto-network.
+     *
+     * @param pn Proto-network, post-scaffolding
+     * @return Equivalenced proto-network
+     */
+    private ProtoNetwork stage5(ProtoNetwork pn) {
+        beginStage(PHASE3_STAGE5_HDR, "5", NUM_PHASES);
         final StringBuilder bldr = new StringBuilder();
 
         if (!withGeneScaffoldingInjection() &&
@@ -996,9 +1229,9 @@ public final class PhaseThreeApplication extends PhaseApplication {
         }
 
         long t1 = currentTimeMillis();
-        int pct = stage4Parameter(pn, equivs, bldr);
-        stage4Term(pn, pct);
-        stage4Statement(pn, pct);
+        int pct = stage5Parameter(pn, equivs, bldr);
+        stage5Term(pn, pct);
+        stage5Statement(pn, pct);
 
         long t2 = currentTimeMillis();
 
@@ -1023,14 +1256,14 @@ public final class PhaseThreeApplication extends PhaseApplication {
     }
 
     /**
-     * Stage four parameter equivalencing.
+     * Stage five parameter equivalencing.
      *
      * @param network the {@link ProtoNetwork network} to equivalence
      * @param equivalences the {@link Set set} of {@link EquivalenceDataIndex}
      * @param bldr the {@link StringBuilder}
      * @return the {@code int} count of parameter equivalences
      */
-    private int stage4Parameter(final ProtoNetwork network,
+    private int stage5Parameter(final ProtoNetwork network,
             Set<EquivalenceDataIndex> equivalences, final StringBuilder bldr) {
         bldr.append("Equivalencing parameters");
         stageOutput(bldr.toString());
@@ -1048,12 +1281,12 @@ public final class PhaseThreeApplication extends PhaseApplication {
     }
 
     /**
-     * Stage four term equivalencing.
+     * Stage five term equivalencing.
      *
      * @param network the {@link ProtoNetwork network} to equivalence
      * @param pct the parameter equivalencing count to control output
      */
-    private void stage4Term(final ProtoNetwork network, int pct) {
+    private void stage5Term(final ProtoNetwork network, int pct) {
         if (pct > 0) {
             stageOutput("Equivalencing terms");
             int tct = p2.stage3EquivalenceTerms(network);
@@ -1064,12 +1297,12 @@ public final class PhaseThreeApplication extends PhaseApplication {
     }
 
     /**
-     * Stage four statement equivalencing.
+     * Stage five statement equivalencing.
      *
      * @param network the {@link ProtoNetwork network} to equivalence
      * @param pct the parameter equivalencing count to control output
      */
-    private void stage4Statement(final ProtoNetwork network, int pct) {
+    private void stage5Statement(final ProtoNetwork network, int pct) {
         if (pct > 0) {
             stageOutput("Equivalencing statements");
             int sct = p2.stage3EquivalenceStatements(network);
@@ -1080,12 +1313,12 @@ public final class PhaseThreeApplication extends PhaseApplication {
     }
 
     /**
-     * Runs stage five network saving.
+     * Runs stage six network saving.
      *
      * @param pn Proto-network
      */
-    private void stage5(ProtoNetwork pn) {
-        beginStage(PHASE3_STAGE5_HDR, "5", NUM_PHASES);
+    private void stage6(ProtoNetwork pn) {
+        beginStage(PHASE3_STAGE6_HDR, "6", NUM_PHASES);
         stageOutput("Saving augmented network");
 
         final String rootpath = artifactPath.getAbsolutePath();

@@ -376,8 +376,7 @@ public class PhaseOneImpl implements DefaultPhaseOne {
         return ret;
     }
 
-    private List<SemanticWarning> semanticCheck(final Set<Term> terms)
-            throws IndexingFailure {
+    private List<SemanticWarning> semanticCheck(final Set<Term> terms) {
         final List<SemanticWarning> ret = new LinkedList<SemanticWarning>();
 
         // Signature verification

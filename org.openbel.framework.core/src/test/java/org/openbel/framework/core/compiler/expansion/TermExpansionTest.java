@@ -46,7 +46,6 @@ import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.model.Term;
 import org.openbel.framework.core.compiler.expansion.ModificationExpansionRule;
-import org.openbel.framework.core.compiler.expansion.TermExpansionRule;
 
 /**
  * {@link TermExpansionTest} defines unit tests for

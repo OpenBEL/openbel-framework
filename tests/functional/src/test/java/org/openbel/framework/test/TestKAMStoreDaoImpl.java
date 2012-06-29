@@ -24,24 +24,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.openbel.framework.api.AnnotationFilterCriteria;
+import org.openbel.framework.api.BelDocumentFilterCriteria;
+import org.openbel.framework.api.CitationFilterCriteria;
+import org.openbel.framework.api.FilterCriteria;
+import org.openbel.framework.api.RelationshipTypeFilterCriteria;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.core.df.AbstractJdbcDAO;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamFilter;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMCatalogDao.KamInfo;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDao.KamProtoNodesAndEdges;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationDefinitionType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.core.kamstore.data.jdbc.KAMStoreDaoImpl.KamProtoNode;
-import org.openbel.framework.core.kamstore.model.KamStoreException;
-import org.openbel.framework.core.kamstore.model.filter.AnnotationFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.BelDocumentFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.CitationFilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.FilterCriteria;
-import org.openbel.framework.core.kamstore.model.filter.RelationshipTypeFilterCriteria;
+import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.internal.KAMStoreDao.KamProtoNodesAndEdges;
+import org.openbel.framework.internal.KAMStoreDaoImpl;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
 import org.openbel.framework.test.KAMFilterHelper;
 
 public class TestKAMStoreDaoImpl extends KAMStoreTest {
@@ -51,7 +50,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
 
     @Before
     public void setup() throws SQLException, NoSuchMethodException,
-            SecurityException, ClassNotFoundException, NoSuchFieldException,
+            SecurityException, NoSuchFieldException,
             IllegalArgumentException, IllegalAccessException {
         setupKamStore(Constants.SMALL_CORPUS_KAM_NAME);
 
@@ -69,8 +68,8 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
     }
 
     @Test
-    public void testGetKamWithAnnotationFilter() throws KamStoreException,
-            SQLException, InstantiationException, IllegalAccessException,
+    public void testGetKamWithAnnotationFilter() throws SQLException,
+            InstantiationException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException {
         KamInfo kamInfo = testKam.getKamInfo();
         KamFilter filter = kamInfo.createKamFilter();
@@ -105,7 +104,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
 
     @Test
     public void testGetKamWithOppositeFiltersReturnsNothing()
-            throws KamStoreException, SQLException {
+            throws SQLException {
         KamInfo kamInfo = testKam.getKamInfo();
         KamFilter kamFilter = kamInfo.createKamFilter();
 
@@ -127,7 +126,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
 
     @Test
     public void testGetKamWithDuplicateFiltersIsIdempotent()
-            throws KamStoreException, SQLException {
+            throws SQLException {
 
         RelationshipTypeFilterCriteria c = new RelationshipTypeFilterCriteria();
         c.add(RelationshipType.HAS_COMPONENT);
@@ -136,8 +135,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
     }
 
     @Test
-    public void testGetKamIsCommutative() throws KamStoreException,
-            SQLException {
+    public void testGetKamIsCommutative() throws SQLException {
         RelationshipTypeFilterCriteria c1 = new RelationshipTypeFilterCriteria(),
                 c2 = new RelationshipTypeFilterCriteria();
         c1.add(RelationshipType.INCREASES);
@@ -212,8 +210,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
         }
     }
 
-    private void testIdempotency(FilterCriteria c) throws KamStoreException,
-            SQLException {
+    private void testIdempotency(FilterCriteria c) throws SQLException {
         KamInfo kamInfo = testKam.getKamInfo();
         KamFilter f = kamInfo.createKamFilter(),
                 f2 = kamInfo.createKamFilter();
@@ -234,7 +231,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
     }
 
     private void testCommutativity(FilterCriteria a, FilterCriteria b)
-            throws KamStoreException, SQLException {
+            throws SQLException {
         KamInfo kamInfo = testKam.getKamInfo();
         KamFilter ab = kamInfo.createKamFilter(),
                 ba = kamInfo.createKamFilter();
@@ -285,7 +282,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
     private static String SELECT_KAM_NODE_PARAMETERS_ORDER_SQL = null;
 
     private static void reflectNecessaryCode() throws NoSuchMethodException,
-            SecurityException, ClassNotFoundException, NoSuchFieldException,
+            SecurityException, NoSuchFieldException,
             IllegalArgumentException, IllegalAccessException {
         getPreparedStatement = AbstractJdbcDAO.class.getDeclaredMethod("getPreparedStatement", String.class);
         getPreparedStatement.setAccessible(true);

@@ -39,22 +39,31 @@ import static java.lang.String.format;
 import static org.openbel.framework.common.BELUtilities.noLength;
 import static org.openbel.framework.common.Strings.DIALECT_REQUEST_NO_DIALECT_FOR_HANDLE;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE;
-import static org.openbel.framework.ws.model.ObjectFactory.createResolveEdgesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createResolveNodesResponse;
 
 import java.util.List;
 
+import org.openbel.framework.api.Dialect;
+import org.openbel.framework.api.KamCacheService;
+import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.Resolver;
-import org.openbel.framework.api.service.KamCacheService;
-import org.openbel.framework.core.kamstore.model.Kam;
-import org.openbel.framework.core.kamstore.model.dialect.Dialect;
-import org.openbel.framework.core.kamstore.model.dialect.KamDialect;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.DialectHandle;
+import org.openbel.framework.ws.model.Edge;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.Node;
+import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.model.RelationshipType;
+import org.openbel.framework.ws.model.ResolveEdgesRequest;
+import org.openbel.framework.ws.model.ResolveEdgesResponse;
+import org.openbel.framework.ws.model.ResolveNodesRequest;
+import org.openbel.framework.ws.model.ResolveNodesResponse;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.ResolverService;
 import org.openbel.framework.ws.service.ResolverServiceException;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -71,6 +80,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class ResolverEndPoint extends WebServiceEndpoint {
     private static final String RESOLVE_EDGES_REQUEST = "ResolveEdgesRequest";
     private static final String RESOLVE_NODES_REQUEST = "ResolveNodesRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private ResolverService resolverService;
@@ -104,14 +115,15 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final Kam kam = verifyKam(handle, dialect);
+        final org.openbel.framework.api.Kam kam = verifyKam(handle, dialect);
 
         final List<Node> nodes = request.getNodes();
         if (nodes.isEmpty()) {
             throw new RequestException("No node to resolve");
         }
 
-        final ResolveNodesResponse response = createResolveNodesResponse();
+        final ResolveNodesResponse response = OBJECT_FACTORY
+                .createResolveNodesResponse();
 
         try {
             List<KamNode> kamNodes = resolverService.resolveNodes(kam, nodes);
@@ -145,7 +157,7 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         // Get the Dialect (may be null)
         final Dialect dialect = getDialect(request.getDialect());
 
-        final Kam kam = verifyKam(handle, dialect);
+        final org.openbel.framework.api.Kam kam = verifyKam(handle, dialect);
 
         final List<Edge> edges = request.getEdges();
         if (edges.isEmpty()) {
@@ -174,7 +186,8 @@ public class ResolverEndPoint extends WebServiceEndpoint {
             }
         }
 
-        final ResolveEdgesResponse response = createResolveEdgesResponse();
+        final ResolveEdgesResponse response = OBJECT_FACTORY
+                .createResolveEdgesResponse();
 
         try {
             List<KamEdge> kamEdges = resolverService.resolveEdges(kam, edges);
@@ -206,9 +219,10 @@ public class ResolverEndPoint extends WebServiceEndpoint {
         return dialect;
     }
 
-    private Kam verifyKam(final KamHandle handle, Dialect dialect)
+    private org.openbel.framework.api.Kam verifyKam(final KamHandle handle,
+            Dialect dialect)
             throws RequestException {
-        org.openbel.framework.core.kamstore.model.Kam kam = null;
+        org.openbel.framework.api.Kam kam = null;
         kam = kamCacheService.getKam(handle.getHandle());
 
         if (kam == null) {

@@ -70,7 +70,7 @@ public interface DefaultPhaseThree {
      * <p>
      * Note: This method will modify the provided BEL document.
      * </p>
-     * 
+     *
      * @param expand When {@code true}, members of a protein family found within
      * the proto-network will result in protein family injection. Without
      * expansion (i.e., {@code false}, only the protein family itself is used
@@ -87,7 +87,7 @@ public interface DefaultPhaseThree {
      * members when
      * {@link FunctionEnum#getActivities() molecular activity functions} are
      * defined in the {@link ProtoNetwork proto network}.
-     * 
+     *
      * @param d {@link Document}, the protein family document, which cannot be
      * null
      * @param p {@link ProtoNetwork}, the proto network being compiled, which
@@ -106,7 +106,7 @@ public interface DefaultPhaseThree {
      * <p>
      * Note: This method will modify the provided BEL document.
      * </p>
-     * 
+     *
      * @param expand When {@code true}, components of a named complex found
      * within the proto-network will result in named complex injection. Without
      * expansion (i.e., {@code false}), only the named complex itself is used
@@ -125,7 +125,7 @@ public interface DefaultPhaseThree {
      * <p>
      * Note: This method will modify the provided BEL document.
      * </p>
-     * 
+     *
      * @param d document BEL gene scaffolding document to be pruned
      * @param p Input {@link ProtoNetwork proto-network}
      * @return {@link DocumentModificationResult Prune result}
@@ -133,9 +133,29 @@ public interface DefaultPhaseThree {
     public DocumentModificationResult pruneGene(Document d, ProtoNetwork p);
 
     /**
+     * Prunes orthology BEL {@link Document document} by:
+     * <p>
+     * Prune the {@link Document document}, relative to the
+     * {@link ProtoNetwork proto network} being compiled, using equivalencing
+     * to match up BEL terms.
+     * </p>
+     *
+     * @param d {@link Document} the orthology BEL document, which cannot be
+     * {@code null}
+     * @param pn {@link ProtoNetwork} the compiled proto network, which cannot
+     * be {@code null}
+     * @return {@link DocumentModificationResult} containing the pruning
+     * results
+     * @throws InvalidArgument Thrown if {@code d} or {@code pn} is
+     * {@code null}
+     */
+    public DocumentModificationResult pruneOrthologyDocument(final Document d,
+            final ProtoNetwork pn);
+
+    /**
      * Compiles {@link Document BEL common documents} to {@link ProtoNetwork
      * proto-networks}.
-     * 
+     *
      * @param document {@link Document} the document to compile
      * @return {@link ProtoNetwork} the compiled proto network
      */
@@ -144,7 +164,7 @@ public interface DefaultPhaseThree {
     /**
      * Deserialize and merge the proto network in <tt>protoNetworkSource</tt>
      * into the proto network in <tt>protoNetworkSource</tt>.
-     * 
+     *
      * @param destination {@link ProtoNetwork}, the proto-network containing the
      * merged results
      * @param source {@link ProtoNetwork}, the proto-network to merge into
@@ -157,7 +177,7 @@ public interface DefaultPhaseThree {
 
     /**
      * Writes the {@link ProtoNetwork proto-network}.
-     * 
+     *
      * @param protoNetworkRootPath {@link String}, the proto network root path
      * to write to
      * @param protoNetwork {@link ProtoNetwork}, the proto network to write
