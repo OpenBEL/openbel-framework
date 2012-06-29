@@ -111,7 +111,7 @@ public class StatementEquivalencerTest {
 
         StatementEquivalencer.equivalenceInternal(edges, edgeStmts, eqn, eqe);
 
-        printIssue10(edges, edgeStmts);
+        // printIssue10(edges, edgeStmts);
         
         Assert.assertEquals(2, edgeStmts.get(1).size());
     }
