@@ -939,17 +939,7 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE4_STAGE1_HDR = "Incorporating orthology information";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE4_STAGE2_HDR = "Equivalencing merged network";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE4_STAGE3_HDR = "Saving orthologized network";
+    public final static String PHASE3_NO_ORTHOLOGY_LONG_OPTION = "no-orthology";
 
     /**
      * {@value}
@@ -959,27 +949,18 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE4_NAME = "Phase IV: Enhance network with orthologous relationships";
+    public final static String PHASE4_NAME = PHASE4_SHORT_NAME
+            + ": Exporting final network to the KAM Store";
 
     /**
      * {@value}
      */
-    public final static String PHASE4_DESCRIPTION = "Adds orthology relationships between terms.";
+    public final static String PHASE4_DESCRIPTION = "Exports a completed network to the KAM Store.";
 
     /**
      * {@value}
      */
-    public final static String PHASE4_NO_ORTHOLOGY_LONG_OPTION = "no-orthology";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE4_NO_ORTHOLOGY_HELP = "Executes Phase IV in pass-through mode.  Orthology information will not be added.";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE5_STAGE1_HDR = "Building final KAM";
+    public final static String PHASE4_STAGE1_HDR = "Building final KAM";
 
     /**
      * {@value}
