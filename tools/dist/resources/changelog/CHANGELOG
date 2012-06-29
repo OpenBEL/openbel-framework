@@ -1,10 +1,10 @@
 ============================================================
-BEL Framework V2.0.0 (May 2012)
+BEL Framework 2.0.0 (June 2012)
 ============================================================
 
 CHANGELOG
 
-Changes in version V2.0.0 Release (2012-05-18)
+Changes in version 2.0.0 Release (2012-06-29)
 ----------------------------------------------
 
 Updates
@@ -16,6 +16,8 @@ Updates
 
 - The context name of the Web Service server changed from BELFrameworkWebAPI to
 openbel-ws.  The default URL is now http://localhost:8080/openbel-ws/
+- The Java API has been reorganized into a simple package for clarity.  Consult
+the javadocs at: http://openbel.github.com/openbel-framework/
 
 - Consolidated belframework classpath libraries to:
   * org.openbel.bel (BEL language)
@@ -27,7 +29,31 @@ openbel-ws.  The default URL is now http://localhost:8080/openbel-ws/
   * org.openbel.framework.ws (Framework web-service server)
   * org.openbel.framework.ws.client (Framework web-service Java client)
 
-Changes in version V1.3.0 Release (2012-04-26)
+Enhancements
+- Updated the BEL Compiler to compile in orthology information based on
+  BEL documents provided in phase three.
+- (Preview) Updated the Java API with the ability to load a species-specific
+  KAM based on a species taxonomy id.
+- Duplicate web service models
+  https://github.com/OpenBEL/openbel-framework/issues/4
+  https://github.com/OpenBEL/openbel-framework/pull/9
+- combined kam/kamstore packages in the Java API
+  https://github.com/OpenBEL/openbel-framework/pull/8
+- BelCheck output not informative
+  https://github.com/OpenBEL/openbel-framework/issues/11
+
+Resolved Issues
+- Loss of statement support backing equal edges
+  https://github.com/OpenBEL/openbel-framework/issues/10
+- User threads prevent Tomcat from terminating gracefully
+  https://github.com/OpenBEL/openbel-framework/issues/13
+- BEL Script parser can't handle quoted values with escape sequences
+  https://github.com/OpenBEL/openbel-framework/issues/14
+- Compiler assumes value annotation patterns
+  https://github.com/OpenBEL/openbel-framework/issues/15
+
+
+Changes in version 1.3.0 Release (2012-04-26)
 ----------------------------------------------
 
 Enhancements
@@ -125,7 +151,7 @@ Known Issues
 	both the compiler classpath as well as the tomcat server instance.
 
 
-Changes in version V1.2.4 Release (2012-02-17)
+Changes in version 1.2.4 Release (2012-02-17)
 ----------------------------------------------
 
 Enhancements
@@ -150,7 +176,7 @@ Known Issues
   using DBA-managed schemas ('system_managed_schemas' set to '0').
 
 
-Changes in version V1.2.3 Release (2012-01-25)
+Changes in version 1.2.3 Release (2012-01-25)
 ----------------------------------------------
 
 Enhancements
@@ -200,7 +226,7 @@ Known Issues
   when loading a KAM.
 
 
-Changes in version V1.2.2 Release (2011-11-23)
+Changes in version 1.2.2 Release (2011-11-23)
 ----------------------------------------------
 
 Resolved Issues
@@ -217,7 +243,7 @@ Known Issues
   when loading a KAM.
 
 
-Changes in version V1.2.1 Release (2011-11-09)
+Changes in version 1.2.1 Release (2011-11-09)
 ----------------------------------------------
 
 Resolved Issues
@@ -238,7 +264,7 @@ Known Issues
   when loading a KAM.
 
 
-Changes in version V1.2.0 Release (2011-10-24)
+Changes in version 1.2.0 Release (2011-10-24)
 ----------------------------------------------
 
 Enhancements
@@ -260,7 +286,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.2.0 Preview (2011-10-14)
+Changes in version 1.2.0 Preview (2011-10-14)
 ----------------------------------------------
 
 New Features
@@ -296,7 +322,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.2.0 Preview (2011-09-12)
+Changes in version 1.2.0 Preview (2011-09-12)
 ----------------------------------------------
 Enhancements
 - Changes to the BELFramework Java API:
@@ -316,7 +342,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.2.0 Preview (2011-09-02)
+Changes in version 1.2.0 Preview (2011-09-02)
 ----------------------------------------------
 
 New Features
@@ -338,7 +364,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.2.0 Preview (2011-08-23)
+Changes in version 1.2.0 Preview (2011-08-23)
 ----------------------------------------------
 
 New Features
@@ -368,7 +394,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.2.0 Preview (2011-08-16)
+Changes in version 1.2.0 Preview (2011-08-16)
 ----------------------------------------------
 
 New Features
@@ -397,7 +423,7 @@ Known Issues
   when calling getSupportingEvidenceRequest().
 
 
-Changes in version V1.1.1 (2011-08-12)
+Changes in version 1.1.1 (2011-08-12)
 --------------------------------------
 
 Resolved Issues
@@ -414,7 +440,7 @@ Known Issues
   file.
 
 
-Changes in version V1.1.0 (2011-08-03)
+Changes in version 1.1.0 (2011-08-03)
 --------------------------------------
 
 New Features
@@ -474,7 +500,7 @@ Known Issues
   file.
 
 
-Changes in version V1.0.0 (2011-06-30)
+Changes in version 1.0.0 (2011-06-30)
 --------------------------------------
 
 * Initial release of the BEL Framework.

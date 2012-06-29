@@ -4,9 +4,10 @@ docs/sphinx/_build
 
 # eclipse ignores
 .metadata
-*/.classpath
-*/.project
-*/.settings
+*.classpath
+*.project
+*.settings
+*derby.log
 Servers
 
 #vim swap files

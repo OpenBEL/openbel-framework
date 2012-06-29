@@ -1,8 +1,8 @@
 ============================================================
-BEL Framework V2.0.0 (May 2012)
+BEL Framework 2.0.0 (June 2012)
 ============================================================
 
-Upgrading to the V2.0.0 Release
+Upgrading to the 2.0.0 Release
 --------------------------------------
 
 - Package renaming breaks client code that uses the Java API.  Change
@@ -10,8 +10,10 @@ Upgrading to the V2.0.0 Release
 code.
 - The context name of the Web Service server changed from BELFrameworkWebAPI to
 openbel-ws.  The default URL is now http://localhost:8080/openbel-ws/
+- The Java API has been reorganized into a simple package for clarity.  Consult
+the javadocs at: http://openbel.github.com/openbel-framework/
 
-Upgrading to the V1.3.0 Release
+Upgrading to the 1.3.0 Release
 --------------------------------------
 
 This release includes significant speed increases to the BEL Framework Java API
@@ -39,14 +41,14 @@ knowledge management tool.  For more information go to:
 
 https://github.com/belframework-org/OpenBEL-Workbench
 
-Upgrading to the V1.2.4 Release
+Upgrading to the 1.2.4 Release
 --------------------------------------
 
 This release includes new updates to version 1.0 of the BEL namespaces and
 equivalences.  It is advised to recompile your KAM to take advantage of the new
 data.
 
-Upgrading to the V1.2.3 Release
+Upgrading to the 1.2.3 Release
 --------------------------------------
 
 This release contained some KAM structural changes.  It is advised to recompile
@@ -56,13 +58,13 @@ Additionally some performance improvements were made to the resource cache
 which requires your cache to be rebuilt.  Run the CacheManager tool to purge
 and refresh your resource cache.
 
-Upgrading to the V1.2.2 Release
+Upgrading to the 1.2.2 Release
 --------------------------------------
 
 This release fixes duplicate parameters stored for KAM nodes.  It is advised to
 recompile your KAM to work properly with the Java and Web APIs.
 
-Upgrading to the V1.2.0 Release
+Upgrading to the 1.2.0 Release
 --------------------------------------
 
 This release included structural changes to the KAM schema in order to

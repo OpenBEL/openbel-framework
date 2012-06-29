@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.openbel.framework.api.AnnotationFilterCriteria;
@@ -46,6 +47,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         teardownKamStore();
     }
 
+    @Ignore
     @Test
     public void includeOnlyFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
@@ -81,6 +83,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         }
     }
 
+    @Ignore
     @Test
     public void excludeOnlyFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
@@ -116,6 +119,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         }
     }
 
+    @Ignore
     @Test
     public void includeExcludeFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();

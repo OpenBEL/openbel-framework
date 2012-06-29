@@ -35,8 +35,6 @@
  */
 package org.openbel.framework.core.equivalence;
 
-import static org.openbel.framework.common.BELUtilities.hasItems;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,7 +49,7 @@ import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProto
 
 /**
  * Tests around {@link StatementEquivalencer}
- * 
+ *
  * @author James McMahon {@code <jmcmahon@selventa.com>}
  */
 public class StatementEquivalencerTest {
@@ -60,7 +58,7 @@ public class StatementEquivalencerTest {
     // have the same statements
     /**
      * Test for loss of statement support backing equal edges
-     * 
+     *
      * see https://github.com/OpenBEL/openbel-framework/issues/10
      */
     @Test
@@ -76,7 +74,7 @@ public class StatementEquivalencerTest {
         edges.add(new TableProtoEdge(4, RelationshipType.TRANSLATED_TO.getDisplayValue(), 5));
         edges.add(new TableProtoEdge(6, RelationshipType.TRANSCRIBED_TO.getDisplayValue(), 7));
         edges.add(new TableProtoEdge(7, RelationshipType.TRANSLATED_TO.getDisplayValue(), 8));
-        
+
         Map<Integer, Set<Integer>> edgeStmts = new HashMap<Integer, Set<Integer>>();
         edgeStmts.put(0, arrayToSet(0));
         edgeStmts.put(1, arrayToSet(1));
@@ -86,7 +84,7 @@ public class StatementEquivalencerTest {
         edgeStmts.put(5, arrayToSet(3));
         edgeStmts.put(6, arrayToSet(4));
         edgeStmts.put(7, arrayToSet(5));
-        
+
         Map<Integer, Integer> eqn = new HashMap<Integer, Integer>();
         eqn.put(0, 0);
         eqn.put(1, 1);
@@ -97,7 +95,7 @@ public class StatementEquivalencerTest {
         eqn.put(6, 5);
         eqn.put(7, 1);
         eqn.put(8, 6);
-        
+
         // this will be cleared, but just to be superstitious
         Map<Integer, Integer> eqe = new HashMap<Integer, Integer>();
         eqn.put(0, 0);
@@ -111,31 +109,15 @@ public class StatementEquivalencerTest {
 
         StatementEquivalencer.equivalenceInternal(edges, edgeStmts, eqn, eqe);
 
-        printIssue10(edges, edgeStmts);
-        
         Assert.assertEquals(2, edgeStmts.get(1).size());
     }
-    
+
     private static Set<Integer> arrayToSet(int... array) {
         // damn you java
         Set<Integer> set = new HashSet<Integer>();
         for (int v : array) {
-           set.add(v); 
+           set.add(v);
         }
         return set;
-    }
-    
-    private static void printIssue10(List<TableProtoEdge> edges,
-            Map<Integer, Set<Integer>> edgeStmts) {
-        for (int i = 0, n = edges.size(); i < n; i++) {
-            final String ei = String.valueOf(i);
-            final Set<Integer> stmts = edgeStmts.get(i);
-            if (hasItems(stmts)) {
-                for (final Integer stmt : stmts) {
-                    final String stmtstring = String.valueOf(stmt);
-                    System.out.println(ei + " " + stmtstring);
-                }
-            }
-        }
     }
 }
