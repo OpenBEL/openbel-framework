@@ -25,7 +25,7 @@
         </dependency>
         <dependency>
             <groupId>org.openbel</groupId>
-            <artifactId>org.openbel.framework.ws.client</artifactId>
+            <artifactId>org.openbel.framework.ws.model</artifactId>
             <version>${project.version}</version>
         </dependency>
 
