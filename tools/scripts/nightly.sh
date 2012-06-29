@@ -4,13 +4,12 @@ if [ ! -f "pom.xml" ]; then
     exit 1
 fi
 
-MVN_VERSION=$(mvn \
-              org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate \
-              -Dexpression=belframework-release.version)
+REL_VERSION=$(grep -F "<belframework-release.version>" pom.xml \
+              | grep ">.*<" -o | tr -d '<>')
+BUILD_VERSION="${REL_VERSION}-${buildNumber}"
 
-BUILD_VERSION="${MVN_VERSION}-${bamboo.buildNumber}"
-
-echo "MVN_VERSION: ${MVN_VERSION}"
+echo "REL_VERSION: ${REL_VERSION}"
 echo "BUILD_VERSION: ${BUILD_VERSION}"
 
-mvn -Dbelframework-release.version=${BUILD_VERSION} -Pdistribution clean package assembly:assembly
+mvn -Dbelframework-release.version=${BUILD_VERSION} \
+    -Pdistribution clean package assembly:assembly
