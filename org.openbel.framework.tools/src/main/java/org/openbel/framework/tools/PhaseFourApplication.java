@@ -143,7 +143,7 @@ public final class PhaseFourApplication extends PhaseApplication {
         String folder;
 
         // if phase III was skipped or no orthology documents were merged
-        if (p3App.isSkipped() || emptyOrthology()) {
+        if (p3App.isSkipped()) {
             folder = PhaseTwoApplication.DIR_ARTIFACT;
         } else {
             folder = PhaseThreeApplication.DIR_ARTIFACT;
@@ -163,37 +163,6 @@ public final class PhaseFourApplication extends PhaseApplication {
         }
 
         processFiles(files[0]);
-    }
-
-    /**
-     * Returns {@code true} if there are no orthology documents referenced in
-     * the {@link ResourceIndex resource index} or if the resource index file
-     * cannot be found.  A {@code false} is returned if at least one orthology
-     * document is referenced in the {@link ResourceIndex resource index}.
-     *
-     * @return {@code boolean}
-     */
-    private boolean emptyOrthology() {
-        // load the resource index to find orthology documents
-        String resourceIndexURL = sysconfig.getResourceIndexURL();
-        try {
-            final ResolvedResource resource = cacheService.resolveResource(
-                    ResourceType.RESOURCE_INDEX, resourceIndexURL);
-            ResourceIndex.INSTANCE.loadIndex(resource.getCacheResourceCopy());
-        } catch (ResourceDownloadError e) {
-            stageWarning("Could not find resource index file.");
-            return true;
-        } catch (FileNotFoundException e) {
-            stageWarning("Could not find resource index file.");
-            return true;
-        } catch (XMLStreamException e) {
-            stageWarning("Could not find resource index file.");
-            return true;
-        }
-
-        final Index index = ResourceIndex.INSTANCE.getIndex();
-        final Set<ResourceLocation> orthologies = index.getOrthologyResources();
-        return noItems(orthologies);
     }
 
     /**

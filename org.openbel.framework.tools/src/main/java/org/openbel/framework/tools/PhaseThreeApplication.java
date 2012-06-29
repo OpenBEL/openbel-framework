@@ -53,6 +53,7 @@ import static org.openbel.framework.common.Strings.NO_GENE_SCAFFOLDING_HELP;
 import static org.openbel.framework.common.Strings.NO_NAMED_COMPLEXES_HELP;
 import static org.openbel.framework.common.Strings.NO_PHASE_THREE;
 import static org.openbel.framework.common.Strings.NO_PROTEIN_FAMILIES_HELP;
+import static org.openbel.framework.common.Strings.ORTHO_INJECTION_DISABLED;
 import static org.openbel.framework.common.Strings.PF_INJECTION_DISABLED;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE1_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE2_HDR;
@@ -1006,8 +1007,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
 
         if (!getPhaseConfiguration().getInjectOrthology()) {
             final StringBuilder bldr = new StringBuilder();
-            bldr.append(getApplicationShortName());
-            bldr.append(" has been skipped.");
+            bldr.append(ORTHO_INJECTION_DISABLED);
             markEndStage(bldr);
             stageOutput(bldr.toString());
             return pn;

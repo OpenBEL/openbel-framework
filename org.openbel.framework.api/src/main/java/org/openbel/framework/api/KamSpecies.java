@@ -38,6 +38,7 @@ package org.openbel.framework.api;
 import static org.openbel.framework.api.EdgeDirectionType.FORWARD;
 import static org.openbel.framework.api.EdgeDirectionType.REVERSE;
 import static org.openbel.framework.common.BELUtilities.constrainedHashSet;
+import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.noItems;
 import static org.openbel.framework.common.enums.RelationshipType.ACTS_IN;
 import static org.openbel.framework.common.enums.RelationshipType.ORTHOLOGOUS;
@@ -54,6 +55,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
@@ -65,6 +68,18 @@ import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 /**
  * {@link KamSpecies} defines a {@link Kam kam} that provides a
  * species-specific view using a {@link SpeciesDialect species dialect}.
+ *
+ * The {@link KamSpecies} orthologization occurs on construction in
+ * {@link KamSpecies#KamSpecies(Kam, SpeciesDialect, KamStore)}.  The
+ * existing {@link Kam} is cloned to preserve the original {@link Kam}.
+ *
+ * The process of {@link Kam} orthologization involves:
+ * <ol>
+ * <li>Removing orthologous edges.</li>
+ * <li>Redirecting (remove/create) ortholog's edges to the species node
+ * being collapsed to.</li>
+ * <li>Remove ortholog nodes.  This is done at construction of
+ * {@link KamSpecies}.</ol>
  *
  * @see SpeciesDialect
  * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
@@ -78,11 +93,9 @@ public class KamSpecies implements Kam {
     };
 
     /**
-     * The original {@link Kam kam} to base species-specific filtering on.
+     * A copy of the original {@link Kam kam} to filter on.
      */
-    private final Kam kam;
-
-    private final KamDialect kamDialect;
+    private final Kam kamCopy;
 
     /**
      * Defines {@link KamEdge KAM edges} that should be traversed when
@@ -101,29 +114,22 @@ public class KamSpecies implements Kam {
 
 
     /**
-     * Constructs a {@link SpeciesKam species-specific kam} from another
-     * {@link Kam kam} by:
-     * <ol>
-     * <li>Removing orthologous edges.  This is done at construction of
-     * {@link SpeciesKam}.</li>
-     * <li>Redirecting (remove/create) ortholog's edges to the species node
-     * being collapsed to.  This is done at construction of
-     * {@link SpeciesKam}.</li>
-     * <li>Remove ortholog nodes.  This is done at construction of
-     * {@link SpeciesKam}.  TODO The ortholog terms do not collapse!</li>
-     * </ol>
+     * Constructs a {@link KamSpecies species-specific kam}.
      *
-     * @param kam {@link Kam}, which cannot be {@code null}
-     * @throws KamStoreException
-     * @throws InvalidArgument Thrown if {@code kam} or {@code orthoEdges} is
-     * {@code null}
+     * @param kam {@link Kam} to orthologize, which cannot be {@code null}
+     * @param speciesDialect {@link SpeciesDialect} to control species
+     * ortholgization, which cannot be {@code null}
+     * @param kamStore {@link KamStore} to find {@link BelTerm}s for
+     * {@link KamNode}, which cannot be {@code null}
+     * @throws KamStoreException Thrown if an issue arose accessing the
+     * {@link KamStore}
+     * @throws InvalidArgument Thrown if {@code kam}, {@code speciesDialect},
+     * or {@code kamStore} is {@code null}
      */
     public KamSpecies(final Kam kam,
             final SpeciesDialect speciesDialect,
-            final Dialect defaultDialect,
             final KamStore kamStore) throws KamStoreException {
-        this.kam = kam;
-        this.kamDialect = new KamDialect(kam, defaultDialect);
+        this.kamCopy = copy(kam);
         this.speciesDialect = speciesDialect;
         this.kamStore = kamStore;
 
@@ -142,7 +148,7 @@ public class KamSpecies implements Kam {
                 speciesNodes.size());
         species.addAll(speciesNodes);
 
-        replaceOrthologousEdges(kam, onodes);
+        replaceOrthologousEdges(kamCopy, onodes);
         removeOrthologousNodes(onodes);
         inferOrthologs(species);
     }
@@ -152,7 +158,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Integer getId() {
-        return kam.getId();
+        return kamCopy.getId();
     }
 
     /**
@@ -160,7 +166,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamInfo getKamInfo() {
-        return kam.getKamInfo();
+        return kamCopy.getKamInfo();
     }
 
     /**
@@ -168,7 +174,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public NodeFilter createNodeFilter() {
-        return kam.createNodeFilter();
+        return kamCopy.createNodeFilter();
     }
 
     /**
@@ -176,7 +182,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public EdgeFilter createEdgeFilter() {
-        return kam.createEdgeFilter();
+        return kamCopy.createEdgeFilter();
     }
 
     /**
@@ -218,7 +224,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode findNode(Integer kamNodeId, NodeFilter filter) {
-        return wrapNode(kam.findNode(kamNodeId, filter));
+        return wrapNode(kamCopy.findNode(kamNodeId, filter));
     }
 
     /**
@@ -250,7 +256,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode));
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode));
     }
 
     /**
@@ -259,7 +265,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection));
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode, edgeDirection));
     }
 
     /**
@@ -268,7 +274,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter edgeFilter) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection,
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode, edgeDirection,
                 edgeFilter));
     }
 
@@ -278,7 +284,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, NodeFilter filter) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection, filter));
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode, edgeDirection, filter));
     }
 
     /**
@@ -287,7 +293,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeFilter edgeFilter, NodeFilter nodeFilter) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeFilter, nodeFilter));
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode, edgeFilter, nodeFilter));
     }
 
     /**
@@ -297,7 +303,7 @@ public class KamSpecies implements Kam {
     public Set<KamNode> getAdjacentNodes(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter edgeFilter,
             NodeFilter nodeFilter) {
-        return wrapNodes(kam.getAdjacentNodes(kamNode, edgeDirection,
+        return wrapNodes(kamCopy.getAdjacentNodes(kamNode, edgeDirection,
                 edgeFilter, nodeFilter));
     }
 
@@ -306,7 +312,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode) {
-        return wrapEdges(kam.getAdjacentEdges(kamNode));
+        return wrapEdges(kamCopy.getAdjacentEdges(kamNode));
     }
 
     /**
@@ -314,7 +320,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode, EdgeFilter filter) {
-        return wrapEdges(kam.getAdjacentEdges(kamNode, filter));
+        return wrapEdges(kamCopy.getAdjacentEdges(kamNode, filter));
     }
 
     /**
@@ -323,7 +329,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
             EdgeDirectionType edgeDirection) {
-        return wrapEdges(kam.getAdjacentEdges(kamNode, edgeDirection));
+        return wrapEdges(kamCopy.getAdjacentEdges(kamNode, edgeDirection));
     }
 
     /**
@@ -332,7 +338,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getAdjacentEdges(KamNode kamNode,
             EdgeDirectionType edgeDirection, EdgeFilter filter) {
-        return wrapEdges(kam.getAdjacentEdges(kamNode, edgeDirection, filter));
+        return wrapEdges(kamCopy.getAdjacentEdges(kamNode, edgeDirection, filter));
     }
 
     /**
@@ -340,7 +346,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode) {
-        return wrapEdges(kam.getEdges(sourceNode, targetNode));
+        return wrapEdges(kamCopy.getEdges(sourceNode, targetNode));
     }
 
     /**
@@ -349,7 +355,7 @@ public class KamSpecies implements Kam {
     @Override
     public Set<KamEdge> getEdges(KamNode sourceNode, KamNode targetNode,
             EdgeFilter filter) {
-        return wrapEdges(kam.getEdges(sourceNode, targetNode, filter));
+        return wrapEdges(kamCopy.getEdges(sourceNode, targetNode, filter));
     }
 
     /**
@@ -357,7 +363,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamEdge findEdge(Integer kamEdgeId) {
-        return wrapEdge(kam.findEdge(kamEdgeId));
+        return wrapEdge(kamCopy.findEdge(kamEdgeId));
     }
 
     /**
@@ -367,7 +373,7 @@ public class KamSpecies implements Kam {
     public KamEdge findEdge(KamNode sourceNode,
             RelationshipType relationshipType, KamNode targetNode)
             throws InvalidArgument {
-        return wrapEdge(kam.findEdge(sourceNode, relationshipType, targetNode));
+        return wrapEdge(kamCopy.findEdge(sourceNode, relationshipType, targetNode));
     }
 
     /**
@@ -375,7 +381,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public boolean contains(KamNode kamNode) {
-        return kam.contains(kamNode);
+        return kamCopy.contains(kamNode);
     }
 
     /**
@@ -383,7 +389,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public boolean contains(KamEdge kamEdge) {
-        return kam.contains(kamEdge);
+        return kamCopy.contains(kamEdge);
     }
 
     /**
@@ -391,7 +397,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamNode> getNodes() {
-        return wrapNodes(kam.getNodes());
+        return wrapNodes(kamCopy.getNodes());
     }
 
     /**
@@ -399,7 +405,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamNode> getNodes(NodeFilter filter) {
-        return wrapNodes(kam.getNodes(filter));
+        return wrapNodes(kamCopy.getNodes(filter));
     }
 
     /**
@@ -407,7 +413,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamEdge> getEdges() {
-        return wrapEdges(kam.getEdges());
+        return wrapEdges(kamCopy.getEdges());
     }
 
     /**
@@ -415,7 +421,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public Collection<KamEdge> getEdges(EdgeFilter filter) {
-        return wrapEdges(kam.getEdges(filter));
+        return wrapEdges(kamCopy.getEdges(filter));
     }
 
     /**
@@ -435,7 +441,7 @@ public class KamSpecies implements Kam {
     public KamEdge createEdge(Integer kamEdgeId, KamNode sourceNode,
             RelationshipType relationshipType, KamNode targetNode)
             throws InvalidArgument {
-        return kam.createEdge(kamEdgeId, sourceNode, relationshipType,
+        return kamCopy.createEdge(kamEdgeId, sourceNode, relationshipType,
                 targetNode);
     }
 
@@ -444,7 +450,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public void removeEdge(KamEdge kamEdge) {
-        kam.removeEdge(kamEdge);
+        kamCopy.removeEdge(kamEdge);
     }
 
     /**
@@ -454,7 +460,7 @@ public class KamSpecies implements Kam {
     public KamEdge replaceEdge(KamEdge kamEdge, FunctionEnum sourceFunction,
             String sourceLabel, RelationshipType relationship,
             FunctionEnum targetFunction, String targetLabel) {
-        return kam.replaceEdge(kamEdge, sourceFunction, sourceLabel,
+        return kamCopy.replaceEdge(kamEdge, sourceFunction, sourceLabel,
                 relationship, targetFunction, targetLabel);
     }
 
@@ -463,7 +469,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamEdge replaceEdge(KamEdge kamEdge, KamEdge replacement) {
-        return kam.replaceEdge(kamEdge, replacement);
+        return kamCopy.replaceEdge(kamEdge, replacement);
     }
 
     /**
@@ -472,7 +478,7 @@ public class KamSpecies implements Kam {
     @Override
     public KamNode createNode(Integer id, FunctionEnum functionType,
             String label) throws InvalidArgument {
-        return kam.createNode(id, functionType, label);
+        return kamCopy.createNode(id, functionType, label);
     }
 
     /**
@@ -480,7 +486,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public void removeNode(KamNode kamNode) {
-        kam.removeNode(kamNode);
+        kamCopy.removeNode(kamNode);
     }
 
     /**
@@ -489,7 +495,7 @@ public class KamSpecies implements Kam {
     @Override
     public KamNode replaceNode(KamNode kamNode, FunctionEnum function,
             String label) {
-        return kam.replaceNode(kamNode, function, label);
+        return kamCopy.replaceNode(kamNode, function, label);
     }
 
     /**
@@ -497,7 +503,7 @@ public class KamSpecies implements Kam {
      */
     @Override
     public KamNode replaceNode(KamNode kamNode, KamNode replacement) {
-        return kam.replaceNode(kamNode, replacement);
+        return kamCopy.replaceNode(kamNode, replacement);
     }
 
     /**
@@ -505,7 +511,48 @@ public class KamSpecies implements Kam {
      */
     @Override
     public void collapseNode(KamNode from, KamNode to) {
-        kam.collapseNode(from, to);
+        kamCopy.collapseNode(from, to);
+    }
+
+    /**
+     * Copy the {@link Kam} by creating a new {@link KamImpl} instance with
+     * new {@link KamNode}s and {@link KamEdge}s.
+     *
+     * @param kam {@link Kam}
+     * @return the new instance {@link Kam}
+     */
+    private Kam copy(final Kam kam) {
+        if (kam == null) {
+            return null;
+        }
+
+        final Kam copy = new KamImpl(kam.getKamInfo());
+
+        final Collection<KamNode> nodes = kam.getNodes();
+        if (hasItems(nodes)) {
+            for (final KamNode node : nodes) {
+                copy.createNode(node.getId(), node.getFunctionType(),
+                        node.getLabel());
+            }
+        }
+
+        final Collection<KamEdge> edges = kam.getEdges();
+        if (hasItems(edges)) {
+            for (final KamEdge edge : edges) {
+                final KamNode source = copy.findNode(edge.getSourceNode()
+                        .getId());
+                final KamNode target = copy.findNode(edge.getTargetNode()
+                        .getId());
+
+                assert source != null;
+                assert target != null;
+
+                copy.createEdge(edge.getId(), source,
+                        edge.getRelationshipType(), target);
+            }
+        }
+
+        return copy;
     }
 
     private Set<KamNode> wrapNodes(Collection<KamNode> nodes) {
@@ -530,6 +577,18 @@ public class KamSpecies implements Kam {
         return ret;
     }
 
+    /**
+     * Wrap a {@link KamNode} as an {@link OrthologousNode} to allow conversion
+     * of the node label by the {@link SpeciesDialect}.
+     *
+     * @param kamNode {@link KamNode}
+     * @return the wrapped kam node,
+     * <ol>
+     * <li>{@code null} if {@code kamNode} input is {@code null}</li>
+     * <li>{@link OrthologousNode} if {@code kamNode} has orthologized</li>
+     * <li>the original {@code kamNode} input if it has not orthologized</li>
+     * </ol>
+     */
     private KamNode wrapNode(KamNode kamNode) {
         if (kamNode == null) {
             return null;
@@ -540,9 +599,22 @@ public class KamSpecies implements Kam {
             return new OrthologousNode(kamNode, param);
         }
 
-        return kamDialect.new KamDialectNode(kamNode);
+        return kamNode;
     }
 
+    /**
+     * Wrap a {@link KamEdge} as an {@link OrthologousEdge} to allow conversion
+     * of the edge label by the {@link SpeciesDialect}.  The edge's
+     * {@link KamNode}s are also wrapped.
+     *
+     * @param kamEdge {@link KamEdge}
+     * @return the wrapped kam edge,
+     * <ol>
+     * <li>{@code null} if {@code kamEdge} input is {@code null}</li>
+     * <li>{@link OrthologousEdge} if {@code kamEdge} has orthologized</li>
+     * <li>the original {@code kamEdge} input if it has not orthologized</li>
+     * </ol>
+     */
     private KamEdge wrapEdge(KamEdge kamEdge) {
         if (kamEdge == null) {
             return null;
@@ -553,7 +625,7 @@ public class KamSpecies implements Kam {
             return new OrthologousEdge(kamEdge, param);
         }
 
-        return kamDialect.new KamDialectEdge(kamEdge);
+        return kamEdge;
     }
 
     /**
@@ -574,7 +646,7 @@ public class KamSpecies implements Kam {
             rlocs.add(n.getResourceLocation());
         }
 
-        final Collection<KamEdge> edges = kam.getEdges();
+        final Collection<KamEdge> edges = kamCopy.getEdges();
         final Map<Integer, Set<Integer>> oedges =
                 new LinkedHashMap<Integer, Set<Integer>>();
         onodes = new LinkedHashMap<Integer, Integer>();
@@ -597,7 +669,7 @@ public class KamSpecies implements Kam {
 
                     // collect adjacent edges (except this edge) for the
                     // orthologous target node
-                    final Set<KamEdge> orthoEdges = kam.getAdjacentEdges(tn);
+                    final Set<KamEdge> orthoEdges = kamCopy.getAdjacentEdges(tn);
                     for (final KamEdge orthoEdge : orthoEdges) {
                         if (orthoEdge != e) {
                             adjacentEdges.add(orthoEdge.getId());
@@ -622,7 +694,7 @@ public class KamSpecies implements Kam {
 
                     // collect adjacent edges (except this edge) for the
                     // orthologous source node
-                    final Set<KamEdge> orthoEdges = kam.getAdjacentEdges(sn);
+                    final Set<KamEdge> orthoEdges = kamCopy.getAdjacentEdges(sn);
                     for (final KamEdge orthoEdge : orthoEdges) {
                         if (orthoEdge != e) {
                             adjacentEdges.add(orthoEdge.getId());
@@ -662,7 +734,7 @@ public class KamSpecies implements Kam {
         final List<BelTerm> terms = kamStore.getSupportingTerms(node);
         for (final BelTerm term : terms) {
             final List<TermParameter> params = kamStore.getTermParameters(
-                    kam.getKamInfo(),
+                    kamCopy.getKamInfo(),
                     term);
             for (final TermParameter p : params) {
 
@@ -743,10 +815,10 @@ public class KamSpecies implements Kam {
     private void removeOrthologousNodes(final Map<Integer, Integer> onodes) {
         // remove ortholog nodes since edge's are now collapsed to species node
         // replacements
-        final Collection<KamNode> nodes = kam.getNodes();
+        final Collection<KamNode> nodes = kamCopy.getNodes();
         for (final KamNode node : nodes) {
             if (onodes.containsKey(node.getId())) {
-                kam.removeNode(node);
+                kamCopy.removeNode(node);
             }
         }
     }
@@ -772,7 +844,7 @@ public class KamSpecies implements Kam {
     }
 
     /**
-     * Walks {@link SpeciesKam#RELS certain relationship types} and infers
+     * Walks {@link KamSpecies#RELS certain relationship types} and infers
      * orthologous edges based on matching relationships.
      *
      * <p>
@@ -818,7 +890,7 @@ public class KamSpecies implements Kam {
                     continue;
                 }
 
-                kam.collapseNode(opnode, node);
+                kamCopy.collapseNode(opnode, node);
             } else {
                 // handle all other edges by relationship type
                 final RelationshipType rel = e.getRelationshipType();
@@ -835,7 +907,7 @@ public class KamSpecies implements Kam {
                     continue;
                 }
 
-                kam.collapseNode(opnode, node);
+                kamCopy.collapseNode(opnode, node);
             }
         }
 

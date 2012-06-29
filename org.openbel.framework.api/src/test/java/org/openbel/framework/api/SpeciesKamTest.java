@@ -104,9 +104,8 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         KamSpecies skam;
         try {
-            skam = new KamSpecies(kam,
-                    new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    new DefaultDialect(info, kamstore, true),
+            skam = new KamSpecies(kam, new DefaultSpeciesDialect(info,
+                    kamstore, 9606, true),
                     kamstore);
         } catch (InvalidArgument e) {
             e.printStackTrace();
@@ -168,7 +167,6 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
         try {
             skam = new KamSpecies(kam,
                     new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    new DefaultDialect(info, kamstore, true),
                     kamstore);
         } catch (InvalidArgument e) {
             e.printStackTrace();
@@ -224,7 +222,6 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
         try {
             skam = new KamSpecies(kam,
                     new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    new DefaultDialect(info, kamstore, true),
                     kamstore);
         } catch (InvalidArgument e) {
             e.printStackTrace();
