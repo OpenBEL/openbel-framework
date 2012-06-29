@@ -43,6 +43,7 @@ import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 /**
  * Peforms {@link ProtoNetwork proto-network} equivalencing.
  */
+// FIXME make into an interface and move protonetwork out of constructor
 public abstract class Equivalencer {
 
     /**

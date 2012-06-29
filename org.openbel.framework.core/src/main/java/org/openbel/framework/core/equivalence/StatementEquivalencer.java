@@ -40,14 +40,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.openbel.framework.common.protonetwork.model.ParameterTable;
 import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable;
+import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNodeTable;
-import org.openbel.framework.common.protonetwork.model.StatementTable;
-import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
-import org.openbel.framework.common.protonetwork.model.TermTable;
-import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
 
 /**
  * StatementEquivalencer equivalences {@link ProtoNetwork} statements by
@@ -58,12 +54,6 @@ import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProto
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class StatementEquivalencer extends Equivalencer {
-    final StatementTable st;
-    final TermTable tt;
-    final TermParameterMapTable tpmt;
-    final ParameterTable pt;
-    final ProtoNodeTable pnt;
-    final ProtoEdgeTable pet;
 
     /**
      * Constructs the statement equivalencer with a {@link ProtoNetwork} to
@@ -73,13 +63,6 @@ public class StatementEquivalencer extends Equivalencer {
      */
     public StatementEquivalencer(ProtoNetwork pn) {
         super(pn);
-
-        st = pn.getStatementTable();
-        tt = pn.getTermTable();
-        tpmt = pn.getTermParameterMapTable();
-        pt = pn.getParameterTable();
-        pnt = pn.getProtoNodeTable();
-        pet = pn.getProtoEdgeTable();
     }
 
     /**
@@ -87,14 +70,22 @@ public class StatementEquivalencer extends Equivalencer {
      */
     @Override
     public int equivalence() {
-        int eqct = 0;
-
-        final List<TableProtoEdge> edges = pet.getProtoEdges();
-        final Map<Integer, Set<Integer>> edgeStmts = pet.getEdgeStatements();
-        final Map<Integer, Integer> eqn = pnt.getEquivalences();
-        final Map<Integer, Integer> eqe = pet.getEquivalences();
-
+        ProtoNodeTable pnt = network.getProtoNodeTable();
+        ProtoEdgeTable pet = network.getProtoEdgeTable();
+        
+        List<TableProtoEdge> edges = pet.getProtoEdges();
+        Map<Integer, Set<Integer>> edgeStmts = pet.getEdgeStatements();
+        Map<Integer, Integer> eqn = pnt.getEquivalences();
+        Map<Integer, Integer> eqe = pet.getEquivalences();
+        
+        return equivalenceInternal(edges, edgeStmts, eqn, eqe);
+    }
+    
+    protected static int equivalenceInternal(List<TableProtoEdge> edges,
+            Map<Integer, Set<Integer>> edgeStmts, Map<Integer, Integer> eqn,
+            Map<Integer, Integer> eqe) {
         eqe.clear();
+        int eqct = 0;
 
         final Map<TableProtoEdge, Integer> edgeCache =
                 new HashMap<ProtoEdgeTable.TableProtoEdge, Integer>();
@@ -120,6 +111,7 @@ public class StatementEquivalencer extends Equivalencer {
                 final Set<Integer> eqEdgeStmts =
                         edgeStmts.get(revEq.get(cachedEdge));
                 eqEdgeStmts.addAll(curEdgeStmts);
+                curEdgeStmts.addAll(eqEdgeStmts);
 
                 eqct++;
                 continue;
@@ -134,4 +126,5 @@ public class StatementEquivalencer extends Equivalencer {
 
         return eqct;
     }
+    
 }

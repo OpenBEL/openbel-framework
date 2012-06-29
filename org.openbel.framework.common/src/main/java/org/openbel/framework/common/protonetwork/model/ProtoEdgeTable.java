@@ -85,6 +85,7 @@ public class ProtoEdgeTable extends ExternalType {
      * {@link List set of proto edge indexes} as the value. This
      * {@link Collection collection} is not thread-safe.
      */
+    //XXX could we replace int to int maps with lists?
     private final Map<Integer, Set<Integer>> stmtEdges =
             new HashMap<Integer, Set<Integer>>();
 
@@ -384,6 +385,7 @@ public class ProtoEdgeTable extends ExternalType {
          * @param relName the {@link String relationship name}
          * @param target the {@code int} target index
          */
+        // FIXME: replace string relName with enum
         public TableProtoEdge(final int source, final String relName,
                 final int target) {
             this.source = source;
