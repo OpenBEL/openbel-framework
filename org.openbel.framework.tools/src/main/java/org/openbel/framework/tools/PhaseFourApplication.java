@@ -1,25 +1,14 @@
 package org.openbel.framework.tools;
 
-import static java.lang.String.format;
-import static org.openbel.framework.common.BELUtilities.asPath;
-import static org.openbel.framework.common.BELUtilities.noItems;
-import static org.openbel.framework.common.Strings.KAM_DESCRIPTION_HELP;
-import static org.openbel.framework.common.Strings.KAM_NAME_HELP;
-import static org.openbel.framework.common.Strings.MISSING_KAM_DESCRIPTION;
-import static org.openbel.framework.common.Strings.MISSING_KAM_NAME;
-import static org.openbel.framework.common.Strings.NOT_A_DIRECTORY;
-import static org.openbel.framework.common.Strings.NO_PRESERVE_HELP;
-import static org.openbel.framework.common.Strings.PHASE5_STAGE1_HDR;
-import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
-import static org.openbel.framework.tools.PhaseFourOptions.phaseFourOptions;
+import static java.lang.String.*;
+import static org.openbel.framework.common.BELUtilities.*;
+import static org.openbel.framework.common.Strings.*;
+import static org.openbel.framework.common.cfg.SystemConfiguration.*;
+import static org.openbel.framework.tools.PhaseFourOptions.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
-import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -29,9 +18,6 @@ import org.apache.commons.cli.ParseException;
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.common.enums.ExitCode;
-import org.openbel.framework.common.index.Index;
-import org.openbel.framework.common.index.ResourceIndex;
-import org.openbel.framework.common.index.ResourceLocation;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
 import org.openbel.framework.common.util.BELPathFilters.GlobalProtonetworkFilter;
@@ -44,12 +30,7 @@ import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.core.df.cache.CacheableResourceService;
-import org.openbel.framework.core.df.cache.DefaultCacheableResourceService;
-import org.openbel.framework.core.df.cache.ResolvedResource;
-import org.openbel.framework.core.df.cache.ResourceType;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.core.protocol.ResourceDownloadError;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkDescriptor;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkExternalizer;
 import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
@@ -68,7 +49,6 @@ public final class PhaseFourApplication extends PhaseApplication {
     private final static String LONG_OPT_NO_PRESERVE = "no-preserve";
     private final DefaultPhaseFour p4;
     private final SystemConfiguration sysconfig;
-    private final CacheableResourceService cacheService;
 
     private final static String numPhases = "1";
 
@@ -91,7 +71,6 @@ public final class PhaseFourApplication extends PhaseApplication {
         super(args);
 
         sysconfig = getSystemConfiguration();
-        cacheService = new DefaultCacheableResourceService();
         DatabaseService dbservice = new DatabaseServiceImpl();
         KAMStoreSchemaService kamStoreSchemaService = new KAMStoreSchemaServiceImpl(
                 dbservice);
