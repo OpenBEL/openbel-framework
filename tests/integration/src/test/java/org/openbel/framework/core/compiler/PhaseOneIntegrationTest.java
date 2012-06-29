@@ -113,7 +113,7 @@ public class PhaseOneIntegrationTest {
      */
     @Before
     public void setup() {
-        final String syscfg = "../../docs/configuration/belframework.cfg";
+        final String syscfg = "../../tools/dist/resources/config/belframework.cfg";
         final File exampleCfg = new File(syscfg);
         try {
             createSystemConfiguration(exampleCfg);
