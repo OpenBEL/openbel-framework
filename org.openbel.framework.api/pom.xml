@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,7 +14,7 @@
     <name>OpenBEL Framework API</name>
     <artifactId>org.openbel.framework.api</artifactId>
     <description>Java API for BEL Framework</description>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -323,4 +323,30 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
+                        <Bundle-Name>OpenBEL Framework API</Bundle-Name>
+                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
+                        <!-- <Private-Package>org.openbel...</Private-Package> -->
+                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
+                        <!--
+                        <Import-Package>
+                        </Import-Package>
+                        -->
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
+

@@ -11,7 +11,7 @@
     <name>OpenBEL Framework Core</name>
     <artifactId>org.openbel.framework.core</artifactId>
     <description>Core service layer for the BEL Framework</description>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -168,6 +168,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>OpenBEL Framework Core</Bundle-Name>
+                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
+                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
+                        <!-- <Private-Package>org.openbel...</Private-Package> -->
+                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
+                        <!--
+                        <Import-Package>
+                        </Import-Package>
+                        -->
+                    </instructions>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
+
