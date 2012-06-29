@@ -182,7 +182,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      * @return {@link DBConnection}, the KAM DB connection
      */
     private void stage1(ProtoNetwork gpn) {
-        beginStage(PHASE5_STAGE1_HDR, "1", numPhases);
+        beginStage(PHASE4_STAGE1_HDR, "1", numPhases);
         final StringBuilder bldr = new StringBuilder();
 
         final String kamURL = sysconfig.getKamURL();
@@ -312,7 +312,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      */
     @Override
     public String getApplicationName() {
-        return "Phase V: Exporting final network to the KAM Store";
+        return PHASE4_NAME;
     }
 
     /**
@@ -322,7 +322,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      */
     @Override
     public String getApplicationShortName() {
-        return "Phase V";
+        return PHASE4_SHORT_NAME;
     }
 
     /**
@@ -332,7 +332,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      */
     @Override
     public String getApplicationDescription() {
-        return "Exports a completed network to the KAM Store.";
+        return PHASE4_DESCRIPTION;
     }
 
     /**

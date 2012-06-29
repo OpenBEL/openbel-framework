@@ -61,7 +61,7 @@ import static org.openbel.framework.common.Strings.PHASE3_STAGE3_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE4_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE5_HDR;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE6_HDR;
-import static org.openbel.framework.common.Strings.PHASE4_NO_ORTHOLOGY_LONG_OPTION;
+import static org.openbel.framework.common.Strings.PHASE3_NO_ORTHOLOGY_LONG_OPTION;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.ExitCode.FAILED_TO_MERGE_PROTO_NETWORKS;
 import static org.openbel.framework.common.enums.ExitCode.NO_CONVERTED_DOCUMENTS;
@@ -228,7 +228,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
         // --no-gene-scaffolding --no-named-complexes --no-protein-families --no-orthology
         return (hasOption(NO_P3_LONG_OPT) || (hasOption(NO_GS_LONG_OPT)
                 && hasOption(NO_NC_LONG_OPT) && hasOption(NO_PF_LONG_OPT)
-                && hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION)));
+                && hasOption(PHASE3_NO_ORTHOLOGY_LONG_OPTION)));
     }
 
     /**
@@ -254,7 +254,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
         if (hasOption(NO_GS_LONG_OPT)) {
             phasecfg.setInjectGeneScaffolding(false);
         }
-        if (hasOption(PHASE4_NO_ORTHOLOGY_LONG_OPTION)) {
+        if (hasOption(PHASE3_NO_ORTHOLOGY_LONG_OPTION)) {
             phasecfg.setInjectOrthology(false);
         }
 
