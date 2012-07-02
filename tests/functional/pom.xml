@@ -44,6 +44,13 @@
         </dependency>
         <dependency>
             <groupId>org.openbel</groupId>
+            <artifactId>org.openbel.framework.common</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openbel</groupId>
             <artifactId>org.openbel.framework.compiler</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
