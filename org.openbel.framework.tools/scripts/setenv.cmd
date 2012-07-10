@@ -13,14 +13,14 @@ REM Copyright 2011 Selventa, Inc. All rights reserved.
 
 set DIR=%~dp0
 if "%DIR%"=="tools" (
-	REM Running a framework tool from outside tools\
-	set BASE_DIR=%DIR%\..\
+    REM Running a framework tool from outside tools\
+    set BASE_DIR=%DIR%\..\
 ) else (
-	set BASE_DIR=%DIR%
+    set BASE_DIR=%DIR%
 )
 
 if not defined BELFRAMEWORK_HOME (
-	set BELFRAMEWORK_HOME=%BASE_DIR%
+    set BELFRAMEWORK_HOME=%BASE_DIR%
 )
 
 if not exist "%BELFRAMEWORK_HOME%" (

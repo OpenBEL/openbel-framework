@@ -14,21 +14,21 @@
 if $(dirname $0 >/dev/null 2>&1); then
     DIR=$(dirname $0)
 
-	if [[ "${DIR}" == *tools* ]]; then
-		export BASE_DIR=${DIR}/../
-	elif [ -f "../setenv.sh" ]; then
-		# Running a framework tool from outside tools/
-		export BASE_DIR=${DIR}/../
-	elif [ -f "setenv.sh" ]; then
-		# Running from distribution base directory
-		export BASE_DIR=${DIR}
-	else
-		# Assume we're running a framework tool
-		export BASE_DIR=${DIR}
-	fi
+    if [[ "${DIR}" == *tools* ]]; then
+        export BASE_DIR=${DIR}/../
+    elif [ -f "../setenv.sh" ]; then
+        # Running a framework tool from outside tools/
+        export BASE_DIR=${DIR}/../
+    elif [ -f "setenv.sh" ]; then
+        # Running from distribution base directory
+        export BASE_DIR=${DIR}
+    else
+        # Assume we're running a framework tool
+        export BASE_DIR=${DIR}
+    fi
 
     if [ -z "${BELFRAMEWORK_HOME}" ]; then
-		export BELFRAMEWORK_HOME=${BASE_DIR}
+        export BELFRAMEWORK_HOME=${BASE_DIR}
     fi
     
     if [ ! -d "${BELFRAMEWORK_HOME}" ]; then
