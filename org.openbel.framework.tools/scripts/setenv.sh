@@ -14,21 +14,21 @@
 if $(dirname $0 >/dev/null 2>&1); then
     DIR=$(dirname $0)
 
+    if [[ "${DIR}" == *tools* ]]; then
+        export BASE_DIR=${DIR}/../
+    elif [ -f "../setenv.sh" ]; then
+        # Running a framework tool from outside tools/
+        export BASE_DIR=${DIR}/../
+    elif [ -f "setenv.sh" ]; then
+        # Running from distribution base directory
+        export BASE_DIR=${DIR}
+    else
+        # Assume we're running a framework tool
+        export BASE_DIR=${DIR}
+    fi
+
     if [ -z "${BELFRAMEWORK_HOME}" ]; then
-
-        if [[ "${DIR}" == *tools* ]]; then
-            export BELFRAMEWORK_HOME=${DIR}/../
-        elif [ -f "../setenv.sh" ]; then
-            # Running a framework tool from outside tools/
-            export BELFRAMEWORK_HOME=${DIR}/../
-        elif [ -f "setenv.sh" ]; then
-            # Running from distribution base directory
-            export BELFRAMEWORK_HOME=${DIR}
-        else
-            # Assume we're running a framework tool
-            export BELFRAMEWORK_HOME=${DIR}
-        fi
-
+        export BELFRAMEWORK_HOME=${BASE_DIR}
     fi
     
     if [ ! -d "${BELFRAMEWORK_HOME}" ]; then
@@ -36,7 +36,7 @@ if $(dirname $0 >/dev/null 2>&1); then
         exit 1
     fi
     
-    BELCOMPILER_DIR="${BELFRAMEWORK_HOME}/lib/belcompiler"
+    BELCOMPILER_DIR="${BASE_DIR}/lib/belcompiler"
     if [ ! -d "${BELCOMPILER_DIR}" ]; then
         echo "Could not locate BEL Compiler classpath, path was: ${BELCOMPILER_DIR}"
         exit 1

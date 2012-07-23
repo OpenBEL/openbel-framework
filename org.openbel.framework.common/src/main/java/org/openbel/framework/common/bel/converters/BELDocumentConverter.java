@@ -124,10 +124,6 @@ public class BELDocumentConverter extends BELConverter<BELDocument, Document> {
      */
     @Override
     public BELDocument convert(Document d) {
-        if (d == null) {
-            return null;
-        }
-
         return null;
     }
 
