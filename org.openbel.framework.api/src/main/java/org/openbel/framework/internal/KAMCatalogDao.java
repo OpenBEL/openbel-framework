@@ -341,8 +341,6 @@ public final class KAMCatalogDao extends AbstractJdbcDAO {
             }
         } catch (SQLException ex) {
             throw ex;
-        } finally {
-            // Nothing to do
         }
     }
 
@@ -364,8 +362,6 @@ public final class KAMCatalogDao extends AbstractJdbcDAO {
                     ps.execute();
                 } catch (SQLException ex) {
                     throw ex;
-                } finally {
-                    // Nothing to do
                 }
             }
         }
