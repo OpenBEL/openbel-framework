@@ -53,6 +53,7 @@ import static org.openbel.framework.common.Strings.NO_GENE_SCAFFOLDING_HELP;
 import static org.openbel.framework.common.Strings.NO_NAMED_COMPLEXES_HELP;
 import static org.openbel.framework.common.Strings.NO_PHASE_THREE;
 import static org.openbel.framework.common.Strings.NO_PROTEIN_FAMILIES_HELP;
+import static org.openbel.framework.common.Strings.NO_ORTHOLOGY_HELP;
 import static org.openbel.framework.common.Strings.ORTHO_INJECTION_DISABLED;
 import static org.openbel.framework.common.Strings.PF_INJECTION_DISABLED;
 import static org.openbel.framework.common.Strings.PHASE3_STAGE1_HDR;
@@ -1428,6 +1429,9 @@ public final class PhaseThreeApplication extends PhaseApplication {
         help = NO_GENE_SCAFFOLDING_HELP;
         ret.add(new Option(null, NO_GS_LONG_OPT, false, help));
 
+        help = NO_ORTHOLOGY_HELP;
+        ret.add(new Option(null, PHASE3_NO_ORTHOLOGY_LONG_OPTION, false, help));
+        
         help = NO_PHASE_THREE;
         ret.add(new Option(null, NO_P3_LONG_OPT, false, help));
 
