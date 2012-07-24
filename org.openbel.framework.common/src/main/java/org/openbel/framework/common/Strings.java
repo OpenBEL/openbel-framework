@@ -620,7 +620,10 @@ public class Strings {
      * {@value}
      */
     public static final String NO_GENE_SCAFFOLDING_HELP =
-            "Modifies Phase III to omit expanding the composite network to include gene activation pathways for gene products identified in BEL Document input to the compiler.\nThe default is to expand gene activation pathways for identified gene products.";
+            "Modifies Phase III to omit expanding the composite network to " +
+            "include gene activation pathways for gene products identified " +
+            "in BEL Document input to the compiler.\nThe default is to " +
+            "expand gene activation pathways for identified gene products.";
 
     /**
      * {@value}
@@ -632,7 +635,10 @@ public class Strings {
      * {@value}
      */
     public static final String NO_NAMED_COMPLEXES_HELP =
-            "Modifies Phase III to omit coupling named complexes to its components in the composite network.\nThe default is to automatically create edges from named complexes, in a BEL Document, to their components.";
+            "Modifies Phase III to omit coupling named complexes to its " +
+            "components in the composite network.\nThe default is to " +
+            "automatically create edges from named complexes, in a BEL " +
+            "Document, to their components.";
 
     /**
      * {@value}
@@ -642,27 +648,35 @@ public class Strings {
     /**
      * {@value}
      */
-    public static final String NO_ORTHOLOGY_HELP = 
-    	 "Modifies Phase III to omit coupling orthologous family members to existing nodes in the composite network. The default is to add orthologous edges to the network.";
+    public static final String NO_ORTHOLOGY_HELP =
+            "Modifies Phase III to omit coupling orthologous family members " +
+            "to existing nodes in the composite network. The default is to " +
+            "add orthologous edges to the network.";
+
     /**
-     * {@value} 
+     * {@value}
      */
     public static final String NO_PHASE_THREE =
-            "Executes Phase III in pass-through mode. This is the same as specifying --no-gene-scaffolding, --no-named-complexes, --no-protein-families, and --no-orthology.";
+            "Executes Phase III in pass-through mode. This is the same as " +
+            "specifying --no-gene-scaffolding, --no-named-complexes, " +
+            "--no-protein-families, and --no-orthology.";
 
     /**
      * {@value}
      */
     public static final String NO_PRESERVE_HELP =
-            "If present, if a KAM with the same name exists it will be overwritten.\n"
-                    +
-                    "The default is to preserve the KAM and exit with an error if the existing KAM will be overwritten.";
+            "If present, if a KAM with the same name exists it will be " +
+            "overwritten.\nThe default is to preserve the KAM and exit with " +
+            "an error if the existing KAM will be overwritten.";
 
     /**
      * {@value}
      */
     public static final String NO_PROTEIN_FAMILIES_HELP =
-            "Modifies Phase III to omit coupling protein family members to existing nodes in the composite network.\nThe default is to automatically create edges from protein family nodes to their members.";
+            "Modifies Phase III to omit coupling protein family members to " +
+            "existing nodes in the composite network.\nThe default is to " +
+            "automatically create edges from protein family nodes to their " +
+            "members.";
 
     /**
      * {@value}
