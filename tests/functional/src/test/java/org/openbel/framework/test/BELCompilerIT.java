@@ -124,29 +124,27 @@ public class BELCompilerIT {
         runKamTest("test16", 46, 46);
     }
 
+    @Test
+    public void unitTest17() {
+        runKamTest("test17", 4, 3);
+    }
+
+    public void unitTest18() {
+        runKamTest("test18", 7, 6);
+
+        // test 2 statements supporting the => edge
+        List<KamEdge> edges = findEdge("test18",
+                RelationshipType.DIRECTLY_INCREASES);
+        assertThat(edges.size(), is(1));
+        KamEdge edge = edges.iterator().next();
+        validateStatementCount(edge, 2);
+    }
+
     private void runKamTest(final String kamName, final int nodes,
             final int edges) {
-        final Kam kam = name2Kams.get(kamName);
-        assertThat(kam, is(not(nullValue())));
+        assertThat(kamName, is(not(nullValue())));
 
-        final LoadKamRequest lkreq = factory.createLoadKamRequest();
-        lkreq.setKam(kam);
-        LoadKamResponse lkres = api.loadKam(lkreq);
-        KAMLoadStatus status = lkres.getLoadStatus();
-        while (status == KAMLoadStatus.IN_PROCESS) {
-            // sleep 1/2 a second and retry
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                // do nothing
-            }
-
-            lkres = api.loadKam(lkreq);
-            status = lkres.getLoadStatus();
-        }
-
-        final KamHandle handle = lkres.getHandle();
-        assertThat(handle, is(not(nullValue())));
+        final KamHandle handle = loadKam(kamName);
 
         final FindKamNodesByPatternsRequest fknreq =
                 factory.createFindKamNodesByPatternsRequest();
@@ -169,5 +167,63 @@ public class BELCompilerIT {
 
         assertThat(kamEdges, is(not(nullValue())));
         assertThat(kamEdges.size(), is(edges));
+    }
+
+    private void validateStatementCount(final KamEdge edge, final int sc) {
+        assertThat(edge, is(not(nullValue())));
+
+        GetSupportingEvidenceRequest evreq = factory
+                .createGetSupportingEvidenceRequest();
+        evreq.setKamEdge(edge);
+        GetSupportingEvidenceResponse evres = api.getSupportingEvidence(evreq);
+
+        List<BelStatement> statements = evres.getStatements();
+        assertThat(statements.size(), is(sc));
+    }
+
+    private List<KamEdge> findEdge(final String kamName,
+            final RelationshipType r) {
+        assertThat(kamName, is(not(nullValue())));
+        assertThat(r, is(not(nullValue())));
+
+        final KamHandle handle = loadKam(kamName);
+
+        EdgeFilter f = factory.createEdgeFilter();
+        RelationshipTypeFilterCriteria c = factory
+                .createRelationshipTypeFilterCriteria();
+        c.getValueSet().add(r);
+        f.getRelationshipCriteria().add(c);
+
+        final FindKamEdgesRequest ereq = factory.createFindKamEdgesRequest();
+        ereq.setFilter(f);
+        ereq.setHandle(handle);
+        FindKamEdgesResponse eres = api.findKamEdges(ereq);
+
+        return eres.getKamEdges();
+    }
+
+    private KamHandle loadKam(final String kamName) {
+        final Kam kam = name2Kams.get(kamName);
+        assertThat(kam, is(not(nullValue())));
+
+        final LoadKamRequest lkreq = factory.createLoadKamRequest();
+        lkreq.setKam(kam);
+        LoadKamResponse lkres = api.loadKam(lkreq);
+        KAMLoadStatus status = lkres.getLoadStatus();
+        while (status == KAMLoadStatus.IN_PROCESS) {
+            // sleep 1/2 a second and retry
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                // do nothing
+            }
+
+            lkres = api.loadKam(lkreq);
+            status = lkres.getLoadStatus();
+        }
+
+        final KamHandle handle = lkres.getHandle();
+        assertThat(handle, is(not(nullValue())));
+        return handle;
     }
 }

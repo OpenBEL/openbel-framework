@@ -509,6 +509,17 @@
             <param name="expect_failure" value="false" />
             <param name="expected_failure_message" value="" />
         </antcall>
+
+    	<!-- Unit Test 18 -->
+    	<antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_18.bel" />
+            <param name="kam" value="test18" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
     </target>
 
     <target name="compiler_test" if="bel_file">

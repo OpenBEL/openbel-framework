@@ -1,0 +1,37 @@
+##################################################################################
+#                                                                                #
+# BEL Document to test equivalent statements with different biological context.  #
+#                                                                                #
+#   No compiler arguments                                                        #
+#       7 nodes, 6 edges:                                                        #
+#           tscript(p(HGNC:A1BG)) => r(HGNC:A1CF)                                #
+#           p(HGNC:A1BG) actsIn tscript(p(HGNC:A1BG))                            #
+#           g(EG:29974) transcribedTo r(HGNC:A1CF)                               #
+#           r(HGNC:A1CF) translatedTo p(EG:29974)                                #
+#           g(EG:1) transcribedTo r(EG:1)                                        #
+#           r(EG:1) translatedTo p(HGNC:A1BG)                                    #
+##################################################################################
+# Document Properties Section
+
+SET DOCUMENT Name = "Unit Test #18"
+SET DOCUMENT Description = "Compiling two exact statements with different biological context."
+SET DOCUMENT Version = "1.0"
+SET DOCUMENT Copyright = "Copyright (c) 2012, Selventa. All rights reserved."
+SET DOCUMENT ContactInfo = "support@belframework.org"
+SET DOCUMENT Authors = "Selventa, Inc."
+SET DOCUMENT Licenses = "Creative Commons Attribution-Non-Commercial-ShareAlike 3.0 Unported License"
+
+##################################################################################
+# Definitions Section
+
+DEFINE NAMESPACE HGNC AS URL "http://resource.belframework.org/belframework/1.0/namespace/hgnc-approved-symbols.belns"
+DEFINE ANNOTATION Species AS URL "http://resource.belframework.org/belframework/1.0/annotation/species-taxonomy-id.belanno"
+
+##################################################################################
+# Statements Section
+SET Species = 9606
+tscript(p(HGNC:A1BG)) => r(HGNC:A1CF)
+
+SET Species = 10090
+tscript(p(HGNC:A1BG)) => r(HGNC:A1CF)
+
