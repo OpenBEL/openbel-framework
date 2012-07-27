@@ -335,6 +335,9 @@ public class KamComparator extends CommandLineApplication {
 
             final List<String> kamArgs = getExtraneousArguments();
             if (kamArgs == null || kamArgs.size() != 2) {
+            	// print out the usage if less then 2 arguments are given
+            	printUsage();
+            	getReportable().error("\n");
                 getReportable().error(
                         "You must specify two KAM names to compare.");
                 end();
