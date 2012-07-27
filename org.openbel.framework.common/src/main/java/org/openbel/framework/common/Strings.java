@@ -643,12 +643,13 @@ public class Strings {
      * {@value}
      */
     public static final String NO_ORTHOLOGY_HELP = 
-    		"Modifies Phase III to omit coupling orthologous family members to existing nodes in the composite network. The default is to add orthologous edges to the network.";
+    	 "Modifies Phase III to omit coupling orthologous family members to existing nodes in the composite network. The default is to add orthologous edges to the network.";
     /**
      * {@value} 
      */
     public static final String NO_PHASE_THREE =
-    		"Executes Phase III in pass-through mode. This is the same as specifying --no-gene-scaffolding, --no-named-complexes, --no-protein-families, and --no-orthology.";
+            "Executes Phase III in pass-through mode. This is the same as specifying --no-gene-scaffolding, --no-named-complexes, --no-protein-families, and --no-orthology.";
+
     /**
      * {@value}
      */
