@@ -1428,7 +1428,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
 
         help = NO_GENE_SCAFFOLDING_HELP;
         ret.add(new Option(null, NO_GS_LONG_OPT, false, help));
-
+        
         help = NO_ORTHOLOGY_HELP;
         ret.add(new Option(null, PHASE3_NO_ORTHOLOGY_LONG_OPTION, false, help));
         
