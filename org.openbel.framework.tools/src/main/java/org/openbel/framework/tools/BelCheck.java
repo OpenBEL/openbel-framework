@@ -161,6 +161,9 @@ public class BelCheck extends CommandLineApplication {
 
         List<String> fileArgs = getExtraneousArguments();
         if (!hasItems(fileArgs)) {
+        	// print out the usage if no arguments were given
+        	printUsage();
+        	reportable.error("\n");
             reportable.error(NO_DOCUMENT_FILES);
             end();
         }

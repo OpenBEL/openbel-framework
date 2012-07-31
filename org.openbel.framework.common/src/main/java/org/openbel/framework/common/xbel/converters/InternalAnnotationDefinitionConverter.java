@@ -66,6 +66,9 @@ public class InternalAnnotationDefinitionConverter extends
         String description = t.getDescription();
         String id = t.getId();
         String usage = t.getUsage();
+        // If null, set equal to an empty string so that the document can be properly converted.
+        if (description == null) description = "";
+        if (usage == null) usage = "";
 
         dest.setDescription(description);
         dest.setId(id);
