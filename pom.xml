@@ -47,7 +47,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>http://gravatar.com/abargnesi</picUrl>
+                <picUrl>https://gravatar.com/abargnesi</picUrl>
             </properties>
         </developer>
         <developer>
@@ -61,7 +61,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>http://gravatar.com/nbargnesi</picUrl>
+                <picUrl>https://gravatar.com/nbargnesi</picUrl>
             </properties>
         </developer>
         <developer>
@@ -75,7 +75,7 @@
             </roles>
             <timezone>-5</timezone>
             <properties>
-                <picUrl>http://gravatar.com/</picUrl>
+                <picUrl>https://gravatar.com/liftyourskinnyfistslikeantennastoheaven</picUrl>
             </properties>
         </developer>
     </developers>
