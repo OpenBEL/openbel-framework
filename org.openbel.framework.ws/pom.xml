@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
     http://maven.apache.org/maven-v4_0_0.xsd">
-
+    
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.openbel</groupId>
@@ -13,12 +13,12 @@
     </parent>
     <artifactId>org.openbel.framework.ws</artifactId>
     <packaging>war</packaging>
-
+    
     <name>OpenBEL Framework Web API Web Service</name>
     <description>Webservice server for BEL Framework Web API.</description>
     <url>https://github.com/OpenBEL/openbel-framework</url>
     <inceptionYear>2011</inceptionYear>
-
+    
     <licenses>
         <license>
             <name>GNU Lesser General Public License, Version 3</name>
@@ -95,11 +95,11 @@
             <timezone>-5</timezone>
         </contributor>
     </contributors>
-
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.openbel</groupId>
@@ -156,7 +156,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <finalName>openbel-ws</finalName>
         <plugins>
@@ -170,3 +170,4 @@
         </plugins>
     </build>
 </project>
+
