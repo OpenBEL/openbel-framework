@@ -310,7 +310,7 @@ public class StatementTable extends ExternalType {
     }
 
     static RelationshipType readRelationship(ObjectInput in)
-            throws IOException, ClassNotFoundException {
+            throws IOException {
         RelationshipType ret = null;
         byte obyte = in.readByte();
         if (obyte == 1) {

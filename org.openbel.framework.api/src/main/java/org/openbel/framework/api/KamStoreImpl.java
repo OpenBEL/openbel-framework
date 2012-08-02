@@ -718,8 +718,7 @@ public final class KamStoreImpl implements KamStore {
         }
     }
 
-    private KAMStoreDao getKamStoreDao(KamInfo kamInfo) throws SQLException,
-            KamStoreException {
+    private KAMStoreDao getKamStoreDao(KamInfo kamInfo) throws SQLException {
         KAMStoreDao dao = kamStoreDaoMap.get(kamInfo);
         if (null == dao) {
             dao = new KAMStoreDaoImpl(kamInfo.getKamDbObject()

@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.runtime.RecognitionException;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.BELObject;
@@ -123,9 +122,6 @@ public class DefaultSpeciesDialect implements SpeciesDialect {
             // should never be true
             return nodeLabel;
         } catch (KamStoreException e) {
-            // error returns original label
-            return nodeLabel;
-        } catch (RecognitionException e) {
             // error returns original label
             return nodeLabel;
         }

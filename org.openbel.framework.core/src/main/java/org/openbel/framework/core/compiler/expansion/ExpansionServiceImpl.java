@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.compiler.expansion;
 
+import static org.openbel.framework.common.BELUtilities.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,19 +49,17 @@ import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable;
 import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
 import org.openbel.framework.common.protonetwork.model.ProtoNodeTable;
 import org.openbel.framework.common.protonetwork.model.StatementTable;
-import org.openbel.framework.common.protonetwork.model.TermTable;
 import org.openbel.framework.common.protonetwork.model.StatementTable.TableStatement;
+import org.openbel.framework.common.protonetwork.model.TermTable;
 import org.openbel.framework.core.protonetwork.ProtoNetworkBuilder;
 
 /**
  * ExpansionServiceImpl implements a service to expand {@link Term terms} and
  * {@link Statement statements} in a {@link Document BEL document}.
- *
  * <p>
- * The expansion service uses a set of
- * {@link TermExpansionRule term expansion rules} and
- * {@link StatementExpansionRule statement expansion rules} to encapsulate
- * rule matching and logic for expansion scenarios.
+ * The expansion service uses a set of {@link TermExpansionRule term expansion
+ * rules} and {@link StatementExpansionRule statement expansion rules} to
+ * encapsulate rule matching and logic for expansion scenarios.
  * </p>
  *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
@@ -67,9 +67,9 @@ import org.openbel.framework.core.protonetwork.ProtoNetworkBuilder;
 public class ExpansionServiceImpl implements ExpansionService {
 
     // statically define and initialize term expansion rules.
-    private final static List<TermExpansionRule> termExpansionRules;
+    private final static List<ExpansionRule<Term>> termExpansionRules;
     static {
-        termExpansionRules = new ArrayList<TermExpansionRule>();
+        termExpansionRules = sizedArrayList(7);
         termExpansionRules.add(new ReactionExpansionRule());
         termExpansionRules.add(new TranslocationExpansionRule());
         termExpansionRules.add(new DegradationExpansionRule());
@@ -135,13 +135,13 @@ public class ExpansionServiceImpl implements ExpansionService {
     public void expandStatements(final Document doc, final ProtoNetwork pn,
             final boolean stmtExpand) {
         final ProtoNetworkBuilder pnb = new ProtoNetworkBuilder(doc);
-        final StatementExpansionRule[] rules = new StatementExpansionRule[2];
+        final ArrayList<ExpansionRule<Statement>> rules = sizedArrayList(2);
         if (stmtExpand) {
-            rules[0] = distributedRule;
+            rules.add(distributedRule);
         } else {
-            rules[0] = extractRule;
+            rules.add(extractRule);
         }
-        rules[1] = reciprocalRule;
+        rules.add(reciprocalRule);
 
         final StatementTable st = pn.getStatementTable();
         final List<TableStatement> ts = st.getStatements();
@@ -155,7 +155,7 @@ public class ExpansionServiceImpl implements ExpansionService {
             }
 
             // check each statement expansion rule
-            for (StatementExpansionRule rule : rules) {
+            for (ExpansionRule<Statement> rule : rules) {
                 if (!rule.match(stmt)) {
                     continue;
                 }
@@ -177,12 +177,12 @@ public class ExpansionServiceImpl implements ExpansionService {
     }
 
     /**
-     * Apply all matching {@link TermExpansionRule term expansion rules}
-     * defined in <tt>termExpansionRules</tt> to the {@link Term outer term}
-     * and all the {@link Term inner terms}.
-     *
+     * Apply all matching {@link TermExpansionRule term expansion rules} defined
+     * in <tt>termExpansionRules</tt> to the {@link Term outer term} and all the
+     * {@link Term inner terms}.
      * <p>
-     * This method is called recursively to evaluate the {@link Term inner terms}.
+     * This method is called recursively to evaluate the {@link Term inner
+     * terms}.
      * </p>
      *
      * @param term {@link Term}, the current term to process for expansion
@@ -192,7 +192,7 @@ public class ExpansionServiceImpl implements ExpansionService {
      * encounters an error with the {@link Term term} being expanded.
      */
     private void expandTerm(Term term, List<Statement> allExpansions) {
-        for (final TermExpansionRule rule : termExpansionRules) {
+        for (final ExpansionRule<Term> rule : termExpansionRules) {
             if (rule.match(term)) {
                 List<Statement> termExpansions = rule.expand(term);
                 allExpansions.addAll(termExpansions);
@@ -207,12 +207,11 @@ public class ExpansionServiceImpl implements ExpansionService {
 
     /**
      * Creates a proto node for the {@link Term term}.
-     * 
      * <p>
      * There is no way to associate statement support to a proto node so the
-     * {@code supporting} statement index is unused. 
+     * {@code supporting} statement index is unused.
      * </p>
-     * 
+     *
      * @param term the {@link Term BEL term} to store, which cannot be
      * {@code null}
      * @param supporting the {@code int} statement index which is currently
@@ -238,7 +237,7 @@ public class ExpansionServiceImpl implements ExpansionService {
     /**
      * Creates a proto edge for the {@link Statement statement} while
      * preserving the original, supporting {@link Statement statement}.
-     * 
+     *
      * @param stmt the {@link Statement statement} to store, which cannot be
      * {@code null}
      * @param supporting the {@code int} statement index to associate as the

@@ -52,7 +52,7 @@ import org.openbel.framework.common.model.Statement.Object;
  * Protein degradation term connects to its protein with DIRECTLY_DECREASES
  * relationship.
  */
-class DegradationExpansionRule extends TermExpansionRule {
+class DegradationExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

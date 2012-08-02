@@ -599,7 +599,7 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
             keps.setInt(4, r.getValue());
             keps.addBatch();
         }
-
+        added.clear();
         keps.executeBatch();
 
         // load statements
@@ -663,28 +663,40 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
         // load many-to-many association of edges to statements
         PreparedStatement skes = getPreparedStatement(KAM_EDGE_STATEMENT_SQL);
         final Map<Integer, Set<Integer>> edgeStmts = pet.getEdgeStatements();
-        added.clear();
-        for (int i = 0, n = edges.size(); i < n; i++) {
-            final Integer eqId = eqs.get(i);
 
-            // continue if we have already seen this equivalent proto edge
-            if (added.contains(eqId)) {
-                continue;
+        // collect all non-unique kam edge / statement combinations
+        final Map<Integer, Set<Integer>> edgeMap =
+                new HashMap<Integer, Set<Integer>>();
+        for (int i = 0, n = edges.size(); i < n; i++) {
+            // lookup individual edge statements and the equivalent edge id
+            final Integer edgeId = i;
+            Set<Integer> es = edgeStmts.get(edgeId);
+            final Integer eqEdgeId = pet.getEquivalences().get(edgeId);
+
+            // create statement set for equivalent edge
+            Set<Integer> stmts = edgeMap.get(eqEdgeId);
+            if (stmts == null) {
+                stmts = new HashSet<Integer>();
+                edgeMap.put(eqEdgeId, stmts);
             }
 
-            added.add(eqId);
+            // map statements (from individual edges) to the equivalent
+            if (hasItems(es)) {
+                stmts.addAll(es);
+            }
+        }
 
-            // retrieve statements for this edge
-            final Set<Integer> stmtIds = edgeStmts.get(i);
+        // iterate kam edges, insert all unique edge / stmt mappings
+        Set<Entry<Integer, Set<Integer>>> edgeMapEntries = edgeMap.entrySet();
+        for (Map.Entry<Integer, Set<Integer>> e : edgeMapEntries) {
+            // XXX offset
+            int edgeId = e.getKey() + 1;
+            Set<Integer> stmts = e.getValue();
 
-            // if we have the edge, then assert that we have its statements
-            assert stmtIds != null && !stmtIds.isEmpty();
-
-            for (final Integer stmtId : stmtIds) {
+            for (final Integer stmt : stmts) {
+                skes.setInt(1, edgeId);
                 // XXX offset
-                skes.setInt(1, eqId + 1);
-                // XXX offset
-                skes.setInt(2, stmtId + 1);
+                skes.setInt(2, stmt + 1);
                 skes.addBatch();
             }
         }

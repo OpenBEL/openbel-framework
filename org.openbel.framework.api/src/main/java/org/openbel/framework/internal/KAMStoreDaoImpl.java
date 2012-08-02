@@ -1216,8 +1216,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
      * generated SQL in a PreparedStatement.
      */
     private Pair<String, List<String>> getFilteredSelectProtoEdgesSql(
-            KamFilter kamFilter)
-            throws SQLException {
+            KamFilter kamFilter) {
 
         List<FilterCriteria> criteria = kamFilter.getFilterCriteria();
 

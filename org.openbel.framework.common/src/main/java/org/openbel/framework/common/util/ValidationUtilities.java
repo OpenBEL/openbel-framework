@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.common.util;
 
+import static java.util.regex.Pattern.*;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,7 +50,7 @@ import org.openbel.framework.common.model.AnnotationDefinition;
 
 /**
  * Utilities for performing validation.
- * 
+ *
  * @author Steve Ungerer
  */
 public abstract class ValidationUtilities {
@@ -59,7 +61,7 @@ public abstract class ValidationUtilities {
      * Determine if the given {@link Annotation} is valid. A valid
      * {@link Annotation} is one in which its value is valid for its defined
      * {@link AnnotationDefinition}.
-     * 
+     *
      * @param annotation
      *            the {@link Annotation} to validate. This {@link Annotation}
      *            <em>must</em> return a <code>non-null</code>
@@ -82,7 +84,7 @@ public abstract class ValidationUtilities {
      * Determine if the given value is valid as defined by the specified
      * {@link AnnotationDefinition}. A valid value is one that is valid for the
      * specified domain of the {@link AnnotationDefinition}.
-     * 
+     *
      * @param annoDef
      *            a <code>non-null</code> {@link AnnotationDefinition}. Although
      *            the {@link AnnotationType} of the annoDef may be null, this
@@ -120,10 +122,10 @@ public abstract class ValidationUtilities {
 
     /**
      * Validate the given value against a collection of allowed values.
-     * 
+     *
      * @param allowedValues
-     * @param value
-     * @return
+     * @param value Value to test
+     * @return boolean {@code true} if {@code value} in {@code allowedValues}
      */
     private static boolean validateEnumeration(
             Collection<String> allowedValues, String value) {
@@ -132,19 +134,18 @@ public abstract class ValidationUtilities {
 
     /**
      * Validate the given value against a regular expression pattern
-     * 
-     * @param pattern
-     * @param value
-     * @return
+     *
+     * @param pattern Regular expression pattern
+     * @param value Value to test
+     * @return boolean {@code true} if {@code value} matches {@code pattern}
      * @throws PatternSyntaxException
      *             if the given pattern is invalid
      */
-    private static boolean validateRegExp(String pattern, String value)
+    protected static boolean validateRegExp(String pattern, String value)
             throws PatternSyntaxException {
         Pattern re = patternCache.get(pattern);
         if (re == null) {
-            re = Pattern.compile(pattern,
-                    Pattern.MULTILINE | Pattern.DOTALL);
+            re = compile(pattern, MULTILINE | DOTALL);
             patternCache.put(pattern, re);
         }
 

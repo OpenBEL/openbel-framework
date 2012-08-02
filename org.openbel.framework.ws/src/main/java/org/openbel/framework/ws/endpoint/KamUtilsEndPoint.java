@@ -48,13 +48,6 @@ import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_HANDLE
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_KAM_FOR_NAME;
 import static org.openbel.framework.common.Strings.KAM_REQUEST_NO_NAME;
 import static org.openbel.framework.ws.model.KAMLoadStatus.FAILED;
-import static org.openbel.framework.ws.model.ObjectFactory.createDifferenceKamsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetNewInstanceResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createIntersectKamsResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createKamHandle;
-import static org.openbel.framework.ws.model.ObjectFactory.createLoadKamResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createReleaseKamResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createUnionKamsResponse;
 import static org.openbel.framework.ws.utils.Converter.convert;
 
 import java.sql.SQLException;
@@ -80,6 +73,7 @@ import org.openbel.framework.ws.model.KamEdge;
 import org.openbel.framework.ws.model.KamHandle;
 import org.openbel.framework.ws.model.LoadKamRequest;
 import org.openbel.framework.ws.model.LoadKamResponse;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.model.ReleaseKamRequest;
 import org.openbel.framework.ws.model.ReleaseKamResponse;
 import org.openbel.framework.ws.model.UnionKamsRequest;
@@ -87,6 +81,7 @@ import org.openbel.framework.ws.model.UnionKamsResponse;
 import org.openbel.framework.ws.service.KamStoreServiceException;
 import org.openbel.framework.ws.utils.Converter;
 import org.openbel.framework.ws.utils.InvalidIdException;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -107,6 +102,8 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             "IntersectKamsRequest";
     private static final String KAM_DIFFERENCE_REQUEST =
             "DifferenceKamsRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private KamCacheService kamCacheService;
@@ -141,7 +138,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             catalog = kamCatalogDao.getCatalog();
         } catch (SQLException e) {
             String msg = getFirstMessage(e);
-            LoadKamResponse resp = createLoadKamResponse();
+            LoadKamResponse resp = OBJECT_FACTORY.createLoadKamResponse();
             resp.setLoadStatus(FAILED);
             resp.setMessage(msg);
             return resp;
@@ -157,7 +154,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         if (kamInfo == null) {
             String errorMsg = KAM_REQUEST_NO_KAM_FOR_NAME;
             String msg = format(errorMsg, kam.getName());
-            LoadKamResponse resp = createLoadKamResponse();
+            LoadKamResponse resp = OBJECT_FACTORY.createLoadKamResponse();
             resp.setLoadStatus(FAILED);
             resp.setMessage(msg);
             return resp;
@@ -167,7 +164,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         try {
             filter = convert(request.getFilter(), kamInfo);
         } catch (InvalidIdException ex) {
-            LoadKamResponse resp = createLoadKamResponse();
+            LoadKamResponse resp = OBJECT_FACTORY.createLoadKamResponse();
             resp.setLoadStatus(FAILED);
             resp.setMessage(ex.getMessage());
             return resp;
@@ -178,18 +175,18 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             rslt = kamCacheService.loadKamWithResult(kamInfo, filter);
         } catch (KamCacheServiceException e) {
             String msg = getFirstMessage(e);
-            LoadKamResponse resp = createLoadKamResponse();
+            LoadKamResponse resp = OBJECT_FACTORY.createLoadKamResponse();
             resp.setLoadStatus(FAILED);
             resp.setMessage(msg);
             return resp;
         }
 
-        LoadKamResponse resp = createLoadKamResponse();
+        LoadKamResponse resp = OBJECT_FACTORY.createLoadKamResponse();
         if (rslt.getStatus() == LOADING) {
             resp.setLoadStatus(KAMLoadStatus.IN_PROCESS);
             return resp;
         }
-        KamHandle kamHandle = createKamHandle();
+        KamHandle kamHandle = OBJECT_FACTORY.createKamHandle();
         kamHandle.setHandle(rslt.getHandle());
         resp.setHandle(kamHandle);
         resp.setLoadStatus(KAMLoadStatus.COMPLETE);
@@ -216,7 +213,7 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         kamCacheService.releaseKam(kamHandle.getHandle());
 
         // Set up the response
-        ReleaseKamResponse response = createReleaseKamResponse();
+        ReleaseKamResponse response = OBJECT_FACTORY.createReleaseKamResponse();
         return response;
     }
 
@@ -251,7 +248,8 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
         objNewKamInstance = newInstance(objKam);
 
         // Set up the response
-        GetNewInstanceResponse response = createGetNewInstanceResponse();
+        GetNewInstanceResponse response = OBJECT_FACTORY
+                .createGetNewInstanceResponse();
         response.setHandle(cacheDerivedKam(objNewKamInstance));
         return response;
     }
@@ -304,13 +302,8 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             objNewKam = union(objKam1, edges);
         }
 
-        UnionKamsResponse response = createUnionKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        UnionKamsResponse response = OBJECT_FACTORY.createUnionKamsResponse();
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
@@ -363,13 +356,9 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             objNewKam = intersection(objKam1, edges);
         }
 
-        IntersectKamsResponse response = createIntersectKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        IntersectKamsResponse response = OBJECT_FACTORY
+                .createIntersectKamsResponse();
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
@@ -420,24 +409,19 @@ public class KamUtilsEndPoint extends WebServiceEndpoint {
             objNewKam = difference(objKam1, edges);
         }
 
-        DifferenceKamsResponse response = createDifferenceKamsResponse();
-        try {
-            response.setHandle(cacheDerivedKam(objNewKam));
-        } catch (KamCacheServiceException e) {
-            final String msg = "error caching derived kam";
-            throw new RequestException(msg, e);
-        }
+        DifferenceKamsResponse response = OBJECT_FACTORY
+                .createDifferenceKamsResponse();
+        response.setHandle(cacheDerivedKam(objNewKam));
         return response;
     }
 
     private KamHandle cacheDerivedKam(
-            org.openbel.framework.api.Kam derivedKam)
-            throws KamCacheServiceException {
+            org.openbel.framework.api.Kam derivedKam) {
 
         String kamHandleString = kamCacheService.cacheKam(derivedKam
                 .getKamInfo().getName(), derivedKam);
 
-        KamHandle kamHandle = createKamHandle();
+        KamHandle kamHandle = OBJECT_FACTORY.createKamHandle();
         kamHandle.setHandle(kamHandleString);
 
         return kamHandle;

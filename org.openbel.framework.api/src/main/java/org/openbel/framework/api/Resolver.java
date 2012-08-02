@@ -39,7 +39,6 @@ import static org.openbel.framework.common.BELUtilities.nulls;
 
 import java.text.ParseException;
 
-import org.antlr.runtime.RecognitionException;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
@@ -104,8 +103,6 @@ public class Resolver {
             // If we parsed Ok we can go ahead and lookup the string in the KAMStore
             kamNode = kamStore.getKamNode(kam, lookupTerm);
 
-        } catch (RecognitionException e) {
-            throw new ParseException(e.getMessage(), e.charPositionInLine);
         } catch (KamStoreException e) {
             throw new ResolverException(e);
         }

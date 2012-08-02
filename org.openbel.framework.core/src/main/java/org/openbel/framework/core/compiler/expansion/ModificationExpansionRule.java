@@ -57,7 +57,7 @@ import org.openbel.framework.common.model.Statement.Object;
  * relationship. Protein term connects to its mutation with a HAS_VARIANT
  * relationship.
  */
-class ModificationExpansionRule extends TermExpansionRule {
+class ModificationExpansionRule extends ExpansionRule<Term> {
 
     /**
      * {@inheritDoc}

@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.antlr.runtime.RecognitionException;
 import org.openbel.framework.api.KamTestUtil.TestKamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamNode;
 import org.openbel.framework.common.bel.parser.BELParser;
@@ -17,21 +16,18 @@ import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamBuilder {
     private KamInfo kamInfo;
-    private final KamStore kamStore;
     private final Map<String, TestKamNode> knodes;
     private final Map<String, TestKamEdge> kedges;
     private final boolean usingLongForm;
-    
-    public KamBuilder(final KamInfo kamInfo, final KamStore kamStore,
-            final boolean usingLongForm) {
+
+    public KamBuilder(final KamInfo kamInfo, final boolean usingLongForm) {
         this.kamInfo = kamInfo;
-        this.kamStore = kamStore;
         this.knodes = new LinkedHashMap<String, TestKamNode>();
         this.kedges = new LinkedHashMap<String, TestKamEdge>();
         this.usingLongForm = usingLongForm;
     }
 
-    public KamBuilder addNodes(final String... nodes) throws RecognitionException {
+    public KamBuilder addNodes(final String... nodes) {
         if (hasItems(nodes)) {
             for (final String n : nodes) {
                 final Term term = BELParser.parseTerm(n);
@@ -40,11 +36,11 @@ public class KamBuilder {
                         .getFunctionEnum(), bel));
             }
         }
-        
+
         return this;
     }
-   
-    public KamBuilder addEdges(final Edge... edges) throws RecognitionException {
+
+    public KamBuilder addEdges(final Edge... edges) {
         if (hasItems(edges)) {
             for (final Edge e : edges) {
                 final TestKamNode subjectNode = knodes.get(e.subject);
@@ -55,16 +51,16 @@ public class KamBuilder {
                 if (objectNode == null) {
                     throw new IllegalStateException("Object node does not exist, error on: " + e);
                 }
-                
+
                 String bel = e.subject + " " + e.rel + " " + e.object;
                 kedges.put(bel, new TestKamEdge(kedges.size(), subjectNode,
                         e.rel, objectNode));
             }
         }
-        
+
         return this;
     }
-    
+
     public Kam create() {
         Collection<TestKamNode> nodes = knodes.values();
         Collection<TestKamEdge> edges = kedges.values();
@@ -72,27 +68,27 @@ public class KamBuilder {
                 nodes.toArray(new TestKamNode[nodes.size()]),
                 edges.toArray(new TestKamEdge[edges.size()]));
     }
-    
+
     public KamBuilder clear() {
         knodes.clear();
         kedges.clear();
-        
+
         return this;
     }
 
     public static Edge edge(final String subject, final RelationshipType rel, final String object) {
         return new Edge(subject, rel, object);
     }
-    
+
     private String getBEL(final BELObject o) {
         return usingLongForm ? o.toBELLongForm() : o.toBELShortForm();
     }
-    
+
     public static final class Edge {
         private final String subject;
         private final RelationshipType rel;
         private final String object;
-        
+
         public Edge(String subject, RelationshipType rel, String object) {
             this.subject = subject;
             this.rel = rel;

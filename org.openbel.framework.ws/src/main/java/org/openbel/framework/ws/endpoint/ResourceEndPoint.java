@@ -37,10 +37,6 @@ package org.openbel.framework.ws.endpoint;
 
 import static java.lang.String.format;
 import static org.openbel.framework.common.BELUtilities.noLength;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindEquivalencesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindNamespaceEquivalenceResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createFindNamespaceValuesResponse;
-import static org.openbel.framework.ws.model.ObjectFactory.createGetAllNamespacesResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +63,10 @@ import org.openbel.framework.ws.model.GetAllNamespacesResponse;
 import org.openbel.framework.ws.model.Namespace;
 import org.openbel.framework.ws.model.NamespaceDescriptor;
 import org.openbel.framework.ws.model.NamespaceValue;
+import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.service.EquivalencerService;
 import org.openbel.framework.ws.service.NamespaceResourceService;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -92,6 +90,8 @@ public class ResourceEndPoint extends WebServiceEndpoint {
             "FindNamespaceValuesRequest";
     private static final String GET_ALL_NAMESPACES_REQUEST =
             "GetAllNamespacesRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     @Autowired(required = true)
     private EquivalencerService equivalencerService;
@@ -131,7 +131,7 @@ public class ResourceEndPoint extends WebServiceEndpoint {
             final NamespaceValue equivalentNsValue = equivalencerService
                     .findNamespaceEquivalence(sourceNsValue, targetNamespace);
             FindNamespaceEquivalenceResponse response =
-                    createFindNamespaceEquivalenceResponse();
+                    OBJECT_FACTORY.createFindNamespaceEquivalenceResponse();
             response.setNamespaceValue(equivalentNsValue);
             return response;
         } catch (EquivalencerException e) {
@@ -160,7 +160,7 @@ public class ResourceEndPoint extends WebServiceEndpoint {
             final List<NamespaceValue> equivalences = equivalencerService
                     .findEquivalences(sourceNsValue);
             FindEquivalencesResponse response =
-                    createFindEquivalencesResponse();
+                    OBJECT_FACTORY.createFindEquivalencesResponse();
             response.getNamespaceValues().addAll(equivalences);
             return response;
         } catch (EquivalencerException e) {
@@ -206,7 +206,7 @@ public class ResourceEndPoint extends WebServiceEndpoint {
         }
 
         FindNamespaceValuesResponse response =
-                createFindNamespaceValuesResponse();
+                OBJECT_FACTORY.createFindNamespaceValuesResponse();
         for (Namespace ns : namespaces) {
             ns = verifyNamespace(ns);
             try {
@@ -248,9 +248,9 @@ public class ResourceEndPoint extends WebServiceEndpoint {
     public
             GetAllNamespacesResponse
             getAllNamespaces(
-                    @SuppressWarnings("unused") @RequestPayload GetAllNamespacesRequest request)
-                    throws RequestException {
-        GetAllNamespacesResponse response = createGetAllNamespacesResponse();
+                    @SuppressWarnings("unused") @RequestPayload GetAllNamespacesRequest request) {
+        GetAllNamespacesResponse response = OBJECT_FACTORY
+                .createGetAllNamespacesResponse();
         for (NamespaceDescriptor nd : namespaceResourceService
                 .getAllNamespaceDescriptors()) {
             response.getNamespaceDescriptors().add(nd);

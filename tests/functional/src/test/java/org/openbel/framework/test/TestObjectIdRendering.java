@@ -1,10 +1,10 @@
 package org.openbel.framework.test;
 
-import static org.openbel.framework.ws.client.ObjectFactory.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.Random;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.openbel.framework.ws.client.*;
+import org.openbel.framework.ws.model.*;
 
 public class TestObjectIdRendering {
+    private static final ObjectFactory factory = new ObjectFactory();
 
     private static final String SMALL_CORPUS_KAM_NAME = "small_corpus";
     private static final long POLL_INTERVAL_MILLISECONDS = 500;
@@ -54,7 +54,7 @@ public class TestObjectIdRendering {
 
         checkId(prefixes, Kam.class, kam.getId());
 
-        LoadKamRequest loadKamRequest = createLoadKamRequest();
+        LoadKamRequest loadKamRequest = factory.createLoadKamRequest();
         loadKamRequest.setKam(kam);
         LoadKamResponse loadKamResponse = api.loadKam(loadKamRequest);
         assertThat(loadKamResponse, is(not(nullValue())));
@@ -83,7 +83,7 @@ public class TestObjectIdRendering {
 
         try {
             // Test GetKam
-            GetKamRequest getKamRequest = createGetKamRequest();
+            GetKamRequest getKamRequest = factory.createGetKamRequest();
             getKamRequest.setHandle(kamHandle);
             GetKamResponse getKamResponse = api.getKam(getKamRequest);
             assertThat(getKamResponse, is(not(nullValue())));
@@ -92,7 +92,7 @@ public class TestObjectIdRendering {
             checkId(prefixes, Kam.class, k.getId());
 
             // Test GetBelDocuments
-            GetBelDocumentsRequest getBelDocumentsRequest = createGetBelDocumentsRequest();
+            GetBelDocumentsRequest getBelDocumentsRequest = factory.createGetBelDocumentsRequest();
             getBelDocumentsRequest.setHandle(kamHandle);
             GetBelDocumentsResponse getBelDocumentsResponse = api.getBelDocuments(getBelDocumentsRequest);
             assertThat(getBelDocumentsResponse, is(not(nullValue())));
@@ -104,7 +104,7 @@ public class TestObjectIdRendering {
             }
 
             // Test GetAnnotationTypes
-            GetAnnotationTypesRequest getAnnotationTypesRequest = createGetAnnotationTypesRequest();
+            GetAnnotationTypesRequest getAnnotationTypesRequest = factory.createGetAnnotationTypesRequest();
             getAnnotationTypesRequest.setHandle(kamHandle);
             GetAnnotationTypesResponse getAnnotationTypesResponse =
                     api.getAnnotationTypes(getAnnotationTypesRequest);
@@ -117,7 +117,7 @@ public class TestObjectIdRendering {
             }
 
             // Test GetNamespaces
-            GetNamespacesRequest getNamespacesRequest = createGetNamespacesRequest();
+            GetNamespacesRequest getNamespacesRequest = factory.createGetNamespacesRequest();
             getNamespacesRequest.setHandle(kamHandle);
             GetNamespacesResponse getNamespacesResponse = api.getNamespaces(getNamespacesRequest);
             assertThat(getNamespacesResponse, is(not(nullValue())));
@@ -130,7 +130,7 @@ public class TestObjectIdRendering {
 
             // Test FindNodesByPatterns
             FindKamNodesByPatternsRequest findKamNodesByPatternsRequest =
-                    createFindKamNodesByPatternsRequest();
+                    factory.createFindKamNodesByPatternsRequest();
             findKamNodesByPatternsRequest.setHandle(kamHandle);
             findKamNodesByPatternsRequest.getPatterns().add(".*");
             FindKamNodesByPatternsResponse findKamNodesByPatternsResponse =
@@ -147,7 +147,7 @@ public class TestObjectIdRendering {
 
             // Test FindKamNodesByIds, FindKamNodesByLabels
             FindKamNodesByIdsRequest findKamNodesByIdsRequest =
-                    createFindKamNodesByIdsRequest();
+                    factory.createFindKamNodesByIdsRequest();
             findKamNodesByIdsRequest.setHandle(kamHandle);
             findKamNodesByIdsRequest.getIds().add(kamNode0.getId());
             FindKamNodesByIdsResponse findKamNodesByIdsResponse =
@@ -161,7 +161,7 @@ public class TestObjectIdRendering {
             }
 
             FindKamNodesByLabelsRequest findKamNodesByLabelsRequest =
-                    createFindKamNodesByLabelsRequest();
+                    factory.createFindKamNodesByLabelsRequest();
             findKamNodesByLabelsRequest.setHandle(kamHandle);
             findKamNodesByLabelsRequest.getLabels().add(kamNode0.getLabel());
             FindKamNodesByLabelsResponse findKamNodesByLabelsResponse =
@@ -176,7 +176,7 @@ public class TestObjectIdRendering {
 
 
             // Test GetAdjacentNodes and GetAdjacentEdges
-            GetAdjacentKamNodesRequest getAdjacentKamNodesRequest = createGetAdjacentKamNodesRequest();
+            GetAdjacentKamNodesRequest getAdjacentKamNodesRequest = factory.createGetAdjacentKamNodesRequest();
             getAdjacentKamNodesRequest.setKamNode(kamNode0);
             GetAdjacentKamNodesResponse getAdjacentKamNodesResponse =
                     api.getAdjacentKamNodes(getAdjacentKamNodesRequest);
@@ -188,7 +188,7 @@ public class TestObjectIdRendering {
                 checkId(prefixes, KamNode.class, adjacentKamNode.getId());
             }
 
-            GetAdjacentKamEdgesRequest getAdjacentKamEdgesRequest = createGetAdjacentKamEdgesRequest();
+            GetAdjacentKamEdgesRequest getAdjacentKamEdgesRequest = factory.createGetAdjacentKamEdgesRequest();
             getAdjacentKamEdgesRequest.setKamNode(kamNode0);
             GetAdjacentKamEdgesResponse getAdjacentKamEdgesResponse =
                     api.getAdjacentKamEdges(getAdjacentKamEdgesRequest);
@@ -203,7 +203,7 @@ public class TestObjectIdRendering {
 
             // Test GetSupportingTerms
             GetSupportingTermsRequest getSupportingTermsRequest =
-                    createGetSupportingTermsRequest();
+                    factory.createGetSupportingTermsRequest();
             getSupportingTermsRequest.setKamNode(kamNode0);
             GetSupportingTermsResponse getSupportingTermsResponse =
                     api.getSupportingTerms(getSupportingTermsRequest);
@@ -218,7 +218,7 @@ public class TestObjectIdRendering {
 
             // Test FindPaths, Interconnect, and Scan
             final KamNode kamNode1 = oneOf(adjacentKamNodes);
-            FindPathsRequest findPathsRequest = createFindPathsRequest();
+            FindPathsRequest findPathsRequest = factory.createFindPathsRequest();
             findPathsRequest.getSources().add(kamNode0);
             findPathsRequest.getTargets().add(kamNode1);
             FindPathsResponse findPathsResponse = api.findPaths(findPathsRequest);
@@ -230,7 +230,7 @@ public class TestObjectIdRendering {
                 checkPathIds(prefixes, path);
             }
 
-            InterconnectRequest interconnectRequest = createInterconnectRequest();
+            InterconnectRequest interconnectRequest = factory.createInterconnectRequest();
             interconnectRequest.getSources().add(kamNode0);
             interconnectRequest.getSources().add(kamNode1);
             InterconnectResponse interconnectResponse = api.interconnect(interconnectRequest);
@@ -242,7 +242,7 @@ public class TestObjectIdRendering {
                 checkPathIds(prefixes, path);
             }
 
-            ScanRequest scanRequest = createScanRequest();
+            ScanRequest scanRequest = factory.createScanRequest();
             scanRequest.getSources().add(kamNode0);
             scanRequest.getSources().add(kamNode1);
             ScanResponse scanResponse = api.scan(scanRequest);
@@ -256,10 +256,10 @@ public class TestObjectIdRendering {
 
 
             // Test FindEdges
-            FindKamEdgesRequest findKamEdgesRequest = createFindKamEdgesRequest();
+            FindKamEdgesRequest findKamEdgesRequest = factory.createFindKamEdgesRequest();
             findKamEdgesRequest.setHandle(kamHandle);
-            EdgeFilter edgeFilter = createEdgeFilter();
-            RelationshipTypeFilterCriteria criterion = createRelationshipTypeFilterCriteria();
+            EdgeFilter edgeFilter = factory.createEdgeFilter();
+            RelationshipTypeFilterCriteria criterion = factory.createRelationshipTypeFilterCriteria();
             criterion.setIsInclude(false);
             edgeFilter.getRelationshipCriteria().add(criterion);
             findKamEdgesRequest.setFilter(edgeFilter);
@@ -276,7 +276,7 @@ public class TestObjectIdRendering {
 
             // Test GetSupportingEvidence
             GetSupportingEvidenceRequest getSupportingEvidenceRequest =
-                    createGetSupportingEvidenceRequest();
+                    factory.createGetSupportingEvidenceRequest();
             getSupportingEvidenceRequest.setKamEdge(kamEdge0);
             GetSupportingEvidenceResponse getSupportingEvidenceResponse =
                     api.getSupportingEvidence(getSupportingEvidenceRequest);
@@ -289,7 +289,7 @@ public class TestObjectIdRendering {
             }
 
         } finally {
-            ReleaseKamRequest releaseKamRequest = createReleaseKamRequest();
+            ReleaseKamRequest releaseKamRequest = factory.createReleaseKamRequest();
             releaseKamRequest.setKam(kamHandle);
             ReleaseKamResponse releaseKamResponse = api.releaseKam(releaseKamRequest);
             assertThat(releaseKamResponse, is(not(nullValue())));

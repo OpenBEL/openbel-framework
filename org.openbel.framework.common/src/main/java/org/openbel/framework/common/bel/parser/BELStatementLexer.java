@@ -152,7 +152,6 @@ public class BELStatementLexer extends Lexer {
     // delegators
 
     public BELStatementLexer() {
-        ;
     }
 
     public BELStatementLexer(CharStream input) {

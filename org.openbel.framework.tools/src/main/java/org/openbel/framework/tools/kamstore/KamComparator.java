@@ -93,7 +93,7 @@ public class KamComparator extends CommandLineApplication {
 
     private enum Mode {
         LIST, HELP, COMPARE
-    };
+    }
 
     private Mode mode;
     private String kam1Name, kam2Name;
@@ -335,6 +335,9 @@ public class KamComparator extends CommandLineApplication {
 
             final List<String> kamArgs = getExtraneousArguments();
             if (kamArgs == null || kamArgs.size() != 2) {
+            	// print out the usage if less then 2 arguments are given
+            	printUsage();
+            	getReportable().error("\n");
                 getReportable().error(
                         "You must specify two KAM names to compare.");
                 end();

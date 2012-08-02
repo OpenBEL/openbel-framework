@@ -3,6 +3,12 @@ target
 docs/sphinx/_build
 
 # eclipse ignores
-*/.classpath
-*/.project
-*/.settings
+.metadata
+*.classpath
+*.project
+*.settings
+*derby.log
+Servers
+
+#vim swap files
+*.swp

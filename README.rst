@@ -1,25 +1,22 @@
 OpenBEL Framework
 =================
 
-The OpenBEL Framework is an open-platform technology specifically designed to
+The OpenBEL Framework is an open-platform technology for managing, publishing, and using biological knowledge represented using the Biological Expression Language (BEL). BEL is an easy to understand, computable format for representing biological knowledge. The OpenBEL Framework is specifically designed to
 overcome many of the challenges associated with capturing, integrating, and
-storing knowledge within an organization, and sharing the knowledge across the
+storing biological knowledge within an organization, and sharing the knowledge across the
 organization and between business partners. The framework provides mechanisms
 for: 
 
- #. Knowledge capture and management
- #. Integration of knowledge from multiple disparate knowledge streams
- #. Knowledge representation and standardization in an open use-neutral format
- #. Creating customizable and computable biological networks from captured
+ #. Capture and management of biological knowledge
+ #. Integration of knowledge from multiple sources
+ #. Knowledge representation in a standard and open format
+ #. Creation of custom, computable biological networks from captured
     knowledge
- #. Quickly enabling knowledge-aware applications using standardized APIs
-    across all major platforms
+ #. Enabling applications to query knowledge networks using web and Java APIs
 
 Central to the design of the framework is the ability to integrate knowledge
-across different representational vocabularies and ontologies. This is unique
-within the industry and for the first time allows organizations to combine
-knowledge from disparate sources such as existing applications, internal
-sources, and knowledge acquired from business partners, into centralized
+across different representational vocabularies and ontologies. This allows organizations to combine
+knowledge from disparate sources into centralized
 knowledge repositories. The combined knowledge can be made available to a
 variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
@@ -31,6 +28,28 @@ The OpenBEL Ecosystem
 
 Various smaller projects are connected with the framework. Each project is
 intended on serving a particular purpose.
+
+`OpenBEL Discussion Group`_
+  This group is used to discuss OpenBEL technologies, the BEL language, and
+  anything relevant to the OpenBEL ecosystem as a whole.
+
+  You can subscribe to these announcements by visiting the link, or by sending
+  an email to ``openbel-discuss+subscribe@googlegroups.com`` with the subject
+  ``subscribe``.
+
+`OpenBEL Announcement Group`_
+  This group is used to issue announcements related to OpenBEL.
+
+  You can subscribe to these announcements by visting the link, or by sending an
+  email to ``openbel-announce+subscribe@googlegroups.com`` with the subject
+  ``subscribe``.
+
+`freenode IRC network`_
+  We maintain the ``#openbel`` channel on the freenode network.
+
+  To connect to freenode, you can use ``chat.freenode.net`` as an IRC server.
+  On Linux and Windows, you can use `XChat`_ as an IRC client. On Mac OS X,
+  there is `Xirc`_.
 
 `openbel-framework-resources`_
   The framework's resources provide a set of files derived from biological and
@@ -50,18 +69,23 @@ intended on serving a particular purpose.
   The OpenBEL Eclipse p2 repository. It currently holds the stable and unstable
   repositories of the OpenBEL Workbench.
 
-`OpenBEL Workbench`_
-  The OpenBEL Workbench enables the BEL language and the framework to be used
-  in `Eclipse`_ - from the syntax and semantics of the BEL language to the
+`BEL Editor`_
+  The BEL Editor enables the BEL language and the framework to be used in
+  `Eclipse`_ - from the syntax and semantics of the BEL language to the
   compilation of BEL knowledge into knowledge assembly models.
 
+.. _OpenBEL Discussion Group: https://groups.google.com/forum/#!forum/openbel-discuss
+.. _OpenBEL Announcement Group: https://groups.google.com/forum/#!forum/openbel-announce
 .. _openbel-framework-resources: https://github.com/OpenBEL/openbel-framework-resources
 .. _openbel-framework-examples: https://github.com/OpenBEL/openbel-framework-examples
-.. _Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins#readme
-.. _OpenBEL Eclipse Repository: https://github.com/belframework-org/eclipse
-.. _OpenBEL Workbench: https://github.com/belframework-org/OpenBEL-Workbench
+.. _Cytoscape Plugins: https://github.com/OpenBEL/Cytoscape-Plugins#readme
+.. _OpenBEL Eclipse Repository: https://github.com/OpenBEL/eclipse
+.. _BEL Editor: https://github.com/OpenBEL/bel-editor
 .. _Cytoscape: http://www.cytoscape.org/
 .. _Eclipse: http://eclipse.org
+.. _freenode IRC network: http://www.freenode.net/
+.. _XChat: http://xchat.org/
+.. _Xirc: http://www.aquaticx.com/
 
 Distribution
 ------------
@@ -76,7 +100,7 @@ The OpenBEL Framework is built using `Apache Maven`_.
 
     mvn -Pdistribution clean package assembly:assembly install
 
-Alternatively, you can use `package.sh` which does the same thing.
+Alternatively, you can use ``package.sh`` which does the same thing.
 
 .. _Apache Maven: http://maven.apache.org/
 
@@ -85,8 +109,8 @@ API Documentation
 
 Pushes to the `master` branch instruct our build server to update the
 `API documentation`_. It will always be up-to-date for the current
-master. The documentation is published under the `gh-pages`_ branch of this
-repository.
+master. The documentation is published under the `gh-pages`_ branch of the
+official repository.
 
 .. _API documentation: http://openbel.github.com/openbel-framework
 .. _gh-pages: https://github.com/OpenBEL/openbel-framework/tree/gh-pages
@@ -128,14 +152,12 @@ Further Reference
 -----------------
 
  * API documentation: http://openbel.github.com/openbel-framework
- * User documentation: http://readthedocs.org/projects/openbel-framework/
+ * User documentation: http://openbel-framework.readthedocs.org/en/master/
+ * Nightly builds: http://ci.selventa.com/browse/FWMASTER-NIGHTLY/latest/artifact
+ * OpenBEL build server: http://ci.selventa.com
  * GitHub: https://github.com/OpenBEL
  * BEL Portal: http://openbel.org
  * Selventa: http://www.selventa.com/
- * Cytoscape Plugins: https://github.com/belframework-org/Cytoscape-Plugins
- * Eclipse integration: https://github.com/belframework-org/OpenBEL-Workbench
- * OpenBEL Eclipse repository: https://github.com/belframework-org/eclipse
- * OpenBEL build server: http://ci.selventa.com
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
 

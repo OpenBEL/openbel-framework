@@ -50,7 +50,7 @@ import org.openbel.framework.common.cfg.RuntimeConfiguration;
  * This is a {@link #phaseThreeOptions() singleton object} that sets its
  * properties based on the presence and contents of a file.
  * </p>
- * 
+ *
  * @see org.openbel.framework.common.PathConstants BEL framework path
  * constants
  */
@@ -60,6 +60,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
     private boolean injectProteinFamilies = true;
     private boolean injectNamedComplexes = true;
     private boolean injectGeneScaffolding = true;
+    private boolean injectOrthology = true;
 
     private static final PhaseThreeOptions self;
     static {
@@ -73,7 +74,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Default private constructor.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     private PhaseThreeOptions() throws IOException {
@@ -82,7 +83,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns the phase three compiler options.
-     * 
+     *
      * @return PhaseThreeOptions
      */
     public static PhaseThreeOptions phaseThreeOptions() {
@@ -91,7 +92,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Prints the default configuration for phase three.
-     * 
+     *
      * @param args Ignored command-line arguments
      */
     public static void main(String... args) {
@@ -101,7 +102,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns whether named complexes should be expanded.
-     * 
+     *
      * @return boolean
      */
     public boolean getExpandNamedComplexes() {
@@ -110,7 +111,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Sets whether named complexes should be expanded.
-     * 
+     *
      * @param b boolean
      */
     public void setExpandNamedComplexes(final boolean b) {
@@ -119,7 +120,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns whether protein families should be expanded.
-     * 
+     *
      * @return boolean
      */
     public boolean getExpandProteinFamilies() {
@@ -128,7 +129,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Sets whether protein families should be expanded.
-     * 
+     *
      * @param b boolean
      */
     public void setExpandProteinFamilies(final boolean b) {
@@ -137,7 +138,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns whether protein families should be injected.
-     * 
+     *
      * @return boolean
      */
     public boolean getInjectProteinFamilies() {
@@ -146,7 +147,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Sets whether protein families should be injected.
-     * 
+     *
      * @param b boolean
      */
     public void setInjectProteinFamilies(final boolean b) {
@@ -155,7 +156,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns whether named complexes should be injected.
-     * 
+     *
      * @return boolean
      */
     public boolean getInjectNamedComplexes() {
@@ -164,7 +165,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Sets whether named complexes should be injected.
-     * 
+     *
      * @param b boolean
      */
     public void setInjectNamedComplexes(final boolean b) {
@@ -173,7 +174,7 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Returns whether gene scaffolding should be injected.
-     * 
+     *
      * @return boolean
      */
     public boolean getInjectGeneScaffolding() {
@@ -182,10 +183,28 @@ public class PhaseThreeOptions extends RuntimeConfiguration {
 
     /**
      * Sets whether gene scaffolding should be injected.
-     * 
+     *
      * @param b boolean
      */
     public void setInjectGeneScaffolding(final boolean b) {
         this.injectGeneScaffolding = b;
+    }
+
+    /**
+     * Returns whether orthology knowledge should be injected.
+     *
+     * @return b boolean
+     */
+    public boolean getInjectOrthology() {
+        return injectOrthology;
+    }
+
+    /**
+     * Sets whether orthology knowledge should be injected.
+     *
+     * @param b boolean
+     */
+    public void setInjectOrthology(final boolean b) {
+        this.injectOrthology = b;
     }
 }

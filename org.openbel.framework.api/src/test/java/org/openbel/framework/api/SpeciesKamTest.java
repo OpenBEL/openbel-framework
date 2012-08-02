@@ -62,7 +62,9 @@ import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.SystemConfigurationFile;
 import org.openbel.framework.common.cfg.SystemConfigurationBasedTest;
+import org.openbel.framework.common.lang.ComplexAbundance;
 import org.openbel.framework.common.lang.GeneAbundance;
+import org.openbel.framework.common.lang.ProteinAbundance;
 import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
@@ -79,47 +81,13 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      * Tests collapsing of orthologous {@link GeneAbundance gene abundance}
      * nodes.  Additionally the surrounding gene activation pathway and
      * activities should be inferred as orthologous and collapsed.  The kam
-     * should collapse from:
+     * should collapse to:
      * <p>
-     * 
      * <pre>
-     *     k(p(MGI:Mapk1))
-     *           ^
-     *         actsIn
-     *           |
-     *      p(MGI:Mapk1)
-     *           ^
-     *      translatedTo
-     *           |
-     *      r(EG:26413)
-     *           ^
-     *     transcribedTo
-     *           |
-     *     g(MGI:Mapk1) <--orthologous--> g(HGNC:MAPK1) <--orthologous--> g(RGD:Mapk1)
-     *                                                                          |
-     *                                                                    transcribedTo
-     *                                                                          v
-     *                                                                     r(EG:116590)
-     *                                                                          |
-     *                                                                     translatedTo
-     *                                                                          v
-     *                                                                     p(RGD:Mapk1)
-     *                                                                          |
-     *                                                                        actsIn
-     *                                                                          v
-     *                                                                   k(p(RGD:Mapk1))
+     *     proteinAbundance(HGNC:MAPK1) actsIn kinaseActivity(proteinAbundance(HGNC:MAPK1))
+     *     rnaAbundance(HGNC:MAPK1) translatedTo proteinAbundance(HGNC:MAPK1)
+     *     geneAbundance(HGNC:MAPK1) transcribedTo rnaAbundance(HGNC:MAPK1)
      * </pre>
-     * 
-     * </p>
-     * 
-     * to:
-     * <p>
-     * 
-     * <pre>
-     *     g(HGNC:MAPK1) -transcribedTo> r(EG:26413) -translatedTo> p(MGI:Mapk1) -actsIn> k(p(MGI:Mapk1))
-     * 
-     * </pre>
-     * 
      * </p>
      */
     @Test
@@ -136,9 +104,8 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         KamSpecies skam;
         try {
-            skam = new KamSpecies(kam,
-                    new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    new DefaultDialect(info, kamstore, true),
+            skam = new KamSpecies(kam, new DefaultSpeciesDialect(info,
+                    kamstore, 9606, true),
                     kamstore);
         } catch (InvalidArgument e) {
             e.printStackTrace();
@@ -174,6 +141,16 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                 is("geneAbundance(HGNC:MAPK1) transcribedTo rnaAbundance(HGNC:MAPK1)"));
     }
 
+    /**
+     * Tests collapsing of orthologous {@link ProteinAbundance protein family}
+     * nodes and associated activities.  The kam should collapse to:
+     * <p>
+     * <pre>
+     *     p(PFH:"14-3-3 Family") actsIn phos(p(PFH:"14-3-3 Family\))
+           p(PFH:"14-3-3 Family") actsIn kin(p(PFH:"14-3-3 Family"))
+     * </pre>
+     * </p>
+     */
     @Test
     public void speciesFamily() {
         kamstore = mock(KamStore.class);
@@ -190,7 +167,6 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
         try {
             skam = new KamSpecies(kam,
                     new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    new DefaultDialect(info, kamstore, true),
                     kamstore);
         } catch (InvalidArgument e) {
             e.printStackTrace();
@@ -219,6 +195,59 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                 is("proteinAbundance(PFH:\"14-3-3 Family\") actsIn phosphataseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))"));
         assertThat(it.next().toString(),
                 is("proteinAbundance(PFH:\"14-3-3 Family\") actsIn kinaseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))"));
+    }
+
+    /**
+     * Tests collapsing of orthologous {@link ComplexAbundance protein complex}
+     * nodes and associated activities.  The kam should collapse to:
+     * <p>
+     * <pre>
+     *     complex(NCH:"AP-1 Complex") actsIn kin(complex(NCH:"AP-1 Complex"))
+     * </pre>
+     * </p>
+     */
+    @Test
+    public void speciesComplex() {
+        kamstore = mock(KamStore.class);
+        final Kam kam;
+        try {
+            kam = complexKam();
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+            fail("Complex KAM was not built correctly, error: " + e.getMessage());
+            return;
+        }
+
+        KamSpecies skam;
+        try {
+            skam = new KamSpecies(kam,
+                    new DefaultSpeciesDialect(info, kamstore, 9606, true),
+                    kamstore);
+        } catch (InvalidArgument e) {
+            e.printStackTrace();
+            fail("Failed to load species-specific KAM.");
+            return;
+        } catch (KamStoreException e) {
+            e.printStackTrace();
+            fail("Failed to load species-specific KAM.");
+            return;
+        }
+
+        // assert the topology of the graph
+        assertThat(skam.getNodes().size(), is(2));
+        assertThat(skam.getEdges().size(), is(1));
+
+        // assert that ORTHOLOGOUS edges no longer exist
+        for (final KamEdge e : skam.getEdges()) {
+            if (ORTHOLOGOUS.equals(e.getRelationshipType())) {
+                fail("Orthologous edge exists in the Kam after collapsing.");
+            }
+        }
+
+        // assert deterministic collapsing
+        final Iterator<KamEdge> it = skam.getEdges().iterator();
+        assertThat(it.next().toString(),
+                is("complexAbundance(NCH:\"AP-1 Complex\") actsIn kinaseActivity(complexAbundance(NCH:\"AP-1 Complex\"))"));
     }
 
     /**
@@ -274,11 +303,11 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      *                                                                          v
      *                                                                   k(p(RGD:Mapk1))
      * </pre>
-     * 
+     *
      * @throws RecognitionException
      */
     private Kam simpleKam() throws RecognitionException {
-        final KamBuilder kb = new KamBuilder(info, kamstore, true);
+        final KamBuilder kb = new KamBuilder(info, true);
         Kam kam = kb.addNodes(
                 "kinaseActivity(proteinAbundance(MGI:Mapk1))",
                 "proteinAbundance(MGI:Mapk1)",
@@ -396,7 +425,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
     /**
      * <pre>
-     * k(p(PFM:"14-3-3 Family"))                   k(p(PFM:"14-3-3 Family"))
+     * k(p(PFM:"14-3-3 Family"))                   k(p(PFH:"14-3-3 Family"))
      *           ^                                             ^
      *           |                                             |
      *           |                                             |
@@ -423,7 +452,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      * @throws RecognitionException
      */
     private Kam familyKam() throws RecognitionException {
-        final KamBuilder kb = new KamBuilder(info, kamstore, true);
+        final KamBuilder kb = new KamBuilder(info, true);
         Kam kam = kb.addNodes(
                 "phosphataseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))",
                 "kinaseActivity(proteinAbundance(PFH:\"14-3-3 Family\"))",
@@ -518,6 +547,129 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                     Arrays.asList(belTerm));
             when(kamstore.getTermParameters(info, belTerm)).thenReturn(
                     Arrays.asList(pfr1433));
+        } catch (KamStoreException e) {
+            e.printStackTrace();
+            fail("Failed retrieving mocked supporting terms.");
+        }
+
+        return kam;
+    }
+
+    /**
+     * <pre>
+     * kin(complex(NCM:"AP-1 Family"))                   kin(complex(NCH:"AP-1 Family"))
+     *           ^                                             ^
+     *           |                                             |
+     *           |                                             |
+     *         actsIn                                        actsIn
+     *           |                                             |
+     *           |                                             |
+     *     complex(NCM:"AP-1 Family") <--orthologous--> complex(NCH:"AP-1 Family")
+     *                ^                                      ^
+     *                 \                                    /
+     *                  \                                  /
+     *                 orthologous                 orthologous
+     *                          \                    /
+     *                           \                  /
+     *                            v                v
+     *                            complex(NCR:"AP-1 Family")
+     *                                      |
+     *                                      |
+     *                                    actsIn
+     *                                      |
+     *                                      |
+     *                                      v
+     *                          kin(complex(NCH:"AP-1 Family"))
+     * </pre>
+     * @throws RecognitionException
+     */
+    private Kam complexKam() throws RecognitionException {
+        final KamBuilder kb = new KamBuilder(info, true);
+        Kam kam = kb.addNodes(
+                "kinaseActivity(complexAbundance(NCH:\"AP-1 Complex\"))",
+                "complexAbundance(NCH:\"AP-1 Complex\")",
+                "kinaseActivity(complexAbundance(NCM:\"AP-1 Complex\"))",
+                "complexAbundance(NCM:\"AP-1 Complex\")",
+                "kinaseActivity(complexAbundance(NCR:\"AP-1 Complex\"))",
+                "complexAbundance(NCR:\"AP-1 Complex\")").
+           addEdges(
+                   edge("complexAbundance(NCH:\"AP-1 Complex\")", ACTS_IN, "kinaseActivity(complexAbundance(NCH:\"AP-1 Complex\"))"),
+                   edge("complexAbundance(NCM:\"AP-1 Complex\")", ACTS_IN, "kinaseActivity(complexAbundance(NCM:\"AP-1 Complex\"))"),
+                   edge("complexAbundance(NCR:\"AP-1 Complex\")", ACTS_IN, "kinaseActivity(complexAbundance(NCR:\"AP-1 Complex\"))"),
+                   edge("complexAbundance(NCH:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCM:\"AP-1 Complex\")"),
+                   edge("complexAbundance(NCM:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCH:\"AP-1 Complex\")"),
+                   edge("complexAbundance(NCM:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCR:\"AP-1 Complex\")"),
+                   edge("complexAbundance(NCR:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCM:\"AP-1 Complex\")"),
+                   edge("complexAbundance(NCR:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCH:\"AP-1 Complex\")"),
+                   edge("complexAbundance(NCH:\"AP-1 Complex\")", ORTHOLOGOUS, "complexAbundance(NCR:\"AP-1 Complex\")")).create();
+
+        try {
+            final Namespace nch = createNamespace(
+                    0,
+                    "NCH",
+                    "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-human-complexes.belns");
+            final Namespace ncm = createNamespace(
+                    1,
+                    "NCM",
+                    "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-mouse-complexes.belns");
+            final Namespace ncr = createNamespace(
+                    2,
+                    "NCR",
+                    "http://resource.belframework.org/belframework/1.0/namespace/selventa-named-rat-complexes.belns");
+
+            when(kamstore.getNamespaces(info)).thenReturn(
+                    Arrays.asList(nch, ncm, ncr));
+
+            final TermParameter nchAP1 = createTermParameter(0, nch,
+                    "AP-1 Complex");
+            final TermParameter ncmAP1 = createTermParameter(1, ncm,
+                    "AP-1 Complex");
+            final TermParameter ncrAP1 = createTermParameter(2, ncr,
+                    "AP-1 Complex");
+
+            final Collection<KamNode> kn = kam.getNodes();
+            final KamNode[] nodes = kn.toArray(new KamNode[kn.size()]);
+            BelTerm belTerm = createBelTerm(0,
+                    "kinaseActivity(complexAbundance(NCH:\"AP-1 Complex\"))");
+            when(kamstore.getSupportingTerms(nodes[0])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(nchAP1));
+
+            belTerm = createBelTerm(1,
+                    "complexAbundance(NCH:\"AP-1 Complex\")");
+            when(kamstore.getSupportingTerms(nodes[1])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(nchAP1));
+
+            belTerm = createBelTerm(2,
+                    "kinaseActivity(complexAbundance(NCM:\"AP-1 Complex\"))");
+            when(kamstore.getSupportingTerms(nodes[2])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(ncmAP1));
+
+            belTerm = createBelTerm(3,
+                    "complexAbundance(NCM:\"AP-1 Complex\")");
+            when(kamstore.getSupportingTerms(nodes[3])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(ncmAP1));
+
+            belTerm = createBelTerm(4,
+                    "kinaseActivity(complexAbundance(NCR:\"AP-1 Complex\"))");
+            when(kamstore.getSupportingTerms(nodes[4])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(ncrAP1));
+
+            belTerm = createBelTerm(5,
+                    "complexAbundance(NCR:\"AP-1 Complex\")");
+            when(kamstore.getSupportingTerms(nodes[5])).thenReturn(
+                    Arrays.asList(belTerm));
+            when(kamstore.getTermParameters(info, belTerm)).thenReturn(
+                    Arrays.asList(ncrAP1));
         } catch (KamStoreException e) {
             e.printStackTrace();
             fail("Failed retrieving mocked supporting terms.");

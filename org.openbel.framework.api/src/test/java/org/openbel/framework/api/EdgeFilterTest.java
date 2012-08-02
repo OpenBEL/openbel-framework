@@ -47,7 +47,6 @@ import static org.openbel.framework.common.enums.RelationshipType.DECREASES;
 import static org.openbel.framework.common.enums.RelationshipType.HAS_COMPONENT;
 import static org.openbel.framework.common.enums.RelationshipType.INCREASES;
 
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -210,17 +209,11 @@ public class EdgeFilterTest {
 
     @BeforeClass
     public static void setup() {
-        try {
-            testKAM = createTestKAM();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-        }
-
+        testKAM = createTestKAM();
         assertNotNull(testKAM);
     }
 
-    private static Kam createTestKAM() throws SQLException {
+    private static Kam createTestKAM() {
         KamInfo testKAMInfo = null;
         try {
             testKAMInfo = KamInfoUtil.createKamInfo();

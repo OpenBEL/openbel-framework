@@ -262,7 +262,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Returns the annotation definition's URL.
      * 
-     * @return URL {@link String string}
+     * @return URL {@link String string}, which may be null
      */
     public String getURL() {
         return url;

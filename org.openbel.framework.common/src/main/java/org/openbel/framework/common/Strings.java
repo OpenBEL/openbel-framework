@@ -71,6 +71,12 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String ALL_DOCUMENTS_PASSED_VALIDATION =
+            "All documents passed validation";
+
+    /**
+     * {@value}
+     */
     public static final String ANNOTATION_WARNING =
             "%s is not found in annotation type %s";
 
@@ -614,7 +620,10 @@ public class Strings {
      * {@value}
      */
     public static final String NO_GENE_SCAFFOLDING_HELP =
-            "Modifies Phase III to omit expanding the composite network to include gene activation pathways for gene products identified in BEL Document input to the compiler.\nThe default is to expand gene activation pathways for identified gene products.";
+            "Modifies Phase III to omit expanding the composite network to " +
+            "include gene activation pathways for gene products identified " +
+            "in BEL Document input to the compiler.\nThe default is to " +
+            "expand gene activation pathways for identified gene products.";
 
     /**
      * {@value}
@@ -626,7 +635,10 @@ public class Strings {
      * {@value}
      */
     public static final String NO_NAMED_COMPLEXES_HELP =
-            "Modifies Phase III to omit coupling named complexes to its components in the composite network.\nThe default is to automatically create edges from named complexes, in a BEL Document, to their components.";
+            "Modifies Phase III to omit coupling named complexes to its " +
+            "components in the composite network.\nThe default is to " +
+            "automatically create edges from named complexes, in a BEL " +
+            "Document, to their components.";
 
     /**
      * {@value}
@@ -636,22 +648,35 @@ public class Strings {
     /**
      * {@value}
      */
+    public static final String NO_ORTHOLOGY_HELP =
+            "Modifies Phase III to omit coupling orthologous family members " +
+            "to existing nodes in the composite network. The default is to " +
+            "add orthologous edges to the network.";
+
+    /**
+     * {@value}
+     */
     public static final String NO_PHASE_THREE =
-            "Executes Phase III in pass-through mode. This is the same as specifying --no-gene-scaffolding, --no-named-complexes, and --no-protein-families.";
+            "Executes Phase III in pass-through mode. This is the same as " +
+            "specifying --no-gene-scaffolding, --no-named-complexes, " +
+            "--no-protein-families, and --no-orthology.";
 
     /**
      * {@value}
      */
     public static final String NO_PRESERVE_HELP =
-            "If present, if a KAM with the same name exists it will be overwritten.\n"
-                    +
-                    "The default is to preserve the KAM and exit with an error if the existing KAM will be overwritten.";
+            "If present, if a KAM with the same name exists it will be " +
+            "overwritten.\nThe default is to preserve the KAM and exit with " +
+            "an error if the existing KAM will be overwritten.";
 
     /**
      * {@value}
      */
     public static final String NO_PROTEIN_FAMILIES_HELP =
-            "Modifies Phase III to omit coupling protein family members to existing nodes in the composite network.\nThe default is to automatically create edges from protein family nodes to their members.";
+            "Modifies Phase III to omit coupling protein family members to " +
+            "existing nodes in the composite network.\nThe default is to " +
+            "automatically create edges from protein family nodes to their " +
+            "members.";
 
     /**
      * {@value}
@@ -692,6 +717,11 @@ public class Strings {
      * {@value}
      */
     public static final String OOM = "Out of memory";
+
+    /**
+     * {@value}
+     */
+    public static final String ORTHO_INJECTION_DISABLED = "Orthology scaffolding disabled";
 
     /**
      * {@value}
@@ -912,28 +942,23 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE4_HDR =
+    public final static String PHASE3_STAGE4_HDR = "Incorporating orthology information";
+
+    /**
+     * {@value}
+     */
+    public final static String PHASE3_STAGE5_HDR =
             "Equivalencing merged network";
 
     /**
      * {@value}
      */
-    public final static String PHASE3_STAGE5_HDR = "Saving augmented network";
-
-   /**                                                                                                                                                                                                                                                                   
-     * {@value}
-     */
-    public final static String PHASE4_STAGE1_HDR = "Incorporating orthology information";
+    public final static String PHASE3_STAGE6_HDR = "Saving augmented network";
 
     /**
      * {@value}
      */
-    public final static String PHASE4_STAGE2_HDR = "Equivalencing merged network";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE4_STAGE3_HDR = "Saving orthologized network";
+    public final static String PHASE3_NO_ORTHOLOGY_LONG_OPTION = "no-orthology";
 
     /**
      * {@value}
@@ -943,27 +968,18 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String PHASE4_NAME = "Phase IV: Enhance network with orthologous relationships";
+    public final static String PHASE4_NAME = PHASE4_SHORT_NAME
+            + ": Exporting final network to the KAM Store";
 
     /**
      * {@value}
      */
-    public final static String PHASE4_DESCRIPTION = "Adds orthology relationships between terms.";
+    public final static String PHASE4_DESCRIPTION = "Exports a completed network to the KAM Store.";
 
     /**
      * {@value}
      */
-    public final static String PHASE4_NO_ORTHOLOGY_LONG_OPTION = "no-orthology";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE4_NO_ORTHOLOGY_HELP = "Executes Phase IV in pass-through mode.  Orthology information will not be added.";
-
-    /**
-     * {@value}
-     */
-    public final static String PHASE5_STAGE1_HDR = "Building final KAM";
+    public final static String PHASE4_STAGE1_HDR = "Building final KAM";
 
     /**
      * {@value}

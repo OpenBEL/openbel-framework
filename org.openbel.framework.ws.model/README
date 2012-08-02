@@ -1,0 +1,4 @@
+Process for generating classes.
+
+Update the .xsd file, generate model files build_model_from_xsd.sh, then
+start webservices and generate client files using build_client_services.sh.

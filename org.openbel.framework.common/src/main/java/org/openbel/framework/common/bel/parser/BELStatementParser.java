@@ -229,13 +229,12 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "statement"
     // BELStatement.g:28:1: statement returns [Statement r] : st= outer_term (rel= relationship ( ( OPEN_PAREN nst=
     // outer_term nrel= relationship not= outer_term CLOSE_PAREN ) | ot= outer_term ) )? ;
-    public final BELStatementParser.statement_return statement()
-            throws RecognitionException {
+    public final BELStatementParser.statement_return statement() {
         BELStatementParser.statement_return retval =
                 new BELStatementParser.statement_return();
         retval.start = input.LT(1);
@@ -419,13 +418,12 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "outer_term"
     // BELStatement.g:62:1: outer_term returns [Term r] : f= function OPEN_PAREN ( ( ',' )? arg= argument )* CLOSE_PAREN
     // ;
-    public final BELStatementParser.outer_term_return outer_term()
-            throws RecognitionException {
+    public final BELStatementParser.outer_term_return outer_term() {
         BELStatementParser.outer_term_return retval =
                 new BELStatementParser.outer_term_return();
         retval.start = input.LT(1);
@@ -550,12 +548,11 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "argument"
     // BELStatement.g:73:1: argument returns [BELObject r] : (fp= param | ff= term );
-    public final BELStatementParser.argument_return argument()
-            throws RecognitionException {
+    public final BELStatementParser.argument_return argument() {
         BELStatementParser.argument_return retval =
                 new BELStatementParser.argument_return();
         retval.start = input.LT(1);
@@ -639,13 +636,12 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "term"
     // BELStatement.g:78:1: term returns [Term r] : pfv= function OPEN_PAREN ( ( ',' )? (it= term | pp= param ) )*
     // CLOSE_PAREN ;
-    public final BELStatementParser.term_return term()
-            throws RecognitionException {
+    public final BELStatementParser.term_return term() {
         BELStatementParser.term_return retval =
                 new BELStatementParser.term_return();
         retval.start = input.LT(1);
@@ -809,12 +805,11 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "param"
     // BELStatement.g:95:1: param returns [Parameter r] : (nsp= NS_PREFIX )? ( NS_VALUE | QUOTED_VALUE ) ;
-    public final BELStatementParser.param_return param()
-            throws RecognitionException {
+    public final BELStatementParser.param_return param() {
         BELStatementParser.param_return retval =
                 new BELStatementParser.param_return();
         retval.start = input.LT(1);
@@ -948,7 +943,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "function"
     // BELStatement.g:127:1: function returns [FunctionEnum r] : (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance'
@@ -962,8 +957,7 @@ public class BELStatementParser extends Parser {
     // fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv=
     // 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv=
     // 'reactants' | fv= 'products' | fv= 'list' ) ;
-    public final BELStatementParser.function_return function()
-            throws RecognitionException {
+    public final BELStatementParser.function_return function() {
         BELStatementParser.function_return retval =
                 new BELStatementParser.function_return();
         retval.start = input.LT(1);
@@ -1937,7 +1931,7 @@ public class BELStatementParser extends Parser {
         public Object getTree() {
             return tree;
         }
-    };
+    }
 
     // $ANTLR start "relationship"
     // BELStatement.g:191:1: relationship returns [RelationshipType r] : (rv= 'increases' | rv= '->' | rv= 'decreases' |
@@ -1946,8 +1940,7 @@ public class BELStatementParser extends Parser {
     // ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv=
     // 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers'
     // | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' ) ;
-    public final BELStatementParser.relationship_return relationship()
-            throws RecognitionException {
+    public final BELStatementParser.relationship_return relationship() {
         BELStatementParser.relationship_return retval =
                 new BELStatementParser.relationship_return();
         retval.start = input.LT(1);

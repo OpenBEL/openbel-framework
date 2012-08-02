@@ -49,7 +49,7 @@ import org.openbel.framework.common.model.Statement;
  * A -> (B -| C) implies B -| C, A -| C
  * A -| (B -> C) implies B -> C, A -| C
  */
-class DistributeStatementExpansionRule extends StatementExpansionRule {
+class DistributeStatementExpansionRule extends ExpansionRule<Statement> {
 
     /**
      * {@inheritDoc}

@@ -1,51 +1,25 @@
 package org.openbel.framework.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import static org.openbel.framework.ws.client.ObjectFactory.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.openbel.framework.ws.model.CitationType.*;
+import static org.openbel.framework.ws.model.RelationshipType.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openbel.framework.ws.client.AnnotationFilterCriteria;
-import org.openbel.framework.ws.client.AnnotationType;
-import org.openbel.framework.ws.client.BelDocument;
-import org.openbel.framework.ws.client.BelDocumentFilterCriteria;
-import org.openbel.framework.ws.client.Citation;
-import org.openbel.framework.ws.client.CitationFilterCriteria;
-import org.openbel.framework.ws.client.CitationType;
-import static org.openbel.framework.ws.client.CitationType.*;
-import org.openbel.framework.ws.client.GetAnnotationTypesRequest;
-import org.openbel.framework.ws.client.GetAnnotationTypesResponse;
-import org.openbel.framework.ws.client.GetBelDocumentsRequest;
-import org.openbel.framework.ws.client.GetBelDocumentsResponse;
-import org.openbel.framework.ws.client.GetCatalogResponse;
-import org.openbel.framework.ws.client.GetCitationsRequest;
-import org.openbel.framework.ws.client.GetCitationsResponse;
-import org.openbel.framework.ws.client.KAMLoadStatus;
-import org.openbel.framework.ws.client.Kam;
-import org.openbel.framework.ws.client.KamFilter;
-import org.openbel.framework.ws.client.KamHandle;
-import org.openbel.framework.ws.client.LoadKamRequest;
-import org.openbel.framework.ws.client.LoadKamResponse;
-import org.openbel.framework.ws.client.RelationshipType;
-import org.openbel.framework.ws.client.ReleaseKamRequest;
-import org.openbel.framework.ws.client.ReleaseKamResponse;
-
-import static org.openbel.framework.ws.client.RelationshipType.*;
-import org.openbel.framework.ws.client.RelationshipTypeFilterCriteria;
-import org.openbel.framework.ws.client.WebAPI;
-import org.openbel.framework.ws.client.WebAPIService;
+import org.openbel.framework.ws.model.*;
 
 public class TestKamUtilsEndPoint {
+    private final static ObjectFactory factory = new ObjectFactory();
 
     // This class is a JUnit test against com.seleventa.belframework.ws.endpoint.KamUtilsEndPoint
     // (which implements the LoadKam request offered by the web API).
@@ -99,7 +73,7 @@ public class TestKamUtilsEndPoint {
 
     @Test
     public void testLoadKamWithRandomFilter() {
-        final KamFilter filter = createKamFilter();
+        final KamFilter filter = factory.createKamFilter();
         filter.getAnnotationCriteria().add(getRandomAnnotationFilterCriteria());
         filter.getCitationCriteria().add(getRandomCitationFilterCriteria());
         filter.getDocumentCriteria().add(getRandomBelDocumentFilterCriteria());
@@ -112,7 +86,7 @@ public class TestKamUtilsEndPoint {
     public void testLoadKamWithRandomAnnotationFilter() {
 
         final AnnotationFilterCriteria criteria = getRandomAnnotationFilterCriteria();
-        final KamFilter filter = createKamFilter();
+        final KamFilter filter = factory.createKamFilter();
         filter.getAnnotationCriteria().add(criteria);
         final KamHandle handle = pollForKam(smallCorpus, filter);
         releaseKam(handle);
@@ -122,7 +96,7 @@ public class TestKamUtilsEndPoint {
     public void testLoadKamWithRandomCitationFilter() {
 
         final CitationFilterCriteria criteria = getRandomCitationFilterCriteria();
-        final KamFilter filter = createKamFilter();
+        final KamFilter filter = factory.createKamFilter();
         filter.getCitationCriteria().add(criteria);
         final KamHandle handle = pollForKam(smallCorpus, filter);
         releaseKam(handle);
@@ -132,7 +106,7 @@ public class TestKamUtilsEndPoint {
     public void testLoadKamWithRandomDocumentFilter() {
 
         final BelDocumentFilterCriteria criteria = getRandomBelDocumentFilterCriteria();
-        final KamFilter filter = createKamFilter();
+        final KamFilter filter = factory.createKamFilter();
         filter.getDocumentCriteria().add(criteria);
         final KamHandle handle = pollForKam(smallCorpus, filter);
         releaseKam(handle);
@@ -142,7 +116,7 @@ public class TestKamUtilsEndPoint {
     public void testLoadKamWithRandomRelationshipFilter() {
 
         RelationshipTypeFilterCriteria criteria = getRandomRelationshipTypeFilterCriteria();
-        final KamFilter filter = createKamFilter();
+        final KamFilter filter = factory.createKamFilter();
         filter.getRelationshipCriteria().add(criteria);
         final KamHandle handle = pollForKam(smallCorpus, filter);
         releaseKam(handle);
@@ -150,7 +124,7 @@ public class TestKamUtilsEndPoint {
 
     private static AnnotationFilterCriteria getRandomAnnotationFilterCriteria() {
 
-        final AnnotationFilterCriteria criteria = createAnnotationFilterCriteria();
+        final AnnotationFilterCriteria criteria = factory.createAnnotationFilterCriteria();
         criteria.setAnnotationType(oneOf(annotationTypes));
         criteria.setIsInclude(randomIsInclude ? random.nextBoolean() : defaultIsInclude);
         criteria.getValueSet().addAll(Arrays.asList(new String[] { "example", "test", "sample" }));
@@ -158,21 +132,21 @@ public class TestKamUtilsEndPoint {
     }
 
     private static CitationFilterCriteria getRandomCitationFilterCriteria() {
-        final CitationFilterCriteria criteria = createCitationFilterCriteria();
+        final CitationFilterCriteria criteria = factory.createCitationFilterCriteria();
         criteria.setIsInclude(randomIsInclude ? random.nextBoolean() : defaultIsInclude);
         criteria.getValueSet().add(oneOf(citations));
         return criteria;
     }
 
     private static BelDocumentFilterCriteria getRandomBelDocumentFilterCriteria() {
-        final BelDocumentFilterCriteria criteria = createBelDocumentFilterCriteria();
+        final BelDocumentFilterCriteria criteria = factory.createBelDocumentFilterCriteria();
         criteria.setIsInclude(randomIsInclude ? random.nextBoolean() : defaultIsInclude);
         criteria.getValueSet().add(oneOf(belDocuments));
         return criteria;
     }
 
     private static RelationshipTypeFilterCriteria getRandomRelationshipTypeFilterCriteria() {
-        final RelationshipTypeFilterCriteria criteria = createRelationshipTypeFilterCriteria();
+        final RelationshipTypeFilterCriteria criteria = factory.createRelationshipTypeFilterCriteria();
         criteria.setIsInclude(randomIsInclude ? random.nextBoolean() : defaultIsInclude);
         criteria.getValueSet().add(oneOf(relationships));
         return criteria;
@@ -187,7 +161,7 @@ public class TestKamUtilsEndPoint {
     }
 
     private static KamHandle pollForKam(Kam kam, KamFilter kamFilter) {
-        final LoadKamRequest loadKamRequest = createLoadKamRequest();
+        final LoadKamRequest loadKamRequest = factory.createLoadKamRequest();
         loadKamRequest.setKam(kam);
         loadKamRequest.setFilter(kamFilter);
 
@@ -224,14 +198,14 @@ public class TestKamUtilsEndPoint {
     }
 
     private static void releaseKam(KamHandle handle) {
-        final ReleaseKamRequest request = createReleaseKamRequest();
+        final ReleaseKamRequest request = factory.createReleaseKamRequest();
         request.setKam(handle);
         final ReleaseKamResponse response = api.releaseKam(request);
         assertThat(response, is(not(nullValue())));
     }
 
     private static List<BelDocument> getBelDocuments(KamHandle handle) {
-        final GetBelDocumentsRequest request = createGetBelDocumentsRequest();
+        final GetBelDocumentsRequest request = factory.createGetBelDocumentsRequest();
         request.setHandle(handle);
         final GetBelDocumentsResponse response = api.getBelDocuments(request);
         assertThat(response, is(not(nullValue())));
@@ -243,7 +217,7 @@ public class TestKamUtilsEndPoint {
     }
 
     private static List<AnnotationType> getAnnotationTypes(KamHandle handle) {
-        final GetAnnotationTypesRequest request = createGetAnnotationTypesRequest();
+        final GetAnnotationTypesRequest request = factory.createGetAnnotationTypesRequest();
         request.setHandle(handle);
         final GetAnnotationTypesResponse response = api.getAnnotationTypes(request);
         assertThat(response, is(not(nullValue())));
@@ -266,7 +240,7 @@ public class TestKamUtilsEndPoint {
     }
 
     private static List<Citation> getCitations(KamHandle handle, CitationType citationType) {
-        final GetCitationsRequest request = createGetCitationsRequest();
+        final GetCitationsRequest request = factory.createGetCitationsRequest();
         request.setHandle(handle);
         request.setCitationType(citationType);
         //request.setDocument(null);

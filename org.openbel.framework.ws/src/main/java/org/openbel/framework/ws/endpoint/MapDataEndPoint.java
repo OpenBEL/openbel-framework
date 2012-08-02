@@ -63,6 +63,7 @@ import org.openbel.framework.ws.model.NodeFilter;
 import org.openbel.framework.ws.model.ObjectFactory;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.utils.Converter;
+import org.openbel.framework.ws.utils.ObjectFactorySingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -80,6 +81,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class MapDataEndPoint extends WebServiceEndpoint {
     private static final String MAP_DATA_REQUEST = "MapDataRequest";
+    private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
+            .getInstance();
 
     /**
      * Dependent service that provides access to cached {@link Kam kams}
@@ -144,7 +147,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         // convert namespace/values to NamespaceValue objects for delegation
         List<NamespaceValue> nvs = new ArrayList<NamespaceValue>(values.size());
         for (String s : values) {
-            NamespaceValue nv = ObjectFactory.createNamespaceValue();
+            NamespaceValue nv = OBJECT_FACTORY.createNamespaceValue();
             nv.setNamespace(ns);
             nv.setValue(s);
             nvs.add(nv);
@@ -164,7 +167,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         }
 
         KamInfo kamInfo = kam.getKamInfo();
-        final MapDataResponse res = ObjectFactory.createMapDataResponse();
+        final MapDataResponse res = OBJECT_FACTORY.createMapDataResponse();
         for (org.openbel.framework.api.Kam.KamNode kn : nodes) {
             res.getKamNodes().add(Converter.convert(kamInfo, kn));
         }

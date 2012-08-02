@@ -56,7 +56,7 @@ import org.openbel.framework.common.model.Statement.Object;
  * </ol>
  * </p>
  */
-class ReciprocalExpansionRule extends StatementExpansionRule {
+class ReciprocalExpansionRule extends ExpansionRule<Statement> {
 
     /**
      * Returns {@code true} if the statement's {@link Statement#getObject()

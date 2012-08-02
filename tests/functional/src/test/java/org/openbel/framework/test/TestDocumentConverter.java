@@ -227,7 +227,7 @@ public class TestDocumentConverter {
     }
 
     private static Document transformTest(final InputStream is)
-            throws IOException, SAXException, TransformerException, XPathExpressionException {
+            throws IOException, SAXException, TransformerException {
 
         final Document d = XMLUnit.buildTestDocument(new InputSource(is));
         return new Transform(d, nornalizeXbelXslt).getResultDocument();

@@ -80,7 +80,7 @@ public class Cache<T extends Cacheable> {
      * 
      * @param value
      */
-    public synchronized void put(T value) throws CacheException {
+    public synchronized void put(T value) {
         cacheMap.put(value.getCacheKey(), new SoftReference<T>(value));
     }
 
@@ -92,8 +92,7 @@ public class Cache<T extends Cacheable> {
      * @param value
      * @param timeToClearMins	
      */
-    public synchronized void put(T value, long timeToClearMins)
-            throws CacheException {
+    public synchronized void put(T value, long timeToClearMins) {
         this.put(value);
         if (!this.hasMaintenanceThread()) {
             startMaintenanceThread();

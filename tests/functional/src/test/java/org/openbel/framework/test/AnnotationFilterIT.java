@@ -3,42 +3,58 @@ package org.openbel.framework.test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.openbel.framework.common.util.TestUtilities.randomElement;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.openbel.framework.api.AnnotationFilterCriteria;
+import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
 import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.api.Kam.KamEdge;
 
 /**
- * Test filtering of statements by annotation on the KAM Edge:
+ * Test filtering of statements by annotation on the KAM Edge.  The test
+ * assumes that the {@link Constants#SMALL_CORPUS_KAM_NAME} is present in the
+ * KAM store.
  *
  * <p>
- * Small Corpus document
- * <br/>
- * id: <tt>{@value #TEST_EDGE_ID}</tt><br/>
- * edge label: <tt>proteinAbundance(78) actsIn gtpBoundActivity(proteinAbundance(78))</tt>
+ * The {@link KamEdge edge} to be tested is retrieved at random.
  * </p>
  *
  * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
 public class AnnotationFilterIT extends KAMStoreTest {
-    private static final int TEST_EDGE_ID = 1973;
+
+    private KamEdge edge;
+    private Annotation ann1;
+    private Annotation ann2;
 
     @Before
-    public void setup() {
+    public void setup() throws KamStoreException {
         setupKamStore(Constants.SMALL_CORPUS_KAM_NAME);
+
+        // find first edge with two statements having at least one annotation
+        final Collection<KamEdge> edges = testKam.getEdges();
+        List<BelStatement> bs = new ArrayList<BelStatement>();
+        boolean hasAnnotations = false;
+        while (!hasAnnotations) {
+            edge = randomElement(edges);
+            bs = ks.getSupportingEvidence(edge);
+            if (bs.size() == 1) {
+                hasAnnotations = bs.get(0).getAnnotationList().size() >= 2;
+            }
+        }
+
+        ann1 = bs.get(0).getAnnotationList().get(0);
+        ann2 = bs.get(0).getAnnotationList().get(1);
     }
 
     @After
@@ -47,27 +63,18 @@ public class AnnotationFilterIT extends KAMStoreTest {
     }
 
     @Test
-    public void includeOnlyFilter() throws KamStoreException {
+    public void includeOnlyFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
 
-        AnnotationType cellLine = findAnnotationType("CellLine");
-        if (cellLine == null) {
-            fail("The CellLine annotation type is not in KAM.");
-        }
-
-        AnnotationFilterCriteria criteria = new AnnotationFilterCriteria(cellLine);
+        AnnotationFilterCriteria criteria = new AnnotationFilterCriteria(
+                ann1.getAnnotationType());
         criteria.setInclude(true);
-        criteria.getValues().add("HeLa");
+        criteria.getValues().add(ann1.getValue());
         filter.add(criteria);
-
-        KamEdge testEdge = findEdge(TEST_EDGE_ID);
-        if (testEdge == null) {
-            fail("The KAMEdge with id " + TEST_EDGE_ID + " cannot be found in KAM.");
-        }
 
         List<BelStatement> filteredStmts = null;
         try {
-            filteredStmts = ks.getSupportingEvidence(testEdge, filter);
+            filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
         } catch (KamStoreException e) {
@@ -77,7 +84,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         assertThat(filteredStmts, is(notNullValue()));
 
         if (filteredStmts != null) {
-            assertThat(filteredStmts.size(), is(2));
+            assertThat(filteredStmts.size(), is(1));
         }
     }
 
@@ -85,24 +92,15 @@ public class AnnotationFilterIT extends KAMStoreTest {
     public void excludeOnlyFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
 
-        AnnotationType cellLine = findAnnotationType("CellLine");
-        if (cellLine == null) {
-            fail("The CellLine annotation type is not in KAM.");
-        }
-
-        AnnotationFilterCriteria criteria = new AnnotationFilterCriteria(cellLine);
+        AnnotationFilterCriteria criteria = new AnnotationFilterCriteria(
+                ann2.getAnnotationType());
         criteria.setInclude(false);
-        criteria.getValues().add("HeLa");
+        criteria.getValues().add(ann2.getValue());
         filter.add(criteria);
-
-        KamEdge testEdge = findEdge(TEST_EDGE_ID);
-        if (testEdge == null) {
-            fail("The KAMEdge with id " + TEST_EDGE_ID + " cannot be found in KAM.");
-        }
 
         List<BelStatement> filteredStmts = null;
         try {
-            filteredStmts = ks.getSupportingEvidence(testEdge, filter);
+            filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
         } catch (KamStoreException e) {
@@ -112,7 +110,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         assertThat(filteredStmts, is(notNullValue()));
 
         if (filteredStmts != null) {
-            assertThat(filteredStmts.size(), is(27));
+            assertThat(filteredStmts.size(), is(0));
         }
     }
 
@@ -120,43 +118,18 @@ public class AnnotationFilterIT extends KAMStoreTest {
     public void includeExcludeFilter() {
         AnnotationFilter filter = testKam.getKamInfo().createAnnotationFilter();
 
-        // Includes
-        AnnotationType textLocation = findAnnotationType("TextLocation");
-        if (textLocation == null) {
-            fail("The TextLocation annotation type is not in KAM.");
-        }
-        AnnotationType cellLine = findAnnotationType("CellLine");
-        if (cellLine == null) {
-            fail("The TextLocation annotation type is not in KAM.");
-        }
-        AnnotationFilterCriteria criteria1 = new AnnotationFilterCriteria(textLocation);
+        AnnotationFilterCriteria criteria1 = new AnnotationFilterCriteria(ann1.getAnnotationType());
         criteria1.setInclude(true);
-        criteria1.getValues().add("Abstract");
+        criteria1.getValues().add(ann1.getValue());
         filter.add(criteria1);
-        AnnotationFilterCriteria criteria2 = new AnnotationFilterCriteria(cellLine);
-        criteria2.setInclude(true);
-        criteria2.getValues().add("HeLa");
+        AnnotationFilterCriteria criteria2 = new AnnotationFilterCriteria(ann2.getAnnotationType());
+        criteria2.setInclude(false);
+        criteria2.getValues().add(ann2.getValue());
         filter.add(criteria2);
-
-        // Exclude
-        AnnotationType evidence = findAnnotationType("Evidence");
-        if (evidence == null) {
-            fail("The Evidence annotation type is not in KAM.");
-        }
-
-        AnnotationFilterCriteria criteria3 = new AnnotationFilterCriteria(evidence);
-        criteria3.setInclude(false);
-        criteria3.getValues().add("While the stimulation of Erk by alpha6beta4  was suppressed by dominant-negative Shc, Ras and RhoA, the activation of Jnk was inhibited by dominant-negative Ras and Rac1 and by the phosphoinositide 3-kinase inhibitor Wortmannin. ");
-        filter.add(criteria3);
-
-        KamEdge testEdge = findEdge(TEST_EDGE_ID);
-        if (testEdge == null) {
-            fail("The KAMEdge with id " + TEST_EDGE_ID + " cannot be found in KAM.");
-        }
 
         List<BelStatement> filteredStmts = null;
         try {
-            filteredStmts = ks.getSupportingEvidence(testEdge, filter);
+            filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
         } catch (KamStoreException e) {
@@ -166,45 +139,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
         assertThat(filteredStmts, is(notNullValue()));
 
         if (filteredStmts != null) {
-            assertThat(filteredStmts.size(), is(2));
+            assertThat(filteredStmts.size(), is(0));
         }
-    }
-
-    private KamEdge findEdge(final int edgeId) {
-        KamEdge testEdge = null;
-        Collection<KamEdge> edges = testKam.getEdges();
-        for (KamEdge edge : edges) {
-            if (edge.getId() == edgeId) {
-                testEdge = edge;
-            }
-        }
-        return testEdge;
-    }
-
-    private AnnotationType findAnnotationType(final String name) {
-        Iterator<AnnotationType> types = null;
-        try {
-            types = ks.getAnnotationTypes(testKam).iterator();
-        } catch (InvalidArgument e) {
-            // stupid
-        } catch (KamStoreException e) {
-            e.printStackTrace();
-            fail("Failed to obtain annotation types from KAMStore.");
-        }
-
-        if (types == null) {
-            fail("KAM annotation types are null.");
-            return null;
-        }
-
-        AnnotationType cellLine = null;
-        while (types.hasNext()) {
-            AnnotationType type = types.next();
-            if (type.getName().equals(name)) {
-                cellLine = type;
-                break;
-            }
-        }
-        return cellLine;
     }
 }

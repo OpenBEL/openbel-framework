@@ -65,10 +65,8 @@ public class BELParser {
         // parse and extract syntax errors
         BELScriptParser.document_return result = null;
         try {
-            result = parser.document();
-        } catch (RecognitionException e) {
-            // swallow since we have already captured syntax errors
-        }
+        result = parser.document();
+        } catch (RecognitionException e) {}
         List<BELParseErrorException> syntaxErrors = parser.getSyntaxErrors();
         List<BELParseWarningException> syntaxWarnings =
                 new ArrayList<BELParseWarningException>();
@@ -81,10 +79,8 @@ public class BELParser {
             BELScriptWalker walker = new BELScriptWalker(nodeStream);
             document_return document = null;
             try {
-                document = walker.document();
-            } catch (RecognitionException e) {
-                // swallow since we have already captured syntax errors
-            }
+            document = walker.document();
+            } catch (RecognitionException e) {}
 
             if (document != null) {
                 doc = document.doc;
@@ -97,8 +93,7 @@ public class BELParser {
         return new BELParseResults(syntaxWarnings, syntaxErrors, doc);
     }
 
-    public static final Term parseTerm(final String belTermSyntax)
-            throws RecognitionException {
+    public static final Term parseTerm(final String belTermSyntax) {
         CharStream stream = new ANTLRStringStream(belTermSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
@@ -107,8 +102,7 @@ public class BELParser {
     }
 
     public static final Statement
-            parseStatement(final String belStatementSyntax)
-                    throws RecognitionException {
+            parseStatement(final String belStatementSyntax) {
         CharStream stream = new ANTLRStringStream(belStatementSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);

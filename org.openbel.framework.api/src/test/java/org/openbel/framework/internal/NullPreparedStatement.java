@@ -544,7 +544,6 @@ public class NullPreparedStatement implements PreparedStatement {
      * {@inheritDoc}
      */
     @Override
-    @SuppressWarnings("deprecation")
     public void setUnicodeStream(int parameterIndex, InputStream x, int length)
             throws SQLException {
 

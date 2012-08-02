@@ -58,8 +58,8 @@
         <!-- Compiler Tests -->
         <antcall target="run_compiler_test" />
 
-    	<!-- Equivalence Tests -->
-    	<antcall target="run_equivalence_test" />
+        <!-- Equivalence Tests -->
+        <antcall target="run_equivalence_test" />
 
         <!-- Run API Tests -->
         <antcall target="run_api_tests" />
@@ -68,14 +68,14 @@
         <antcall target="run_kam_store_tests" />
 
         <parallel>
-        	<!-- Start framework server -->
+            <!-- Start framework server -->
             <antcall target="start_bel_framework_server" />
 
             <sequential>
                 <echo>Waiting for server startup, 40 seconds...</echo>
                 <sleep seconds="40" />
 
-				<!-- Running Web API tests -->
+                <!-- Running Web API tests -->
                 <antcall target="run_webapi_tests" />
 
                 <!-- Stop Framework Server -->
@@ -168,7 +168,7 @@
         </junit>
     </target>
 
-	<target name="run_equivalence_test">
+    <target name="run_equivalence_test">
         <echo>Running Equivalence test...</echo>
 
         <junit printsummary="true" haltonfailure="true" fork="true" dir="${basedir}">
@@ -241,7 +241,7 @@
                 <path path="${plugin.classpath}" />
                 <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
                 <pathelement location="target${/}test-classes" />
-                <pathelement location="target${/}dependency${/}org.openbel.framework.ws.client-${project.version}.jar" />
+                <pathelement location="target${/}dependency${/}org.openbel.framework.ws.model-${project.version}.jar" />
                 <fileset dir="target${/}dependency">
                     <include name="hamcrest-all-*.jar" />
                 </fileset>
@@ -272,6 +272,20 @@
 
     <target name="run_compiler_test">
         <echo>Compiling unit tests...</echo>
+
+        <echo>Downloading small corpus...</echo>
+        <get src="https://raw.github.com/OpenBEL/openbel-framework-resources/master/knowledge/small_corpus.bel" dest="small_corpus.bel"/>
+
+        <!-- Small Corpus -->
+        <antcall target="compiler_test">
+            <param name="bel_file"
+                   value="small_corpus.bel" />
+            <param name="kam" value="small_corpus" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
 
         <!-- Unit Test 1 -->
         <antcall target="compiler_test">
@@ -485,11 +499,22 @@
             <param name="expected_failure_message" value="" />
         </antcall>
 
-    	<!-- Unit Test 17 -->
+        <!-- Unit Test 17 -->
         <antcall target="compiler_test">
             <param name="bel_file"
                    value="..${/}..${/}docs${/}examples${/}belscript${/}test_17.bel" />
             <param name="kam" value="test17" />
+            <param name="extra_options" value="--no-preserve" />
+            <param name="fail_on_compiler_error" value="true" />
+            <param name="expect_failure" value="false" />
+            <param name="expected_failure_message" value="" />
+        </antcall>
+
+    	<!-- Unit Test 18 -->
+    	<antcall target="compiler_test">
+            <param name="bel_file"
+                   value="..${/}..${/}docs${/}examples${/}belscript${/}test_18.bel" />
+            <param name="kam" value="test18" />
             <param name="extra_options" value="--no-preserve" />
             <param name="fail_on_compiler_error" value="true" />
             <param name="expect_failure" value="false" />
