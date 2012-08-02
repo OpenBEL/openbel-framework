@@ -67,7 +67,7 @@ intended on serving a particular purpose.
 
 `OpenBEL Eclipse Repository`_
   The OpenBEL Eclipse p2 repository. It currently holds the stable and unstable
-  repositories of the OpenBEL Workbench.
+  repositories of the BEL Editor.
 
 `BEL Editor`_
   The BEL Editor enables the BEL language and the framework to be used in
