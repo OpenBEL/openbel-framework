@@ -269,6 +269,29 @@
     </build>
     
     <profiles>
+
+        <!-- Profile that gpg-signes each artifact. -->
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
         <!-- Defines build for distribution of OpenBEL Framework -->
         <profile>
             <id>distribution</id>
