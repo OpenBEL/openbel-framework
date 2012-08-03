@@ -1,22 +1,105 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/maven-v4_0_0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.openbel</groupId>
         <artifactId>org.openbel.parent</artifactId>
         <version>2.0.0</version>
         <relativePath>../</relativePath>
     </parent>
-
-    <name>OpenBEL Framework Compiler</name>
     <artifactId>org.openbel.framework.compiler</artifactId>
-    <description>The BEL Compiler included in the BEL Framework</description>
     <packaging>bundle</packaging>
-
+    
+    <name>OpenBEL Framework Compiler</name>
+    <description>The BEL Compiler included in the BEL Framework</description>
+    <url>https://github.com/OpenBEL/openbel-framework</url>
+    <inceptionYear>2011</inceptionYear>
+    
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <scm>
+        <connection>scm:git:git://github.com/OpenBEL/openbel-framework.git</connection>
+        <developerConnection>scm:git:git://github.com/OpenBEL/openbel-framework.git</developerConnection>
+        <tag>v2.0.0</tag>
+        <url>https://github.com/OpenBEL/openbel-framework</url>
+    </scm>
+    
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/OpenBEL/openbel-framework/issues</url>
+    </issueManagement>
+    
+    <developers>
+        <developer>
+            <id>anthony bargnesi</id>
+            <name>Anthony Bargnesi</name>
+            <email>abargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/abargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>nick bargnesi</id>
+            <name>Nick Bargnesi</name>
+            <email>nbargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/nbargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>james mcmahon</id>
+            <name>James McMahon</name>
+            <email>jmcmahon@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/liftyourskinnyfistslikeantennastoheaven</picUrl>
+            </properties>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Jordan Hourani</name>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </contributor>
+    </contributors>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.openbel</groupId>
@@ -30,7 +113,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>
