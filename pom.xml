@@ -1,24 +1,102 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/maven-v4_0_0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
-
-    <name>OpenBEL Framework</name>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <groupId>org.openbel</groupId>
     <artifactId>org.openbel.parent</artifactId>
     <version>2.0.0</version>
     <packaging>pom</packaging>
+    
+    <name>OpenBEL Framework</name>
     <description>OpenBEL Framework</description>
-    <url>https://github.com/belframework-org</url>
-
+    <url>https://github.com/OpenBEL/openbel-framework</url>
+    <inceptionYear>2011</inceptionYear>
+    
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
     <scm>
-        <connection>scm:git:git://github.com/belframework-org/OpenBEL-Framework.git</connection>
-        <developerConnection>scm:git:git://github.com/belframework-org/OpenBEL-Framework.git</developerConnection>
-        <url>https://github.com/belframework-org</url>
+        <connection>scm:git:git://github.com/OpenBEL/openbel-framework.git</connection>
+        <developerConnection>scm:git:git://github.com/OpenBEL/openbel-framework.git</developerConnection>
+        <tag>v2.0.0</tag>
+        <url>https://github.com/OpenBEL/openbel-framework</url>
     </scm>
-
+    
     <issueManagement>
-        <url>https://github.com/belframework-org</url>
+        <system>github</system>
+        <url>https://github.com/OpenBEL/openbel-framework/issues</url>
     </issueManagement>
-
+    
+    <developers>
+        <developer>
+            <id>anthony bargnesi</id>
+            <name>Anthony Bargnesi</name>
+            <email>abargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/abargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>nick bargnesi</id>
+            <name>Nick Bargnesi</name>
+            <email>nbargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/nbargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>james mcmahon</id>
+            <name>James McMahon</name>
+            <email>jmcmahon@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/liftyourskinnyfistslikeantennastoheaven</picUrl>
+            </properties>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Jordan Hourani</name>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </contributor>
+    </contributors>
+    
     <properties>
         <!-- source encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,7 +140,7 @@
         <trove4j.version>3.0.2</trove4j.version>
         <xmlunit.version>1.3</xmlunit.version>
     </properties>
-
+    
     <!-- Define child projects for this POM. -->
     <modules>
         <module>org.openbel.bel</module>
@@ -74,7 +152,7 @@
         <module>org.openbel.framework.ws</module>
         <module>org.openbel.framework.tools</module>
     </modules>
-
+    
     <!-- Defines default continuous build setup -->
     <build>
         <finalName>${project.artifactId}-${belframework-release.version}</finalName>
@@ -92,8 +170,32 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-
+        
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -127,7 +229,7 @@
                         </execution>
                     </executions>
                 </plugin>
-
+                
                 <!-- m2e configuration for Eclipse 3.7+ -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
@@ -170,8 +272,31 @@
             </plugins>
         </pluginManagement>
     </build>
-
+    
     <profiles>
+
+        <!-- Profile that gpg-signes each artifact. -->
+        <profile>
+            <id>sign</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
         <!-- Defines build for distribution of OpenBEL Framework -->
         <profile>
             <id>distribution</id>
@@ -286,7 +411,7 @@
             </build>
         </profile>
     </profiles>
-
+    
     <reporting>
         <plugins>
             <plugin>
@@ -296,6 +421,5 @@
             </plugin>
         </plugins>
     </reporting>
-
 </project>
 
