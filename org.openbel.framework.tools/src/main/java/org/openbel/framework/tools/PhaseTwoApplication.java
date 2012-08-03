@@ -144,7 +144,8 @@ public final class PhaseTwoApplication extends PhaseApplication {
     }
 
     private void defaultIndex() {
-        stageError("Could not read resource index file.  Equivalencing will be disabled.");
+        stageError("Could not read resource index file.  Equivalencing will be "
+                + "disabled.");
         ResourceIndex.INSTANCE.loadIndex();
     }
 
@@ -493,7 +494,7 @@ public final class PhaseTwoApplication extends PhaseApplication {
      * Invokes {@link #harness(PhaseApplication)} for
      * {@link PhaseTwoApplication}.
      *
-     * @param args Command-line arguments 
+     * @param args Command-line arguments
      */
     public static void main(String[] args) {
         harness(new PhaseTwoApplication(args));

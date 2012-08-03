@@ -128,7 +128,8 @@ public class StandardOptions {
     public final static String LONG_OPT_HELP = "help";
     
     /*
-     * {@value}
+     * The long option to enable no-preserve.<br>
+     * For example:<br>{@code --no-preserve}
      */
     public final static String LONG_OPT_NO_PRESERVE= "no-preserve";
 

@@ -75,7 +75,7 @@ public final class PhaseFourApplication extends PhaseApplication {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public void start() {
@@ -348,7 +348,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      *
      * @param args Command-line arguments
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         harness(new PhaseFourApplication(args));
     }
 

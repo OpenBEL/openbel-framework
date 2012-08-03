@@ -581,7 +581,7 @@ public class Strings {
     /**
      * {@value}
      */
-    public final static String LONG_OPT_NO_PRESERVE = "--no-preserve";
+    public final static String LONG_OPT_NO_PRESERVE = "no-preserve";
 
     /**
      * {@value}

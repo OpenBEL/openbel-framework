@@ -175,7 +175,7 @@ public final class PhaseOneApplication extends PhaseApplication {
     /**
      * {@inheritDoc}
      */
-    @Override     
+    @Override
     public void start() {
         super.start();
 
@@ -455,9 +455,11 @@ public final class PhaseOneApplication extends PhaseApplication {
             }
             stageWarning(e.getUserFacingMessage());
         } catch (IndexingFailure e) {
-            stageError("Failed to open namespace index file for symbol verification.");
+            stageError("Failed to open namespace index file for symbol " +
+            		"verification.");
         } catch (ResourceDownloadError e) {
-            stageError("Failed to resolve namespace during symbol verification.");
+            stageError("Failed to resolve namespace during symbol " +
+            		"verification.");
         }
         long t2 = currentTimeMillis();
 
@@ -511,7 +513,8 @@ public final class PhaseOneApplication extends PhaseApplication {
             }
             stageWarning(sf.getUserFacingMessage());
         } catch (IndexingFailure e) {
-            stageError("Failed to process namespace index files for semantic verification.");
+            stageError("Failed to process namespace index files for semantic" +
+            		" verification.");
         }
         long t2 = currentTimeMillis();
 

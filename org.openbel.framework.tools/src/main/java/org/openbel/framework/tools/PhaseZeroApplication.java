@@ -1,7 +1,6 @@
 package org.openbel.framework.tools;
 
 import static org.openbel.framework.common.BELUtilities.deleteDirectory;
-import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 import static org.openbel.framework.common.Strings.DIRECTORY_CREATION_FAILED;
 import static org.openbel.framework.common.Strings.DIRECTORY_DELETION_FAILED;
 import static org.openbel.framework.common.Strings.KAM_NAME_HELP;
@@ -14,10 +13,8 @@ import static org.openbel.framework.common.enums.BELFrameworkVersion.VERSION_NUM
 import static org.openbel.framework.common.enums.ExitCode.GENERAL_FAILURE;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.cli.Option;
 import org.openbel.framework.api.KamStoreException;
@@ -52,7 +49,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
     private DBConnection dbConnection;
     private KamStoreImpl kamStore;
     private List<KamInfo> kams;
-    private Set<String> cliArgs;
+    
     /**
      * Creates the phase zero application.
      *
@@ -63,9 +60,6 @@ public class PhaseZeroApplication extends CommandLineApplication {
         super(args);
         this.commandLineArgs = args;
         
-        // Use sizedHashSet here, for faster iteration and controlled memory use.
-        cliArgs = sizedHashSet(args.length);
-        cliArgs.addAll(Arrays.asList(args));
         final SimpleOutput reportable = new SimpleOutput();
         reportable.setErrorStream(System.err);
         reportable.setOutputStream(System.out);
@@ -134,7 +128,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
         
         // If "--no-preserve" is not specified, query the database for an
         // existing KAM w/same name. If one exists, exit with proper ExitCode.
-        if (!cliArgs.contains(LONG_OPT_NO_PRESERVE)){
+        if (!hasOption(LONG_OPT_NO_PRESERVE)){
             String kamName = getOptionValue("k");
             try{
                 dbConnection = dbsvc.dbConnection(
@@ -214,7 +208,9 @@ public class PhaseZeroApplication extends CommandLineApplication {
         
 
         String help = KAM_NAME_HELP;
-        Option o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
+        Option o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, 
+                true, help);
+        
         o.setArgName("kam");
         ret.add(o);
         

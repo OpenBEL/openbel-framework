@@ -192,7 +192,7 @@ public abstract class CommandLineApplication {
         jc.setContext((Context) lf);
         try {
             InputStream is = getClass().getResourceAsStream(SLF4J_LOGGER_FILE);
-           jc.doConfigure(is);
+            jc.doConfigure(is);
         } catch (JoranException e) {
             String msg = format(ERROR_INIT_LOGGING, e.getMessage());
             err.println(msg);
