@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Common layer for the BEL Framework
+Bundle-SymbolicName: org.openbel.framework.common
+Bundle-Version: 2.0.1
+Export-Package: org.openbel.framework.common; version=2.0.1,
+ org.openbel.framework.common.bel.converters; version=2.0.1,
+ org.openbel.framework.common.bel.parser; version=2.0.1,
+ org.openbel.framework.common.belscript; version=2.0.1,
+ org.openbel.framework.common.cfg; version=2.0.1,
+ org.openbel.framework.common.download; version=2.0.1,
+ org.openbel.framework.common.enums; version=2.0.1,
+ org.openbel.framework.common.external; version=2.0.1,
+ org.openbel.framework.common.index; version=2.0.1,
+ org.openbel.framework.common.lang; version=2.0.1,
+ org.openbel.framework.common.lock; version=2.0.1,
+ org.openbel.framework.common.model; version=2.0.1,
+ org.openbel.framework.common.protonetwork.model; version=2.0.1,
+ org.openbel.framework.common.record; version=2.0.1,
+ org.openbel.framework.common.util; version=2.0.1,
+ org.openbel.framework.common.xbel.converters; version=2.0.1,
+ org.openbel.framework.common.xbel.parser; version=2.0.1
+Import-Package: javax.xml.transform.stream,
+ javax.xml.transform,
+ javax.xml.validation,
+ org.xml.sax,
+ javax.xml.namespace,
+ javax.xml.bind,
+ org.antlr.runtime,
+ org.antlr.runtime.tree,
+ javax.xml.stream,
+ javax.xml.stream.events,
+ org.openbel.bel.xbel.model; version=2.0.1,
+ org.openbel.bel.model; version=2.0.1
+

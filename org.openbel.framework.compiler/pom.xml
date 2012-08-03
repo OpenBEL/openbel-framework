@@ -1,4 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,7 +16,7 @@
     <name>OpenBEL Framework Compiler</name>
     <artifactId>org.openbel.framework.compiler</artifactId>
     <description>The BEL Compiler included in the BEL Framework</description>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,23 +39,13 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
-                <extensions>true</extensions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
-                        <Bundle-Name>BEL Compiler</Bundle-Name>
-                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
-                        <!-- <Private-Package>org.openbel...</Private-Package> -->
-                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
-                        <!--
-                        <Import-Package>
-                        </Import-Package>
-                        -->
-                    </instructions>
+                    <archive>
+                        <manifestFile>${manifest}</manifestFile>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

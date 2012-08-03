@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Java API for the BEL Framework
+Bundle-SymbolicName: org.openbel.framework.api
+Bundle-Version: 2.0.1
+Export-Package: org.openbel.framework.api; version=2.0.1,
+ org.openbel.framework.internal; version=2.0.1
+Import-Package: org.openbel.framework.common,
+ org.openbel.framework.common.enums; version=2.0.1,
+ org.openbel.framework.core.df.external; version=2.0.1,
+ org.openbel.framework.core.df.beldata.namespace; version=2.0.1,
+ org.apache.commons.collections,
+ org.openbel.framework.core.df.cache; version=2.0.1,
+ javax.xml.stream,
+ org.openbel.framework.common.model; version=2.0.1,
+ org.openbel.framework.common.index; version=2.0.1,
+ org.openbel.framework.common.bel.parser; version=2.0.1,
+ org.openbel.framework.common.util; version=2.0.1,
+ org.openbel.framework.core.df; version=2.0.1,
+ org.openbel.framework.core.df.beldata; version=2.0.1,
+ org.openbel.framework.core.df.encryption; version=2.0.1,
+ org.apache.commons.lang; version=2.6,
+ org.openbel.framework.core.protocol; version=2.0.1,
+ org.apache.commons.lang.builder; version=2.6,
+ org.openbel.framework.core.equivalence; version=2.0.1,
+ org.openbel.framework.common.cfg; version=2.0.1,
+ org.openbel.framework.common.protonetwork.model; version=2.0.1
+
