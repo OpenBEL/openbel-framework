@@ -42,11 +42,8 @@ import org.openbel.framework.internal.KamDbObject;
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public final class PhaseFourApplication extends PhaseApplication {
-    private final static String SHORT_OPT_KAM_NAME = "k";
-    private final static String LONG_OPT_KAM_NAME = "kam-name";
     private final static String SHORT_OPT_KAM_DESCRIPTION = "d";
     private final static String LONG_OPT_KAM_DESCRIPTION = "kam-description";
-    private final static String LONG_OPT_NO_PRESERVE = "no-preserve";
     private final DefaultPhaseFour p4;
     private final SystemConfiguration sysconfig;
 
@@ -78,7 +75,7 @@ public final class PhaseFourApplication extends PhaseApplication {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} 
      */
     @Override
     public void start() {
@@ -287,19 +284,15 @@ public final class PhaseFourApplication extends PhaseApplication {
         String help;
         Option o;
 
-        help = KAM_NAME_HELP;
-        o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
-        o.setArgName("kam");
-        options.add(o);
-
         help = KAM_DESCRIPTION_HELP;
         o = new Option(SHORT_OPT_KAM_DESCRIPTION, LONG_OPT_KAM_DESCRIPTION,
                 true, help);
         o.setArgName("description");
         options.add(o);
-
-        help = NO_PRESERVE_HELP;
-        o = new Option(null, LONG_OPT_NO_PRESERVE, false, help);
+        
+        help = KAM_NAME_HELP;
+        o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
+        o.setArgName("kam");
         options.add(o);
 
         return options;
@@ -355,7 +348,7 @@ public final class PhaseFourApplication extends PhaseApplication {
      *
      * @param args Command-line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         harness(new PhaseFourApplication(args));
     }
 

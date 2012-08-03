@@ -1,24 +1,36 @@
 package org.openbel.framework.tools;
 
-import static java.util.Collections.emptyList;
 import static org.openbel.framework.common.BELUtilities.deleteDirectory;
+import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 import static org.openbel.framework.common.Strings.DIRECTORY_CREATION_FAILED;
 import static org.openbel.framework.common.Strings.DIRECTORY_DELETION_FAILED;
+import static org.openbel.framework.common.Strings.KAM_NAME_HELP;
+import static org.openbel.framework.common.Strings.LONG_OPT_NO_PRESERVE;
+import static org.openbel.framework.common.Strings.NO_PRESERVE_HELP;
+import static org.openbel.framework.common.Strings.SHORT_OPT_KAM_NAME;
+import static org.openbel.framework.common.Strings.LONG_OPT_KAM_NAME;
 import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 import static org.openbel.framework.common.enums.BELFrameworkVersion.VERSION_NUMBER;
 import static org.openbel.framework.common.enums.ExitCode.GENERAL_FAILURE;
-
 import java.io.File;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.cli.Option;
+import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KamStoreImpl;
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.SimpleOutput;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.common.enums.ExitCode;
 import org.openbel.framework.core.CommandLineApplication;
+import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
+import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * This application validates the command line arguments passed by the
@@ -35,7 +47,12 @@ import org.openbel.framework.core.df.DatabaseServiceImpl;
  */
 public class PhaseZeroApplication extends CommandLineApplication {
     private final String[] commandLineArgs;
-
+    
+    // These fields were added as part of --no-preserve implementation.
+    private DBConnection dbConnection;
+    private KamStoreImpl kamStore;
+    private List<KamInfo> kams;
+    private Set<String> cliArgs;
     /**
      * Creates the phase zero application.
      *
@@ -45,7 +62,10 @@ public class PhaseZeroApplication extends CommandLineApplication {
     public PhaseZeroApplication(String[] args) {
         super(args);
         this.commandLineArgs = args;
-
+        
+        // Use sizedHashSet here, for faster iteration and controlled memory use.
+        cliArgs = sizedHashSet(args.length);
+        cliArgs.addAll(Arrays.asList(args));
         final SimpleOutput reportable = new SimpleOutput();
         reportable.setErrorStream(System.err);
         reportable.setOutputStream(System.out);
@@ -111,6 +131,31 @@ public class PhaseZeroApplication extends CommandLineApplication {
             reportable.error(e.getUserFacingMessage());
             bail(ExitCode.KAM_CONNECTION_FAILURE);
         }
+        
+        // If "--no-preserve" is not specified, query the database for an
+        // existing KAM w/same name. If one exists, exit with proper ExitCode.
+        if (!cliArgs.contains(LONG_OPT_NO_PRESERVE)){
+            String kamName = getOptionValue("k");
+            try{
+                dbConnection = dbsvc.dbConnection(
+                        syscfg.getKamURL(),
+                        syscfg.getKamUser(),
+                        syscfg.getKamPassword());
+                kamStore = new KamStoreImpl(dbConnection);
+                kams = kamStore.readCatalog();
+                for (KamInfo kam : kams){
+                    if (kam.getName().equals(kamName)){
+                        bail(ExitCode.DUPLICATE_KAM_NAME);
+                    }
+                }
+            }
+            catch (SQLException e){
+                reportable.error(e.getMessage());
+            }
+            catch (KamStoreException e) {
+                reportable.error(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -165,7 +210,19 @@ public class PhaseZeroApplication extends CommandLineApplication {
      */
     @Override
     public List<Option> getCommandLineOptions() {
-        return emptyList();
+        List<Option> ret = new LinkedList<Option>();
+        
+
+        String help = KAM_NAME_HELP;
+        Option o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
+        o.setArgName("kam");
+        ret.add(o);
+        
+        help = NO_PRESERVE_HELP;
+        o = new Option(null, LONG_OPT_NO_PRESERVE, false, help);
+        ret.add(o);
+        
+        return ret;
     }
 
     /**

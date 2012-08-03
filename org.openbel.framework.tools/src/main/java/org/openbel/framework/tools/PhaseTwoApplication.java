@@ -493,7 +493,7 @@ public final class PhaseTwoApplication extends PhaseApplication {
      * Invokes {@link #harness(PhaseApplication)} for
      * {@link PhaseTwoApplication}.
      *
-     * @param args Command-line arguments
+     * @param args Command-line arguments 
      */
     public static void main(String[] args) {
         harness(new PhaseTwoApplication(args));
