@@ -33,17 +33,17 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.internal;
+package org.openbel.framework.api.internal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.openbel.framework.api.internal.KAMCatalogDao;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.enums.DatabaseType;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.internal.KAMCatalogDao;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamInfoUtil {
 

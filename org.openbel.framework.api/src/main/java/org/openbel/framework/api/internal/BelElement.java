@@ -33,25 +33,13 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.internal;
+package org.openbel.framework.api.internal;
 
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
+import org.openbel.framework.api.KamStoreObjectImpl;
 
-public class KamStoreUtil {
+public abstract class BelElement extends KamStoreObjectImpl {
 
-    public static BelTerm createBelTerm(final Integer id, final String lbl) {
-        return new BelTerm(id, lbl);
-    }
-
-    public static Namespace createNamespace(final Integer id,
-            final String prefix, final String resourceLocation) {
-        return new Namespace(id, prefix, resourceLocation);
-    }
-
-    public static TermParameter createTermParameter(final Integer id,
-            Namespace ns, String value) {
-        return new TermParameter(id, ns, value);
+    public BelElement(Integer belElementId) {
+        super(belElementId);
     }
 }
