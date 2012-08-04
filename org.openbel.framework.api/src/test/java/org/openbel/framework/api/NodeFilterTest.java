@@ -56,9 +56,9 @@ import org.junit.Test;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamTestUtil.TestKamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamNode;
+import org.openbel.framework.api.internal.KamInfoUtil;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.enums.ReturnType;
-import org.openbel.framework.internal.KamInfoUtil;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * Unit test to cover filtering of {@link KamNode} objects in the {@link Kam}

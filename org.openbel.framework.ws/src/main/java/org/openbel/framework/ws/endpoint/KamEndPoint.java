@@ -64,9 +64,9 @@ import org.openbel.framework.api.KamCacheService;
 import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.internal.KAMCatalogDao;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.internal.KAMCatalogDao;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.model.DialectHandle;
@@ -620,7 +620,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         // find kam nodes that had no equivs
         if (!noEquivs.isEmpty()) {
             for (Map.Entry<String, Set<String>> entry : noEquivs.entrySet()) {
-                org.openbel.framework.internal.KAMStoreDaoImpl.Namespace kamNs =
+                org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace kamNs =
                         kamStore.getNamespace(kam, entry.getKey());
                 if (kamNs == null) {
                     // ns not present in kam

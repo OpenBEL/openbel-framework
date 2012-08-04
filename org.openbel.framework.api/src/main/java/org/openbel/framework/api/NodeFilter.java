@@ -38,9 +38,9 @@ package org.openbel.framework.api;
 import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.ReturnType;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * Note: {@link NodeFilter}s are not currently designed to perform filtering on

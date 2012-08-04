@@ -14,11 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openbel.framework.api.AnnotationFilterCriteria;
 import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
 import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
 
 /**
  * Test filtering of statements by annotation on the KAM Edge.  The test

@@ -59,8 +59,8 @@ import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.KamTestUtil.TestKamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamNode;
-import org.openbel.framework.internal.KamInfoUtil;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KamInfoUtil;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 
 /**
  * BasicPathFinderTest tests the {@link BasicPathFinder} findPaths, scan, and

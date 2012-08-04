@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.protonetwork.model.DocumentTable.DocumentHeader;
@@ -21,7 +22,6 @@ import org.openbel.framework.core.df.DatabaseError;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.kam.JdbcKAMLoaderImpl;
 import org.openbel.framework.core.kam.KAMCatalogFailure;
-import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL compiler phase four implementation.

@@ -15,6 +15,7 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.common.enums.ExitCode;
@@ -34,7 +35,6 @@ import org.openbel.framework.core.kam.KAMCatalogFailure;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkDescriptor;
 import org.openbel.framework.core.protonetwork.BinaryProtoNetworkExternalizer;
 import org.openbel.framework.core.protonetwork.ProtoNetworkDescriptor;
-import org.openbel.framework.internal.KamDbObject;
 
 /**
  * BEL phase four compiler.

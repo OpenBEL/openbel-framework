@@ -54,6 +54,13 @@ import org.apache.commons.lang.StringUtils;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMStoreConstants;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
 import org.openbel.framework.api.AnnotationFilterCriteria;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
@@ -66,13 +73,6 @@ import org.openbel.framework.common.model.CitationCommentAnnotationDefinition;
 import org.openbel.framework.common.model.CitationDateAnnotationDefinition;
 import org.openbel.framework.common.model.CitationNameAnnotationDefinition;
 import org.openbel.framework.common.model.CitationTypeAnnotationDefinition;
-import org.openbel.framework.internal.KAMStoreConstants;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
 
 @SuppressWarnings("unused")
 public final class KamSummarizer {

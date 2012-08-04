@@ -41,11 +41,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 
 /**
  * Simple dialect that uses the BEL short form of the first supporting term

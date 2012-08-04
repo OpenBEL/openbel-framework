@@ -4,7 +4,7 @@ Bundle-Name: Java API for the BEL Framework
 Bundle-SymbolicName: org.openbel.framework.api
 Bundle-Version: 2.0.1
 Export-Package: org.openbel.framework.api; version=2.0.1,
- org.openbel.framework.internal; version=2.0.1
+ org.openbel.framework.api.internal; version=2.0.1
 Import-Package: org.openbel.framework.common,
  org.openbel.framework.common.enums; version=2.0.1,
  org.openbel.framework.core.df.external; version=2.0.1,

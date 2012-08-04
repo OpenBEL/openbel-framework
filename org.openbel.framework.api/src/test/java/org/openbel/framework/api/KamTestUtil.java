@@ -40,11 +40,11 @@ import java.util.Map;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KamInfoUtil;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KamInfoUtil;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * KamTestUtil is a test utility to create a {@link Kam} by providing

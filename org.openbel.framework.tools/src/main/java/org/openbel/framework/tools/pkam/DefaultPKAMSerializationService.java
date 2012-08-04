@@ -45,6 +45,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.openbel.framework.api.internal.KAMCatalogDao;
+import org.openbel.framework.api.internal.KamDbObject;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
@@ -52,9 +55,6 @@ import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.encryption.EncryptionServiceException;
 import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
-import org.openbel.framework.internal.KAMCatalogDao;
-import org.openbel.framework.internal.KamDbObject;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;

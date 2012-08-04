@@ -40,21 +40,21 @@ import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.NamespaceFilter;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMCatalogDao.NamespaceFilter;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 /**
  * Provides access to knowledge assembly models, or KAMs.

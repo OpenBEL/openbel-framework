@@ -41,13 +41,11 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.openbel.framework.api.KamBuilder.edge;
+import static org.openbel.framework.api.internal.KamStoreUtil.*;
 import static org.openbel.framework.common.enums.RelationshipType.ACTS_IN;
 import static org.openbel.framework.common.enums.RelationshipType.ORTHOLOGOUS;
 import static org.openbel.framework.common.enums.RelationshipType.TRANSCRIBED_TO;
 import static org.openbel.framework.common.enums.RelationshipType.TRANSLATED_TO;
-import static org.openbel.framework.internal.KamStoreUtil.createBelTerm;
-import static org.openbel.framework.internal.KamStoreUtil.createNamespace;
-import static org.openbel.framework.internal.KamStoreUtil.createTermParameter;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,17 +57,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KamInfoUtil;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.SystemConfigurationFile;
 import org.openbel.framework.common.cfg.SystemConfigurationBasedTest;
 import org.openbel.framework.common.lang.ComplexAbundance;
 import org.openbel.framework.common.lang.GeneAbundance;
 import org.openbel.framework.common.lang.ProteinAbundance;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
-import org.openbel.framework.internal.KamInfoUtil;
 
 @SystemConfigurationFile(path = "src/test/resources/org/openbel/framework/api/belframework.cfg")
 public class SpeciesKamTest extends SystemConfigurationBasedTest {

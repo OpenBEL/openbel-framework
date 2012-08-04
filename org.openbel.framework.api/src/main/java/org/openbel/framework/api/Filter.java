@@ -38,7 +38,7 @@ package org.openbel.framework.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 
 public abstract class Filter {
 

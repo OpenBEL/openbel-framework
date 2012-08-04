@@ -43,7 +43,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
 
