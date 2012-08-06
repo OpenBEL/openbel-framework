@@ -35,21 +35,21 @@
  */
 package org.openbel.framework.common.cfg;
 
-import static java.lang.System.getProperty;
-import static java.lang.System.getenv;
-import static org.openbel.framework.common.BELUtilities.readable;
+import static java.lang.System.*;
+import static org.openbel.framework.common.BELUtilities.*;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.openbel.framework.common.PathConstants;
 
 /**
- * This class encapsulates a file-based <i>configuration</i>.
+ * This class encapsulates a map-based <i>configuration</i>.
  * <p>
  * This class contains a set of variables that will be automatically expanded if
  * found as a value within a configuration file.
@@ -82,31 +82,35 @@ public abstract class Configuration {
     public static final String NAME_VALUE_DELIMITER = "=";
 
     /**
-     * The configuration file associated with this configuration, which may be
-     * null.
-     */
-    protected final File configurationFile;
-
-    /**
-     * Creates a configuration instance associated with the supplied file.
+     * Creates a configuration instance dervied from the supplied file.
+     * The {@code file} will be read, resulting in
+     * {@link #processSetting(String, String) processSetting} callbacks. If the
+     * file cannot be read, {@link #initializeDefaults() initializeDefaults}
+     * will be called.
      * 
      * @param file File to use as configuration; may be null
+     * @throws IOException Thrown if an I/O error occurs
      */
-    protected Configuration(final File file) {
-        this.configurationFile = file;
+    protected Configuration(final File file) throws IOException {
+        if (readable(file)) {
+            read(file);
+            return;
+        }
+        initializeDefaults();
     }
 
     /**
-     * Reads the configuration file, resulting in
+     * Creates a configuration instance derived from the supplied map.
+     * The {@code map} will be iterated, resulting in
      * {@link #processSetting(String, String) processSetting} callbacks. If the
-     * {@link #configurationFile configuration file} cannot be read,
-     * {@link #initializeDefaults() initializeDefaults} will be called.
+     * map is null, {@link #initializeDefaults() initializeDefaults} will be
+     * called.
      * 
-     * @throws IOException Thrown if an I/O error occurs
+     * @param map Map to use as configuration; may be null
      */
-    protected void init() throws IOException {
-        if (readable(configurationFile)) {
-            read();
+    protected Configuration(final Map<String, String> map) {
+        if (noNulls(map)) {
+            read(map);
             return;
         }
         initializeDefaults();
@@ -159,20 +163,16 @@ public abstract class Configuration {
         return bldr.toString();
     }
 
-    /**
-     * Reads {@link #configurationFile}, invoking
-     * {@link #processSetting(String, String)} as name-value pairs are
-     * encountered.
+    /*
+     * Reads a file populating a map for a call to read(Map) below.
      * 
      * @throws IOException Thrown if an I/O error occurs
-     * @throws IllegalStateException If {@code read()} has been called with a
-     * null configuration file
      */
-    public void read() throws IOException {
-        if (configurationFile == null) throw new IllegalStateException();
-        final FileReader fr = new FileReader(configurationFile);
+    private void read(final File f) throws IOException {
+        final FileReader fr = new FileReader(f);
         final BufferedReader br = new BufferedReader(fr);
         String input = null;
+        Map<String, String> map = new HashMap<String, String>();
         while ((input = br.readLine()) != null) {
 
             // Trim whitespace.
@@ -194,9 +194,23 @@ public abstract class Configuration {
             name = name.trim();
             value = value.trim();
 
-            processSetting(name, valueSubstitution(value));
+            map.put(name, value);
         }
         br.close();
+        read(map);
+    }
+
+    /*
+     * Reads the configuration map of name/value strings, invoking the process
+     * setting callback.
+     */
+    private void read(final Map<String, String> map) {
+        String name, value;
+        for (final Entry<String, String> entry : entries(map)) {
+            name = entry.getKey();
+            value = entry.getValue();
+            processSetting(name, valueSubstitution(value));
+        }
         readComplete();
     }
 
