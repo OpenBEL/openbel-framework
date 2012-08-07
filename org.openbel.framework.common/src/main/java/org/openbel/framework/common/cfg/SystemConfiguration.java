@@ -182,6 +182,7 @@ public final class SystemConfiguration extends Configuration {
      */
     private SystemConfiguration() throws IOException {
         super(defaultSysCfg());
+        init();
     }
 
     /**
@@ -193,6 +194,8 @@ public final class SystemConfiguration extends Configuration {
      */
     private SystemConfiguration(final File file) throws IOException {
         super(file);
+        this.configurationFile = file;
+        init();
     }
 
     /**

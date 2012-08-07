@@ -35,8 +35,12 @@
  */
 package org.openbel.framework.common.cfg;
 
-import static java.lang.System.*;
-import static org.openbel.framework.common.BELUtilities.*;
+import static java.lang.System.getProperty;
+import static java.lang.System.getenv;
+import static org.openbel.framework.common.BELUtilities.entries;
+import static org.openbel.framework.common.BELUtilities.mapfx;
+import static org.openbel.framework.common.BELUtilities.noNulls;
+import static org.openbel.framework.common.BELUtilities.readable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,6 +50,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.openbel.framework.common.BELUtilities;
+import org.openbel.framework.common.MapFunction;
 import org.openbel.framework.common.PathConstants;
 
 /**
@@ -82,38 +88,83 @@ public abstract class Configuration {
     public static final String NAME_VALUE_DELIMITER = "=";
 
     /**
-     * Creates a configuration instance dervied from the supplied file.
-     * The {@code file} will be read, resulting in
-     * {@link #processSetting(String, String) processSetting} callbacks. If the
-     * file cannot be read, {@link #initializeDefaults() initializeDefaults}
-     * will be called.
+     * The name-value configuration map, in expanded form.
+     */
+    private Map<String, String> cfgMap;
+
+    /**
+     * Boolean {@code true} if defaults are used, {@code false} otherwise. The
+     * defaults provide a way for subclasses to use a predefined set of defaults
+     * in the event no configuration can be provided.
+     */
+    protected final boolean defaults;
+
+    /**
+     * Creates a configuration instance derived from the supplied file. If the
+     * file is not {@link BELUtilities#readable(File) readable},
+     * {@link #initializeDefaults()} will be called on {@link #init()}.
      * 
-     * @param file File to use as configuration; may be null
+     * @param file File to use as configuration; may be null in which case
+     * {@link #defaults} are used
      * @throws IOException Thrown if an I/O error occurs
      */
     protected Configuration(final File file) throws IOException {
         if (readable(file)) {
+            cfgMap = new HashMap<String, String>();
             read(file);
+            defaults = false;
             return;
         }
-        initializeDefaults();
+        cfgMap = null;
+        defaults = true;
     }
 
     /**
-     * Creates a configuration instance derived from the supplied map.
-     * The {@code map} will be iterated, resulting in
-     * {@link #processSetting(String, String) processSetting} callbacks. If the
-     * map is null, {@link #initializeDefaults() initializeDefaults} will be
-     * called.
+     * Creates a configuration instance derived from the supplied map. If the
+     * map is null, {@link #initializeDefaults()} will be called on
+     * {@link #init()}.
      * 
-     * @param map Map to use as configuration; may be null
+     * @param map Map to use as configuration; may be null in which case
+     * {@link #defaults} are used
      */
     protected Configuration(final Map<String, String> map) {
         if (noNulls(map)) {
+            cfgMap = new HashMap<String, String>();
             read(map);
+            defaults = false;
             return;
         }
-        initializeDefaults();
+        cfgMap = null;
+        defaults = true;
+    }
+
+    /**
+     * Creates a configuration instance using {@link #defaults}. This will
+     * result in {@link #initializeDefaults()} being called on {@link #init()}.
+     */
+    protected Configuration() {
+        cfgMap = null;
+        defaults = true;
+    }
+
+    /**
+     * Initializes the configuration instance. The
+     * {@link Configuration#processSetting(String, String) processSetting}
+     * method will be invoked for each setting, or {@link #initializeDefaults()
+     * initializeDefaults} if defaults are being used.
+     */
+    protected void init() {
+        if (defaults) {
+            initializeDefaults();
+            return;
+        }
+        mapfx(cfgMap, new MapFunction<String, String>() {
+            @Override
+            public void apply(String name, String value) {
+                processSetting(name, value);
+            }
+        });
+        readComplete();
     }
 
     /**
@@ -172,7 +223,6 @@ public abstract class Configuration {
         final FileReader fr = new FileReader(f);
         final BufferedReader br = new BufferedReader(fr);
         String input = null;
-        Map<String, String> map = new HashMap<String, String>();
         while ((input = br.readLine()) != null) {
 
             // Trim whitespace.
@@ -194,10 +244,9 @@ public abstract class Configuration {
             name = name.trim();
             value = value.trim();
 
-            map.put(name, value);
+            cfgMap.put(name, valueSubstitution(value));
         }
         br.close();
-        read(map);
     }
 
     /*
@@ -209,9 +258,8 @@ public abstract class Configuration {
         for (final Entry<String, String> entry : entries(map)) {
             name = entry.getKey();
             value = entry.getValue();
-            processSetting(name, valueSubstitution(value));
+            cfgMap.put(name, valueSubstitution(value));
         }
-        readComplete();
     }
 
     /**
