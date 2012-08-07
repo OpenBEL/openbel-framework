@@ -81,7 +81,7 @@ public class BELCompilerIT {
 
     @Test
     public void unitTest7() {
-        runKamTest("test7a", 13, 12);
+        runKamTest("test7a", 16, 15);
     }
 
     @Test
@@ -128,7 +128,8 @@ public class BELCompilerIT {
     public void unitTest17() {
         runKamTest("test17", 4, 3);
     }
-
+    
+    @Test
     public void unitTest18() {
         runKamTest("test18", 7, 6);
 

@@ -5,19 +5,9 @@
 # add a redundant extra hasMember relationship.                                  #
 #                                                                                #
 #   No compiler arguments
-#       13 nodes, 12 edges:
-#           p(HGNC:AKT1) -> p(PFH:"AKT Family")
-#           p(HGNC:AKT1) >> r(HGNC:AKT1)
-#           r(HGNC:AKT1) :> g(HGNC:AKT1)
-#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO1)
-#           p(HGNC:FOXO1) >> r(HGNC:FOXO1)
-#           r(HGNC:FOXO1) :> g(HGNC:FOXO1)
-#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO3)
-#           p(HGNC:FOXO3) >> r(HGNC:FOXO3)
-#           r(HGNC:FOXO3) :> g(HGNC:FOXO3)
-#           p(PFH:"AKT Family") hasMember p(HGNC:FOXO4)
-#           p(HGNC:FOXO4) >> r(HGNC:FOXO4)
-#           r(HGNC:FOXO4) :> g(HGNC:FOXO4)
+#       16 nodes, 15 edges:
+#
+#   //TODO
 ##################################################################################
 # Document Properties Section
 

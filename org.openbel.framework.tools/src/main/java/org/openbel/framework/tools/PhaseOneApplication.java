@@ -123,7 +123,7 @@ import org.openbel.framework.core.protonetwork.TextProtoNetworkExternalizer;
  */
 public final class PhaseOneApplication extends PhaseApplication {
     private final DefaultPhaseOne p1;
-
+    
     /** Phase one artifact directory. */
     public final static String DIR_ARTIFACT = "phaseI";
 
@@ -136,7 +136,7 @@ public final class PhaseOneApplication extends PhaseApplication {
     private final static String NO_NS_LONG_OPT = "no-nested-statements";
     private final static String NO_SEMANTIC_CHECK = "no-semantic-check";
     private final static String NO_SYNTAX_CHECK = "no-syntax-check";
-
+    
     private final static String NUM_PHASES = "7";
 
     /**
@@ -146,7 +146,6 @@ public final class PhaseOneApplication extends PhaseApplication {
      */
     public PhaseOneApplication(String[] args) {
         super(args);
-
         final XBELValidatorService validator = createValidator();
         final XBELConverterService converter = createConverter();
         final BELValidatorService belValidator = new BELValidatorServiceImpl();
@@ -166,7 +165,7 @@ public final class PhaseOneApplication extends PhaseApplication {
                 new DefaultAnnotationService();
         final AnnotationDefinitionService annotationDefinitionService =
                 new DefaultAnnotationDefinitionService(cache, cacheLookup);
-
+        
         p1 = new PhaseOneImpl(validator, converter,
                 belValidator, belConverter, nsService, semantics,
                 expansion, protonetService, annotationService,
@@ -456,9 +455,11 @@ public final class PhaseOneApplication extends PhaseApplication {
             }
             stageWarning(e.getUserFacingMessage());
         } catch (IndexingFailure e) {
-            stageError("Failed to open namespace index file for symbol verification.");
+            stageError("Failed to open namespace index file for symbol " +
+            		"verification.");
         } catch (ResourceDownloadError e) {
-            stageError("Failed to resolve namespace during symbol verification.");
+            stageError("Failed to resolve namespace during symbol " +
+            		"verification.");
         }
         long t2 = currentTimeMillis();
 
@@ -512,7 +513,8 @@ public final class PhaseOneApplication extends PhaseApplication {
             }
             stageWarning(sf.getUserFacingMessage());
         } catch (IndexingFailure e) {
-            stageError("Failed to process namespace index files for semantic verification.");
+            stageError("Failed to process namespace index files for semantic" +
+            		" verification.");
         }
         long t2 = currentTimeMillis();
 

@@ -23,6 +23,8 @@ set of computable networks and APIs.
 
 .. contents::
 
+**For a more complete guide to using the BEL Framework, we encourage you to check out our** `wiki pages`_.
+
 The OpenBEL Ecosystem
 ---------------------
 
@@ -86,6 +88,7 @@ intended on serving a particular purpose.
 .. _freenode IRC network: http://www.freenode.net/
 .. _XChat: http://xchat.org/
 .. _Xirc: http://www.aquaticx.com/
+.. _wiki pages: http://wiki.openbel.org
 
 Distribution
 ------------
@@ -151,13 +154,17 @@ contractual assumptions directly impose on those licensors and authors.
 Further Reference
 -----------------
 
+**For Users:**
+ * Ohloh: https://www.ohloh.net/p/openbel-framework
+ * BEL Portal: http://openbel.org
+ * Selventa: http://www.selventa.com/
+ * API documentation: http://openbel.github.com/openbel-framework
+ * Freecode: http://freecode.com/projects/openbel-framework
+
+**For Developers:**
  * API documentation: http://openbel.github.com/openbel-framework
  * User documentation: http://openbel-framework.readthedocs.org/en/master/
  * Nightly builds: http://ci.selventa.com/browse/FWMASTER-NIGHTLY/latest/artifact
  * OpenBEL build server: http://ci.selventa.com
  * GitHub: https://github.com/OpenBEL
- * BEL Portal: http://openbel.org
- * Selventa: http://www.selventa.com/
- * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
-
