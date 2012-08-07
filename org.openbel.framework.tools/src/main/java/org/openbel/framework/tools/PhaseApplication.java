@@ -175,7 +175,7 @@ public abstract class PhaseApplication extends CommandLineApplication {
         Option o = new Option(SHRT_OPT_SYSCFG, LONG_OPT_SYSCFG, true, help);
         o.setArgName(ARG_SYSCFG);
         ret.add(o);
-
+        
         return ret;
     }
 
