@@ -23,7 +23,7 @@ set of computable networks and APIs.
 
 .. contents::
 
-For a more complete guide to using the BEL Framework, we encourage you to check out our `wiki pages`_.
+**For a more complete guide to using the BEL Framework, we encourage you to check out our `wiki pages`_.**
 
 The OpenBEL Ecosystem
 ---------------------
