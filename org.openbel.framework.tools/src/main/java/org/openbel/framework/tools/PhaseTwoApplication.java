@@ -144,7 +144,8 @@ public final class PhaseTwoApplication extends PhaseApplication {
     }
 
     private void defaultIndex() {
-        stageError("Could not read resource index file.  Equivalencing will be disabled.");
+        stageError("Could not read resource index file.  Equivalencing will be "
+                + "disabled.");
         ResourceIndex.INSTANCE.loadIndex();
     }
 

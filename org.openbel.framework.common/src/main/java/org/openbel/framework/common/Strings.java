@@ -461,7 +461,12 @@ public class Strings {
      * {@value}
      */
     public static final String KAM_NAME = "KAM Store name";
-
+    
+    /*
+     * {@value}
+     */
+    public static final String KAM_NAME_ALREADY_EXISTS = "KAM name already exists.\n";
+    
     /**
      * {@value}
      */
@@ -567,6 +572,16 @@ public class Strings {
      * {@value}
      */
     public static final String MICRO_RNA_ABUNDANCE = "microRNAAbundance";
+    
+    /*
+     * {@value}
+     */
+    public final static String LONG_OPT_KAM_NAME = "kam-name";
+    
+    /**
+     * {@value}
+     */
+    public final static String LONG_OPT_NO_PRESERVE = "no-preserve";
 
     /**
      * {@value}
@@ -1141,6 +1156,11 @@ public class Strings {
      * {@value}
      */
     public final static String SHA_256 = "SHA-256";
+    
+    /*
+     * {@value}
+     */
+    public final static String SHORT_OPT_KAM_NAME = "k";
 
     /**
      * {@value}
