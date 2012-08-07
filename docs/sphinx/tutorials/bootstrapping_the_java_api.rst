@@ -1,30 +1,67 @@
 .. _bootstrapping_the_java_api:
+.. highlight:: java
 
 Bootstrapping the Java API
 ==========================
 
-Sections
---------
+System Configuration
+--------------------
 
-Quick Start Steps
------------------
+Creation of the BEL Framework SystemConfiguration_ can be done using one of the
+following constructors:
 
-The quick-start to building and integrating your namespace with the OpenBEL Framework.
+#. SystemConfiguration.createSystemConfiguration()
+    * The no-arg method uses the ``BELFRAMEWORK_HOME`` `environment variable`_
+      to setup the system configuration. The BEL compiler uses this variant;
+      the environment variable is configured in the platform ``setenv`` script.
 
-#. Grab the example template from the :ref:`my-file-format` section.
-#. Customize the field values.
-#. Build your biological entity values with proper encodings.
-#. Deploy your namespace to a local (file) or remote (http / https) location.  For file URL format consult `File URI Scheme`_. 
-#. Record the URL for this namespace for later.  This uniquely identified your namespace.
-#. Retrieve the stock resource index from the URL: http://resource.belframework.org/belframework/1.0/index.xml
-#. Update the resource index with your namespace entry.  Use it's URL retrieved in step 5.
-#. Store the customized resource index locally using a local file URL.  For file URL format consult `File URI Scheme`_.
-#. Open the OpenBEL Framework config/belframework.cfg configuration file and change the 'resource_index_url' to this file URL.
-#. Start using your namespace URL in BEL Documents!
+#. SystemConfiguration.createSystemConfiguration(java.io.File)
+    * The file-based method uses a java.io.File_ to setup the system
+      configuration. The BEL Framework tools use this variant with the ``-s``
+      option.
 
-.. _gzip: http://www.gzip.org/
-.. _Word Characters: http://docs.oracle.com/javase/6/docs/api/java/util/regex/Pattern.html#predef
-.. _species taxonomy ids: http://www.ncbi.nlm.nih.gov/taxonomy
-.. _ISO 8601: http://en.wikipedia.org/wiki/ISO_8601
-.. _GK4P: http://www.genenames.org/data/hgnc_data.php?hgnc_id=4295
-.. _File URI Scheme: http://en.wikipedia.org/wiki/File_URI_scheme
+#. SystemConfiguration.createSystemConfiguration(java.util.Map)
+    * The map-based method uses a java.util.Map_ to setup the system
+      configuration. This is the preferred method of programmatically
+      configuring the BEL Framework for use.
+
+Variable Expansion
+^^^^^^^^^^^^^^^^^^
+
+There are a set of variables that will automatically be expanded in the system
+configuration when they are seen. These variables can be used in any value of a
+name-value pair.
+
+{tmp}
+  Expanded to the system temporary directory.
+{home}
+  Expanded to the user's home directory.
+{name}
+  Expanded to the user's name.
+{dir}
+  Expanded to the current working directory.
+{belframework_home}
+  Expanded to the ``BELFRAMEWORK_HOME`` environment variable.
+
+Programmatic Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is the simplest method of configuring the BEL Framework
+SystemConfiguration_ when using the Java API. The SystemConfiguration_ class
+exposes a variety of static fields that define the components of the framework's
+configuration. See the *belframework.cfg* examples available in the *config*
+directory of the BEL Framework.
+
+Example::
+
+    Map<String, String> map = new HashMap<String, String>();
+    map.put(SystemConfiguration.KAMSTORE_URL_DESC, "jdbc:mysql://localhost:3306");
+    map.put(SystemConfiguration.FRAMEWORK_WORKING_AREA_DESC, "{tmp}/bel_framework");
+    // map.put(SystemConfiguration...
+    SystemConfiguration syscfg = SystemConfiguration.createSystemConfiguration(map);
+
+.. _SystemConfiguration: http://openbel.github.com/openbel-framework/org/openbel/framework/common/cfg/SystemConfiguration.html
+.. _environment variable: http://docs.oracle.com/javase/tutorial/essential/environment/env.html
+.. _java.io.File: http://docs.oracle.com/javase/6/docs/api/java/io/File.html
+.. _java.util.Map: http://docs.oracle.com/javase/6/docs/api/java/util/Map.html
+

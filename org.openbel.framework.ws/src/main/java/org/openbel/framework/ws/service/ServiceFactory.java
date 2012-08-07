@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.ws.service;
 
+import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
+
 import java.io.File;
 
 import org.openbel.framework.common.cfg.SystemConfiguration;
@@ -72,9 +74,7 @@ public class ServiceFactory implements InitializingBean {
     public Index createResourceIndex() throws Exception {
         if (!ResourceIndex.INSTANCE.isLoaded()) {
             // Load resource index defined by the BELFramework instance
-            final SystemConfiguration sysConfig = SystemConfiguration
-                    .createSystemConfiguration(null);
-
+            final SystemConfiguration sysConfig = getSystemConfiguration();
             final String resourceIndexURL = sysConfig.getResourceIndexURL();
             File indexFile = new File(resourceIndexURL);
             if (!indexFile.exists() || !indexFile.canRead()) {

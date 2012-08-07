@@ -39,6 +39,7 @@ import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.isNumeric;
 import static org.openbel.framework.common.BELUtilities.noLength;
 import static org.openbel.framework.common.BELUtilities.sizedArrayList;
+import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -162,8 +163,7 @@ public class Namespaces {
             final CacheableResourceService c = new DefaultCacheableResourceService();
             final NamespaceHeaderParser p = new NamespaceHeaderParser();
 
-            final SystemConfiguration sysConfig = SystemConfiguration
-                    .createSystemConfiguration(null);
+            final SystemConfiguration sysConfig = getSystemConfiguration();
             final String resourceIndexURL = sysConfig.getResourceIndexURL();
             File indexFile = new File(resourceIndexURL);
             if (!indexFile.exists() || !indexFile.canRead()) {

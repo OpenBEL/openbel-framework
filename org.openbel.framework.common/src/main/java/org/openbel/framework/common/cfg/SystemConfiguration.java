@@ -36,11 +36,11 @@
 package org.openbel.framework.common.cfg;
 
 import static java.lang.System.*;
-import static org.openbel.framework.common.Strings.DIRECTORY_CREATION_FAILED;
-import static org.openbel.framework.common.BELUtilities.*;
+import static org.openbel.framework.common.BELUtilities.asPath;
 import static org.openbel.framework.common.PathConstants.*;
 import static org.openbel.framework.common.Strings.*;
-import static org.openbel.framework.common.enums.ExitCode.*;
+import static org.openbel.framework.common.enums.ExitCode.MISSING_SYSTEM_CONFIGURATION;
+import static org.openbel.framework.common.enums.ExitCode.UNRECOVERABLE_ERROR;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +60,8 @@ import org.openbel.framework.common.PathConstants;
  * configuration allows access and modification of settings that affect the
  * system's behavior, i.e., the installation of the BEL framework.
  * </p>
+ *
+ * @version 2.0.1
  */
 public final class SystemConfiguration extends Configuration {
 
@@ -134,7 +136,10 @@ public final class SystemConfiguration extends Configuration {
     /**
      * Location of BEL Templates (for BELWorkbench document creation):
      * {@value #BEL_TEMPLATE_LOCATION}
+     *
+     * @deprecated Deprecated as of version 2.0.1; no equivalent replacement
      */
+    @Deprecated
     public static final String BEL_TEMPLATE_LOCATION = "beltemplate_path";
 
     /**
@@ -151,8 +156,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Set to 0 if the databases are DBA managed or 1 if the BELFramework is
-     * allowed
-     * to create new KAM schemas (default)
+     * allowed to create new KAM schemas (default)
      */
     private static final String DEFAULT_SYSTEM_MANAGED_SCHEMAS = "1";
 
@@ -177,7 +181,7 @@ public final class SystemConfiguration extends Configuration {
      * {@link PathConstants#SYSCONFIG_FILENAME} in
      * {@link PathConstants#SYS_PATH}.
      * </p>
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     private SystemConfiguration() throws IOException {
@@ -187,8 +191,8 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Creates a system configuration instance, using {@code file} as the
-     * configuration file.
-     * 
+     * configuration source.
+     *
      * @param file Configuration file
      * @throws IOException Thrown if an I/O error occurs
      */
@@ -199,9 +203,40 @@ public final class SystemConfiguration extends Configuration {
     }
 
     /**
+     * Creates a system configuration instance, using {@code map} as the
+     * configuration source.
+     *
+     * @param map Map of string name-values
+     */
+    private SystemConfiguration(final Map<String, String> map) {
+        super(map);
+        init();
+    }
+
+    /**
+     * Creates the system configuration as defined by the environment.
+     *
+     * @return {@link SystemConfiguration}
+     * @throws IOException Thrown if an I/O error occurs
+     */
+    public static synchronized SystemConfiguration createSystemConfiguration()
+            throws IOException {
+        if (self == null) {
+            if (getenv(BELFRAMEWORK_HOME_ENV_VAR) == null) {
+                String err = MISSING_SYSCFG;
+                err = err.concat(": environment variable not set ");
+                err = err.concat(BELFRAMEWORK_HOME_ENV_VAR);
+                throw new IOException(err);
+            }
+            self = new SystemConfiguration();
+        }
+        return self;
+    }
+
+    /**
      * Creates the system configuration from the provided file, which may be
      * null.
-     * 
+     *
      * @param file System configuration file, which may be null
      * @return {@link SystemConfiguration}
      * @throws IOException Thrown if an I/O error occurs
@@ -225,13 +260,49 @@ public final class SystemConfiguration extends Configuration {
     }
 
     /**
+     * Creates the system configuration from the provided map.
+     * <p>
+     *
+     * <pre>
+     * <code>
+     * map.put(KAMSTORE_URL_DESC, "mysql://...");
+     * map.put(FRAMEWORK_WORKING_AREA_DESC, "{home}/BEL_Framework");
+     * createSystemConfiguration(map);
+     * </code>
+     * </pre>
+     *
+     * </p>
+     *
+     * @param map Map of string name-values
+     * @return {@link SystemConfiguration}
+     * @see #APPLICATION_LOG_PATH_DESC
+     * @see #FRAMEWORK_CACHE_DIRECTORY_DESC
+     * @see #FRAMEWORK_WORKING_AREA_DESC
+     * @see #KAM_STORE_ENCRYPTION_PASSPHRASE
+     * @see #KAMSTORE_CATALOG_SCHEMA_DESC
+     * @see #KAMSTORE_PASSWORD_DESC
+     * @see #KAMSTORE_SCHEMA_PREFIX_DESC
+     * @see #KAMSTORE_URL_DESC
+     * @see #KAMSTORE_USER_DESC
+     * @see #RESOURCE_INDEX_URL_DESC
+     * @see #SYSTEM_MANAGED_SCHEMAS
+     */
+    public static synchronized SystemConfiguration createSystemConfiguration(
+            final Map<String, String> map) {
+        if (self == null) {
+            self = new SystemConfiguration(map);
+        }
+        return self;
+    }
+
+    /**
      * Returns the system configuration.
      * <p>
      * It is an error to access the system configuration before it has been
      * created. As a result, this method throws {@link IllegalStateException} to
      * indicate this has occurred.
      * </p>
-     * 
+     *
      * @return {@link SystemConfiguration}
      * @see #createSystemConfiguration(File)
      * @throws IllegalStateException Thrown if no system configuration has been
@@ -252,7 +323,7 @@ public final class SystemConfiguration extends Configuration {
      * created. As a result, this method throws {@link IllegalStateException} to
      * indicate this has occurred.
      * </p>
-     * 
+     *
      * @see #createSystemConfiguration(File)
      */
     protected static synchronized void destroySystemConfiguration() {
@@ -409,7 +480,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the KAM URL system configuration setting.
-     * 
+     *
      * @return {@link String}, the KAM store database URL, which cannot be null
      */
     public final String getKamURL() {
@@ -418,7 +489,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the KAM user system configuration setting.
-     * 
+     *
      * @return {@link String}, the KAM database username, which can be null
      */
     public final String getKamUser() {
@@ -427,7 +498,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the KAM password configuration setting.
-     * 
+     *
      * @return {@link String}, the KAM database password, which can be null
      */
     public final String getKamPassword() {
@@ -436,7 +507,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the KAM catalog schema name.
-     * 
+     *
      * @return {@link String}, the KAM catalog schema name
      */
     public final String getKamCatalogSchema() {
@@ -445,7 +516,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the KAM schema prefix.
-     * 
+     *
      * @return {@link String}, the KAM schema prefix
      */
     public final String getKamSchemaPrefix() {
@@ -454,7 +525,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the framework working directory system configuration setting.
-     * 
+     *
      * @return Non-null, writable directory
      */
     public final File getWorkingDirectory() {
@@ -463,7 +534,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the framework cache directory system configuration setting.
-     * 
+     *
      * @return Non-null, writable directory
      */
     public final File getCacheDirectory() {
@@ -472,9 +543,8 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns true if the OpenBEL Framework is managing the KAMStore schemas
-     * false
-     * otherwise.
-     * 
+     * false otherwise.
+     *
      * @return Non-null, writable directory
      */
     public final boolean getSystemManagedSchemas() {
@@ -486,7 +556,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the application log path system configuration setting.
-     * 
+     *
      * @return Non-null, writable directory
      */
     public final File getApplicationLogPath() {
@@ -495,7 +565,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the URL to the OpenBEL Framework resource index.
-     * 
+     *
      * @return Non-null, string
      */
     public String getResourceIndexURL() {
@@ -504,7 +574,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the encryption passphrase for the KAM store.
-     * 
+     *
      * @return Non-null, string
      */
     public String getKamstoreEncryptionPassphrase() {
@@ -513,9 +583,11 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Returns the BEL Template directory system configuration setting.
-     * 
+     *
      * @return Non-null, writable directory
+     * @deprecated Deprecated as of version 2.0.1; no equivalent replacement
      */
+    @Deprecated
     public final File getBELTemplateDirectory() {
         return belTemplateDirectory;
     }
@@ -527,7 +599,7 @@ public final class SystemConfiguration extends Configuration {
 
     /**
      * Prints the default system configuration.
-     * 
+     *
      * @param args Ignored command-line arguments
      */
     public static void main(String... args) {
@@ -544,7 +616,7 @@ public final class SystemConfiguration extends Configuration {
     /**
      * Throws a system configuration error if the {@code path} cannot be written
      * to. If {@code path} does not exist, an attempt to create it will be made.
-     * 
+     *
      * @param path Path for validation
      */
     private void validateOutputPath(final File path) {

@@ -25,7 +25,7 @@ public class KAMStoreTest {
 
     protected void setupKamStore(final String kamName) {
         try {
-            final SystemConfiguration syscfg = createSystemConfiguration(null);
+            final SystemConfiguration syscfg = createSystemConfiguration();
             final DatabaseService dbs = new DatabaseServiceImpl();
             dbc = dbs.dbConnection(syscfg.getKamURL(),
                     syscfg.getKamUser(), syscfg.getKamPassword());

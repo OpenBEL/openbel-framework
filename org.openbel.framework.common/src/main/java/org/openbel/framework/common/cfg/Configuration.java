@@ -37,10 +37,7 @@ package org.openbel.framework.common.cfg;
 
 import static java.lang.System.getProperty;
 import static java.lang.System.getenv;
-import static org.openbel.framework.common.BELUtilities.entries;
-import static org.openbel.framework.common.BELUtilities.mapfx;
-import static org.openbel.framework.common.BELUtilities.noNulls;
-import static org.openbel.framework.common.BELUtilities.readable;
+import static org.openbel.framework.common.BELUtilities.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -70,6 +67,8 @@ import org.openbel.framework.common.PathConstants;
  * <dd>Expanded to the user's name.</dd>
  * <dt><tt>{dir}</tt></dt>
  * <dd>Expanded to the current working directory.</dd>
+ * <dt><tt>{belframework_home}</tt></dt>
+ * <dd>Expanded to the {@code BELFRAMEWORK_HOME} environment variable</tt></dt>
  * </dl>
  * </p>
  */
