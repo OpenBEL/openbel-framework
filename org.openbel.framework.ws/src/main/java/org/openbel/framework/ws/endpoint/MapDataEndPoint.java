@@ -49,7 +49,7 @@ import org.openbel.framework.api.KamCacheService;
 import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
 import org.openbel.framework.ws.model.DialectHandle;

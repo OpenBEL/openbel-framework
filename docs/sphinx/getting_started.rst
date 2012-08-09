@@ -9,9 +9,13 @@ Visualizing a Knowledge Network
 1. Download Cytoscape (2.8) at `cytoscape.org`_
 2. Install KAM Navigator Cytoscape plugin by following the `installation guide`_
 3. Connect the KAM Navigator to the public demo server
+
   * Set the Webservice Location (WSDL URL) to: http://demo.openbel.org/openbel-ws/belframework.wsdl
+
 4. Load up our example Knowledge Networks
+
   * Select your target Knowledge Network 
+
   * `Explore`_ the KAM Navigator plugin
 
 For further information go to the KAM Navigator `user manual`_

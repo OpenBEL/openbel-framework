@@ -42,9 +42,9 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Edge;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
 

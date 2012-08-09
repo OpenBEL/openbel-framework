@@ -57,13 +57,13 @@ import java.util.regex.Pattern;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Namespace;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 /**
  * {@link KamSpecies} defines a {@link Kam kam} that provides a

@@ -608,7 +608,7 @@ public abstract class CommandLineApplication {
             String syscfgLoc = getOptionValue(LONG_OPT_SYSCFG);
             createSystemConfiguration(new File(syscfgLoc));
         } else {
-            createSystemConfiguration(null);
+            createSystemConfiguration();
         }
         syscfg = getSystemConfiguration();
     }

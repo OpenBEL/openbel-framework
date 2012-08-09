@@ -46,12 +46,12 @@ import java.util.regex.Pattern;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoNode;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
 
 /**
  *

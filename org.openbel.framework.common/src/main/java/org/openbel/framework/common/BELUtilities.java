@@ -712,10 +712,10 @@ public class BELUtilities {
      * Applies the function {@code fx} to each of the
      * {@link BELUtilities#entries(Map) entries} within the supplied map.
      *
-     * @param fx Non-null {@link MapFunction} to apply
      * @param map Non-null {@link Map}
+     * @param fx Non-null {@link MapFunction} to apply
      */
-    public static <K, V> void mapfx(MapFunction<K, V> fx, Map<K, V> map) {
+    public static <K, V> void mapfx(Map<K, V> map, MapFunction<K, V> fx) {
         Set<Entry<K, V>> entries = entries(map);
         for (final Entry<K, V> entry : entries) {
             K key = entry.getKey();

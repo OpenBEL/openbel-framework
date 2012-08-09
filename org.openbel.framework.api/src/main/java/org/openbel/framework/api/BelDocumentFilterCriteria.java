@@ -38,7 +38,7 @@ package org.openbel.framework.api;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
 
 /**
  * @author julianjray

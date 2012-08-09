@@ -36,6 +36,7 @@
 package org.openbel.framework.core.equivalence;
 
 import static org.openbel.framework.common.BELUtilities.hasItems;
+import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,9 +85,7 @@ public final class DefaultParameterEquivalencer implements
 
         if (!ResourceIndex.INSTANCE.isLoaded()) {
             // Load resource index defined by the BELFramework instance
-            final SystemConfiguration sysConfig = SystemConfiguration
-                    .createSystemConfiguration(null);
-
+            final SystemConfiguration sysConfig = getSystemConfiguration();
             final String resourceIndexURL = sysConfig.getResourceIndexURL();
             File indexFile = new File(resourceIndexURL);
             if (!indexFile.exists() || !indexFile.canRead()) {

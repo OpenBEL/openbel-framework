@@ -119,7 +119,7 @@ public class EquivalenceIT {
 
         // Create system configuration, BELFRAMEWORK_HOME must be set.
         try {
-            createSystemConfiguration(null);
+            createSystemConfiguration();
         } catch (IOException e) {
             e.printStackTrace();
             fail("failed to load system configuration, set BELFRAMEWORK_HOME");

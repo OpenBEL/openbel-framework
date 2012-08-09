@@ -38,8 +38,8 @@ package org.openbel.framework.api;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType;
 import org.openbel.framework.common.BELUtilities;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
 
 /**
  * @author julianjray

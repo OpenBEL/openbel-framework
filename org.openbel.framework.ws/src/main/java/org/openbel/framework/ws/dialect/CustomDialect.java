@@ -47,6 +47,7 @@ import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.bel.parser.BELParser;
@@ -55,7 +56,6 @@ import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Term;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 
 /**
  * {@link Dialect} implementation that allows control over the {@link Namespace}

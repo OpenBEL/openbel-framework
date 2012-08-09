@@ -71,7 +71,11 @@ public class DBConstants {
             "oracle.jdbc.driver.OracleDriver";
 
     /**
-     * JDBC driver class name for PostgreSQL configurations
+     * JDBC driver class name for PostgreSQL configurations, used in
+     * {@link #getDocstoreJdbcDriver()}.
+     * <p>
+     * Defined as: <tt>{@value}</tt>
+     * </p>
      */
     public static final String POSTGRESQL_JDBC_DRIVER_CLASS =
             "org.postgresql.Driver";

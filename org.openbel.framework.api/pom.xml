@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
+<<<<<<< HEAD
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
     http://maven.apache.org/maven-v4_0_0.xsd">
     
+=======
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.openbel</groupId>
@@ -12,6 +19,7 @@
         <relativePath>../</relativePath>
     </parent>
     <artifactId>org.openbel.framework.api</artifactId>
+<<<<<<< HEAD
     <packaging>bundle</packaging>
     
     <name>OpenBEL Framework API</name>
@@ -96,6 +104,11 @@
         </contributor>
     </contributors>
     
+=======
+    <description>Java API for BEL Framework</description>
+    <packaging>jar</packaging>
+
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -112,6 +125,7 @@
                     <groupId>org.openbel</groupId>
                     <artifactId>org.openbel.framework.common</artifactId>
                     <version>${project.version}</version>
+<<<<<<< HEAD
                 </dependency>
                 <dependency>
                     <groupId>org.openbel</groupId>
@@ -170,81 +184,34 @@
                     <artifactId>org.openbel.framework.common</artifactId>
                     <version>${project.version}</version>
                 </dependency>
+=======
+                </dependency>
+
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
                 <dependency>
                     <groupId>org.openbel</groupId>
                     <artifactId>org.openbel.framework.core</artifactId>
                     <version>${project.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                    <version>${logback.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-core</artifactId>
-                    <version>${logback.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>com.jcraft</groupId>
-                    <artifactId>jsch</artifactId>
-                    <version>${jsch.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                    <version>${commons-beanutils.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>commons-cli</groupId>
-                    <artifactId>commons-cli</artifactId>
-                    <version>${commons-cli.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                    <version>${commons-codec.version}</version>
-                </dependency>
+
                 <dependency>
                     <groupId>commons-collections</groupId>
                     <artifactId>commons-collections</artifactId>
                     <version>${commons-collections.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>commons-digester</groupId>
-                    <artifactId>commons-digester</artifactId>
-                    <version>${commons-digester.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                    <version>${commons-io.version}</version>
-                </dependency>
+
                 <dependency>
                     <groupId>commons-lang</groupId>
                     <artifactId>commons-lang</artifactId>
                     <version>${commons-lang.version}</version>
                 </dependency>
-                <dependency>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                    <version>${commons-logging.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>commons-net</groupId>
-                    <artifactId>commons-net</artifactId>
-                    <version>${commons-net.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>net.sf.opencsv</groupId>
-                    <artifactId>opencsv</artifactId>
-                    <version>${opencsv.version}</version>
-                </dependency>
+
                 <dependency>
                     <groupId>org.antlr</groupId>
                     <artifactId>antlr-runtime</artifactId>
                     <version>${antlr.version}</version>
                 </dependency>
+<<<<<<< HEAD
                 <dependency>
                     <groupId>org.antlr</groupId>
                     <artifactId>stringtemplate</artifactId>
@@ -271,13 +238,16 @@
                     <version>${postgresql.version}</version>
                 </dependency>
                 
+=======
+
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
                 <!-- Test dependencies -->
                 <dependency>
                     <groupId>org.openbel</groupId>
                     <artifactId>org.openbel.framework.common</artifactId>
                     <version>${project.version}</version>
-                    <classifier>tests</classifier>
                     <scope>test</scope>
+                    <classifier>tests</classifier>
                 </dependency>
                 <dependency>
                     <groupId>junit</groupId>
@@ -288,16 +258,11 @@
                 <dependency>
                     <groupId>org.mockito</groupId>
                     <artifactId>mockito-core</artifactId>
-                    <version>${mockito.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-nop</artifactId>
-                    <version>${slf4j.version}</version>
+                    <version>1.9.0</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+<<<<<<< HEAD
             
             <build>
                 <plugins>
@@ -397,29 +362,21 @@
                     </plugin>
                 </plugins>
             </build>
+=======
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
         </profile>
     </profiles>
     
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
-                <extensions>true</extensions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
                 <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Version>${belframework-release.version}</Bundle-Version>
-                        <Bundle-Name>OpenBEL Framework API</Bundle-Name>
-                        <!-- <Require-Bundle>foo,bar;bundle-version=2.0.0</Require-Bundle> -->
-                        <Private-Package>org.openbel.framework.internal</Private-Package>
-                        <!-- <Bundle-Activator>org.openbel...</Bundle-Activator> -->
-                        <!--
-                        <Import-Package>
-                        </Import-Package>
-                        -->
-                    </instructions>
+                    <archive>
+                        <manifestFile>${manifest}</manifestFile>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

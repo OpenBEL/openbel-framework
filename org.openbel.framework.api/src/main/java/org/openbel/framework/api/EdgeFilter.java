@@ -38,8 +38,8 @@ package org.openbel.framework.api;
 import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * Note: {@link EdgeFilter}s are not currently designed to perform filtering on

@@ -53,9 +53,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * Default thread-safe implementation of a {@link KamCacheService}.

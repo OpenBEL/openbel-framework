@@ -8,11 +8,11 @@ import java.util.Map;
 
 import org.openbel.framework.api.KamTestUtil.TestKamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.model.BELObject;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamBuilder {
     private KamInfo kamInfo;

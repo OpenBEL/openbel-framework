@@ -55,8 +55,8 @@ import org.junit.Test;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamEdge;
 import org.openbel.framework.api.KamTestUtil.TestKamNode;
-import org.openbel.framework.internal.KamInfoUtil;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KamInfoUtil;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 
 public class EdgeFilterTest {
     private static Kam testKAM;

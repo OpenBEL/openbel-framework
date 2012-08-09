@@ -33,23 +33,45 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.internal;
+package org.openbel.framework.api.internal;
 
-import org.openbel.framework.common.model.CitationAuthorsAnnotationDefinition;
-import org.openbel.framework.common.model.CitationCommentAnnotationDefinition;
-import org.openbel.framework.common.model.CitationDateAnnotationDefinition;
-import org.openbel.framework.common.model.CitationNameAnnotationDefinition;
-import org.openbel.framework.common.model.CitationReferenceAnnotationDefinition;
-import org.openbel.framework.common.model.CitationTypeAnnotationDefinition;
+/**
+ * KamCatalogObject represents a database object for tables in the
+ * KAM catalog schema.
+ * 
+ * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
+ */
+public abstract class KamCatalogDbObject {
 
-public interface KAMStoreConstants {
-    public static final String DATE_FORMAT = "yyyy-MM-dd";
-    public static final String[] CITATION_ANNOTATION_DEFINITION_IDS = {
-            CitationAuthorsAnnotationDefinition.ANNOTATION_DEFINITION_ID,
-            CitationDateAnnotationDefinition.ANNOTATION_DEFINITION_ID,
-            CitationNameAnnotationDefinition.ANNOTATION_DEFINITION_ID,
-            CitationTypeAnnotationDefinition.ANNOTATION_DEFINITION_ID,
-            CitationCommentAnnotationDefinition.ANNOTATION_DEFINITION_ID,
-            CitationReferenceAnnotationDefinition.ANNOTATION_DEFINITION_ID };
+    /**
+     * Defines an id for the database object.
+     */
+    private Integer id;
 
+    /**
+     * Constructs the kam catalog object with the <tt>id</tt>.
+     * 
+     * @param id {@link Integer}, the kam catalog object id
+     */
+    public KamCatalogDbObject(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the id of the database object.
+     * 
+     * @param id {@link Integer}, the id of the database object
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of the database object.
+     * 
+     * @param id {@link Integer}, the id of the database object
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

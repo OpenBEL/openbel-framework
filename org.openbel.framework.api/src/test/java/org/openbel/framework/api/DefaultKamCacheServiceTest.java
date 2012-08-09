@@ -41,9 +41,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KamDbObject;
+import org.openbel.framework.api.internal.KamDbObject;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 
 /**
  * {@link DefaultKamCacheService} test cases.

@@ -43,10 +43,10 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 import org.apache.commons.io.IOUtils;
+import org.openbel.framework.api.internal.KAMCatalogDao;
+import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
-import org.openbel.framework.internal.KAMCatalogDao;
-import org.openbel.framework.internal.KamDbObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

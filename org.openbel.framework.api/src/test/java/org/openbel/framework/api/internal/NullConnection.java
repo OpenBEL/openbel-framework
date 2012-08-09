@@ -33,7 +33,7 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.internal;
+package org.openbel.framework.api.internal;
 
 import java.sql.Array;
 import java.sql.Blob;

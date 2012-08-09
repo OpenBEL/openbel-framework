@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.df.encryption;
 
+import static org.openbel.framework.common.cfg.SystemConfiguration.getSystemConfiguration;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -57,8 +59,7 @@ public class KamStoreEncryptionServiceImpl extends AesEncryptionServiceImpl {
     protected synchronized void populateSystemKey()
             throws EncryptionServiceException {
         try {
-            SystemConfiguration systemConfig =
-                    SystemConfiguration.createSystemConfiguration(null);
+            SystemConfiguration systemConfig = getSystemConfiguration();
             if (getSystemIv() == null || getSystemKey() == null) {
                 setSystemIv(getDefaultInitializationVector());
                 setSystemKey(getEncryptionKeyFromPassphrase(systemConfig

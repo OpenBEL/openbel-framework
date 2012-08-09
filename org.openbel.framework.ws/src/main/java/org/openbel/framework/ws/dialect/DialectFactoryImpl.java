@@ -42,9 +42,9 @@ import java.util.Map;
 import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.core.df.beldata.namespace.NamespaceHeader;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.service.DialectCacheService;
 import org.openbel.framework.ws.service.NamespaceResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +88,7 @@ public class DialectFactoryImpl implements DialectFactory {
         Map<String, Namespace> kamNamespaces = new HashMap<String, Namespace>();
         Map<String, NamespaceDomain> domains =
                 new HashMap<String, NamespaceDomain>();
-        for (org.openbel.framework.internal.KAMStoreDaoImpl.Namespace ns : kamStore.getNamespaces(kamInfo)) {
+        for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace ns : kamStore.getNamespaces(kamInfo)) {
             Namespace cns = new Namespace(ns.getPrefix(),
                     ns.getResourceLocation());
             kamNamespaces.put(cns.getPrefix(), cns);

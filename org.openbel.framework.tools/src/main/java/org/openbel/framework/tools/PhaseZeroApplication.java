@@ -27,7 +27,7 @@ import org.openbel.framework.core.CommandLineApplication;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 
 /**
  * This application validates the command line arguments passed by the

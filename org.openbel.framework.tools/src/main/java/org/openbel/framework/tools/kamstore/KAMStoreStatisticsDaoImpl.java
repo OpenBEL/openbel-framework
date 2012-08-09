@@ -40,10 +40,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.openbel.framework.api.internal.KAMDao;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.core.df.AbstractJdbcDAO;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.internal.KAMDao;
 
 public class KAMStoreStatisticsDaoImpl extends AbstractJdbcDAO implements
         KAMDao {

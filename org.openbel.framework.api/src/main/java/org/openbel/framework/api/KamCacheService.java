@@ -39,9 +39,9 @@ import static java.lang.String.format;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  * @author julianjray

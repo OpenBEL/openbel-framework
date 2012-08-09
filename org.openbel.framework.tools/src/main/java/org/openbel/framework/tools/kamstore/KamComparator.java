@@ -61,6 +61,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.api.KamStoreImpl;
+import org.openbel.framework.api.internal.KamDbObject;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.SimpleOutput;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.common.enums.ExitCode;
@@ -70,8 +72,6 @@ import org.openbel.framework.core.CommandLineApplication;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.internal.KamDbObject;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 public class KamComparator extends CommandLineApplication {
 

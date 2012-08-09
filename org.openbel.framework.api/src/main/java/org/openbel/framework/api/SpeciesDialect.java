@@ -38,8 +38,8 @@ package org.openbel.framework.api;
 import java.util.List;
 
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.model.Namespace;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 /**
  * {@link SpeciesDialect} constrains a {@link Kam kam} to a specific species.

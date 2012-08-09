@@ -44,10 +44,10 @@ import java.util.List;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.api.KamStore;
 import org.openbel.framework.api.KamStoreException;
 import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Edge;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
 

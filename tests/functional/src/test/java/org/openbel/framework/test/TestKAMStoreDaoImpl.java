@@ -29,18 +29,18 @@ import org.openbel.framework.api.BelDocumentFilterCriteria;
 import org.openbel.framework.api.CitationFilterCriteria;
 import org.openbel.framework.api.FilterCriteria;
 import org.openbel.framework.api.RelationshipTypeFilterCriteria;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDao.KamProtoNodesAndEdges;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoNode;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.core.df.AbstractJdbcDAO;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDao.KamProtoNodesAndEdges;
-import org.openbel.framework.internal.KAMStoreDaoImpl;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationDefinitionType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.AnnotationType;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
 import org.openbel.framework.test.KAMFilterHelper;
 
 public class TestKAMStoreDaoImpl extends KAMStoreTest {

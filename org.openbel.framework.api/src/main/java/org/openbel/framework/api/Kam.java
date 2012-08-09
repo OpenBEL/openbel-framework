@@ -39,10 +39,10 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
 
 /**
  *

@@ -484,7 +484,7 @@ dl {
   margin-bottom: 18px;
 }
 dl dt, dl dd {
-  line-height: 18px;
+  line-height: 2.0em;
 }
 dl dt {
   font-weight: bold;

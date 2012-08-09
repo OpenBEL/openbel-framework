@@ -13,14 +13,14 @@ import org.openbel.framework.api.BelDocumentFilterCriteria;
 import org.openbel.framework.api.CitationFilterCriteria;
 import org.openbel.framework.api.FilterCriteria;
 import org.openbel.framework.api.RelationshipTypeFilterCriteria;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMStoreDao;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Annotation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelDocumentInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.internal.KAMStoreDaoImpl.Citation;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoEdge;
-import org.openbel.framework.internal.KAMStoreDaoImpl.KamProtoNode;
+import org.openbel.framework.api.internal.KAMStoreDao;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Annotation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.Citation;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoEdge;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoNode;
 
 
 /**

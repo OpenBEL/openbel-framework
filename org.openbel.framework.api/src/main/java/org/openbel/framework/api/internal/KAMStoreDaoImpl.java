@@ -33,7 +33,7 @@
  * authors and licensors of the program for any liabilities that these
  * contractual assumptions directly impose on those licensors and authors.
  */
-package org.openbel.framework.internal;
+package org.openbel.framework.api.internal;
 
 import static java.util.Collections.emptyList;
 import static java.sql.ResultSet.*;
@@ -93,10 +93,6 @@ import org.openbel.framework.core.df.encryption.SymmetricEncryptionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionServiceImpl;
 import org.openbel.framework.core.df.external.ExternalResourceException;
-import org.openbel.framework.internal.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMCatalogDao.NamespaceFilter;
 import org.openbel.framework.api.AnnotationFilterCriteria;
 import org.openbel.framework.api.BelDocumentFilterCriteria;
 import org.openbel.framework.api.CitationFilterCriteria;
@@ -108,6 +104,10 @@ import org.openbel.framework.api.NamespaceFilterCriteria;
 import org.openbel.framework.api.RelationshipTypeFilterCriteria;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.NamespaceFilter;
 
 /**
  *

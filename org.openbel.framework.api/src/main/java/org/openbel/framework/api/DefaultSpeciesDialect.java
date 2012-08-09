@@ -43,15 +43,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.BELObject;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.internal.KAMStoreDaoImpl;
-import org.openbel.framework.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.internal.KAMStoreDaoImpl.TermParameter;
 
 /**
  * {@link DefaultSpeciesDialect} defines a {@link SpeciesDialect}
