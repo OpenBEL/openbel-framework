@@ -1,6 +1,9 @@
 OpenBEL Framework
 =================
 
+**For a more complete guide to using the BEL Framework, we encourage you to
+check out the** `OpenBEL Wiki`_.
+
 The OpenBEL Framework is an open-platform technology for managing, publishing,
 and using biological knowledge represented using the Biological Expression
 Language (BEL). BEL is an easy to understand, computable format for representing
@@ -25,9 +28,6 @@ variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
 
 .. contents::
-
-**For a more complete guide to using the BEL Framework, we encourage you to
-check out the** `OpenBEL Wiki`_.
 
 The OpenBEL Ecosystem
 ---------------------
