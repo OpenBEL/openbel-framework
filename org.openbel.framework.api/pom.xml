@@ -1,41 +1,193 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
+<<<<<<< HEAD
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/maven-v4_0_0.xsd">
+    
+=======
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>org.openbel</groupId>
         <artifactId>org.openbel.parent</artifactId>
         <version>2.0.1</version>
         <relativePath>../</relativePath>
     </parent>
-
-    <name>OpenBEL Framework API</name>
     <artifactId>org.openbel.framework.api</artifactId>
+<<<<<<< HEAD
+    <packaging>bundle</packaging>
+    
+    <name>OpenBEL Framework API</name>
+    <description>Java API for BEL Framework</description>
+    <url>https://github.com/OpenBEL/openbel-framework</url>
+    <inceptionYear>2011</inceptionYear>
+    
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>http://www.gnu.org/licenses/lgpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <scm>
+        <connection>scm:git:git://github.com/OpenBEL/openbel-framework.git</connection>
+        <developerConnection>scm:git:git://github.com/OpenBEL/openbel-framework.git</developerConnection>
+        <tag>v2.0.0</tag>
+        <url>https://github.com/OpenBEL/openbel-framework</url>
+    </scm>
+    
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/OpenBEL/openbel-framework/issues</url>
+    </issueManagement>
+    
+    <developers>
+        <developer>
+            <id>anthony bargnesi</id>
+            <name>Anthony Bargnesi</name>
+            <email>abargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/abargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>nick bargnesi</id>
+            <name>Nick Bargnesi</name>
+            <email>nbargnesi@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/nbargnesi</picUrl>
+            </properties>
+        </developer>
+        <developer>
+            <id>james mcmahon</id>
+            <name>James McMahon</name>
+            <email>jmcmahon@selventa.com</email>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+            <properties>
+                <picUrl>https://gravatar.com/liftyourskinnyfistslikeantennastoheaven</picUrl>
+            </properties>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Jordan Hourani</name>
+            <organization>Selventa</organization>
+            <organizationUrl>http://www.selventa.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </contributor>
+    </contributors>
+    
+=======
     <description>Java API for BEL Framework</description>
     <packaging>jar</packaging>
 
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    
     <profiles>
         <profile>
             <id>default</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
+            
             <dependencies>
                 <dependency>
                     <groupId>org.openbel</groupId>
                     <artifactId>org.openbel.framework.common</artifactId>
                     <version>${project.version}</version>
+<<<<<<< HEAD
+                </dependency>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                    <version>${commons-collections.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                    <version>${commons-lang.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr-runtime</artifactId>
+                    <version>${antlr.version}</version>
+                </dependency>
+                
+                <!-- Test dependencies -->
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                    <scope>test</scope>
+                    <classifier>tests</classifier>
+                </dependency>
+                <dependency>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                    <version>${junit.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-core</artifactId>
+                    <version>1.9.0</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+        <profile>
+            <id>bundle-all</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.bel</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.openbel</groupId>
+                    <artifactId>org.openbel.framework.common</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+=======
                 </dependency>
 
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
                 <dependency>
                     <groupId>org.openbel</groupId>
                     <artifactId>org.openbel.framework.core</artifactId>
@@ -59,7 +211,36 @@
                     <artifactId>antlr-runtime</artifactId>
                     <version>${antlr.version}</version>
                 </dependency>
+<<<<<<< HEAD
+                <dependency>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>stringtemplate</artifactId>
+                    <version>${antlr.stringtemplate.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.derby</groupId>
+                    <artifactId>derby</artifactId>
+                    <version>${derby.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.fusesource.jdbm</groupId>
+                    <artifactId>jdbm</artifactId>
+                    <version>${jdbm.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>${slf4j.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+                
+=======
 
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
                 <!-- Test dependencies -->
                 <dependency>
                     <groupId>org.openbel</groupId>
@@ -81,9 +262,111 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+<<<<<<< HEAD
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <archive>
+                                <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <version>2.3.7</version>
+                        <extensions>true</extensions>
+                        <executions>
+                            <execution>
+                                <id>bundle-manifest</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>manifest</goal>
+                                </goals>
+                                <configuration>
+                                    <instructions>
+                                        <Import-Package>
+                                            javax.crypto,
+                                            javax.crypto.interfaces,
+                                            javax.crypto.spec,
+                                            javax.net,
+                                            javax.net.ssl,
+                                            javax.security.auth,
+                                            javax.security.auth.callback,
+                                            javax.security.auth.login,
+                                            javax.sql,
+                                            javax.xml.bind,
+                                            javax.xml.bind.annotation,
+                                            javax.xml.bind.annotation.adapters,
+                                            javax.xml.namespace,
+                                            javax.xml.parsers,
+                                            javax.xml.stream,
+                                            javax.xml.stream.events,
+                                            javax.xml.transform,
+                                            javax.xml.transform.dom,
+                                            javax.xml.transform.sax,
+                                            javax.xml.transform.stax,
+                                            javax.xml.transform.stream,
+                                            javax.xml.validation,
+                                            org.apache.log4j,
+                                            org.osgi.framework,
+                                            org.w3c.dom,
+                                            org.xml.sax,
+                                            org.xml.sax.helpers,
+                                            antlr.*;resolution:=optional,
+                                            javax.servlet;resolution:=optional,
+                                            com.jcraft.jzlib;resolution:=optional,
+                                            groovy.lang;resolution:=optional,
+                                            javax.jms;resolution:=optional,
+                                            javax.mail;resolution:=optional,
+                                            javax.mail.internet;resolution:=optional,
+                                            javax.management;resolution:=optional,
+                                            javax.naming;resolution:=optional,
+                                            javax.naming.directory;resolution:=optional,
+                                            javax.naming.spi;resolution:=optional,
+                                            javax.servlet.http;resolution:=optional,
+                                            javax.swing;resolution:=optional,
+                                            javax.swing.event;resolution:=optional,
+                                            javax.swing.tree;resolution:=optional,
+                                            javax.transaction.xa;resolution:=optional,
+                                            net.sf.cglib.asm.util;resolution:=optional,
+                                            org.apache.avalon.framework.logger;resolution:=optional,
+                                            org.apache.commons.discovery.tools;resolution:=optional,
+                                            org.apache.derby.impl.drda;resolution:=optional,
+                                            org.apache.log;resolution:=optional,
+                                            org.apache.tools.ant;resolution:=optional,
+                                            org.apache.tools.ant.types;resolution:=optional,
+                                            org.apache.xalan.serialize;resolution:=optional,
+                                            org.apache.xalan.templates;resolution:=optional,
+                                            org.apache.xml.utils;resolution:=optional,
+                                            org.apache.xpath;resolution:=optional,
+                                            org.apache.xpath.objects;resolution:=optional,
+                                            org.codehaus.groovy.*;resolution:=optional,
+                                            org.codehaus.janino;resolution:=optional,
+                                            org.ietf.jgss;resolution:=optional,
+                                            sun.reflect;resolution:=optional
+                                        </Import-Package>
+                                        <Export-Package>org.openbel.framework.api</Export-Package>
+                                        <Private-Package>org.openbel.framework.internal</Private-Package>
+                                        <Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+                                        <Embed-Directory>lib</Embed-Directory>
+                                    </instructions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+=======
+>>>>>>> 44c887f0629b3d5ccc05ed5fde55c54abb077d0c
         </profile>
     </profiles>
-
+    
     <build>
         <plugins>
             <plugin>
