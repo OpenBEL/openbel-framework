@@ -28,7 +28,7 @@ if not exist "%BELFRAMEWORK_HOME%" (
     exit /B 1
 )
 
-set BELCOMPILER_DIR=%BASE_DIR%\lib\belcompiler
+set BELCOMPILER_DIR=%BASE_DIR%\lib
 if not exist "%BELCOMPILER_DIR%" (
     echo "Could not locate BEL Compiler lib directory, path was: %BELCOMPILER_DIR%"
     exit /B 1

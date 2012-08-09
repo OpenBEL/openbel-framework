@@ -236,13 +236,13 @@
                         <includes>
                             <include>**</include>
                         </includes>
-                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/belcompiler</outputDirectory>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
 
             <binaries>
-                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/belcompiler</outputDirectory>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib</outputDirectory>
                 <unpack>false</unpack>
                 <includeDependencies>false</includeDependencies>
                 <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>
@@ -269,13 +269,13 @@
                         <includes>
                             <include>**</include>
                         </includes>
-                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/api</outputDirectory>
+                        <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib</outputDirectory>
                     </fileSet>
                 </fileSets>
             </sources>
 
             <binaries>
-                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/api</outputDirectory>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib</outputDirectory>
                 <unpack>false</unpack>
                 <includeDependencies>false</includeDependencies>
                 <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>
@@ -292,7 +292,7 @@
                 <include>org.openbel:org.openbel.framework.ws.model</include>
             </includes>
             <binaries>
-                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib/webapiclient</outputDirectory>
+                <outputDirectory>OpenBEL_Framework-${belframework-release.version}/lib</outputDirectory>
                 <unpack>false</unpack>
                 <includeDependencies>false</includeDependencies>
                 <outputFileNameMapping>${artifact.artifactId}-${belframework-release.version}.${artifact.extension}</outputFileNameMapping>

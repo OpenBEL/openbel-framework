@@ -36,7 +36,7 @@ if $(dirname $0 >/dev/null 2>&1); then
         exit 1
     fi
     
-    BELCOMPILER_DIR="${BASE_DIR}/lib/belcompiler"
+    BELCOMPILER_DIR="${BASE_DIR}/lib"
     if [ ! -d "${BELCOMPILER_DIR}" ]; then
         echo "Could not locate BEL Compiler classpath, path was: ${BELCOMPILER_DIR}"
         exit 1
