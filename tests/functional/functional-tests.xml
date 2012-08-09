@@ -26,16 +26,16 @@
     <condition property="compiler" value="${dist_dir}${/}belc.cmd">
         <isset property="windows" />
     </condition>
-    <condition property="start_server" value="${dist_dir}${/}StartServer.sh">
+    <condition property="start_server" value="${dist_dir}${/}start-server.sh">
         <isset property="linux" />
     </condition>
-    <condition property="start_server" value="${dist_dir}${/}StartServer.cmd">
+    <condition property="start_server" value="${dist_dir}${/}start-server.cmd">
         <isset property="windows" />
     </condition>
-    <condition property="stop_server" value="${dist_dir}${/}StopServer.sh">
+    <condition property="stop_server" value="${dist_dir}${/}stop-server.sh">
         <isset property="linux" />
     </condition>
-    <condition property="stop_server" value="${dist_dir}${/}StopServer.cmd">
+    <condition property="stop_server" value="${dist_dir}${/}stop-server.cmd">
         <isset property="windows" />
     </condition>
 
