@@ -12,10 +12,13 @@ REM Copyright 2011 Selventa, Inc. All rights reserved.
 call "%~dp0\setenv.cmd"
 cd "%BELFRAMEWORK_HOME%\server\tomcat\bin"
 call catalina.bat start
-
-echo BEL Server successfully started. Default url is http://localhost:8080/
-echo     WebAPI is available. Default url is http://localhost:8080/openbel-ws/
-echo     WebAPI WSDL is available. Default url is http://localhost:8080/openbel-ws/belframework.wsdl
+if %ERRORLEVEL% GEQ 1 (
+    echo Unable to start server.    
+) ELSE (
+    echo BEL Server successfully started. Default url is http://localhost:8080/
+    echo     WebAPI is available. Default url is http://localhost:8080/openbel-ws/
+    echo     WebAPI WSDL is available. Default url is http://localhost:8080/openbel-ws/belframework.wsdl
+)
 
 goto END
 
