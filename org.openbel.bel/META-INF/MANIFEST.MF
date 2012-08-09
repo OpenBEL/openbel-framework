@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: The BEL Language
 Bundle-SymbolicName: org.openbel.bel
-Bundle-Version: 2.0.1
-Export-Package: org.openbel.bel.model; version=2.0.1,
- org.openbel.bel.xbel; version=2.0.1,
- org.openbel.bel.xbel.model; version=2.0.1
+Bundle-Version: 3.0.0
+Export-Package: org.openbel.bel.model; version=3.0.0,
+ org.openbel.bel.xbel; version=3.0.0,
+ org.openbel.bel.xbel.model; version=3.0.0
 Import-Package: javax.xml.bind.annotation.adapters,
  javax.xml.namespace,
  javax.xml.bind

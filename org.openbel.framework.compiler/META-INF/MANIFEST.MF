@@ -2,31 +2,31 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: The BEL Compiler included in the BEL Framework
 Bundle-SymbolicName: org.openbel.framework.compiler
-Bundle-Version: 2.0.1
-Export-Package: org.openbel.framework.compiler; version=2.0.1,
- org.openbel.framework.compiler.kam; version=2.0.1
-Import-Package: org.openbel.framework.common; version=2.0.1,
- org.openbel.framework.common.enums; version=2.0.1,
- org.openbel.framework.core; version=2.0.1,
- org.openbel.framework.core.namespace; version=2.0.1,
- org.openbel.framework.common.bel.parser; version=2.0.1,
- org.openbel.framework.core.compiler; version=2.0.1,
- org.openbel.framework.core.df; version=2.0.1,
- org.openbel.framework.core.protonetwork; version=2.0.1,
- org.apache.commons.io; version=2.0.1,
- org.openbel.framework.common.protonetwork.model; version=2.0.1,
- org.openbel.framework.core.equivalence; version=2.0.1,
- org.openbel.framework.core.compiler.expansion; version=2.0.1,
- org.openbel.framework.core.kam; version=2.0.1,
+Bundle-Version: 3.0.0
+Export-Package: org.openbel.framework.compiler; version=3.0.0,
+ org.openbel.framework.compiler.kam; version=3.0.0
+Import-Package: org.openbel.framework.common; version=3.0.0,
+ org.openbel.framework.common.enums; version=3.0.0,
+ org.openbel.framework.core; version=3.0.0,
+ org.openbel.framework.core.namespace; version=3.0.0,
+ org.openbel.framework.common.bel.parser; version=3.0.0,
+ org.openbel.framework.core.compiler; version=3.0.0,
+ org.openbel.framework.core.df; version=3.0.0,
+ org.openbel.framework.core.protonetwork; version=3.0.0,
+ org.apache.commons.io; version=3.0.0,
+ org.openbel.framework.common.protonetwork.model; version=3.0.0,
+ org.openbel.framework.core.equivalence; version=3.0.0,
+ org.openbel.framework.core.compiler.expansion; version=3.0.0,
+ org.openbel.framework.core.kam; version=3.0.0,
  javax.xml.bind,
- org.openbel.framework.core.df.cache; version=2.0.1,
- org.openbel.bel.model; version=2.0.1,
- org.openbel.framework.common.model; version=2.0.1,
- org.openbel.framework.common.index; version=2.0.1,
- org.openbel.framework.core.annotation; version=2.0.1,
- org.openbel.framework.core.indexer; version=2.0.1,
- org.openbel.framework.common.lang; version=2.0.1,
+ org.openbel.framework.core.df.cache; version=3.0.0,
+ org.openbel.bel.model; version=3.0.0,
+ org.openbel.framework.common.model; version=3.0.0,
+ org.openbel.framework.common.index; version=3.0.0,
+ org.openbel.framework.core.annotation; version=3.0.0,
+ org.openbel.framework.core.indexer; version=3.0.0,
+ org.openbel.framework.common.lang; version=3.0.0,
  org.slf4j; version=1.6.1,
- org.openbel.framework.core.protocol; version=2.0.1,
- org.openbel.framework.common.cfg; version=2.0.1
+ org.openbel.framework.core.protocol; version=3.0.0,
+ org.openbel.framework.common.cfg; version=3.0.0
 

@@ -45,7 +45,7 @@ public class BELFrameworkVersion {
     /**
      * Defines the current version number of the OpenBEL Framework - {@value}
      */
-    public static final String VERSION_NUMBER = "V2.0.1";
+    public static final String VERSION_NUMBER = "V3.0.0";
 
     /**
      * Defines the current version label of the OpenBEL Framework - {@value}

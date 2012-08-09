@@ -61,7 +61,7 @@ import org.openbel.framework.common.PathConstants;
  * system's behavior, i.e., the installation of the BEL framework.
  * </p>
  *
- * @version 2.0.1
+ * @version 3.0.0
  */
 public final class SystemConfiguration extends Configuration {
 
@@ -137,7 +137,7 @@ public final class SystemConfiguration extends Configuration {
      * Location of BEL Templates (for BELWorkbench document creation):
      * {@value #BEL_TEMPLATE_LOCATION}
      *
-     * @deprecated Deprecated as of version 2.0.1; no equivalent replacement
+     * @deprecated Deprecated as of version 3.0.0; no equivalent replacement
      */
     @Deprecated
     public static final String BEL_TEMPLATE_LOCATION = "beltemplate_path";
@@ -585,7 +585,7 @@ public final class SystemConfiguration extends Configuration {
      * Returns the BEL Template directory system configuration setting.
      *
      * @return Non-null, writable directory
-     * @deprecated Deprecated as of version 2.0.1; no equivalent replacement
+     * @deprecated Deprecated as of version 3.0.0; no equivalent replacement
      */
     @Deprecated
     public final File getBELTemplateDirectory() {

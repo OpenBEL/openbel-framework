@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Models for the BEL Framework Web API
 Bundle-SymbolicName: org.openbel.framework.ws.model
-Bundle-Version: 2.0.1
-Export-Package: org.openbel.framework.ws.model; version=2.0.1
+Bundle-Version: 3.0.0
+Export-Package: org.openbel.framework.ws.model; version=3.0.0
 Import-Package: javax.xml.datatype,
  javax.jws.soap,
  javax.xml.ws,
