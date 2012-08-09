@@ -106,7 +106,6 @@ public final class DocumentConverter extends CommandLineApplication {
         // may be written to stdout.
         reportable.setOutputStream(System.err);
         setReportable(reportable);
-
         printApplicationInfo();
 
         if (hasOption('h')) {
@@ -122,7 +121,14 @@ public final class DocumentConverter extends CommandLineApplication {
 
         // Determine the input document file path
         if (extraArgs.size() == 0) {
-            reportable.error("No documents specified.");
+            // print out the usage if no arguments are given
+        	printUsage();
+        	// Another SimpleOutput is used here, and it uses stdout because at this 
+        	// point nothing else will need to be output.
+        	SimpleOutput so = new SimpleOutput();
+        	so.setErrorStream(System.out);
+        	so.error("\n");
+            so.error("No documents specified.");
             end();
         } else if (extraArgs.size() > 1) {
             fatal("Only a single document can be specified.");

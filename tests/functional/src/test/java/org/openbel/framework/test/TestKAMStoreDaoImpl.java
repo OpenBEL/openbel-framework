@@ -295,7 +295,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
         close.setAccessible(true);
 
         kamProtoEdge = KamProtoEdge.class.getDeclaredConstructor(
-                KAMStoreDaoImpl.class, Integer.class, KamProtoNode.class, RelationshipType.class, KamProtoNode.class);
+                Integer.class, KamProtoNode.class, RelationshipType.class, KamProtoNode.class);
         kamProtoEdge.setAccessible(true);
 
         citation = Citation.class.getDeclaredConstructor(
@@ -363,7 +363,7 @@ public class TestKAMStoreDaoImpl extends KAMStoreTest {
                     throw new SQLException(String.format("Target node for edge %d is missing.", kamEdgeId));
                 }
 
-                map.put(kamEdgeId, kamProtoEdge.newInstance(dao, kamEdgeId, sourceKamProtoNode, RelationshipType.fromValue(relationshipTypeId), targetKamProtoNode));
+                map.put(kamEdgeId, kamProtoEdge.newInstance(kamEdgeId, sourceKamProtoNode, RelationshipType.fromValue(relationshipTypeId), targetKamProtoNode));
             }
 
             //filter edges if a kam filter is specified

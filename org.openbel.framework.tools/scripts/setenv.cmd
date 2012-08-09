@@ -12,13 +12,15 @@ REM
 REM Copyright 2011 Selventa, Inc. All rights reserved.
 
 set DIR=%~dp0
+if "%DIR%"=="tools" (
+    REM Running a framework tool from outside tools\
+    set BASE_DIR=%DIR%\..\
+) else (
+    set BASE_DIR=%DIR%
+)
+
 if not defined BELFRAMEWORK_HOME (
-    if "%DIR%"=="tools" (
-        REM Running a framework tool from outside tools\
-        set BELFRAMEWORK_HOME=%DIR%\..\
-    ) else (
-        set BELFRAMEWORK_HOME=%DIR%
-    )
+    set BELFRAMEWORK_HOME=%BASE_DIR%
 )
 
 if not exist "%BELFRAMEWORK_HOME%" (
@@ -26,7 +28,7 @@ if not exist "%BELFRAMEWORK_HOME%" (
     exit /B 1
 )
 
-set BELCOMPILER_DIR=%BELFRAMEWORK_HOME%\lib\belcompiler
+set BELCOMPILER_DIR=%BASE_DIR%\lib\belcompiler
 if not exist "%BELCOMPILER_DIR%" (
     echo "Could not locate BEL Compiler lib directory, path was: %BELCOMPILER_DIR%"
     exit /B 1

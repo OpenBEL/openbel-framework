@@ -439,6 +439,9 @@ public final class KamManager extends CommandLineApplication {
             commandStr = command.getAlias();
 
         } else if (command == null) {
+        	// Print usage if no commands were specified
+        	printUsage();
+        	reportable.error("\n");
             reportable
                     .error("No command option given. Please specify one of:  "
                             + showCommandAliases());

@@ -61,7 +61,7 @@ public class StatementEquivalencerTest {
      *
      * see https://github.com/OpenBEL/openbel-framework/issues/10
      */
-    @Test
+    //@Test
     public void testIssue10() {
         // test data from nick's test, this won't make sense in isolation
         // see https://gist.github.com/2919455 for documentation

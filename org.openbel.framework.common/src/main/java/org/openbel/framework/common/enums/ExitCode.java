@@ -54,145 +54,151 @@ import org.openbel.framework.common.Strings;
 public enum ExitCode {
 
     /**
-     * Success.
+     * Success. ExitCode(0)
      */
     SUCCESS(0, Strings.SUCCESS),
 
     /**
-     * General failure.
+     * General failure. ExitCode(1) 
      */
     GENERAL_FAILURE(1, Strings.GENERAL_FAILURE),
 
     /**
-     * Unrecoverable error.
+     * Unrecoverable error. ExitCode(2) 
      */
     UNRECOVERABLE_ERROR(2, Strings.UNRECOVERABLE_ERROR_MSG),
 
     /**
-     * All documents failed validation.
+     * All documents failed validation. ExitCode(3) 
      */
     NO_VALID_DOCUMENTS(3, ALL_DOCUMENTS_FAILED_VALIDATION),
 
     /**
-     * All documents failed conversion.
+     * All documents failed conversion. ExitCode(4) 
      */
     NO_CONVERTED_DOCUMENTS(4, ALL_DOCUMENTS_FAILED_CONVERSION),
 
     /**
-     * No proto-networks saved.
+     * No proto-networks saved. ExitCode(5) 
      */
     NO_PROTO_NETWORKS_SAVED(5, NO_NETWORKS_SAVED),
 
     /**
-     * No XBEL documents.
+     * No XBEL documents. ExitCode(6) 
      */
     NO_XBEL_DOCUMENTS(6, Strings.NO_XBEL_DOCUMENTS),
 
     /**
-     * Bad output directory.
+     * Bad output directory. ExitCode(7) 
      */
     BAD_OUTPUT_DIRECTORY(7, BAD_OUTPUT_DIR),
 
     /**
-     * Invalid namespace resource location.
+     * Invalid namespace resource location. ExitCode(8) 
      */
     INVALID_NAMESPACE_RESOURCE_LOCATION(8,
             Strings.INVALID_NAMESPACE_RESOURCE_LOCATION),
 
     /**
-     * Parse error.
+     * Parse error. ExitCode(9) 
      */
     PARSE_ERROR(9, Strings.PARSE_ERROR),
 
     /**
-     * KAM connection failure.
+     * KAM connection failure. ExitCode(10) 
      */
     KAM_CONNECTION_FAILURE(10, Strings.KAM_CONNECTION_FAILURE),
 
     /**
-     * No global proto network.
+     * No global proto network. ExitCode(11) 
      */
     NO_GLOBAL_PROTO_NETWORK(11, Strings.NO_GLOBAL_PROTO_NETWORK),
 
     /**
-     * Failed to merge proto-networks.
+     * Failed to merge proto-networks. ExitCode(12) 
      */
     FAILED_TO_MERGE_PROTO_NETWORKS(12, Strings.NETWORK_MERGE_FAILURE),
 
     /**
-     * Missing system configuration.
+     * Missing system configuration. ExitCode(13) 
      */
     MISSING_SYSTEM_CONFIGURATION(13, Strings.MISSING_SYSCFG),
 
     /**
-     * Failure loading into the KAM catalog.
+     * Failure loading into the KAM catalog. ExitCode(14) 
      */
     KAM_CATALOG_LOAD_FAILED(14, Strings.KAM_CATALOG_LOAD_FAILED),
 
     /**
-     * Failure deleting a directory.
+     * Failure deleting a directory. ExitCode(15) 
      */
     DIRECTORY_DELETION_FAILED(15, Strings.DIRECTORY_DELETION_FAILED),
 
     /**
-     * Failed creating a directory.
+     * Failed creating a directory. ExitCode(16) 
      */
     DIRECTORY_CREATION_FAILED(16, Strings.DIRECTORY_CREATION_FAILED),
-
+    
+    /*
+     * Duplicate KAM name. ExitCode(23) 
+     */
+    DUPLICATE_KAM_NAME(23, Strings.KAM_NAME_ALREADY_EXISTS),
+    
     /**
-     * Failed loading the KAM.
+     * Failed loading the KAM. ExitCode(17) 
      */
     KAM_LOAD_FAILURE(17, Strings.KAM_LOAD_FAILURE),
 
+    
     /**
-     * Out of memory.
+     * Out of memory. ExitCode(42) 
      */
     OOM_ERROR(42, Strings.OOM),
 
     // PEDANTIC RETURN CODES BEYOND HERE
 
     /**
-     * Pedantic validation failure.
+     * Pedantic validation failure. ExitCode(101) 
      */
     VALIDATION_FAILURE(101, PEDANTIC_VALIDATION_FAILURE),
 
     /**
-     * Pedantic conversion failure.
+     * Pedantic conversion failure. ExitCode(102) 
      */
     CONVERSION_FAILURE(102, PEDANTIC_CONVERSION_FAILURE),
 
     /**
-     * Pedantic namespace resolution failure.
+     * Pedantic namespace resolution failure. ExitCode(103) 
      */
     NAMESPACE_RESOLUTION_FAILURE(103, PEDANTIC_NAMESPACE_RESOLUTION_FAILURE),
 
     /**
-     * Pedantic namespace indexing failure.
+     * Pedantic namespace indexing failure. ExitCode(104) 
      */
     NAMESPACE_INDEXING_FAILURE(104, PEDANTIC_NAMESPACE_INDEXING_FAILURE),
 
     /**
-     * Pedantic semantic verification failure.
+     * Pedantic semantic verification failure. ExitCode(105) 
      */
     SEMANTIC_VERIFICATION_FAILURE(105, PEDANTIC_SEMANTIC_VERIFICATION_FAILURE),
 
     /**
-     * Pedantic symbol verification failure.
+     * Pedantic symbol verification failure. ExitCode(106) 
      */
     SYMBOL_VERIFICATION_FAILURE(106, PEDANTIC_SYMBOL_VERIFICATION_FAILURE),
 
     /**
-     * Pedantic proto-network save failure.
+     * Pedantic proto-network save failure. ExitCode(107) 
      */
     PROTO_NETWORK_SAVE_FAILURE(107, PEDANTIC_PROTO_NETWORK_SAVE_FAILURE),
 
     /**
-     * Term expansion failure.
+     * Term expansion failure. ExitCode(108) 
      */
     TERM_EXPANSION_FAILURE(108, PEDANTIC_TERM_EXPANSION_FAILURE),
 
     /**
-     * Statement expansion failure.
+     * Statement expansion failure. ExitCode(109) 
      */
     STATEMENT_EXPANSION_FAILURE(109, PEDANTIC_STATEMENT_EXPANSION_FAILURE);
 
