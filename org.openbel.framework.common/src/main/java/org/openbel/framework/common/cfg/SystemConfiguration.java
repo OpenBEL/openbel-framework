@@ -143,20 +143,20 @@ public final class SystemConfiguration extends Configuration {
     public static final String BEL_TEMPLATE_LOCATION = "beltemplate_path";
 
     /**
-     * Defines the default value, {@value #DEFAULT_KAM_CATALOG_SCHEMA}, for the
-     * kam_catalog_schema setting.
+     * Defines the default value, {@value} , for the
+     * {@value #KAMSTORE_CATALOG_SCHEMA_DESC} setting.
      */
-    private static final String DEFAULT_KAM_CATALOG_SCHEMA = "kam_catalog";
+    public static final String DEFAULT_KAM_CATALOG_SCHEMA = "kam_catalog";
 
     /**
-     * Defines the default value, {@value #DEFAULT_KAM_SCHEMA_PREFIX}, for the
-     * kam_schema_prefix setting.
+     * Defines the default value, {@value} , for the
+     * {@value #KAMSTORE_SCHEMA_PREFIX_DESC} setting.
      */
     private static final String DEFAULT_KAM_SCHEMA_PREFIX = "kam";
 
     /**
-     * Set to 0 if the databases are DBA managed or 1 if the BELFramework is
-     * allowed to create new KAM schemas (default)
+     * Defines the default value, {@value} , for the
+     * {@value #SYSTEM_MANAGED_SCHEMAS} setting.
      */
     private static final String DEFAULT_SYSTEM_MANAGED_SCHEMAS = "1";
 
