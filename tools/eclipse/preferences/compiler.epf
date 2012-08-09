@@ -1,0 +1,21 @@
+#Thu Aug 09 14:04:29 EDT 2012
+#Eclipse compiler preferences recommended for openbel-framework.
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.redundantNullCheck=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+\!/=
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.possibleAccidentalBooleanAssignment=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.reportMethodCanBeStatic=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.potentialNullReference=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.indirectStaticAccess=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.parameterAssignment=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.unusedParameter=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.missingOverrideAnnotation=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.compliance=1.7
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.unnecessaryTypeCheck=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.problem.unnecessaryElse=warning
+/instance/org.eclipse.jdt.core/org.eclipse.jdt.core.compiler.source=1.7
+file_export_version=3.0
+@org.eclipse.jdt.core=3.7.3.v20120119-1537
