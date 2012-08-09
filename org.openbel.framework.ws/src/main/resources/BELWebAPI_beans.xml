@@ -19,9 +19,7 @@
     </context:component-scan>
 
     <!-- beans from libraries: no stereotype annotations; cannot be autowired -->
-    <bean id="belSystemConfiguration" class="org.openbel.framework.common.cfg.SystemConfiguration" factory-method="createSystemConfiguration">
-        <constructor-arg><null/></constructor-arg>
-    </bean>
+    <bean id="belSystemConfiguration" class="org.openbel.framework.common.cfg.SystemConfiguration" factory-method="createSystemConfiguration"/>
 
     <bean id="databaseService" class="org.openbel.framework.core.df.DatabaseServiceImpl" />
 
