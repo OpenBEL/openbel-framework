@@ -14,7 +14,7 @@ cd "%BELFRAMEWORK_HOME%\server\tomcat\bin"
 call catalina.bat start
 if %ERRORLEVEL% GEQ 1 (
     echo Unable to start server.    
-) ELSE (
+) else (
     echo BEL Server successfully started. Default url is http://localhost:8080/
     echo     WebAPI is available. Default url is http://localhost:8080/openbel-ws/
     echo     WebAPI WSDL is available. Default url is http://localhost:8080/openbel-ws/belframework.wsdl
