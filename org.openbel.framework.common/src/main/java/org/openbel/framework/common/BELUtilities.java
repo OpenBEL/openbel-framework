@@ -35,16 +35,14 @@
  */
 package org.openbel.framework.common;
 
-import static java.io.File.separator;
-import static java.lang.Integer.parseInt;
-import static java.lang.System.arraycopy;
-import static java.lang.Thread.currentThread;
-import static java.lang.reflect.Array.newInstance;
-import static java.util.Collections.emptyList;
-import static java.util.Collections.emptySet;
-import static org.openbel.framework.common.PathConstants.BEL_SCRIPT_EXTENSION;
-import static org.openbel.framework.common.PathConstants.XBEL_EXTENSION;
-import static org.openbel.framework.common.Strings.SHA_256;
+import static java.io.File.*;
+import static java.lang.Integer.*;
+import static java.lang.System.*;
+import static java.lang.Thread.*;
+import static java.lang.reflect.Array.*;
+import static java.util.Collections.*;
+import static org.openbel.framework.common.PathConstants.*;
+import static org.openbel.framework.common.Strings.*;
 
 import java.io.Closeable;
 import java.io.File;
@@ -722,6 +720,21 @@ public class BELUtilities {
             V value = entry.getValue();
             fx.apply(key, value);
         }
+    }
+
+    /**
+     * Applies the search function {@code fx} to each of the items in the
+     * {@link Iterable iterable}, returning the first found match or null.
+     *
+     * @param iter {@link Iterable}
+     * @param fx {@link SearchFunction}
+     * @return {@code <T>}
+     */
+    public static <T> T search(Iterable<T> iter, SearchFunction<T> fx) {
+        for (final T t : iter) {
+            if (fx.match(t)) return t;
+        }
+        return null;
     }
 
     /**
