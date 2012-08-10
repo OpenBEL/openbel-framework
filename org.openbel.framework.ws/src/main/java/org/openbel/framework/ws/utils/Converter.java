@@ -67,8 +67,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openbel.framework.api.KamDialect;
 import org.openbel.framework.api.KamImpl;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.KamStoreObject;
 import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl;
@@ -828,12 +828,12 @@ public class Converter {
 
     public static KAMStoreDaoImpl.Namespace convert(final Namespace src,
             final org.openbel.framework.api.Kam kam,
-            final KamStore kamStore) throws InvalidArgument, KamStoreException {
+            final KAMStore kAMStore) throws InvalidArgument, KAMStoreException {
         if (src == null || src.getResourceLocation() == null) {
             return null;
         }
 
-        return kamStore.getNamespace(kam, src.getResourceLocation());
+        return kAMStore.getNamespace(kam, src.getResourceLocation());
     }
 
     /**

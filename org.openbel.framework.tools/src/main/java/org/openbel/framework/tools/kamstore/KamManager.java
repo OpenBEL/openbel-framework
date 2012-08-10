@@ -62,9 +62,9 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.openbel.framework.api.Kam;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
-import org.openbel.framework.api.KamStoreImpl;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
+import org.openbel.framework.api.KAMStoreImpl;
 import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
@@ -122,7 +122,7 @@ public final class KamManager extends CommandLineApplication {
     // destroyed in teardown().
     private DatabaseService dbservice;
     private DBConnection dbConnection;
-    private KamStore kamStore;
+    private KAMStore kAMStore;
     private KAMStoreSchemaService kamSchemaService;
     private PKAMSerializationService pkamService;
     private KAMCatalogDao kamCatalogDao;
@@ -190,7 +190,7 @@ public final class KamManager extends CommandLineApplication {
         // Connect to the KAM Store. This establishes a connection to the
         // KAM store database and sets up the system to read and process
         // KAMs.
-        kamStore = new KamStoreImpl(dbConnection);
+        kAMStore = new KAMStoreImpl(dbConnection);
 
         // Set up the KAM Store schemas
         kamSchemaService = new KAMStoreSchemaServiceImpl(dbservice);
@@ -215,8 +215,8 @@ public final class KamManager extends CommandLineApplication {
     private void teardown() {
 
         // Tears down the KAM store. This removes any cached data and queries
-        if (kamStore != null) {
-            kamStore.teardown();
+        if (kAMStore != null) {
+            kAMStore.teardown();
         }
 
         // Close the DBConnection
@@ -233,7 +233,7 @@ public final class KamManager extends CommandLineApplication {
 
         dbservice = null;
         dbConnection = null;
-        kamStore = null;
+        kAMStore = null;
         kamSchemaService = null;
         pkamService = null;
         kamCatalogDao = null;
@@ -541,7 +541,7 @@ public final class KamManager extends CommandLineApplication {
 
             // find KAM by name and see if validate preserve option
             if (kamName != null) {
-                List<KamInfo> kamInfos = kamStore.readCatalog();
+                List<KamInfo> kamInfos = kAMStore.getCatalog();
                 for (KamInfo kamInfo : kamInfos) {
                     if (kamName.equals(kamInfo.getName()) && !noPreserve) {
                         teardown();
@@ -552,7 +552,7 @@ public final class KamManager extends CommandLineApplication {
             }
 
             pkamService.deserializeKAM(kamName, pkamPath, password, noPreserve);
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (PKAMSerializationFailure e) {
@@ -584,7 +584,7 @@ public final class KamManager extends CommandLineApplication {
 
         try {
             setUp();
-            kam = kamStore.getKam(kamName);
+            kam = kAMStore.getKam(kamName);
 
             // establish a default if output path is not set
             if (outputFilename == null) {
@@ -602,11 +602,11 @@ public final class KamManager extends CommandLineApplication {
             final String formatString;
             if (exportFormat == ExportFormat.XGMML) {
                 formatString = "XGMML";
-                XGMMLExporter.exportKam(kam, kamStore, outputFilename);
+                XGMMLExporter.exportKam(kam, kAMStore, outputFilename);
             } else if (exportFormat == ExportFormat.RDF) {
                 formatString = "RDF";
-                RDFExporter.exportRdf(kam, kamStore.getKamInfo(kamName),
-                        kamStore, outputFilename);
+                RDFExporter.exportRdf(kam, kAMStore.getKamInfo(kamName),
+                        kAMStore, outputFilename);
             } else if (exportFormat == ExportFormat.PORTABLE_KAM) {
                 formatString = "portable";
                 pkamService.serializeKAM(kamName, outputFilename, password);
@@ -623,7 +623,7 @@ public final class KamManager extends CommandLineApplication {
             }
         } catch (PKAMSerializationFailure e) {
             reportable.error(e.getUserFacingMessage());
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (IOException e) {
@@ -664,15 +664,15 @@ public final class KamManager extends CommandLineApplication {
             Kam kam;
             if (kamName != null) {
                 // Look up the requested KAM and summarize.
-                kam = kamStore.getKam(kamName);
+                kam = kAMStore.getKam(kamName);
                 KamSummarizer summarizer = new KamSummarizer(reportable);
-                KamSummary summary = KamSummarizer.summarizeKam(kamStore, kam);
-                summarizer.printKamSummary(kamStore, summary);
+                KamSummary summary = KamSummarizer.summarizeKam(kAMStore, kam);
+                summarizer.printKamSummary(kAMStore, summary);
                 if (xhtmlWriter != null) {
                     xhtmlWriter.write(summary);
                 }
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (IOException e) {
@@ -726,7 +726,7 @@ public final class KamManager extends CommandLineApplication {
         try {
             setUp();
 
-            KamInfo kamInfo = kamStore.getKamInfo(kamName);
+            KamInfo kamInfo = kAMStore.getKamInfo(kamName);
             if (kamInfo != null) {
                 deleteKam(kamInfo, quiet);
             } else {
@@ -739,7 +739,7 @@ public final class KamManager extends CommandLineApplication {
         } catch (IOException e) {
             teardown();
             bailOnException(e);
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } finally {
@@ -769,7 +769,7 @@ public final class KamManager extends CommandLineApplication {
         try {
             setUp();
 
-            final List<KamInfo> kamInfos = kamStore.readCatalog();
+            final List<KamInfo> kamInfos = kAMStore.getCatalog();
             // Get a list of all the KAMs available in the KAM store
             reportable.output("Available KAMs:");
             reportable.output("\tName\tLast Compiled\tSchema Name");
@@ -781,7 +781,7 @@ public final class KamManager extends CommandLineApplication {
                         kamDb.getSchemaName()));
             }
             reportable.output("\n");
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (SQLException e) {
@@ -800,7 +800,7 @@ public final class KamManager extends CommandLineApplication {
         try {
             setUp();
 
-            final KamInfo kamInfo = kamStore.getKamInfo(kamName);
+            final KamInfo kamInfo = kAMStore.getKamInfo(kamName);
             if (kamInfo != null) {
                 if (!BELUtilities.equals(kamInfo.getDescription(),
                         newDescription)) {
@@ -817,7 +817,7 @@ public final class KamManager extends CommandLineApplication {
         } catch (SQLException e) {
             teardown();
             bailOnException(e);
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (IOException e) {
@@ -837,9 +837,9 @@ public final class KamManager extends CommandLineApplication {
         try {
             setUp();
 
-            final KamInfo kamInfo = kamStore.getKamInfo(oldKamName);
+            final KamInfo kamInfo = kAMStore.getKamInfo(oldKamName);
             if (kamInfo != null) {
-                final KamInfo kamInfo2 = kamStore.getKamInfo(newKamName);
+                final KamInfo kamInfo2 = kAMStore.getKamInfo(newKamName);
                 if (kamInfo2 != null) {
                     if (noPreserve) {
                         deleteKam(kamInfo2, true);
@@ -863,7 +863,7 @@ public final class KamManager extends CommandLineApplication {
         } catch (SQLException e) {
             teardown();
             bailOnException(e);
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
         } catch (IOException e) {

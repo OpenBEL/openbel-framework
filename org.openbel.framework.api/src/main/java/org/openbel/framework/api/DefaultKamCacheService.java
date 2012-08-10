@@ -103,24 +103,24 @@ public class DefaultKamCacheService implements KamCacheService {
     // Maps filtered KAMs to handles
     private final Map<FilteredKAMKey, String> fltrdMap;
 
-    /** {@link KamStore} */
-    protected final KamStore kamStore;
+    /** {@link KAMStore} */
+    protected final KAMStore kAMStore;
 
     private final ReadLock read;
     private final WriteLock write;
     private final ExecutorService execSvc;
 
     /**
-     * Creates a default KAM cache service with a supplied {@link KamStore}.
+     * Creates a default KAM cache service with a supplied {@link KAMStore}.
      * 
-     * @param kamStore {@link KamStore}
+     * @param kAMStore {@link KAMStore}
      * @throws InvalidArgument Thrown if {@code kamStore} is null
      */
-    public DefaultKamCacheService(KamStore kamStore) {
-        if (kamStore == null) {
-            throw new InvalidArgument("kamStore", kamStore);
+    public DefaultKamCacheService(KAMStore kAMStore) {
+        if (kAMStore == null) {
+            throw new InvalidArgument("kamStore", kAMStore);
         }
-        this.kamStore = kamStore;
+        this.kAMStore = kAMStore;
 
         kamMap = new HashMap<String, Kam>();
         unfltrdMap = new HashMap<KamInfo, String>();
@@ -386,7 +386,7 @@ public class DefaultKamCacheService implements KamCacheService {
          * {@inheritDoc}
          */
         @Override
-        public String call() throws KamStoreException {
+        public String call() throws KAMStoreException {
             String ret = null;
 
             if (kf != null) {
@@ -402,7 +402,7 @@ public class DefaultKamCacheService implements KamCacheService {
                     return ret;
                 }
 
-                Kam k = kamStore.getKam(ki, kf);
+                Kam k = kAMStore.getKam(ki, kf);
 
                 write.lock();
                 try {
@@ -432,7 +432,7 @@ public class DefaultKamCacheService implements KamCacheService {
                 }
 
                 // get an unfiltered KAM
-                Kam k = kamStore.getKam(ki);
+                Kam k = kAMStore.getKam(ki);
 
                 write.lock();
                 try {

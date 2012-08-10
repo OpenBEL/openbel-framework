@@ -47,8 +47,8 @@ import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
 import org.openbel.framework.api.KamCacheService;
 import org.openbel.framework.api.KamDialect;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
@@ -94,7 +94,7 @@ public class MapDataEndPoint extends WebServiceEndpoint {
     private DialectCacheService dialectCacheService;
 
     @Autowired(required = true)
-    private KamStore kamStore;
+    private KAMStore kAMStore;
 
     private Equivalencer equivalencer = new Equivalencer();
 
@@ -158,11 +158,11 @@ public class MapDataEndPoint extends WebServiceEndpoint {
         try {
             nodes =
                     KamEndPoint.findKamNodesByNamespacevalues(nvs, nf, kam,
-                            kamStore,
+                            kAMStore,
                             equivalencer);
         } catch (EquivalencerException e) {
             throw new RequestException("Error mapping data", e);
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             throw new RequestException("Error mapping data", e);
         }
 

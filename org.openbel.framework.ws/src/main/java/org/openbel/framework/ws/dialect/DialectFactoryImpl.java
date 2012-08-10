@@ -40,8 +40,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.openbel.framework.api.Dialect;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.core.df.beldata.namespace.NamespaceHeader;
@@ -62,7 +62,7 @@ import org.springframework.stereotype.Service;
 public class DialectFactoryImpl implements DialectFactory {
 
     @Autowired(required = true)
-    private KamStore kamStore;
+    private KAMStore kAMStore;
 
     @Autowired(required = true)
     private NamespaceResourceService namespaceResourceService;
@@ -72,7 +72,7 @@ public class DialectFactoryImpl implements DialectFactory {
      */
     @Override
     public Dialect createDefaultDialect(KamInfo kamInfo) {
-        return new DefaultDialect(kamInfo, kamStore);
+        return new DefaultDialect(kamInfo, kAMStore);
     }
 
     /**
@@ -82,13 +82,13 @@ public class DialectFactoryImpl implements DialectFactory {
     public Dialect createCustomDialect(KamInfo kamInfo,
             List<Namespace> geneNamespaces, List<Namespace> bpNamespaces,
             List<Namespace> chemicalNamespaces, BELSyntax form,
-            boolean removeNamespacePrefix) throws KamStoreException {
+            boolean removeNamespacePrefix) throws KAMStoreException {
 
         // cache all namespaces of the kam by prefix
         Map<String, Namespace> kamNamespaces = new HashMap<String, Namespace>();
         Map<String, NamespaceDomain> domains =
                 new HashMap<String, NamespaceDomain>();
-        for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace ns : kamStore.getNamespaces(kamInfo)) {
+        for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace ns : kAMStore.getNamespaces(kamInfo)) {
             Namespace cns = new Namespace(ns.getPrefix(),
                     ns.getResourceLocation());
             kamNamespaces.put(cns.getPrefix(), cns);
@@ -98,7 +98,7 @@ public class DialectFactoryImpl implements DialectFactory {
                     .getNamespaceBlock().getDomainString()));
         }
 
-        CustomDialect pd = new CustomDialect(kamStore);
+        CustomDialect pd = new CustomDialect(kAMStore);
         pd.setKamNamespaces(kamNamespaces);
         pd.setNsDomains(domains);
         pd.setGeneNamespaces(geneNamespaces);

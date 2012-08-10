@@ -42,7 +42,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.openbel.framework.api.Kam;
-import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KAMStore;
 import org.openbel.framework.api.Resolver;
 import org.openbel.framework.api.ResolverException;
 import org.openbel.framework.common.InvalidArgument;
@@ -69,7 +69,7 @@ public class ResolverServiceImpl implements ResolverService {
     private final Resolver resolver;
 
     @Autowired
-    private KamStore kamStore;
+    private KAMStore kAMStore;
 
     public ResolverServiceImpl() {
         resolver = new Resolver();
@@ -89,7 +89,7 @@ public class ResolverServiceImpl implements ResolverService {
 
             try {
                 resolvedKamNodes.add(convert(kam.getKamInfo(),
-                        resolver.resolve(kam, kamStore,
+                        resolver.resolve(kam, kAMStore,
                                 node.getLabel())));
             } catch (ParseException e) {
                 throw new ResolverServiceException(
@@ -138,7 +138,7 @@ public class ResolverServiceImpl implements ResolverService {
             rel = convert(edge.getRelationship());
 
             try {
-                re = resolver.resolve(kam, kamStore, subLbl, rel, objLbl);
+                re = resolver.resolve(kam, kAMStore, subLbl, rel, objLbl);
                 resolvedKamEdges.add(convert(kam.getKamInfo(), re));
             } catch (ParseException e) {
                 throw new ResolverServiceException(

@@ -38,7 +38,7 @@ package org.openbel.framework.ws.dialect;
 import java.util.List;
 
 import org.openbel.framework.api.Dialect;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.model.Namespace;
 
@@ -74,11 +74,11 @@ public interface DialectFactory {
      * @param removeNamespacePrefix Should the {@link Namespace} prefix be
      *            removed from the node labels
      * @return
-     * @throws KamStoreException
+     * @throws KAMStoreException
      */
     Dialect createCustomDialect(KamInfo kamInfo,
             List<Namespace> geneNamespaces, List<Namespace> bpNamespaces,
             List<Namespace> chemicalNamespaces, BELSyntax form,
-            boolean removeNamespacePrefix) throws KamStoreException;
+            boolean removeNamespacePrefix) throws KAMStoreException;
 
 }

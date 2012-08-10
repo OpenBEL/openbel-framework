@@ -106,7 +106,7 @@ public class DefaultKamCacheServiceTest {
 
         @Override
         public Kam getKam(KamInfo info, KamFilter fltr)
-                throws KamStoreException {
+                throws KAMStoreException {
             try {
                 sleep(KAM_LOAD_TIME * 1000);
             } catch (InterruptedException e) {
@@ -116,7 +116,7 @@ public class DefaultKamCacheServiceTest {
         }
 
         @Override
-        public Kam getKam(KamInfo info) throws KamStoreException {
+        public Kam getKam(KamInfo info) throws KAMStoreException {
             try {
                 sleep(KAM_LOAD_TIME * 1000);
             } catch (InterruptedException e) {

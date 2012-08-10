@@ -43,7 +43,7 @@ import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.api.KamStore;
+import org.openbel.framework.api.KAMStore;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.Term;
 
@@ -62,7 +62,7 @@ import org.openbel.framework.common.model.Term;
 public class DefaultDialect implements Dialect {
 
     private final KamInfo kamInfo;
-    private final KamStore kamStore;
+    private final KAMStore kAMStore;
     private final boolean displayLongForm;
 
     private Map<String, String> labelCache =
@@ -71,11 +71,11 @@ public class DefaultDialect implements Dialect {
     /**
      * Package constructor
      * @param kamInfo
-     * @param kamStore
+     * @param kAMStore
      */
-    public DefaultDialect(KamInfo kamInfo, KamStore kamStore, boolean displayLongForm) {
+    public DefaultDialect(KamInfo kamInfo, KAMStore kAMStore, boolean displayLongForm) {
         this.kamInfo = kamInfo;
-        this.kamStore = kamStore;
+        this.kAMStore = kAMStore;
         this.displayLongForm = displayLongForm;
     }
 
@@ -88,7 +88,7 @@ public class DefaultDialect implements Dialect {
         if (label == null) {
             label = kamNode.getLabel();
             try {
-                List<BelTerm> terms = kamStore.getSupportingTerms(kamNode);
+                List<BelTerm> terms = kAMStore.getSupportingTerms(kamNode);
                 if (!terms.isEmpty()) {
                     BelTerm bt = terms.get(0);
                     Term t = BELParser.parseTerm(bt.getLabel());

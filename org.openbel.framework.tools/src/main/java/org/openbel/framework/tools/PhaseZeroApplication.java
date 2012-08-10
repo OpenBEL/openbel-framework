@@ -17,8 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.cli.Option;
-import org.openbel.framework.api.KamStoreException;
-import org.openbel.framework.api.KamStoreImpl;
+import org.openbel.framework.api.KAMStoreException;
+import org.openbel.framework.api.KAMStoreImpl;
 import org.openbel.framework.common.DBConnectionFailure;
 import org.openbel.framework.common.SimpleOutput;
 import org.openbel.framework.common.cfg.SystemConfiguration;
@@ -47,7 +47,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
     
     // These fields were added as part of --no-preserve implementation.
     private DBConnection dbConnection;
-    private KamStoreImpl kamStore;
+    private KAMStoreImpl kamStore;
     private List<KamInfo> kams;
     
     /**
@@ -135,8 +135,8 @@ public class PhaseZeroApplication extends CommandLineApplication {
                         syscfg.getKamURL(),
                         syscfg.getKamUser(),
                         syscfg.getKamPassword());
-                kamStore = new KamStoreImpl(dbConnection);
-                kams = kamStore.readCatalog();
+                kamStore = new KAMStoreImpl(dbConnection);
+                kams = kamStore.getCatalog();
                 for (KamInfo kam : kams){
                     if (kam.getName().equals(kamName)){
                         bail(ExitCode.DUPLICATE_KAM_NAME);
@@ -146,7 +146,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
             catch (SQLException e){
                 reportable.error(e.getMessage());
             }
-            catch (KamStoreException e) {
+            catch (KAMStoreException e) {
                 reportable.error(e.getMessage());
             }
         }

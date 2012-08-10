@@ -60,20 +60,20 @@ import org.openbel.framework.common.model.Term;
  */
 public class DefaultSpeciesDialect implements SpeciesDialect {
 
-    private final KamStore kamStore;
+    private final KAMStore kAMStore;
     private final Map<String, Namespace> nsmap;
     private final List<Namespace> speciesNs;
     private final Map<String, String> labelCache;
     private final boolean displayLongForm;
 
-    public DefaultSpeciesDialect(final KamInfo info, final KamStore kamStore,
+    public DefaultSpeciesDialect(final KamInfo info, final KAMStore kAMStore,
             final int taxId, final boolean displayLongForm) {
-        this.kamStore = kamStore;
+        this.kAMStore = kAMStore;
         this.labelCache = new HashMap<String, String>();
         try {
             Namespaces ns = Namespaces.loadNamespaces();
 
-            List<KAMStoreDaoImpl.Namespace> nsl = kamStore.getNamespaces(info);
+            List<KAMStoreDaoImpl.Namespace> nsl = kAMStore.getNamespaces(info);
             nsmap = constrainedHashMap(nsl.size());
             for (final KAMStoreDaoImpl.Namespace n : nsl) {
                 nsmap.put(n.getPrefix(),
@@ -105,7 +105,7 @@ public class DefaultSpeciesDialect implements SpeciesDialect {
 
         try {
             // find first term and convert to species namespaces
-            final List<BelTerm> terms = kamStore
+            final List<BelTerm> terms = kAMStore
                     .getSupportingTerms(kamNode);
             if (hasItems(terms)) {
                 final BelTerm term = terms.get(0);
@@ -121,7 +121,7 @@ public class DefaultSpeciesDialect implements SpeciesDialect {
             // if there are no supporting terms, return node label,
             // should never be true
             return nodeLabel;
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             // error returns original label
             return nodeLabel;
         }

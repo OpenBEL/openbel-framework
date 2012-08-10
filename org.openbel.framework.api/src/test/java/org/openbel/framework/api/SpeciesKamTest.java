@@ -73,7 +73,7 @@ import org.openbel.framework.common.lang.ProteinAbundance;
 public class SpeciesKamTest extends SystemConfigurationBasedTest {
     private static KamInfo info;
 
-    private KamStore kamstore;
+    private KAMStore kamstore;
 
     /**
      * Tests collapsing of orthologous {@link GeneAbundance gene abundance}
@@ -90,7 +90,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      */
     @Test
     public void speciesSimple() {
-        kamstore = mock(KamStore.class);
+        kamstore = mock(KAMStore.class);
         final Kam kam;
         try {
             kam = simpleKam();
@@ -109,7 +109,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
@@ -151,7 +151,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      */
     @Test
     public void speciesFamily() {
-        kamstore = mock(KamStore.class);
+        kamstore = mock(KAMStore.class);
         final Kam kam;
         try {
             kam = familyKam();
@@ -170,7 +170,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
@@ -206,7 +206,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
      */
     @Test
     public void speciesComplex() {
-        kamstore = mock(KamStore.class);
+        kamstore = mock(KAMStore.class);
         final Kam kam;
         try {
             kam = complexKam();
@@ -225,7 +225,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
             return;
@@ -413,7 +413,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                     Arrays.asList(belTerm));
             when(kamstore.getTermParameters(info, belTerm)).thenReturn(
                     Arrays.asList(rgdMapk1));
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed retrieving mocked supporting terms.");
         }
@@ -545,7 +545,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                     Arrays.asList(belTerm));
             when(kamstore.getTermParameters(info, belTerm)).thenReturn(
                     Arrays.asList(pfr1433));
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed retrieving mocked supporting terms.");
         }
@@ -668,7 +668,7 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
                     Arrays.asList(belTerm));
             when(kamstore.getTermParameters(info, belTerm)).thenReturn(
                     Arrays.asList(ncrAP1));
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail("Failed retrieving mocked supporting terms.");
         }

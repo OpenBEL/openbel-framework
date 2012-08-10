@@ -62,8 +62,8 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
 import org.openbel.framework.api.AnnotationFilterCriteria;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.Reportable;
 import org.openbel.framework.common.enums.FunctionEnum;
@@ -88,9 +88,9 @@ public final class KamSummarizer {
         this.reportable = reportable;
     }
 
-    public void printKamSummary(final KamStore kamStore,
+    public void printKamSummary(final KAMStore kAMStore,
             final KamSummary summary)
-            throws InvalidArgument, KamStoreException {
+            throws InvalidArgument, KAMStoreException {
 
         reportable.output(String.format("\n\nSummarizing KAM: %s", summary
                 .getKamInfo().getName()));
@@ -132,7 +132,7 @@ public final class KamSummarizer {
                             annotation.getUsage()));
                     reportable.output(String
                             .format("\t\t\tDomain: %s",
-                                    buildAnnotationDomain(kamStore, summary,
+                                    buildAnnotationDomain(kAMStore, summary,
                                             annotation)));
                 }
             }
@@ -162,15 +162,15 @@ public final class KamSummarizer {
     }
 
     public static KamSummary
-            summarizeKam(final KamStore kamStore, final Kam kam)
-                    throws InvalidArgument, KamStoreException {
+            summarizeKam(final KAMStore kAMStore, final Kam kam)
+                    throws InvalidArgument, KAMStoreException {
         KamSummary summary;
         summary = new KamSummary();
         summary.setKamInfo(kam.getKamInfo());
 
         Set<Integer> stmtIds = new HashSet<Integer>();
         for (KamEdge edge : kam.getEdges()) {
-            for (BelStatement stmt : kamStore.getSupportingEvidence(edge)) {
+            for (BelStatement stmt : kAMStore.getSupportingEvidence(edge)) {
                 stmtIds.add(stmt.getId());
             }
         }
@@ -178,13 +178,13 @@ public final class KamSummarizer {
         summary.setNumOfBELStatements(stmtIds.size());
         summary.setNumOfNodes(kam.getNodes().size());
         summary.setNumOfEdges(kam.getEdges().size());
-        summary.setNumOfBELDocuments(kamStore.getBelDocumentInfos(
+        summary.setNumOfBELDocuments(kAMStore.getBelDocumentInfos(
                 kam.getKamInfo()).size());
-        summary.setNumOfNamespaces(kamStore.getNamespaces(kam.getKamInfo())
+        summary.setNumOfNamespaces(kAMStore.getNamespaces(kam.getKamInfo())
                 .size());
 
         List<AnnotationType> annotationTypes =
-                kamStore.getAnnotationTypes(kam.getKamInfo());
+                kAMStore.getAnnotationTypes(kam.getKamInfo());
         Collections.sort(annotationTypes, new Comparator<AnnotationType>() {
 
             @Override
@@ -225,7 +225,7 @@ public final class KamSummarizer {
 
         //breakdown human, mouse, rat and summary sub-network
         summary.setFilteredKamSummaries(summarizeAnnotationSpecificEdges(
-                kamStore, kam, filteredAnnotationTypes));
+                kAMStore, kam, filteredAnnotationTypes));
 
         return summary;
     }
@@ -400,17 +400,17 @@ public final class KamSummarizer {
                 || edge.getRelationshipType() == RelationshipType.DIRECTLY_DECREASES;
     }
 
-    private Collection<KamEdge> filterEdges(final KamStore kamStore,
+    private Collection<KamEdge> filterEdges(final KAMStore kAMStore,
             final Kam kam, final String annotationName)
-            throws KamStoreException {
+            throws KAMStoreException {
         KamFilter filter = kam.getKamInfo().createKamFilter();
         AnnotationFilterCriteria criteria =
-                new AnnotationFilterCriteria(getAnnotationType(kamStore, kam,
+                new AnnotationFilterCriteria(getAnnotationType(kAMStore, kam,
                         annotationName));
         criteria.add(RANDOM_VALUE);
         criteria.setInclude(false);
         filter.add(criteria);
-        Kam filteredKam = kamStore.getKam(kam.getKamInfo(), filter);
+        Kam filteredKam = kAMStore.getKam(kam.getKamInfo(), filter);
         return filteredKam.getEdges();
     }
 
@@ -420,12 +420,12 @@ public final class KamSummarizer {
      * @param name
      * @return AnnotationType, maybe null
      */
-    private AnnotationType getAnnotationType(final KamStore kamStore,
-            final Kam kam, final String name) throws KamStoreException {
+    private AnnotationType getAnnotationType(final KAMStore kAMStore,
+            final Kam kam, final String name) throws KAMStoreException {
 
         AnnotationType annoType = null;
         List<BelDocumentInfo> belDocs =
-                kamStore.getBelDocumentInfos(kam.getKamInfo());
+                kAMStore.getBelDocumentInfos(kam.getKamInfo());
         //loop through all BEL documents used for this KAM
         for (BelDocumentInfo doc : belDocs) {
             //check annotation type on each document
@@ -444,9 +444,9 @@ public final class KamSummarizer {
     }
 
     private static Map<String, KamSummary> summarizeAnnotationSpecificEdges(
-            final KamStore kamStore, final Kam kam,
+            final KAMStore kAMStore, final Kam kam,
             final List<AnnotationType> annotations)
-            throws KamStoreException {
+            throws KAMStoreException {
 
         Map<String, KamSummary> summaries =
                 new LinkedHashMap<String, KamSummary>();
@@ -462,7 +462,7 @@ public final class KamSummarizer {
             Set<Integer> annotationStatements = new HashSet<Integer>();
             for (final KamEdge edge : kam.getEdges()) {
                 List<BelStatement> supportingEvidence =
-                        kamStore.getSupportingEvidence(edge);
+                        kAMStore.getSupportingEvidence(edge);
                 if (hasItems(supportingEvidence)) {
                     for (BelStatement stmt : supportingEvidence) {
                         if (hasItems(stmt.getAnnotationList())) {
@@ -490,11 +490,11 @@ public final class KamSummarizer {
         return summaries;
     }
 
-    private String buildAnnotationDomain(final KamStore kamStore,
+    private String buildAnnotationDomain(final KAMStore kAMStore,
             final KamSummary summary,
-            final AnnotationType annotationType) throws KamStoreException {
+            final AnnotationType annotationType) throws KAMStoreException {
         List<String> domainValues =
-                kamStore.getAnnotationTypeDomainValues(summary.getKamInfo(),
+                kAMStore.getAnnotationTypeDomainValues(summary.getKamInfo(),
                         annotationType);
 
         summary.getAnnotationDomains().put(annotationType, domainValues);
@@ -508,7 +508,7 @@ public final class KamSummarizer {
 
     private void printNetworkSummary(final KamSummary summary,
             final Reportable reportable) throws InvalidArgument,
-            KamStoreException {
+            KAMStoreException {
         reportable.output(String.format("\tNum Nodes:\t%d",
                 summary.getNumOfNodes()));
         reportable.output(String.format("\tNum Edges:\t%d",

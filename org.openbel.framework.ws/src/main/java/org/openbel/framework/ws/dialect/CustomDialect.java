@@ -48,8 +48,8 @@ import org.openbel.framework.api.EquivalencerException;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.model.BELObject;
 import org.openbel.framework.common.model.Namespace;
@@ -79,7 +79,7 @@ import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
  * @author Steve Ungerer
  */
 public class CustomDialect implements Dialect {
-    private final KamStore kamStore;
+    private final KAMStore kAMStore;
     private final Equivalencer equivalencer = new Equivalencer();
 
     private boolean removeNamespacePrefix = false;
@@ -102,11 +102,11 @@ public class CustomDialect implements Dialect {
      * Post-construction the appropriate mutation must occur with
      * {@link #initialize()} being invoked prior to usage.
      *
-     * @param kamStore
-     * @throws KamStoreException
+     * @param kAMStore
+     * @throws KAMStoreException
      */
-    CustomDialect(KamStore kamStore) throws KamStoreException {
-        this.kamStore = kamStore;
+    CustomDialect(KAMStore kAMStore) throws KAMStoreException {
+        this.kAMStore = kAMStore;
     }
 
     /**
@@ -254,10 +254,10 @@ public class CustomDialect implements Dialect {
      *
      * @param node
      * @return
-     * @throws KamStoreException
+     * @throws KAMStoreException
      */
-    protected String labelNode(KamNode node) throws KamStoreException {
-        List<BelTerm> terms = kamStore.getSupportingTerms(node);
+    protected String labelNode(KamNode node) throws KAMStoreException {
+        List<BelTerm> terms = kAMStore.getSupportingTerms(node);
         if (!terms.isEmpty()) {
             BelTerm bt = terms.get(0);
             Term parsed;

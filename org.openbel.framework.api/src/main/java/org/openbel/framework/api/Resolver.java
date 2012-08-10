@@ -71,7 +71,7 @@ public class Resolver {
      * {@link KamNode} in the {@link Kam}.
      * 
      * @param kam {@link Kam}, the KAM to resolve against
-     * @param kamStore {@link KAMStore}, the KAM store to use in resolving the
+     * @param kAMStore {@link KAMStore}, the KAM store to use in resolving the
      * bel term expression
      * @param belTerm {@link String}, the BelTerm string, which cannot be null
      * or the empty string
@@ -84,10 +84,10 @@ public class Resolver {
      * @throws ResolverException Thrown if an error occurred resolving the
      * BelTerm using the {@link KAMStore}
      */
-    public KamNode resolve(final Kam kam, final KamStore kamStore,
+    public KamNode resolve(final Kam kam, final KAMStore kAMStore,
             final String belTerm) throws ParseException,
             ResolverException {
-        if (nulls(kam, kamStore, belTerm)) {
+        if (nulls(kam, kAMStore, belTerm)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
         }
@@ -101,9 +101,9 @@ public class Resolver {
             String lookupTerm = term.toBELLongForm();
 
             // If we parsed Ok we can go ahead and lookup the string in the KAMStore
-            kamNode = kamStore.getKamNode(kam, lookupTerm);
+            kamNode = kAMStore.getKamNode(kam, lookupTerm);
 
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             throw new ResolverException(e);
         }
 
@@ -114,7 +114,7 @@ public class Resolver {
      * Resolves a BelTerm to an equivalent {@link KamNode} in the {@link Kam}.
      * 
      * @param kam {@link Kam}, the KAM to resolve against
-     * @param kamStore {@link KAMStore}, the KAM store to use in resolving the
+     * @param kAMStore {@link KAMStore}, the KAM store to use in resolving the
      * bel term expression
      * @param belTerm {@link BelTerm}, the BelTerm which cannot be null
      * @return the resolved {@link KamNode} for the BelTerm, or null if one
@@ -124,9 +124,9 @@ public class Resolver {
      * @throws ResolverException Thrown if an error occurred resolving the
      * BelTerm using the {@link KAMStore}
      */
-    public KamNode resolve(final Kam kam, final KamStore kamStore,
+    public KamNode resolve(final Kam kam, final KAMStore kAMStore,
             final BelTerm belTerm) throws ResolverException {
-        if (nulls(kam, kamStore, belTerm)) {
+        if (nulls(kam, kAMStore, belTerm)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
         }
@@ -139,9 +139,9 @@ public class Resolver {
 
         try {
             // If we parsed Ok we can go ahead and lookup the string in the KAMStore
-            kamNode = kamStore.getKamNode(kam, belTerm);
+            kamNode = kAMStore.getKamNode(kam, belTerm);
 
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             throw new ResolverException(e);
         }
 
@@ -159,7 +159,7 @@ public class Resolver {
      * </p>
      * 
      * @param kam {@link Kam}, the kam to resolve into, which cannot be null
-     * @param kamStore {@link KAMStore}, the KAM store to use in resolving
+     * @param kAMStore {@link KAMStore}, the KAM store to use in resolving
      * the BelTerms and Edge, which cannot be null
      * @param subjectBelTerm {@link String}, the subject BelTerm to resolve to
      * a {@link KamNode}, which cannot be null
@@ -177,23 +177,23 @@ public class Resolver {
      * @throws ParseException Thrown if <tt>subjectBelTerm</tt> or
      * <tt>objectBelTerm</tt> cannot be parsed to a valid BEL term expression
      */
-    public KamEdge resolve(final Kam kam, final KamStore kamStore,
+    public KamEdge resolve(final Kam kam, final KAMStore kAMStore,
             final String subjectBelTerm, final RelationshipType rtype,
             final String objectBelTerm) throws ResolverException,
             ParseException {
-        if (nulls(kam, kamStore, subjectBelTerm, rtype, objectBelTerm)) {
+        if (nulls(kam, kAMStore, subjectBelTerm, rtype, objectBelTerm)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
         }
 
         // resolve subject bel term to kam node.
-        final KamNode subjectKamNode = resolve(kam, kamStore, subjectBelTerm);
+        final KamNode subjectKamNode = resolve(kam, kAMStore, subjectBelTerm);
         if (subjectKamNode == null) {
             return null;
         }
 
         // resolve object bel term to kam node.
-        final KamNode objectKamNode = resolve(kam, kamStore, objectBelTerm);
+        final KamNode objectKamNode = resolve(kam, kAMStore, objectBelTerm);
 
         return resolveEdge(kam, subjectKamNode, rtype, objectKamNode);
     }
@@ -209,7 +209,7 @@ public class Resolver {
      * </p>
      * 
      * @param kam {@link Kam}, the kam to resolve into, which cannot be null
-     * @param kamStore {@link KAMStore}, the KAM store to use in resolving
+     * @param kAMStore {@link KAMStore}, the KAM store to use in resolving
      * the BelTerms and Edge, which cannot be null
      * @param subjectBelTerm {@link BelTerm}, the subject BelTerm to resolve to
      * a {@link KamNode}, which cannot be null
@@ -225,22 +225,22 @@ public class Resolver {
      * @throws ResolverException Thrown if an error occurred resolving the
      * BelTerm using the {@link KAMStore}
      */
-    public KamEdge resolve(final Kam kam, final KamStore kamStore,
+    public KamEdge resolve(final Kam kam, final KAMStore kAMStore,
             final BelTerm subjectBelTerm, final RelationshipType rtype,
             final BelTerm objectBelTerm) throws ResolverException {
-        if (nulls(kam, kamStore, subjectBelTerm, rtype, objectBelTerm)) {
+        if (nulls(kam, kAMStore, subjectBelTerm, rtype, objectBelTerm)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
         }
 
         // resolve subject bel term to kam node.
-        final KamNode subjectKamNode = resolve(kam, kamStore, subjectBelTerm);
+        final KamNode subjectKamNode = resolve(kam, kAMStore, subjectBelTerm);
         if (subjectKamNode == null) {
             return null;
         }
 
         // resolve object bel term to kam node.
-        final KamNode objectKamNode = resolve(kam, kamStore, objectBelTerm);
+        final KamNode objectKamNode = resolve(kam, kAMStore, objectBelTerm);
 
         return resolveEdge(kam, subjectKamNode, rtype, objectKamNode);
     }

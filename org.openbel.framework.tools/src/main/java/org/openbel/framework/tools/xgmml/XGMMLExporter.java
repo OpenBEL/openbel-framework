@@ -45,8 +45,8 @@ import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Edge;
 import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
@@ -69,20 +69,20 @@ public class XGMMLExporter {
      * Export KAM to XGMML format using the KAM API.
      *
      * @param kam {@link Kam} the kam to export to XGMML
-     * @param kamStore {@link KAMStore} the kam store to read kam details from
+     * @param kAMStore {@link KAMStore} the kam store to read kam details from
      * @param outputPath {@link String} the output path to write XGMML file to,
      * which can be null, in which case the kam's name will be used and it will
      * be written to the current directory (user.dir).
      *
-     * @throws KamStoreException Thrown if an error occurred retrieving the KAM
+     * @throws KAMStoreException Thrown if an error occurred retrieving the KAM
      * @throws FileNotFoundException Thrown if the export file cannot be
      * written to
      * @throws InvalidArgument Thrown if either the kam, kamInfo, kamStore, or
      * outputPath arguments were null
      */
-    public static void exportKam(final Kam kam, final KamStore kamStore,
-            String outputPath) throws KamStoreException, FileNotFoundException {
-        if (nulls(kam, kamStore, outputPath)) {
+    public static void exportKam(final Kam kam, final KAMStore kAMStore,
+            String outputPath) throws KAMStoreException, FileNotFoundException {
+        if (nulls(kam, kAMStore, outputPath)) {
             throw new InvalidArgument("argument(s) were null");
         }
 
@@ -102,7 +102,7 @@ public class XGMMLExporter {
             xNode.function = kamNode.getFunctionType();
 
             List<BelTerm> supportingTerms =
-                    kamStore.getSupportingTerms(kamNode);
+                    kAMStore.getSupportingTerms(kamNode);
 
             XGMMLUtility.writeNode(xNode, supportingTerms, writer);
         }

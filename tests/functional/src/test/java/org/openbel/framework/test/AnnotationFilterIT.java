@@ -17,7 +17,7 @@ import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.Annotation;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.InvalidArgument;
 
 /**
@@ -38,7 +38,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
     private Annotation ann2;
 
     @Before
-    public void setup() throws KamStoreException {
+    public void setup() throws KAMStoreException {
         setupKamStore(Constants.SMALL_CORPUS_KAM_NAME);
 
         // find first edge with two statements having at least one annotation
@@ -77,7 +77,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
             filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
         }
 
@@ -103,7 +103,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
             filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
         }
 
@@ -132,7 +132,7 @@ public class AnnotationFilterIT extends KAMStoreTest {
             filteredStmts = ks.getSupportingEvidence(edge, filter);
         } catch (InvalidArgument e) {
             e.printStackTrace();
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
         }
 

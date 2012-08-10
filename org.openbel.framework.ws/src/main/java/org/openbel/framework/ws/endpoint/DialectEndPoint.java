@@ -41,7 +41,7 @@ import java.util.List;
 import org.openbel.framework.api.Dialect;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.KamCacheService;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
@@ -142,7 +142,7 @@ public class DialectEndPoint extends WebServiceEndpoint {
                             geneNamespaces, bpNamespaces, chemNamespaces,
                             Converter.convert(request.getSyntax()),
                             request.isHideNamespacePrefixes());
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             throw new RequestException("Failed to construct dialect", e);
         }
 

@@ -19,7 +19,7 @@ import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
-public class MockKamStore implements KamStore {
+public class MockKamStore implements KAMStore {
 
     @Override
     public void close(Kam k) {
@@ -27,22 +27,23 @@ public class MockKamStore implements KamStore {
     }
 
     @Override
-    public void teardown() {
+    public boolean exists(Kam k) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<KamInfo> readCatalog() {
+    public boolean exists(KamInfo info) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public KamInfo getKamInfo(String name) {
+    public boolean exists(String name) {
         throw new UnsupportedOperationException();
-    }
+        }
 
     @Override
-    public Kam getKam(String name) {
+    public List<String> getAnnotationTypeDomainValues(KamInfo info,
+            AnnotationType type) {
         throw new UnsupportedOperationException();
     }
 
@@ -59,12 +60,6 @@ public class MockKamStore implements KamStore {
     }
 
     @Override
-    public List<String> getAnnotationTypeDomainValues(KamInfo info,
-            AnnotationType type) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public List<BelDocumentInfo> getBelDocumentInfos(Kam k) {
         throw new UnsupportedOperationException();
     }
@@ -75,89 +70,7 @@ public class MockKamStore implements KamStore {
     }
 
     @Override
-    public Namespace getNamespace(Kam k, String resourceLocation) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<Namespace> getNamespaces(Kam k) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<Namespace> getNamespaces(KamInfo info) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<BelStatement> getSupportingEvidence(KamEdge edge,
-            AnnotationFilter fltr) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<BelStatement> getSupportingEvidence(KamEdge edge) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<BelTerm> getSupportingTerms(KamNode node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<BelTerm> getSupportingTerms(
-            KamNode node, boolean removeDups) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<BelTerm> getSupportingTerms(KamNode node,
-            boolean removeDups, NamespaceFilter fltr) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<TermParameter> getTermParameters(
-            KamInfo info, BelTerm term) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public KamNode getKamNode(Kam k, String termString) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public KamNode getKamNode(Kam k, BelTerm term) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<KamNode> getKamNodes(Kam k, FunctionEnum function,
-            Namespace ns, String paramValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<KamNode> getKamNodes(
-            Kam k, Namespace ns, String paramValue) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<KamNode> getKamNodes(Kam k, KamNode node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<KamNode> getKamNodes(Kam k, SkinnyUUID uuid) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<KamNode> getKamNodes(Kam k, FunctionEnum function,
-            SkinnyUUID uuid) {
+    public List<KamInfo> getCatalog() {
         throw new UnsupportedOperationException();
     }
 
@@ -185,12 +98,114 @@ public class MockKamStore implements KamStore {
     }
 
     @Override
-    public Kam getKam(KamInfo info, KamFilter fltr) throws KamStoreException {
+    public Kam getKam(KamInfo info) throws KAMStoreException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Kam getKam(KamInfo info) throws KamStoreException {
+    public Kam getKam(KamInfo info, KamFilter fltr) throws KAMStoreException {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Kam getKam(String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public KamInfo getKamInfo(String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public KamNode getKamNode(Kam k, BelTerm term) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public KamNode getKamNode(Kam k, String termString) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<KamNode> getKamNodes(Kam k, FunctionEnum function,
+            Namespace ns, String paramValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<KamNode> getKamNodes(Kam k, FunctionEnum function,
+            SkinnyUUID uuid) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<KamNode> getKamNodes(Kam k, KamNode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<KamNode> getKamNodes(
+            Kam k, Namespace ns, String paramValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<KamNode> getKamNodes(Kam k, SkinnyUUID uuid) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Namespace getNamespace(Kam k, String resourceLocation) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Namespace> getNamespaces(Kam k) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Namespace> getNamespaces(KamInfo info) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<BelStatement> getSupportingEvidence(KamEdge edge) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<BelStatement> getSupportingEvidence(KamEdge edge,
+            AnnotationFilter fltr) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<BelTerm> getSupportingTerms(KamNode node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<BelTerm> getSupportingTerms(
+            KamNode node, boolean removeDups) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<BelTerm> getSupportingTerms(KamNode node,
+            boolean removeDups, NamespaceFilter fltr) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<TermParameter> getTermParameters(
+            KamInfo info, BelTerm term) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void teardown() {
         throw new UnsupportedOperationException();
     }
 }

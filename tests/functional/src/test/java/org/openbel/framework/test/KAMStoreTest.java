@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.openbel.framework.api.Kam;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
-import org.openbel.framework.api.KamStoreImpl;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
+import org.openbel.framework.api.KAMStoreImpl;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.core.df.DBConnection;
@@ -20,7 +20,7 @@ import org.openbel.framework.core.df.DatabaseServiceImpl;
 public class KAMStoreTest {
 
     protected DBConnection dbc;
-    protected KamStore ks;
+    protected KAMStore ks;
     protected Kam testKam;
 
     protected void setupKamStore(final String kamName) {
@@ -29,7 +29,7 @@ public class KAMStoreTest {
             final DatabaseService dbs = new DatabaseServiceImpl();
             dbc = dbs.dbConnection(syscfg.getKamURL(),
                     syscfg.getKamUser(), syscfg.getKamPassword());
-            ks = new KamStoreImpl(dbc);
+            ks = new KAMStoreImpl(dbc);
         } catch (IOException e) {
             e.printStackTrace();
             fail("Could not read system configuration.");
@@ -42,7 +42,7 @@ public class KAMStoreTest {
             testKam = ks.getKam(kamName);
         } catch (InvalidArgument e) {
             // stupid
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             e.printStackTrace();
             fail(format("The '%s' cannot be found in the KAMStore.",
                     kamName));

@@ -70,7 +70,7 @@ import org.openbel.framework.common.enums.RelationshipType;
  * species-specific view using a {@link SpeciesDialect species dialect}.
  *
  * The {@link KamSpecies} orthologization occurs on construction in
- * {@link KamSpecies#KamSpecies(Kam, SpeciesDialect, KamStore)}.  The
+ * {@link KamSpecies#KamSpecies(Kam, SpeciesDialect, KAMStore)}.  The
  * existing {@link Kam} is cloned to preserve the original {@link Kam}.
  *
  * The process of {@link Kam} orthologization involves:
@@ -103,7 +103,7 @@ public class KamSpecies implements Kam {
      */
     private final EdgeFilter inferFilter;
     private final SpeciesDialect speciesDialect;
-    private final KamStore kamStore;
+    private final KAMStore kAMStore;
 
     private Map<Integer, Integer> onodes;
     private Map<Integer, TermParameter> speciesParams;
@@ -119,19 +119,19 @@ public class KamSpecies implements Kam {
      * @param kam {@link Kam} to orthologize, which cannot be {@code null}
      * @param speciesDialect {@link SpeciesDialect} to control species
      * ortholgization, which cannot be {@code null}
-     * @param kamStore {@link KamStore} to find {@link BelTerm}s for
+     * @param kAMStore {@link KAMStore} to find {@link BelTerm}s for
      * {@link KamNode}, which cannot be {@code null}
-     * @throws KamStoreException Thrown if an issue arose accessing the
-     * {@link KamStore}
+     * @throws KAMStoreException Thrown if an issue arose accessing the
+     * {@link KAMStore}
      * @throws InvalidArgument Thrown if {@code kam}, {@code speciesDialect},
      * or {@code kamStore} is {@code null}
      */
     public KamSpecies(final Kam kam,
             final SpeciesDialect speciesDialect,
-            final KamStore kamStore) throws KamStoreException {
+            final KAMStore kAMStore) throws KAMStoreException {
         this.kamCopy = copy(kam);
         this.speciesDialect = speciesDialect;
-        this.kamStore = kamStore;
+        this.kAMStore = kAMStore;
 
         findOrthologs();
 
@@ -634,10 +634,10 @@ public class KamSpecies implements Kam {
      * are found the {@link KamEdge edges} for the opposite orthologs are
      * tracked.
      *
-     * @throws KamStoreException Thrown if an error occurred accessing
-     * {@link BelTerm terms} from the {@link KamStore kam store}
+     * @throws KAMStoreException Thrown if an error occurred accessing
+     * {@link BelTerm terms} from the {@link KAMStore kam store}
      */
-    private void findOrthologs() throws KamStoreException {
+    private void findOrthologs() throws KAMStoreException {
         // create resource location set for species namespaces
         final List<org.openbel.framework.common.model.Namespace> spl = speciesDialect
                 .getSpeciesNamespaces();
@@ -720,20 +720,20 @@ public class KamSpecies implements Kam {
      * using the {@code speciesNs} {@link Namespace namespace}
      * @throws InvalidArgument Thrown if {@code node} is null while retrieving
      * supporting terms
-     * @throws KamStoreException Thrown if the {@link Kam kam} could not be
+     * @throws KAMStoreException Thrown if the {@link Kam kam} could not be
      * determined while retrieving supporting terms or parameters
      */
     private TermParameter findParameter(final KamNode node,
-            final Set<String> rlocs) throws KamStoreException {
+            final Set<String> rlocs) throws KAMStoreException {
 
         // no resource locations to match against, no match
         if (noItems(rlocs)) {
             return null;
         }
 
-        final List<BelTerm> terms = kamStore.getSupportingTerms(node);
+        final List<BelTerm> terms = kAMStore.getSupportingTerms(node);
         for (final BelTerm term : terms) {
-            final List<TermParameter> params = kamStore.getTermParameters(
+            final List<TermParameter> params = kAMStore.getTermParameters(
                     kamCopy.getKamInfo(),
                     term);
             for (final TermParameter p : params) {

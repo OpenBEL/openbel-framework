@@ -46,8 +46,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openbel.framework.api.KamCacheService;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
@@ -83,7 +83,7 @@ public class KamStoreServiceImpl implements KamStoreService {
             .getLogger(KamStoreServiceImpl.class);
 
     @Autowired
-    private KamStore kamStore;
+    private KAMStore kAMStore;
     @Autowired
     private KAMCatalogDao kamCatalogDao;
     @Autowired
@@ -126,19 +126,19 @@ public class KamStoreServiceImpl implements KamStoreService {
                             "Error processing Bel document", e);
                 }
 
-                citations = kamStore.getCitations(ki, info, citation);
+                citations = kAMStore.getCitations(ki, info, citation);
             } else if (hasItems(valueList)) {
                 String[] valueArr = valueList.toArray(new String[0]);
-                citations = kamStore.getCitations(ki, citation, valueArr);
+                citations = kAMStore.getCitations(ki, citation, valueArr);
             } else {
-                citations = kamStore.getCitations(ki, citation);
+                citations = kAMStore.getCitations(ki, citation);
             }
 
             for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Citation c : citations) {
                 Citation c2 = convert(c);
                 list.add(c2);
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -179,11 +179,11 @@ public class KamStoreServiceImpl implements KamStoreService {
             org.openbel.framework.api.Kam.KamNode objKamNode =
                     objKam.findNode(kamElementRef.getKamStoreObjectId());
             // Get the supporting terms for the node
-            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm objBelTerm : kamStore
+            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm objBelTerm : kAMStore
                     .getSupportingTerms(objKamNode)) {
                 list.add(convert(objBelTerm, kamInfo));
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -231,7 +231,7 @@ public class KamStoreServiceImpl implements KamStoreService {
 
                 final List<org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType> al =
                         new ArrayList<org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType>();
-                for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType a : kamStore
+                for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType a : kAMStore
                         .getAnnotationTypes(objKam)) {
                     al.add(a);
                 }
@@ -257,11 +257,11 @@ public class KamStoreServiceImpl implements KamStoreService {
                 }
 
                 evidence =
-                        kamStore.getSupportingEvidence(objKamEdge,
+                        kAMStore.getSupportingEvidence(objKamEdge,
                                 annotationFilter);
             } else {
                 // including only edge
-                evidence = kamStore.getSupportingEvidence(objKamEdge);
+                evidence = kAMStore.getSupportingEvidence(objKamEdge);
             }
 
             // Convert and return
@@ -269,7 +269,7 @@ public class KamStoreServiceImpl implements KamStoreService {
                 list.add(convert(statement, kamInfo));
             }
 
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -295,11 +295,11 @@ public class KamStoreServiceImpl implements KamStoreService {
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the namespaces for this Kam
-            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace objNamespace : kamStore
+            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace objNamespace : kAMStore
                     .getNamespaces(objKam)) {
                 list.add(convert(objNamespace, objKam.getKamInfo()));
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -325,11 +325,11 @@ public class KamStoreServiceImpl implements KamStoreService {
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the annotationTypes for this Kam
-            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType objAnnotationType : kamStore
+            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType objAnnotationType : kAMStore
                     .getAnnotationTypes(objKam)) {
                 list.add(convert(objAnnotationType, objKam.getKamInfo()));
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -355,11 +355,11 @@ public class KamStoreServiceImpl implements KamStoreService {
                         KAM_REQUEST_NO_KAM_FOR_HANDLE, handle));
             }
             // Get all the belDocuments for this Kam
-            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo objBelDocument : kamStore
+            for (org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo objBelDocument : kAMStore
                     .getBelDocumentInfos(objKam)) {
                 list.add(convert(objBelDocument, objKam.getKamInfo()));
             }
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             logger.warn(e.getMessage());
             throw new KamStoreServiceException(e);
         }
@@ -406,17 +406,17 @@ public class KamStoreServiceImpl implements KamStoreService {
             final List<KamNode> resolvedKamNodes = sizedArrayList(nodes.size());
             for (final Node node : nodes) {
                 resolvedKamNodes.add(convert(kam.getKamInfo(),
-                        kamStore.getKamNode(kam, node.getLabel())));
+                        kAMStore.getKamNode(kam, node.getLabel())));
             }
 
             return resolvedKamNodes;
-        } catch (KamStoreException e) {
+        } catch (KAMStoreException e) {
             throw new KamStoreServiceException(e);
         }
     }
 
-    public void setKamStore(KamStore kamStore) {
-        this.kamStore = kamStore;
+    public void setKamStore(KAMStore kAMStore) {
+        this.kAMStore = kAMStore;
     }
 
     public void setKamCatalogDao(KAMCatalogDao kamCatalogDao) {

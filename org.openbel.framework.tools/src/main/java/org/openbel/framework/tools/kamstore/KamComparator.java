@@ -58,9 +58,9 @@ import java.util.List;
 import org.apache.commons.cli.Option;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
-import org.openbel.framework.api.KamStoreImpl;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
+import org.openbel.framework.api.KAMStoreImpl;
 import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.SimpleOutput;
@@ -118,7 +118,7 @@ public class KamComparator extends CommandLineApplication {
         dbservice = new DatabaseServiceImpl();
     }
 
-    public void run() throws IOException, KamStoreException, SQLException {
+    public void run() throws IOException, KAMStoreException, SQLException {
         processOptions();
 
         if (mode == Mode.HELP) {
@@ -136,7 +136,7 @@ public class KamComparator extends CommandLineApplication {
                 sysconfig.getKamUser(),
                 sysconfig.getKamPassword());
 
-        KamStore kamStore = new KamStoreImpl(dbConnection);
+        KAMStore kAMStore = new KAMStoreImpl(dbConnection);
 
         // See if we need to set up the KAM Store schemas
         final KAMStoreSchemaService kamSchemaService =
@@ -147,7 +147,7 @@ public class KamComparator extends CommandLineApplication {
 
         try {
             if (mode == Mode.LIST) {
-                List<KamInfo> kamInfos = kamStore.readCatalog();
+                List<KamInfo> kamInfos = kAMStore.getCatalog();
                 printKamCatalogSummary(kamInfos);
 
             } else if (mode == Mode.COMPARE) {
@@ -159,7 +159,7 @@ public class KamComparator extends CommandLineApplication {
                 // Get the KAM catalog information for each KAM.
                 final KamInfo[] kamInfos = new KamInfo[kamNames.length];
                 for (int i = 0; i < kamNames.length; ++i) {
-                    final KamInfo kamInfo = kamStore.getKamInfo(kamNames[i]);
+                    final KamInfo kamInfo = kAMStore.getKamInfo(kamNames[i]);
                     if (kamInfo == null) {
                         reportable.error("No KAM found with name '"
                                 + kamNames[i] + "'");
@@ -202,7 +202,7 @@ public class KamComparator extends CommandLineApplication {
                 }
             }
         } finally {
-            kamStore.teardown();
+            kAMStore.teardown();
             dbConnection.getConnection().close();
         }
     }

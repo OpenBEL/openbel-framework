@@ -101,8 +101,8 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelStatement;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 
@@ -148,21 +148,21 @@ public final class RDFExporter {
      *
      * @param kam {@link Kam} the kam, which cannot be null
      * @param kamInfo {@link KamInfo} the kam info, which cannot be null
-     * @param kamStore {@link KAMStore} the kamstore, which cannot be null
+     * @param kAMStore {@link KAMStore} the kamstore, which cannot be null
      * @param outPath {@link String} the output path to write XGMML file to,
      * which can be null, in which case the kam's name will be used and it will
      * be written to the current directory (user.dir).
      * @throws IOException Thrown if an IO error occurred while writing the RDF
-     * @throws KamStoreException Thrown if an error occurred pulling data from
+     * @throws KAMStoreException Thrown if an error occurred pulling data from
      * the kam store
      * @throws InvalidArgument Thrown if either the kam, kamInfo, kamStore, or
      * outputPath arguments were null
      */
     public static void exportRdf(final Kam kam, KamInfo kamInfo,
-            final KamStore kamStore,
+            final KAMStore kAMStore,
             String outputPath) throws IOException, InvalidArgument,
-            KamStoreException {
-        if (nulls(kam, kamInfo, kamStore, outputPath)) {
+            KAMStoreException {
+        if (nulls(kam, kamInfo, kAMStore, outputPath)) {
             throw new InvalidArgument("argument(s) were null");
         }
 
@@ -190,7 +190,7 @@ public final class RDFExporter {
                 new HashMap<Integer, Resource>();
         Map<Integer, Resource> annotations = new HashMap<Integer, Resource>();
 
-        List<BelDocumentInfo> docs = kamStore.getBelDocumentInfos(kamInfo);
+        List<BelDocumentInfo> docs = kAMStore.getBelDocumentInfos(kamInfo);
         for (BelDocumentInfo doc : docs) {
             Resource docResource =
                     model.createResource(new AnonId(UUID.randomUUID()
@@ -287,7 +287,7 @@ public final class RDFExporter {
 
                     // read list domain for internal list annotation
                     List<String> domain =
-                            kamStore.getAnnotationTypeDomainValues(kamInfo,
+                            kAMStore.getAnnotationTypeDomainValues(kamInfo,
                                     annotationType);
 
                     if (hasItems(domain)) {
@@ -329,7 +329,7 @@ public final class RDFExporter {
                 case REGULAR_EXPRESSION:
                     // read list domain for internal pattern annotation
                     domain =
-                            kamStore.getAnnotationTypeDomainValues(kamInfo,
+                            kAMStore.getAnnotationTypeDomainValues(kamInfo,
                                     annotationType);
 
                     if (domain.size() != 1) {
@@ -449,7 +449,7 @@ public final class RDFExporter {
 
             // handle terms for this KAMNode
             // TODO Support nested terms instead of just Parameters!
-            List<BelTerm> terms = kamStore.getSupportingTerms(kamNode);
+            List<BelTerm> terms = kAMStore.getSupportingTerms(kamNode);
             for (BelTerm term : terms) {
                 Resource termResource = model.createResource(new AnonId(UUID
                         .randomUUID().toString()));
@@ -465,7 +465,7 @@ public final class RDFExporter {
                 RDFList argumentres = model.createList();
 
                 List<TermParameter> termParameters =
-                        kamStore.getTermParameters(kamInfo, term);
+                        kAMStore.getTermParameters(kamInfo, term);
                 TermParameter[] tparray = termParameters
                         .toArray(new TermParameter[termParameters.size()]);
                 Resource[] tpresarray = new Resource[tparray.length];
@@ -567,7 +567,7 @@ public final class RDFExporter {
             // TODO Handle object statements
             // TODO Handle statement annotation associations
             List<BelStatement> statements =
-                    kamStore.getSupportingEvidence(kamEdge);
+                    kAMStore.getSupportingEvidence(kamEdge);
             for (BelStatement statement : statements) {
                 if (null == statement.getObject()) {
                     continue;

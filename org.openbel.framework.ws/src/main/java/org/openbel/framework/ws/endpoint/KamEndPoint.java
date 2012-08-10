@@ -62,8 +62,8 @@ import org.openbel.framework.api.Equivalencer;
 import org.openbel.framework.api.EquivalencerException;
 import org.openbel.framework.api.KamCacheService;
 import org.openbel.framework.api.KamDialect;
-import org.openbel.framework.api.KamStore;
-import org.openbel.framework.api.KamStoreException;
+import org.openbel.framework.api.KAMStore;
+import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
@@ -136,7 +136,7 @@ public class KamEndPoint extends WebServiceEndpoint {
     @Autowired
     private DialectCacheService dialectCacheService;
     @Autowired
-    private KamStore kamStore;
+    private KAMStore kAMStore;
 
     private Equivalencer equivalencer = new Equivalencer();
 
@@ -570,7 +570,7 @@ public class KamEndPoint extends WebServiceEndpoint {
 
         List<org.openbel.framework.api.Kam.KamNode> nodes = findKamNodesByNamespacevalues(
                 request.getNamespaceValues(), request.getFilter(), objKam,
-                kamStore, equivalencer);
+                kAMStore, equivalencer);
 
         KamInfo kamInfo = objKam.getKamInfo();
         FindKamNodesByNamespaceValuesResponse response =
@@ -584,8 +584,8 @@ public class KamEndPoint extends WebServiceEndpoint {
 
     static List<org.openbel.framework.api.Kam.KamNode> findKamNodesByNamespacevalues(
             Collection<NamespaceValue> nvs, NodeFilter nodeFilter, org.openbel.framework.api.Kam kam,
-            KamStore kamStore, Equivalencer equivalencer)
-            throws KamStoreException, EquivalencerException {
+            KAMStore kAMStore, Equivalencer equivalencer)
+            throws KAMStoreException, EquivalencerException {
         // get uuids for namespaceValues
         Set<SkinnyUUID> uuids = new LinkedHashSet<SkinnyUUID>();
         // resource location : values
@@ -613,7 +613,7 @@ public class KamEndPoint extends WebServiceEndpoint {
         // find kam nodes by uuids
         if (!uuids.isEmpty()) {
             for (SkinnyUUID uuid : uuids) {
-                nodes.addAll(kamStore.getKamNodes(kam, uuid));
+                nodes.addAll(kAMStore.getKamNodes(kam, uuid));
             }
         }
 
@@ -621,13 +621,13 @@ public class KamEndPoint extends WebServiceEndpoint {
         if (!noEquivs.isEmpty()) {
             for (Map.Entry<String, Set<String>> entry : noEquivs.entrySet()) {
                 org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace kamNs =
-                        kamStore.getNamespace(kam, entry.getKey());
+                        kAMStore.getNamespace(kam, entry.getKey());
                 if (kamNs == null) {
                     // ns not present in kam
                     continue;
                 }
                 for (String v : entry.getValue()) {
-                    nodes.addAll(kamStore.getKamNodes(kam, kamNs, v));
+                    nodes.addAll(kAMStore.getKamNodes(kam, kamNs, v));
                 }
             }
         }
