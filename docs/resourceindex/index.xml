@@ -7,7 +7,6 @@
     <!--
         OpenBEL Framework V3.0.0 Resource Index
         Last Updated: 4/26/2012
-        
         Copyright (c) 2011-2012, Selventa. All Rights Reserved.
     -->
 
@@ -211,5 +210,11 @@
         <idx:protein-families idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/protein-families.bel" />
         <idx:named-complexes idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/named-complexes.bel" />
         <idx:gene-scaffolding idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/gene_scaffolding_document_9606_10090_10116.bel.gz" />
+        <idx:orthologies>
+            <idx:orthology idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/gene-orthology.bel" />
+            <idx:orthology idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/family-orthology.bel" />
+            <idx:orthology idx:resourceLocation="http://resource.belframework.org/belframework/1.0/resource/complex-orthology.bel" />
+        </idx:orthologies>
     </idx:knowledge>
 </idx:index>
+

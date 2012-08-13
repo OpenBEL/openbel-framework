@@ -18,12 +18,12 @@
             </xs:sequence>
             <xs:attribute name="belframework_version" use="required" type="xs:string" />
         </xs:complexType>
-        
+
         <xs:key name="namespaceKEY">
             <xs:selector xpath="./idx:namespaces/idx:namespace"/>
             <xs:field xpath="@idx:resourceLocation"/>
         </xs:key>
-        
+
         <xs:keyref name="namespaceKEYREF" refer="idx:namespaceKEY">
             <xs:selector xpath=".//idx:namespace-ref"/>
             <xs:field xpath="@idx:resourceLocation"/>
@@ -60,6 +60,7 @@
                 <xs:element ref="idx:protein-families" minOccurs="0" maxOccurs="1" />
                 <xs:element ref="idx:named-complexes" minOccurs="0" maxOccurs="1" />
                 <xs:element ref="idx:gene-scaffolding" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="idx:orthologies" minOccurs="0" maxOccurs="1" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -86,6 +87,16 @@
     <xs:element name="named-complexes" type="idx:resourceContent" />
 
     <xs:element name="gene-scaffolding" type="idx:resourceContent" />
+
+    <xs:element name="orthologies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="idx:orthology" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="orthology" type="idx:resourceContent" />
 
     <!-- Types -->
     <xs:complexType name="resourceContent">
