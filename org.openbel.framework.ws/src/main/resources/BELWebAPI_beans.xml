@@ -30,7 +30,7 @@
         <constructor-arg index="2" value="#{belSystemConfiguration.getKamPassword()}"/>
     </bean>
 
-    <bean id="kamStore" class="org.openbel.framework.api.KamStoreImpl">
+    <bean id="kamStore" class="org.openbel.framework.api.KAMStoreImpl">
         <constructor-arg ref="dbConnection" />
     </bean>
 
