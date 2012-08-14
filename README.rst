@@ -98,7 +98,9 @@ Distribution
 ------------
 
 The OpenBEL Framework is distributed as an archive that can be extracted and
-used on many platforms.
+used on many platforms. See downloads_ for the latest release archive.
+
+.. _downloads: https://github.com/OpenBEL/openbel-framework/downloads
 
 Building
 --------
@@ -110,6 +112,23 @@ The OpenBEL Framework is built using `Apache Maven`_.
 Alternatively, you can use ``package.sh`` which does the same thing.
 
 .. _Apache Maven: http://maven.apache.org/
+
+Nightly Builds
+^^^^^^^^^^^^^^
+
+Builds of the master and experimental branches are made available each day
+after rigorous testing.
+
+`master`_
+  The master branch is the latest stable version of the framework that has yet
+  to be released.
+
+`experimental`_
+  The experimental branch is the latest unstable version of the framework
+  containing experimental features, improvements, and API changes.
+
+.. _master: http://build.openbel.org/browse/FWMASTER-NIGHTLY/latest/artifact
+.. _experimental: http://build.openbel.org/browse/FWEXP-NIGHTLY/latest/artifact
 
 API Documentation
 -----------------
@@ -166,8 +185,7 @@ Further Reference
  * User documentation: http://openbel-framework.readthedocs.org/en/master/
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
- * Nightly builds: http://ci.selventa.com/browse/FWMASTER-NIGHTLY/latest/artifact
- * OpenBEL build server: http://ci.selventa.com
+ * OpenBEL build server: http://build.openbel.org
  * GitHub: https://github.com/OpenBEL
  * Freecode: http://freecode.com/projects/openbel-framework
 
