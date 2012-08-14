@@ -1,11 +1,17 @@
 OpenBEL Framework
 =================
 
-The OpenBEL Framework is an open-platform technology for managing, publishing, and using biological knowledge represented using the Biological Expression Language (BEL). BEL is an easy to understand, computable format for representing biological knowledge. The OpenBEL Framework is specifically designed to
+**For a more complete guide to using the BEL Framework, we encourage you to
+check out the** `OpenBEL Wiki`_.
+
+The OpenBEL Framework is an open-platform technology for managing, publishing,
+and using biological knowledge represented using the Biological Expression
+Language (BEL). BEL is an easy to understand, computable format for representing
+biological knowledge. The OpenBEL Framework is specifically designed to
 overcome many of the challenges associated with capturing, integrating, and
-storing biological knowledge within an organization, and sharing the knowledge across the
-organization and between business partners. The framework provides mechanisms
-for: 
+storing biological knowledge within an organization, and sharing the knowledge
+across the organization and between business partners. The framework provides
+mechanisms for: 
 
  #. Capture and management of biological knowledge
  #. Integration of knowledge from multiple sources
@@ -15,8 +21,8 @@ for:
  #. Enabling applications to query knowledge networks using web and Java APIs
 
 Central to the design of the framework is the ability to integrate knowledge
-across different representational vocabularies and ontologies. This allows organizations to combine
-knowledge from disparate sources into centralized
+across different representational vocabularies and ontologies. This allows
+organizations to combine knowledge from disparate sources into centralized
 knowledge repositories. The combined knowledge can be made available to a
 variety of decision support and analytical applications through a standardized
 set of computable networks and APIs.
@@ -86,12 +92,15 @@ intended on serving a particular purpose.
 .. _freenode IRC network: http://www.freenode.net/
 .. _XChat: http://xchat.org/
 .. _Xirc: http://www.aquaticx.com/
+.. _OpenBEL Wiki: http://wiki.openbel.org
 
 Distribution
 ------------
 
 The OpenBEL Framework is distributed as an archive that can be extracted and
-used on many platforms.
+used on many platforms. See downloads_ for the latest release archive.
+
+.. _downloads: https://github.com/OpenBEL/openbel-framework/downloads
 
 Building
 --------
@@ -103,6 +112,23 @@ The OpenBEL Framework is built using `Apache Maven`_.
 Alternatively, you can use ``package.sh`` which does the same thing.
 
 .. _Apache Maven: http://maven.apache.org/
+
+Nightly Builds
+^^^^^^^^^^^^^^
+
+Builds of the master and experimental branches are made available each day
+after rigorous testing.
+
+`master`_
+  The master branch is the latest stable version of the framework that has yet
+  to be released.
+
+`experimental`_
+  The experimental branch is the latest unstable version of the framework
+  containing experimental features, improvements, and API changes.
+
+.. _master: http://build.openbel.org/browse/FWMASTER-NIGHTLY/latest/artifact
+.. _experimental: http://build.openbel.org/browse/FWEXP-NIGHTLY/latest/artifact
 
 API Documentation
 -----------------
@@ -151,13 +177,14 @@ contractual assumptions directly impose on those licensors and authors.
 Further Reference
 -----------------
 
+ * BEL Portal: http://openbel.org
+ * OpenBEL Wiki: http://wiki.openbel.org
+ * Mailing list: https://groups.google.com/forum/#!forum/openbel-discuss
+ * Selventa: http://www.selventa.com/
  * API documentation: http://openbel.github.com/openbel-framework
  * User documentation: http://openbel-framework.readthedocs.org/en/master/
- * Nightly builds: http://ci.selventa.com/browse/FWMASTER-NIGHTLY/latest/artifact
- * OpenBEL build server: http://ci.selventa.com
- * GitHub: https://github.com/OpenBEL
- * BEL Portal: http://openbel.org
- * Selventa: http://www.selventa.com/
  * Ohloh: https://www.ohloh.net/p/openbel-framework
  * Freecode: http://freecode.com/projects/openbel-framework
+ * OpenBEL build server: http://build.openbel.org
+ * GitHub: https://github.com/OpenBEL
 
