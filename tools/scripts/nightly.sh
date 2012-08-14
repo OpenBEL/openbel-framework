@@ -17,5 +17,5 @@ mvn -Dbelframework-release.version=${BUILD_VERSION} \
     -Pdistribution clean package install assembly:assembly
 
 cd tests/functional || exit 1
-mvn verify
+mvn -Dbelframework-release.version=${BUILD_VERSION} verify
 
