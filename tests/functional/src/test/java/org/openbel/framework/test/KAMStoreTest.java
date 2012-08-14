@@ -50,7 +50,7 @@ public class KAMStoreTest {
     }
 
     protected void teardownKamStore() {
-        ks.close(testKam);
+        if (testKam != null) ks.close(testKam);
         ks.teardown();
         dbc.close();
     }
