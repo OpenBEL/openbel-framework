@@ -14,7 +14,7 @@ echo "BUILD_VERSION: ${BUILD_VERSION}"
 set -x verbose
 export MAVEN_OPTS="-XX:MaxPermSize=128M" 
 mvn -Dbelframework-release.version=${BUILD_VERSION} \
-    -Pdistribution clean package install assembly:assembly
+    -Pdistribution clean package assembly:assembly install
 
 cd tests/functional || exit 1
 mvn -Dbelframework-release.version=${BUILD_VERSION} verify
