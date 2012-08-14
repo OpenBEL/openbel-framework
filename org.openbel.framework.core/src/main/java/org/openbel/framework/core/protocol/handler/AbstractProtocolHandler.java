@@ -61,8 +61,6 @@ public abstract class AbstractProtocolHandler implements ProtocolHandler {
      * @param urlc {@link URLConnection}, the url connection
      * @param downloadLocation {@link String}, the location to save the
      * resource content to
-     * @throws IOException Thrown if an io error occurred downloading the
-     * resource
      * @throws ResourceDownloadError Thrown if there was an I/O error
      * downloading the resource
      */

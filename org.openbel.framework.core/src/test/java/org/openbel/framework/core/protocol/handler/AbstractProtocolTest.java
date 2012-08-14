@@ -65,7 +65,7 @@ public abstract class AbstractProtocolTest {
      * Defines the number of times we should attempt to locate an
      * open ephemeral port.
      */
-    private static final int PORT_ATTEMPTS = 100;
+    protected static final int PORT_ATTEMPTS = 100;
 
     /**
      * Defines the {@link List} of test {@link File}s to delete after

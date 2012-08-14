@@ -59,14 +59,14 @@ public class AnnotationFilterCriteria extends FilterCriteria {
     }
 
     /**
-     * @return
+     * @return {@link AnnotationType}
      */
     public AnnotationType getAnnotationType() {
         return annotationType;
     }
 
     /**
-     * @return
+     * @return {@link Set}
      */
     @Override
     public Set<String> getValues() {
