@@ -36,9 +36,7 @@
 package org.openbel.framework.common.enums;
 
 import static java.util.Collections.unmodifiableSet;
-import static org.openbel.framework.common.BELUtilities.constrainedHashMap;
-import static org.openbel.framework.common.BELUtilities.sizedHashMap;
-import static org.openbel.framework.common.BELUtilities.sizedHashSet;
+import static org.openbel.framework.common.BELUtilities.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -294,8 +292,8 @@ public enum RelationshipType {
      * same abundance. This relationship is direct because it is a <i>self</i>
      * relationship, the abundance acts in its own activity. For protein
      * abundance p(A) and its molecular activity kin(p(A), {@code p(A) actsIn
-     * kin(p(A))}. This relationship is introduced by the BEL compiler and does
-     * not need to be specified by statements in BEL documents.
+     * kin(p(A))}. This relationship is introduced by the BEL Compiler and may
+     * not be used by statements in BEL documents.
      */
     ACTS_IN(21, "actsIn"),
 
@@ -306,8 +304,7 @@ public enum RelationshipType {
      * example, {@code compositeAbundance(A, B) includes A} and
      * {@code compositeAbundance(A, B) includes B}. This relationship is direct
      * because it is a <i>self</i> relationship. This relationship is introduced
-     * by the BEL compiler and does not need to be specified by statements in
-     * BEL documents.
+     * by the BEL Compiler and may not be used by statements in BEL documents.
      */
     INCLUDES(22, "includes"),
 
@@ -317,8 +314,7 @@ public enum RelationshipType {
      * translocation. This relationship is direct because it is a <i>self</i>
      * relationship. The translocated abundance is directly acted on by the
      * translocation process. This relationship is introduced by the BEL
-     * compiler and does not need to be specified by statements in BEL
-     * documents.
+     * Compiler and may not be used by statements in BEL documents.
      */
     TRANSLOCATES(23, "translocates"),
 
@@ -327,8 +323,8 @@ public enum RelationshipType {
      * This relationship links abundance terms from the {@code products(<list>)}
      * in a reaction to the reaction. This is a direct relationship because it
      * is a <i>self</i> relationship. Products are produced directly by a
-     * reaction. This relationship is introduced by the BEL compiler and does
-     * not need to be specified by statements in BEL documents.
+     * reaction. This relationship is introduced by the BEL Compiler and may not
+     * be used by statements in BEL documents.
      */
     HAS_PRODUCT(24, "hasProduct"),
 
@@ -338,8 +334,7 @@ public enum RelationshipType {
      * {@code reactants(<list>)} in a reaction to the reaction. This is a direct
      * relationship because it is a <i>self</i> relationship. Reactants are
      * consumed directly by a reaction. This relationship is introduced by the
-     * BEL compiler and does not need to be specified by statements in BEL
-     * documents.
+     * BEL Compiler and may not be used by statements in BEL documents.
      */
     REACTANT_IN(25, "reactantIn"),
 
@@ -348,8 +343,7 @@ public enum RelationshipType {
      * This relationship links abundance terms modified by the pmod() function
      * to the unmodified abundance term. This is a direct relationship because
      * it is a <i>self</i> relationship. This relationship is introduced by the
-     * BEL Compiler and does not need to be specified by statements in BEL
-     * Documents.
+     * BEL Compiler and may not be used by statements in BEL documents.
      */
     HAS_MODIFICATION(26, "hasModification"),
 
@@ -358,7 +352,7 @@ public enum RelationshipType {
      * This relationship links abundance terms modified by the substitution(),
      * fusion(), or truncation() functions to the unmodified abundance term.
      * This relationship is introduced by the BEL Compiler and does not need to
-     * be specified by statements in BEL Documents.
+     * be used by statements in BEL documents.
      */
     HAS_VARIANT(27, "hasVariant");
 
@@ -378,6 +372,7 @@ public enum RelationshipType {
     private static final Set<RelationshipType> SELF_RELS;
     private static final Set<RelationshipType> INC_RELS;
     private static final Set<RelationshipType> DEC_RELS;
+    private static final Set<RelationshipType> INJ_RELS;
 
     static {
         // These maps will never resize
@@ -394,6 +389,7 @@ public enum RelationshipType {
         int increasing = 0;
         int decreasing = 0;
         int directed = 0;
+        int injected = 0;
 
         for (final RelationshipType r : values()) {
             if (r.isCausal()) {
@@ -425,6 +421,9 @@ public enum RelationshipType {
             if (r.isDecreasing()) {
                 decreasing++;
             }
+            if (r.isInjected()) {
+                injected++;
+            }
         }
 
         Set<RelationshipType> causalRels = sizedHashSet(causals);
@@ -436,6 +435,7 @@ public enum RelationshipType {
         Set<RelationshipType> selfRels = sizedHashSet(selfs);
         Set<RelationshipType> incRels = sizedHashSet(increasing);
         Set<RelationshipType> decRels = sizedHashSet(decreasing);
+        Set<RelationshipType> injRels = sizedHashSet(injected);
         ABBRTOENUM = sizedHashMap(abbrs);
 
         for (final RelationshipType r : values()) {
@@ -470,6 +470,9 @@ public enum RelationshipType {
             if (r.isDecreasing()) {
                 decRels.add(r);
             }
+            if (r.isInjected()) {
+                injRels.add(r);
+            }
         }
 
         // prevent modification to all backing sets
@@ -482,6 +485,7 @@ public enum RelationshipType {
         SELF_RELS = unmodifiableSet(selfRels);
         INC_RELS = unmodifiableSet(incRels);
         DEC_RELS = unmodifiableSet(decRels);
+        INJ_RELS = unmodifiableSet(injRels);
     }
 
     /**
@@ -549,8 +553,8 @@ public enum RelationshipType {
      * Returns the relationship type for the value.
      *
      * @param value {@link Integer}, the value to find an enum instance for
-     * @return {@link BELRelationship}, the relationship type, which can be null
-     * if:
+     * @return {@link RelationshipType}, the relationship type, which can be
+     * null if:
      * <ul>
      * <li><tt>value</tt> parameter is null</li>
      * <li><tt>value</tt> parameter does not map to a {@link RelationshipType}</li>
@@ -723,8 +727,6 @@ public enum RelationshipType {
     /**
      * Returns {@code true} if this relationship type is not a <i>direct</i>
      * relationship, {@code false} otherwise.
-     *
-     * FIXME This is a generalization we use across the gtp
      *
      * @return boolean
      */
@@ -919,8 +921,8 @@ public enum RelationshipType {
     }
 
     /**
-     * Returns {@code true} if the relationships type is a directed
-     * relationship, {@code false} otherwise.
+     * Returns {@code true} if the relationship type is a directed relationship,
+     * {@code false} otherwise.
      *
      * @param r the {@link RelationshipType relationship type}
      * @return boolean
@@ -939,7 +941,7 @@ public enum RelationshipType {
      * <li>{@link RelationshipType#ORTHOLOGOUS}</li>
      * <li>{@link RelationshipType#POSITIVE_CORRELATION}</li>
      * </ol>
-
+     *
      * @return {@code true} if directed, {@code false} if not directed
      */
     public boolean isDirected() {
@@ -956,9 +958,9 @@ public enum RelationshipType {
     }
 
     /**
-     * Returns {@code true} if a statement with the relationship type
-     * may have an object term using the {@link FunctionEnum#LIST LIST}
-     * function type, {@code false} otherwise.
+     * Returns {@code true} if a statement with the relationship type may have
+     * an object term using the {@link FunctionEnum#LIST LIST} function type,
+     * {@code false} otherwise.
      *
      * @param r the {@link RelationshipType relationship type}
      * @return boolean
@@ -969,19 +971,66 @@ public enum RelationshipType {
 
     /**
      * <p>
-     * The set of relationships that may be used with the {@link FunctionEnum#LIST LIST}
-     * function type include only:
+     * The set of relationships that may be used with the
+     * {@link FunctionEnum#LIST LIST} function type include only:
      * <ol>
      * <li>{@link RelationshipType#HAS_COMPONENTS}</li>
      * <li>{@link RelationshipType#HAS_MEMBERS}</li>
      * </ol>
-
-     * @return {@code true} if possible to use with {@link FunctionEnum#LIST LIST}, {@code false} otherwise
+     *
+     * @return {@code true} if possible to use with {@link FunctionEnum#LIST
+     * LIST}, {@code false} otherwise
      */
     public boolean isListable() {
         switch (this) {
         case HAS_COMPONENTS:
         case HAS_MEMBERS:
+            return true;
+        default:
+            return false;
+        }
+    }
+
+    /**
+     * Returns {@code true} if the relationship type is an injected
+     * relationship, {@code false} otherwise.
+     * <p>
+     * These relationships are injected by the BEL Compiler and not suitable for
+     * use in BEL Script or XBEL formats.
+     * </p>
+     *
+     * @param r the {@link RelationshipType relationship type}
+     * @return boolean
+     */
+    public static boolean isInjected(final RelationshipType r) {
+        return r.isInjected();
+    }
+
+    /**
+     * <p>
+     * The set of relationships injected by the BEL Compiler include only:
+     * <ol>
+     * <li>{@link RelationshipType#ACTS_IN}</li>
+     * <li>{@link RelationshipType#INCLUDES}</li>
+     * <li>{@link RelationshipType#HAS_MODIFICATION}</li>
+     * <li>{@link RelationshipType#HAS_PRODUCT}</li>
+     * <li>{@link RelationshipType#HAS_VARIANT}</li>
+     * <li>{@link RelationshipType#REACTANT_IN}</li>
+     * <li>{@link RelationshipType#TRANSLOCATES}</li>
+     * </ol>
+     *
+     * @return {@code true} if this is an injected relationship, {@code false}
+     * otherwise
+     */
+    public boolean isInjected() {
+        switch (this) {
+        case ACTS_IN:
+        case INCLUDES:
+        case HAS_MODIFICATION:
+        case HAS_PRODUCT:
+        case HAS_VARIANT:
+        case REACTANT_IN:
+        case TRANSLOCATES:
             return true;
         default:
             return false;
@@ -1014,8 +1063,8 @@ public enum RelationshipType {
      * Returns the set of {@link RelationshipType relationship types} that are
      * indirect.
      *
-     * @return an unmodifiable {@link Set} of indirect
-     * {@link RelationshipType relationship types}
+     * @return an unmodifiable {@link Set} of indirect {@link RelationshipType
+     * relationship types}
      */
     public static Set<RelationshipType> getIndirectRelationships() {
         return INDIRECT_RELS;
@@ -1047,8 +1096,8 @@ public enum RelationshipType {
      * Returns the set of {@link RelationshipType relationship types} that are
      * directed.
      *
-     * @return an unmodifiable {@link Set} of directed
-     * {@link RelationshipType relationship types}.
+     * @return an unmodifiable {@link Set} of directed {@link RelationshipType
+     * relationship types}.
      */
     public static Set<RelationshipType> getDirectedRelationships() {
         return DIRECTED_RELS;
@@ -1085,5 +1134,16 @@ public enum RelationshipType {
      */
     public static Set<RelationshipType> getDecreasingRelationshipTypes() {
         return DEC_RELS;
+    }
+
+    /**
+     * Returns the set of {@link RelationshipType relationship types} that are
+     * injected relationships.
+     *
+     * @return an unmodifiable {@link Set} of injected {@link RelationshipType
+     * relationship types}
+     */
+    public static Set<RelationshipType> getInjectedRelationshipTypes() {
+        return INJ_RELS;
     }
 }
