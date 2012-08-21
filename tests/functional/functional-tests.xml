@@ -67,24 +67,24 @@
         <!-- Running KAM store tests -->
         <antcall target="run_kam_store_tests" />
 
-        <parallel>
-        	<!-- Start framework server -->
-            <antcall target="start_bel_framework_server" />
+        <!--<parallel>-->
+            <!-- Start framework server -->
+            <!-- <antcall target="start_bel_framework_server" /> -->
 
-            <sequential>
-                <echo>Waiting for server startup, 40 seconds...</echo>
-                <sleep seconds="40" />
+            <!--<sequential>-->
+                <!--<echo>Waiting for server startup, 40 seconds...</echo>-->
+                <!--<sleep seconds="40" />-->
 
-				<!-- Running Web API tests -->
-                <antcall target="run_webapi_tests" />
+                <!-- Running Web API tests -->
+                <!--<antcall target="run_webapi_tests" />-->
 
                 <!-- Stop Framework Server -->
-                <antcall target="stop_bel_framework_server" />
-            </sequential>
-        </parallel>
+                <!--<antcall target="stop_bel_framework_server" />-->
+            <!--</sequential>-->
+        <!--</parallel>-->
 
-        <echo>Waiting for server shutdown, 5 seconds...</echo>
-        <sleep seconds="5" />
+        <!--<echo>Waiting for server shutdown, 5 seconds...</echo>-->
+        <!--<sleep seconds="5" />-->
     </target>
 
     <target name="chmod_scripts">
