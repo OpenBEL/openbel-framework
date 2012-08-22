@@ -74,12 +74,11 @@ class HttpHandlerSpecificationTest extends Specification {
     class SystemConfigurationMock extends SystemConfigurationBasedTest {}
 
     class HttpServer {
-        static int PORT_ATTEMPTS = 100
         private Server server
         final Integer port
 
         HttpServer() {
-            port = ephemeralPort(PORT_ATTEMPTS);
+            port = ephemeralPort();
         }
 
         public void start() {
