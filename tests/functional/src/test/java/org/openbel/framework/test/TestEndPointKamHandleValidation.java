@@ -7,6 +7,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.openbel.framework.test.WebAPIHelper.createWebAPI;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -49,8 +50,7 @@ import org.openbel.framework.ws.model.*;
  */
 public class TestEndPointKamHandleValidation {
     private final static ObjectFactory factory = new ObjectFactory();
-
-    private static WebAPI api;
+    private static WebAPI webAPI = createWebAPI();
     private static final KamHandle invalidKamHandle = new KamHandle();
     private static final String invalidKamHandleName = "This is probably not a valid KAM handle!";
     static {
@@ -60,13 +60,12 @@ public class TestEndPointKamHandleValidation {
     private static Namespace validNamespace = null;
 
     @BeforeClass
-    public static void establishWebApi() {
-        api = new WebAPIService().getWebAPISoap11();
-        assertThat(api, is(not(nullValue())));
+    public static void establishWebAPI() {
+        assertThat(webAPI, is(not(nullValue())));
 
         // Acquire a valid KAM handle and a valid namespace which will
         // be used for some tests.
-        final GetCatalogResponse catres = api.getCatalog(null);
+        final GetCatalogResponse catres = webAPI.getCatalog(null);
         assertThat(catres, is(not(nullValue())));
         final List<Kam> catalog = catres.getKams();
         if (hasItems(catalog)) {
@@ -74,7 +73,7 @@ public class TestEndPointKamHandleValidation {
 
             final GetNamespacesRequest nsRequest = factory.createGetNamespacesRequest();
             nsRequest.setHandle(validKamHandle);
-            final GetNamespacesResponse nsResponse = api.getNamespaces(nsRequest);
+            final GetNamespacesResponse nsResponse = webAPI.getNamespaces(nsRequest);
             if (nsResponse != null) {
                 final List<Namespace> namespaces = nsResponse.getNamespaces();
                 if (hasItems(namespaces)) {
@@ -269,7 +268,7 @@ public class TestEndPointKamHandleValidation {
     private static KamHandle loadKam(final Kam kam) {
         final LoadKamRequest lkreq = factory.createLoadKamRequest();
         lkreq.setKam(kam);
-        LoadKamResponse lkres = api.loadKam(lkreq);
+        LoadKamResponse lkres = webAPI.loadKam(lkreq);
         KAMLoadStatus status = lkres.getLoadStatus();
         while (status == KAMLoadStatus.IN_PROCESS) {
             // sleep 1/2 a second and retry
@@ -279,7 +278,7 @@ public class TestEndPointKamHandleValidation {
                 // do nothing
             }
 
-            lkres = api.loadKam(lkreq);
+            lkres = webAPI.loadKam(lkreq);
             status = lkres.getLoadStatus();
         }
 
@@ -310,7 +309,7 @@ public class TestEndPointKamHandleValidation {
 
         try {
             setHandle.invoke(request, invalidKamHandle);
-            apiMethod.invoke(api, request);
+            apiMethod.invoke(webAPI, request);
         } catch (IllegalAccessException e) {
             fail("Caught IllegalAccessException:  " + e.getMessage());
         } catch (IllegalArgumentException e) {

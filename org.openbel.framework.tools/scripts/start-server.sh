@@ -10,13 +10,19 @@
 
 . $(dirname $0)/setenv.sh 
 
+if [ -z "$TOMCAT_HTTP_PORT" ]; then
+    export $TOMCAT_HTTP_PORT=8080
+fi
+export JAVA_OPTS="$JAVA_OPTS -Dtomcat.http.port=$TOMCAT_HTTP_PORT"
+
 ${BELFRAMEWORK_HOME}/server/tomcat/bin/catalina.sh start
 EC="$?"
 if [ "${EC}" -ne 0 ]; then
     echo "Unable to start server."
     exit 1
 else
-    echo "BEL Server successfully started. Default url is http://localhost:8080/"
-    echo "    WebAPI is available. Default url is http://localhost:8080/openbel-ws/"
-    echo "    WebAPI WSDL is available. Default url is http://localhost:8080/openbel-ws/belframework.wsdl"
+    BASE_URL="http://localhost:$TOMCAT_HTTP_PORT"
+    echo "BEL Server successfully started. Default url is $BASE_URL/"
+    echo "    WebAPI is available. Default url is $BASE_URL/openbel-ws/"
+    echo "    WebAPI WSDL is available. Default url is $BASE_URL/openbel-ws/belframework.wsdl"
 fi

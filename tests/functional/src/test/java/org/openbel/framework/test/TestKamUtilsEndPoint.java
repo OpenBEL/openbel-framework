@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.openbel.framework.test.WebAPIHelper.createWebAPI;
 import static org.openbel.framework.ws.model.CitationType.*;
 import static org.openbel.framework.ws.model.RelationshipType.*;
 
@@ -28,11 +29,11 @@ public class TestKamUtilsEndPoint {
     private static final long POLL_INTERVAL_MILLISECONDS = 500;
 
     private static final long SEED = 71073753702L;
+    private static WebAPI webAPI = createWebAPI();
     private static final Random random = new Random(SEED);
     private static boolean randomIsInclude = false;
     private static boolean defaultIsInclude = true;
 
-    private static WebAPI api;
     private static Kam smallCorpus = null;
     private static List<BelDocument> belDocuments;
     private static List<AnnotationType> annotationTypes;
@@ -40,11 +41,10 @@ public class TestKamUtilsEndPoint {
     private static final List<RelationshipType> relationships;
 
     @BeforeClass
-    public static void establishWebApi() {
-        api = new WebAPIService().getWebAPISoap11();
-        assertThat(api, is(not(nullValue())));
+    public static void establishWebAPI() {
+        assertThat(webAPI, is(not(nullValue())));
 
-        final GetCatalogResponse catres = api.getCatalog(null);
+        final GetCatalogResponse catres = webAPI.getCatalog(null);
         assertThat(catres, is(not(nullValue())));
 
         final List<Kam> catalog = catres.getKams();
@@ -165,7 +165,7 @@ public class TestKamUtilsEndPoint {
         loadKamRequest.setKam(kam);
         loadKamRequest.setFilter(kamFilter);
 
-        LoadKamResponse loadKamResponse = api.loadKam(loadKamRequest);
+        LoadKamResponse loadKamResponse = webAPI.loadKam(loadKamRequest);
         assertThat(loadKamResponse, is(not(nullValue())));
         KAMLoadStatus status = loadKamResponse.getLoadStatus();
         assertThat(status, is(not(nullValue())));
@@ -186,7 +186,7 @@ public class TestKamUtilsEndPoint {
                 // Do nothing.
             }
 
-            loadKamResponse = api.loadKam(loadKamRequest);
+            loadKamResponse = webAPI.loadKam(loadKamRequest);
             assertThat(loadKamResponse, is(not(nullValue())));
             status = loadKamResponse.getLoadStatus();
             assertThat(status, is(not(nullValue())));
@@ -197,17 +197,17 @@ public class TestKamUtilsEndPoint {
         return handle;
     }
 
-    private static void releaseKam(KamHandle handle) {
+    private void releaseKam(KamHandle handle) {
         final ReleaseKamRequest request = factory.createReleaseKamRequest();
         request.setKam(handle);
-        final ReleaseKamResponse response = api.releaseKam(request);
+        final ReleaseKamResponse response = webAPI.releaseKam(request);
         assertThat(response, is(not(nullValue())));
     }
 
     private static List<BelDocument> getBelDocuments(KamHandle handle) {
         final GetBelDocumentsRequest request = factory.createGetBelDocumentsRequest();
         request.setHandle(handle);
-        final GetBelDocumentsResponse response = api.getBelDocuments(request);
+        final GetBelDocumentsResponse response = webAPI.getBelDocuments(request);
         assertThat(response, is(not(nullValue())));
 
         final List<BelDocument> documents = response.getDocuments();
@@ -219,7 +219,7 @@ public class TestKamUtilsEndPoint {
     private static List<AnnotationType> getAnnotationTypes(KamHandle handle) {
         final GetAnnotationTypesRequest request = factory.createGetAnnotationTypesRequest();
         request.setHandle(handle);
-        final GetAnnotationTypesResponse response = api.getAnnotationTypes(request);
+        final GetAnnotationTypesResponse response = webAPI.getAnnotationTypes(request);
         assertThat(response, is(not(nullValue())));
 
         final List<AnnotationType> annotationTypes = response.getAnnotationTypes();
@@ -244,7 +244,7 @@ public class TestKamUtilsEndPoint {
         request.setHandle(handle);
         request.setCitationType(citationType);
         //request.setDocument(null);
-        final GetCitationsResponse response = api.getCitations(request);
+        final GetCitationsResponse response = webAPI.getCitations(request);
         assertThat(response, is(not(nullValue())));
 
         final List<Citation> citations = response.getCitations();

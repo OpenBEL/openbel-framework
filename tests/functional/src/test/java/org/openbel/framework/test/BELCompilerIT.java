@@ -1,6 +1,7 @@
 package org.openbel.framework.test;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.openbel.framework.test.WebAPIHelper.createWebAPI;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -12,13 +13,33 @@ import java.util.Map;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.BelStatement;
+import org.openbel.framework.ws.model.EdgeFilter;
+import org.openbel.framework.ws.model.FindKamEdgesRequest;
+import org.openbel.framework.ws.model.FindKamEdgesResponse;
+import org.openbel.framework.ws.model.FindKamNodesByPatternsRequest;
+import org.openbel.framework.ws.model.FindKamNodesByPatternsResponse;
+import org.openbel.framework.ws.model.GetCatalogResponse;
+import org.openbel.framework.ws.model.GetSupportingEvidenceRequest;
+import org.openbel.framework.ws.model.GetSupportingEvidenceResponse;
+import org.openbel.framework.ws.model.KAMLoadStatus;
+import org.openbel.framework.ws.model.Kam;
+import org.openbel.framework.ws.model.KamEdge;
+import org.openbel.framework.ws.model.KamHandle;
+import org.openbel.framework.ws.model.KamNode;
+import org.openbel.framework.ws.model.LoadKamRequest;
+import org.openbel.framework.ws.model.LoadKamResponse;
+import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.model.RelationshipType;
+import org.openbel.framework.ws.model.RelationshipTypeFilterCriteria;
+import org.openbel.framework.ws.model.WebAPI;
 
 public class BELCompilerIT {
+
     private static final ObjectFactory factory = new ObjectFactory();
-    private static WebAPI api;
     private static Map<String, Kam> name2Kams;
     private static EdgeFilter allEdges;
+    private static WebAPI webAPI = createWebAPI();
     static {
         // factory.create edge filter for all rtypes
         allEdges = new EdgeFilter();
@@ -30,9 +51,9 @@ public class BELCompilerIT {
 
     @BeforeClass
     public static void establishWebAPI() {
-        api = new WebAPIService().getWebAPISoap11();
-        assertThat(api, is(not(nullValue())));
-        final GetCatalogResponse catres = api.getCatalog(null);
+        assertThat(webAPI, is(not(nullValue())));
+
+        final GetCatalogResponse catres = webAPI.getCatalog(null);
         assertThat(catres, is(not(nullValue())));
 
         final List<Kam> catalog = catres.getKams();
@@ -128,7 +149,7 @@ public class BELCompilerIT {
     public void unitTest17() {
         runKamTest("test17", 4, 3);
     }
-    
+
     @Test
     public void unitTest18() {
         runKamTest("test18", 7, 6);
@@ -152,7 +173,7 @@ public class BELCompilerIT {
         fknreq.getPatterns().add(".*");
         fknreq.setHandle(handle);
 
-        final FindKamNodesByPatternsResponse fknres = api
+        final FindKamNodesByPatternsResponse fknres = webAPI
                 .findKamNodesByPatterns(fknreq);
         final List<KamNode> kamNodes = fknres.getKamNodes();
 
@@ -163,7 +184,7 @@ public class BELCompilerIT {
         fkereq.setFilter(allEdges);
         fkereq.setHandle(handle);
 
-        final FindKamEdgesResponse fkeres = api.findKamEdges(fkereq);
+        final FindKamEdgesResponse fkeres = webAPI.findKamEdges(fkereq);
         final List<KamEdge> kamEdges = fkeres.getKamEdges();
 
         assertThat(kamEdges, is(not(nullValue())));
@@ -176,7 +197,7 @@ public class BELCompilerIT {
         GetSupportingEvidenceRequest evreq = factory
                 .createGetSupportingEvidenceRequest();
         evreq.setKamEdge(edge);
-        GetSupportingEvidenceResponse evres = api.getSupportingEvidence(evreq);
+        GetSupportingEvidenceResponse evres = webAPI.getSupportingEvidence(evreq);
 
         List<BelStatement> statements = evres.getStatements();
         assertThat(statements.size(), is(sc));
@@ -198,7 +219,7 @@ public class BELCompilerIT {
         final FindKamEdgesRequest ereq = factory.createFindKamEdgesRequest();
         ereq.setFilter(f);
         ereq.setHandle(handle);
-        FindKamEdgesResponse eres = api.findKamEdges(ereq);
+        FindKamEdgesResponse eres = webAPI.findKamEdges(ereq);
 
         return eres.getKamEdges();
     }
@@ -209,7 +230,7 @@ public class BELCompilerIT {
 
         final LoadKamRequest lkreq = factory.createLoadKamRequest();
         lkreq.setKam(kam);
-        LoadKamResponse lkres = api.loadKam(lkreq);
+        LoadKamResponse lkres = webAPI.loadKam(lkreq);
         KAMLoadStatus status = lkres.getLoadStatus();
         while (status == KAMLoadStatus.IN_PROCESS) {
             // sleep 1/2 a second and retry
@@ -219,7 +240,7 @@ public class BELCompilerIT {
                 // do nothing
             }
 
-            lkres = api.loadKam(lkreq);
+            lkres = webAPI.loadKam(lkreq);
             status = lkres.getLoadStatus();
         }
 

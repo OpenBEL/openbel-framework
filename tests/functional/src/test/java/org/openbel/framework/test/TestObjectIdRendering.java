@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.openbel.framework.test.WebAPIHelper.createWebAPI;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ import org.openbel.framework.ws.model.*;
 
 public class TestObjectIdRendering {
     private static final ObjectFactory factory = new ObjectFactory();
-
+    private static WebAPI webAPI = createWebAPI();
     private static final String SMALL_CORPUS_KAM_NAME = "small_corpus";
     private static final long POLL_INTERVAL_MILLISECONDS = 500;
 
@@ -27,12 +28,9 @@ public class TestObjectIdRendering {
     private static final int PREFIX_LENGTH = 1;
     private static final int EXPECTED_RENDERED_ID_LENGTH = 12;
 
-    private static WebAPI api;
-
     @BeforeClass
-    public static void establishWebApi() throws Exception {
-        api = new WebAPIService().getWebAPISoap11();
-        assertThat(api, is(not(nullValue())));
+    public static void establishWebAPI() throws Exception {
+        assertThat(webAPI, is(not(nullValue())));
     }
 
     /**
@@ -56,7 +54,7 @@ public class TestObjectIdRendering {
 
         LoadKamRequest loadKamRequest = factory.createLoadKamRequest();
         loadKamRequest.setKam(kam);
-        LoadKamResponse loadKamResponse = api.loadKam(loadKamRequest);
+        LoadKamResponse loadKamResponse = webAPI.loadKam(loadKamRequest);
         assertThat(loadKamResponse, is(not(nullValue())));
         KAMLoadStatus status = loadKamResponse.getLoadStatus();
         assertThat(status, is(not(nullValue())));
@@ -72,7 +70,7 @@ public class TestObjectIdRendering {
                 // Do nothing.
             }
 
-            loadKamResponse = api.loadKam(loadKamRequest);
+            loadKamResponse = webAPI.loadKam(loadKamRequest);
             assertThat(loadKamResponse, is(not(nullValue())));
             status = loadKamResponse.getLoadStatus();
             assertThat(status, is(not(nullValue())));
@@ -85,7 +83,7 @@ public class TestObjectIdRendering {
             // Test GetKam
             GetKamRequest getKamRequest = factory.createGetKamRequest();
             getKamRequest.setHandle(kamHandle);
-            GetKamResponse getKamResponse = api.getKam(getKamRequest);
+            GetKamResponse getKamResponse = webAPI.getKam(getKamRequest);
             assertThat(getKamResponse, is(not(nullValue())));
             Kam k = getKamResponse.getKam();
             assertThat(k, is(not(nullValue())));
@@ -94,7 +92,7 @@ public class TestObjectIdRendering {
             // Test GetBelDocuments
             GetBelDocumentsRequest getBelDocumentsRequest = factory.createGetBelDocumentsRequest();
             getBelDocumentsRequest.setHandle(kamHandle);
-            GetBelDocumentsResponse getBelDocumentsResponse = api.getBelDocuments(getBelDocumentsRequest);
+            GetBelDocumentsResponse getBelDocumentsResponse = webAPI.getBelDocuments(getBelDocumentsRequest);
             assertThat(getBelDocumentsResponse, is(not(nullValue())));
             List<BelDocument> documents = getBelDocumentsResponse.getDocuments();
             assertThat(documents, is(not(nullValue())));
@@ -107,7 +105,7 @@ public class TestObjectIdRendering {
             GetAnnotationTypesRequest getAnnotationTypesRequest = factory.createGetAnnotationTypesRequest();
             getAnnotationTypesRequest.setHandle(kamHandle);
             GetAnnotationTypesResponse getAnnotationTypesResponse =
-                    api.getAnnotationTypes(getAnnotationTypesRequest);
+                    webAPI.getAnnotationTypes(getAnnotationTypesRequest);
             assertThat(getAnnotationTypesResponse, is(not(nullValue())));
             List<AnnotationType> annotationTypes = getAnnotationTypesResponse.getAnnotationTypes();
             assertThat(annotationTypes, is(not(nullValue())));
@@ -119,7 +117,7 @@ public class TestObjectIdRendering {
             // Test GetNamespaces
             GetNamespacesRequest getNamespacesRequest = factory.createGetNamespacesRequest();
             getNamespacesRequest.setHandle(kamHandle);
-            GetNamespacesResponse getNamespacesResponse = api.getNamespaces(getNamespacesRequest);
+            GetNamespacesResponse getNamespacesResponse = webAPI.getNamespaces(getNamespacesRequest);
             assertThat(getNamespacesResponse, is(not(nullValue())));
             List<Namespace> namespaces = getNamespacesResponse.getNamespaces();
             assertThat(namespaces, is(not(nullValue())));
@@ -134,7 +132,7 @@ public class TestObjectIdRendering {
             findKamNodesByPatternsRequest.setHandle(kamHandle);
             findKamNodesByPatternsRequest.getPatterns().add(".*");
             FindKamNodesByPatternsResponse findKamNodesByPatternsResponse =
-                    api.findKamNodesByPatterns(findKamNodesByPatternsRequest);
+                    webAPI.findKamNodesByPatterns(findKamNodesByPatternsRequest);
             assertThat(findKamNodesByPatternsResponse, is(not(nullValue())));
             List<KamNode> kamNodes = findKamNodesByPatternsResponse.getKamNodes();
             assertThat(kamNodes, is(not(nullValue())));
@@ -151,7 +149,7 @@ public class TestObjectIdRendering {
             findKamNodesByIdsRequest.setHandle(kamHandle);
             findKamNodesByIdsRequest.getIds().add(kamNode0.getId());
             FindKamNodesByIdsResponse findKamNodesByIdsResponse =
-                    api.findKamNodesByIds(findKamNodesByIdsRequest);
+                    webAPI.findKamNodesByIds(findKamNodesByIdsRequest);
             assertThat(findKamNodesByIdsResponse, is(not(nullValue())));
             List<KamNode> kamNodesById = findKamNodesByIdsResponse.getKamNodes();
             assertThat(kamNodesById, is(not(nullValue())));
@@ -165,7 +163,7 @@ public class TestObjectIdRendering {
             findKamNodesByLabelsRequest.setHandle(kamHandle);
             findKamNodesByLabelsRequest.getLabels().add(kamNode0.getLabel());
             FindKamNodesByLabelsResponse findKamNodesByLabelsResponse =
-                    api.findKamNodesByLabels(findKamNodesByLabelsRequest);
+                    webAPI.findKamNodesByLabels(findKamNodesByLabelsRequest);
             assertThat(findKamNodesByLabelsResponse, is(not(nullValue())));
             List<KamNode> kamNodesByLabels = findKamNodesByLabelsResponse.getKamNodes();
             assertThat(kamNodesByLabels, is(not(nullValue())));
@@ -179,7 +177,7 @@ public class TestObjectIdRendering {
             GetAdjacentKamNodesRequest getAdjacentKamNodesRequest = factory.createGetAdjacentKamNodesRequest();
             getAdjacentKamNodesRequest.setKamNode(kamNode0);
             GetAdjacentKamNodesResponse getAdjacentKamNodesResponse =
-                    api.getAdjacentKamNodes(getAdjacentKamNodesRequest);
+                    webAPI.getAdjacentKamNodes(getAdjacentKamNodesRequest);
             assertThat(getAdjacentKamNodesResponse, is(not(nullValue())));
             List<KamNode> adjacentKamNodes = getAdjacentKamNodesResponse.getKamNodes();
             assertThat(adjacentKamNodes, is(not(nullValue())));
@@ -191,7 +189,7 @@ public class TestObjectIdRendering {
             GetAdjacentKamEdgesRequest getAdjacentKamEdgesRequest = factory.createGetAdjacentKamEdgesRequest();
             getAdjacentKamEdgesRequest.setKamNode(kamNode0);
             GetAdjacentKamEdgesResponse getAdjacentKamEdgesResponse =
-                    api.getAdjacentKamEdges(getAdjacentKamEdgesRequest);
+                    webAPI.getAdjacentKamEdges(getAdjacentKamEdgesRequest);
             assertThat(getAdjacentKamEdgesResponse, is(not(nullValue())));
             List<KamEdge> adjacentKamEdges = getAdjacentKamEdgesResponse.getKamEdges();
             assertThat(adjacentKamEdges, is(not(nullValue())));
@@ -206,7 +204,7 @@ public class TestObjectIdRendering {
                     factory.createGetSupportingTermsRequest();
             getSupportingTermsRequest.setKamNode(kamNode0);
             GetSupportingTermsResponse getSupportingTermsResponse =
-                    api.getSupportingTerms(getSupportingTermsRequest);
+                    webAPI.getSupportingTerms(getSupportingTermsRequest);
             assertThat(getSupportingTermsResponse, is(not(nullValue())));
             List<BelTerm> terms = getSupportingTermsResponse.getTerms();
             assertThat(terms, is(not(nullValue())));
@@ -221,7 +219,7 @@ public class TestObjectIdRendering {
             FindPathsRequest findPathsRequest = factory.createFindPathsRequest();
             findPathsRequest.getSources().add(kamNode0);
             findPathsRequest.getTargets().add(kamNode1);
-            FindPathsResponse findPathsResponse = api.findPaths(findPathsRequest);
+            FindPathsResponse findPathsResponse = webAPI.findPaths(findPathsRequest);
             assertThat(findPathsResponse, is(not(nullValue())));
             List<SimplePath> paths = findPathsResponse.getPaths();
             assertThat(paths, is(not(nullValue())));
@@ -233,7 +231,7 @@ public class TestObjectIdRendering {
             InterconnectRequest interconnectRequest = factory.createInterconnectRequest();
             interconnectRequest.getSources().add(kamNode0);
             interconnectRequest.getSources().add(kamNode1);
-            InterconnectResponse interconnectResponse = api.interconnect(interconnectRequest);
+            InterconnectResponse interconnectResponse = webAPI.interconnect(interconnectRequest);
             assertThat(interconnectResponse, is(not(nullValue())));
             List<SimplePath> interconnectPaths = interconnectResponse.getPaths();
             assertThat(interconnectPaths, is(not(nullValue())));
@@ -245,7 +243,7 @@ public class TestObjectIdRendering {
             ScanRequest scanRequest = factory.createScanRequest();
             scanRequest.getSources().add(kamNode0);
             scanRequest.getSources().add(kamNode1);
-            ScanResponse scanResponse = api.scan(scanRequest);
+            ScanResponse scanResponse = webAPI.scan(scanRequest);
             assertThat(scanResponse, is(not(nullValue())));
             List<SimplePath> scanPaths = scanResponse.getPaths();
             assertThat(scanPaths, is(not(nullValue())));
@@ -263,7 +261,7 @@ public class TestObjectIdRendering {
             criterion.setIsInclude(false);
             edgeFilter.getRelationshipCriteria().add(criterion);
             findKamEdgesRequest.setFilter(edgeFilter);
-            FindKamEdgesResponse findKamEdgesResponse = api.findKamEdges(findKamEdgesRequest);
+            FindKamEdgesResponse findKamEdgesResponse = webAPI.findKamEdges(findKamEdgesRequest);
             assertThat(findKamEdgesResponse, is(not(nullValue())));
             List<KamEdge> kamEdges = findKamEdgesResponse.getKamEdges();
             assertThat(kamEdges, is(not(nullValue())));
@@ -279,7 +277,7 @@ public class TestObjectIdRendering {
                     factory.createGetSupportingEvidenceRequest();
             getSupportingEvidenceRequest.setKamEdge(kamEdge0);
             GetSupportingEvidenceResponse getSupportingEvidenceResponse =
-                    api.getSupportingEvidence(getSupportingEvidenceRequest);
+                    webAPI.getSupportingEvidence(getSupportingEvidenceRequest);
             assertThat(getSupportingEvidenceResponse, is(not(nullValue())));
             List<BelStatement> statements = getSupportingEvidenceResponse.getStatements();
             assertThat(statements, is(not(nullValue())));
@@ -291,13 +289,13 @@ public class TestObjectIdRendering {
         } finally {
             ReleaseKamRequest releaseKamRequest = factory.createReleaseKamRequest();
             releaseKamRequest.setKam(kamHandle);
-            ReleaseKamResponse releaseKamResponse = api.releaseKam(releaseKamRequest);
+            ReleaseKamResponse releaseKamResponse = webAPI.releaseKam(releaseKamRequest);
             assertThat(releaseKamResponse, is(not(nullValue())));
         }
     }
 
-    private static Kam getKam(final String kamName) {
-        final GetCatalogResponse catres = api.getCatalog(null);
+    private Kam getKam(final String kamName) {
+        final GetCatalogResponse catres = webAPI.getCatalog(null);
         assertThat(catres, is(not(nullValue())));
 
         final List<Kam> catalog = catres.getKams();
