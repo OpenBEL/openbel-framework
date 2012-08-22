@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.protocol.handler;
 
+import static org.openbel.framework.common.BELUtilities.ephemeralPort;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -57,7 +59,7 @@ import org.openbel.framework.core.protocol.handler.SftpProtocolHandler.DefaultUs
 
 /**
  * {@link SftpLoaderTest} tests the {@link SftpProtocolHandler}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class SftpLoaderTest extends AbstractProtocolTest {
@@ -83,7 +85,7 @@ public class SftpLoaderTest extends AbstractProtocolTest {
     @SuppressWarnings("unchecked")
     @Before
     public void startSSHServer() {
-        port = getAvailablePort();
+        port = ephemeralPort();
 
         sshd = SshServer.setUpDefaultServer();
         sshd.setPort(port);
@@ -169,7 +171,7 @@ public class SftpLoaderTest extends AbstractProtocolTest {
     /**
      * TestUserInfo provides a mocked {@link DefaultUserInfo} to prompt for
      * and immediately return the test password.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected class TestUserInfo extends DefaultUserInfo {

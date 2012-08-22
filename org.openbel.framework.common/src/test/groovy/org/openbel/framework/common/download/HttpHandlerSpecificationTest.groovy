@@ -1,10 +1,9 @@
 package org.openbel.framework.common.download
 
 import static org.openbel.framework.common.BELUtilities.copy;
+import static org.openbel.framework.common.BELUtilities.ephemeralPort;
 
 import java.util.Random;
-
-import org.apache.mina.util.AvailablePortFinder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,7 +79,7 @@ class HttpHandlerSpecificationTest extends Specification {
         final Integer port
 
         HttpServer() {
-            port = getAvailablePort()
+            port = ephemeralPort(PORT_ATTEMPTS);
         }
 
         public void start() {
@@ -102,22 +101,6 @@ class HttpHandlerSpecificationTest extends Specification {
                 e.printStackTrace()
                 Assert.fail(e.getMessage())
             }
-        }
-
-        int getAvailablePort() {
-            for(int i = 0; i < PORT_ATTEMPTS; i++) {
-                int ephemeralPort = nextEphemeralPort()
-
-                if(AvailablePortFinder.available(ephemeralPort)) {
-                    return ephemeralPort
-                }
-            }
-
-            throw new IllegalStateException("Cannot obtain open, ephemeral port in 100 tries.")
-        }
-
-        int nextEphemeralPort() {
-            return new Random().nextInt(10000) + 1024
         }
     }
 

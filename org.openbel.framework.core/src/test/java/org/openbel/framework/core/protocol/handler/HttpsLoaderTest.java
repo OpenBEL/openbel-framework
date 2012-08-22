@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.protocol.handler;
 
+import static org.openbel.framework.common.BELUtilities.ephemeralPort;
+
 import java.io.File;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -56,7 +58,7 @@ import org.openbel.framework.core.protocol.handler.HttpsProtocolHandler;
 
 /**
  * {@link HttpsLoaderTest} tests the {@link HttpsProtocolHandler}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class HttpsLoaderTest extends AbstractProtocolTest {
@@ -73,7 +75,7 @@ public class HttpsLoaderTest extends AbstractProtocolTest {
         Server server = new Server();
         server.setStopAtShutdown(true);
 
-        port = getAvailablePort();
+        port = ephemeralPort();
 
         SslSelectChannelConnector sslConnector =
                 new SslSelectChannelConnector();
@@ -128,7 +130,7 @@ public class HttpsLoaderTest extends AbstractProtocolTest {
 
     /**
      * Set up a {@link TrustManager} to trust all https certificates.
-     * 
+     *
      * @throws NoSuchAlgorithmException - Thrown if the SSL algorithm does
      * not exist.
      * @throws KeyManagementException - Thrown if an error occurred

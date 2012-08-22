@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.protocol.handler;
 
+import static org.openbel.framework.common.BELUtilities.ephemeralPort;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +71,7 @@ import org.openbel.framework.core.protocol.handler.FTPProtocolHandler;
 
 /**
  * {@link FtpLoaderTest} tests the {@link FTPProtocolHandler}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class FtpLoaderTest extends AbstractProtocolTest {
@@ -109,7 +111,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
      */
     @Before
     public void setupTest() {
-        port = getAvailablePort();
+        port = ephemeralPort();
     }
 
     /**
@@ -215,7 +217,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
      * Test the expectation that we will receive a
      * {@link ResourceDownloadError} if the ftp server does not allow
      * anonymous account access.
-     * 
+     *
      * @throws ResourceDownloadError - Thrown if the ftp connection
      * could not be made because anonymous accounts are restricted.  This
      * is expected to be thrown and it is a testcase failure if it is not.
@@ -244,7 +246,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
 
     /**
      * Start up the ftp daemon without anonymous account access.
-     * 
+     *
      * @throws FtpException - Thrown if an error occurred starting the
      * restricted ftp daemon.
      */
@@ -265,7 +267,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
 
     /**
      * Start up the ftp daemon with anonymous account access.
-     * 
+     *
      * @throws FtpException - Thrown if an error occurred starting the
      * unrestricted ftp daemon.
      */
@@ -286,7 +288,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
 
     /**
      * Start the ftp server.
-     * 
+     *
      * @param ftpServerFactory {@link FtpServerFactory}, the factory used
      * to configure the server with
      * @throws FtpException - Thrown if an error occurred starting the ftp
@@ -313,7 +315,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
     /**
      * TestUserManagerFactory defines a mock {@link UserManagerFactory} to
      * provide the ftp server admin account.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     private static class TestUserManagerFactory implements UserManagerFactory {
@@ -331,7 +333,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
     /**
      * TestUserManager defines a mock {@link AbstractUserManager} to establish
      * valid users for the ftp server.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     private static class TestUserManager extends AbstractUserManager {
@@ -341,7 +343,7 @@ public class FtpLoaderTest extends AbstractProtocolTest {
         /**
          * Creates the TestUserManager with the {@code adminName} and the
          * {@code passwordEncryptor}.
-         * 
+         *
          * @param adminName {@link String}, the admin name
          * @param passwordEncryptor {@link PasswordEncryptor}, the password
          * encryptor to use

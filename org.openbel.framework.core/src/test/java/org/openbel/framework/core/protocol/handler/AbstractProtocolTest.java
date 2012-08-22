@@ -39,19 +39,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.mina.util.AvailablePortFinder;
 import org.junit.After;
 import org.junit.Before;
 
 /**
  * AbstractProtocolTest provides boilerplate setup and assertions
- * around testing resource retrieval with different supported protocols. 
- * 
+ * around testing resource retrieval with different supported protocols.
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public abstract class AbstractProtocolTest {
@@ -60,12 +58,6 @@ public abstract class AbstractProtocolTest {
      */
     protected static final String TEST_FILE_PATH =
             "src/test/resources/org/openbel/framework/namespace/service/test.namespace";
-
-    /**
-     * Defines the number of times we should attempt to locate an
-     * open ephemeral port.
-     */
-    protected static final int PORT_ATTEMPTS = 100;
 
     /**
      * Defines the {@link List} of test {@link File}s to delete after
@@ -94,42 +86,12 @@ public abstract class AbstractProtocolTest {
 
     /**
      * Test the resource file to ensure it is the right file contents.
-     * 
+     *
      * @param resourceFile {@link File}, the resource file
      * @throws IOException - Thrown if the resource file could not be read
      */
     protected void testFile(File resourceFile) throws IOException {
         Assert.assertTrue(FileUtils.readFileToString(resourceFile).startsWith(
                 "[Namespace]"));
-    }
-
-    /**
-     * Retrieve an available ephemeral port given {@link #PORT_ATTEMPTS}
-     * number of attempts.
-     * 
-     * @return {@code int}, the available ephemeral port
-     * @throws IllegalStateException - Thrown if no available ephemeral port
-     * could be found given {@link #PORT_ATTEMPTS} number of attempts.
-     */
-    protected int getAvailablePort() {
-        for (int i = 0; i < PORT_ATTEMPTS; i++) {
-            int ephemeralPort = nextEphemeralPort();
-
-            if (AvailablePortFinder.available(ephemeralPort)) {
-                return ephemeralPort;
-            }
-        }
-
-        throw new IllegalStateException(
-                "Cannot obtain open, ephemeral port in 100 tries.");
-    }
-
-    /**
-     * Generates a random port number between 1024 - 11024.
-     * 
-     * @return {@code int}, the next random ephemeral port
-     */
-    private int nextEphemeralPort() {
-        return new Random().nextInt(10000) + 1024;
     }
 }

@@ -35,14 +35,16 @@
  */
 package org.openbel.framework.common;
 
-import static java.io.File.*;
-import static java.lang.Integer.*;
-import static java.lang.System.*;
-import static java.lang.Thread.*;
-import static java.lang.reflect.Array.*;
-import static java.util.Collections.*;
-import static org.openbel.framework.common.PathConstants.*;
-import static org.openbel.framework.common.Strings.*;
+import static java.io.File.separator;
+import static java.lang.Integer.parseInt;
+import static java.lang.System.arraycopy;
+import static java.lang.Thread.currentThread;
+import static java.lang.reflect.Array.newInstance;
+import static java.util.Collections.emptyList;
+import static java.util.Collections.emptySet;
+import static org.openbel.framework.common.PathConstants.BEL_SCRIPT_EXTENSION;
+import static org.openbel.framework.common.PathConstants.XBEL_EXTENSION;
+import static org.openbel.framework.common.Strings.SHA_256;
 
 import java.io.Closeable;
 import java.io.File;
@@ -53,6 +55,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
 import java.nio.channels.FileChannel;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
@@ -83,6 +87,9 @@ public class BELUtilities {
     private static final long HSTART = 0xBB40E64DA205B064L;
     private static int ONE_MEGABYTE = 1024 * 1024;
     private static int pid = -1;
+    private static final int MIN_PORT = 0;
+    private static final int MAX_PORT = 65535;
+    private static final int MIN_EPHEMERAL_PORT = 49152;
 
     /**
      * Returns a hash set of type {@code E} optimized to the
@@ -1188,6 +1195,66 @@ public class BELUtilities {
             byteTable[i] = h;
         }
         return byteTable;
+    }
+
+    /**
+     * Retrieve an available ephemeral port.
+     *
+     * <p>
+     * The number of attempts to obtain an available port is controlled by
+     * {@code attempts}.  A {@code -1} is returned if no available port could
+     * be found in this number of attempts.
+     * </p>
+     *
+     * @see http://en.wikipedia.org/wiki/Ephemeral_port
+     * @return {@code int} the available ephemeral port, or {@code -1} if an
+     * ephemeral port could not be found.
+     */
+    public static int ephemeralPort() {
+        for (int i = MIN_EPHEMERAL_PORT; i < MAX_PORT; i++) {
+            if (portAvailable(i)) return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Checks whether {@code port} is available.
+     *
+     * @param port the port to check, which must be between
+     * {@link BELUtilities#MIN_PORT} and {@link BELUtilities#MAX_PORT}
+     * @return {@code true} if the port is available for use, {@false}
+     * otherwise
+     */
+    public static boolean portAvailable(int port) {
+        if (port < MIN_PORT || port > MAX_PORT) {
+            throw new InvalidArgument("port is out of range");
+        }
+
+        ServerSocket ss = null;
+        DatagramSocket ds = null;
+        try {
+            ss = new ServerSocket(port);
+            ss.setReuseAddress(true);
+            ds = new DatagramSocket(port);
+            ds.setReuseAddress(true);
+            return true;
+        } catch (IOException e) {
+            // Do nothing
+        } finally {
+            if (ds != null) {
+                ds.close();
+            }
+
+            if (ss != null) {
+                try {
+                    ss.close();
+                } catch (IOException e) {
+                    /* should not be thrown */
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

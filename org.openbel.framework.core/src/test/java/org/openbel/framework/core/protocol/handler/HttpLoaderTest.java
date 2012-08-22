@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.core.protocol.handler;
 
+import static org.openbel.framework.common.BELUtilities.ephemeralPort;
+
 import java.io.File;
 
 import junit.framework.Assert;
@@ -44,11 +46,10 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.junit.Before;
 import org.junit.Test;
-import org.openbel.framework.core.protocol.handler.HttpProtocolHandler;
 
 /**
  * {@link HttpLoaderTest} tests the {@link HttpProtocolHandler}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class HttpLoaderTest extends AbstractProtocolTest {
@@ -65,7 +66,7 @@ public class HttpLoaderTest extends AbstractProtocolTest {
         Server server = new Server();
         server.setStopAtShutdown(true);
 
-        port = getAvailablePort();
+        port = ephemeralPort();
 
         SelectChannelConnector httpConnector = new SelectChannelConnector();
         System.setProperty("jetty.home", new File(
