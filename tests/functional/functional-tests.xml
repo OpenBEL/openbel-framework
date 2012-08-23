@@ -239,6 +239,8 @@
         <echo>Running Web API tests...</echo>
 
         <junit printsummary="true" haltonfailure="true">
+            <env key="TOMCAT_HTTP_PORT" value="10000" />
+            
             <classpath>
                 <path path="${plugin.classpath}" />
                 <pathelement location="target${/}dependency${/}junit-${junit.version}.jar" />
