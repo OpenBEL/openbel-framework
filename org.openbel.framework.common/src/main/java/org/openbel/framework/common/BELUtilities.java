@@ -410,7 +410,7 @@ public class BELUtilities {
      * Deletes the directory {@code dir}, and all of its contents.
      *
      * @param dir {@link File}
-     * @return boolean {@true} if success, {@code false} otherwise
+     * @return boolean {@code true} if success, {@code false} otherwise
      */
     public static boolean deleteDirectory(final File dir) {
         if (!deleteDirectoryContents(dir)) {
@@ -480,7 +480,7 @@ public class BELUtilities {
      * </p>
      *
      * @param m {@link Map}; may be null
-     * @return {@link Set} of {@link Map.Entry map entries}
+     * @return {@link Set} of {@link java.util.Map.Entry map entries}
      */
     public static <K, V> Set<Map.Entry<K, V>> entries(Map<K, V> m) {
         if (m == null) {
