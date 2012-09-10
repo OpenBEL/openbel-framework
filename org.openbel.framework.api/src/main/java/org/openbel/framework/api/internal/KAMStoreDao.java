@@ -39,13 +39,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import org.openbel.framework.common.InvalidArgument;
-import org.openbel.framework.common.enums.CitationType;
-import org.openbel.framework.common.enums.FunctionEnum;
-import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
-import org.openbel.framework.core.df.external.ExternalResourceException;
+import org.openbel.framework.api.AllocatingIterator;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.SimpleKAMEdge;
+import org.openbel.framework.api.SimpleKAMNode;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
@@ -59,11 +57,17 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoEdge;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.KamProtoNode;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
+import org.openbel.framework.common.InvalidArgument;
+import org.openbel.framework.common.enums.CitationType;
+import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
+import org.openbel.framework.core.df.external.ExternalResourceException;
 
 /**
  * KAMStoreDao provides a JDBC-driven DAO for accessing objects in the KamStore.
- *
+ * 
  * @author Julian Ray {@code jray@selventa.com}
+ * @version 3.0.0
  */
 public interface KAMStoreDao extends KAMDao {
 
@@ -87,8 +91,31 @@ public interface KAMStoreDao extends KAMDao {
     }
 
     /**
+     * Iterate all nodes of the KAM.
+     * 
+     * @param kamInfo {@link KamInfo}
+     * @return {@link SimpleKAMNode} {@link AllocatingIterator}
+     * @throws SQLException Thrown if an error occurred executing database
+     * queries
+     * @since 3.0.0
+     */
+    public AllocatingIterator<SimpleKAMNode> iterateNodes()
+            throws SQLException;
+
+    /**
+     * Iterate all edges of the KAM.
+     * 
+     * @return {@link SimpleKAMNode} {@link AllocatingIterator}
+     * @throws SQLException Thrown if an error occurred executing database
+     * queries
+     * @since 3.0.0
+     */
+    public AllocatingIterator<SimpleKAMEdge> iterateEdges()
+            throws SQLException;
+
+    /**
      * TODO Document
-     *
+     * 
      * @param kamInfo
      * @return
      * @throws SQLException
@@ -98,7 +125,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param kamInfo
      * @param kamFilter
      * @return
@@ -109,7 +136,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @return
      * @throws SQLException
      */
@@ -117,6 +144,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
+     * 
      * @param annotationType
      * @return
      * @throws SQLException
@@ -127,7 +155,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param kamEdge
      * @return
      * @throws SQLException
@@ -137,7 +165,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param kamEdgeId
      * @return
      * @throws SQLException
@@ -146,9 +174,9 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
-     * Retrieve a filtered {@link List list} of
-     * {@link BelStatement supporting evidence} for a {@link KamEdge kam edge}.
-     *
+     * Retrieve a filtered {@link List list} of {@link BelStatement supporting
+     * evidence} for a {@link KamEdge kam edge}.
+     * 
      * @param kamEdge the {@link KamEdge kam edge} to retrieve
      * {@link BelStatement supporting evidence} for, which cannot be null
      * @param filter the {@link AnnotationFilter filter} to restrict the
@@ -163,7 +191,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param kamNode
      * @return
      * @throws SQLException
@@ -177,7 +205,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param kamNode
      * @param namespaceFilter
      * @return
@@ -188,7 +216,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Retrieves the term parameters for a BEL Term in the KAM.
-     *
+     * 
      * @param belTermId {@link Integer} the BEL Term id
      * @return {@link List} of {@link TermParameter} for this BEL Term
      * @throws SQLException Thrown if a SQL error occurred retrieving the term
@@ -205,13 +233,12 @@ public interface KAMStoreDao extends KAMDao {
      * 
      * @param functionType {@link FunctionEnum}, the node function
      * @param namespace {@link Namespace}, the namespace, which may be null,
-     *            indicating a parameter with an undefined namespace
+     * indicating a parameter with an undefined namespace
      * @param parameterValue {@link String}, the parameter value
      * @return the {@link KamNode kam node} ids that contain this
-     *         {@link Namespace namespace} and {@link String parameterValue}
-     *         pair.
+     * {@link Namespace namespace} and {@link String parameterValue} pair.
      * @throws SQLException Thrown if a SQL error occurred finding matching
-     *             {@link KamNode kam nodes}
+     * {@link KamNode kam nodes}
      */
     public List<Integer> getKamNodeCandidates(FunctionEnum functionType,
             Namespace namespace, String parameterValue) throws SQLException;
@@ -222,13 +249,12 @@ public interface KAMStoreDao extends KAMDao {
      * and {@link String parameterValue} pair.
      * 
      * @param namespace {@link Namespace}, the namespace, which may be null,
-     *            indicating a parameter with an undefined namespace
+     * indicating a parameter with an undefined namespace
      * @param parameterValue {@link String}, the parameter value
      * @return the {@link KamNode kam node} ids that contain this
-     *         {@link Namespace namespace} and {@link String parameterValue}
-     *         pair.
+     * {@link Namespace namespace} and {@link String parameterValue} pair.
      * @throws SQLException Thrown if a SQL error occurred finding matching
-     *             {@link KamNode kam nodes}
+     * {@link KamNode kam nodes}
      */
     public List<Integer> getKamNodeCandidates(Namespace namespace,
             String parameterValue) throws SQLException;
@@ -238,11 +264,11 @@ public interface KAMStoreDao extends KAMDao {
      * are represented by the given {@link SkinnyUUID uuid}.
      * 
      * @param uuid {@link SkinnyUUID uuid} identifying the namespace value which
-     *            must not be null.
+     * must not be null.
      * @return the {@link KamNode kam node} ids that contain this
-     *         {@link SkinnyUUID uuid}.
+     * {@link SkinnyUUID uuid}.
      * @throws SQLException Thrown if a SQL error occurred finding matching
-     *             {@link KamNode kam nodes}
+     * {@link KamNode kam nodes}
      */
     public List<Integer> getKamNodeCandidates(SkinnyUUID uuid)
             throws SQLException;
@@ -254,11 +280,11 @@ public interface KAMStoreDao extends KAMDao {
      * 
      * @param functionType {@link FunctionEnum}, the node function
      * @param uuid {@link SkinnyUUID uuid} identifying the namespace value which
-     *            must not be null.
+     * must not be null.
      * @return the {@link KamNode kam node} ids that contain this
-     *         {@link SkinnyUUID uuid}.
+     * {@link SkinnyUUID uuid}.
      * @throws SQLException Thrown if a SQL error occurred finding matching
-     *             {@link KamNode kam nodes}
+     * {@link KamNode kam nodes}
      */
     public List<Integer> getKamNodeCandidates(FunctionEnum functionType,
             SkinnyUUID uuid) throws SQLException;
@@ -266,23 +292,25 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Retrieves candidate {@link KamNode kam node} ids that contain global
      * parameters found in the <tt>example</tt> {@link KamNode kam node}.
-     *
      * <p>
-     * For instance, given a kam with the following nodes:<ul>
+     * For instance, given a kam with the following nodes:
+     * <ul>
      * <li><tt>complex(p(1), g(2))</tt></li>
      * <li><tt>p(1)</tt></li>
      * <li><tt>g(2)</tt></li>
      * <li><tt>r(2)</tt></li>
-     * <li><tt>act(r(2))</tt></li></ul>
-     *
+     * <li><tt>act(r(2))</tt></li>
+     * </ul>
      * Providing the <tt>complex(p(1), g(2))</tt> {@link KamNode kam node} will
-     * yield ids for the following similar {@link KamNode kam nodes}:<ul>
+     * yield ids for the following similar {@link KamNode kam nodes}:
+     * <ul>
      * <li><tt>p(1)</tt></li>
      * <li><tt>g(2)</tt></li>
      * <li><tt>r(2)</tt></li>
-     * <li><tt>act(r(2))</tt></li></ul>
+     * <li><tt>act(r(2))</tt></li>
+     * </ul>
      * </p>
-     *
+     * 
      * @param example {@link KamNode}, the kam node to retrieve similar matches
      * on, which cannot be null or have a null id
      * @return the ids of {@link KamNode kam nodes} containing similar global
@@ -294,16 +322,16 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
-    * TODO Document
-    *
-    * @return
-    * @throws SQLException
-    */
+     * TODO Document
+     * 
+     * @return
+     * @throws SQLException
+     */
     public List<BelDocumentInfo> getBelDocumentInfos() throws SQLException;
 
     /**
      * TODO Document
-     *
+     * 
      * @return
      * @throws SQLException
      */
@@ -311,7 +339,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     *
+     * 
      * @param belStatementId
      * @return
      * @throws SQLException
@@ -320,7 +348,9 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
-     * Returns all citations from associated with a {@link BelDocumentInfo} object.
+     * Returns all citations from associated with a {@link BelDocumentInfo}
+     * object.
+     * 
      * @param belDocumentInfo
      * @return
      * @throws SQLException
@@ -329,7 +359,9 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
-     * Returns all citations from associated with a {@link BelDocumentInfo} object that are of the specified {@link CitationType}
+     * Returns all citations from associated with a {@link BelDocumentInfo}
+     * object that are of the specified {@link CitationType}
+     * 
      * @param belDocumentInfo
      * @param citationType
      * @return
@@ -340,6 +372,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Returns all citations of the specified {@link CitationType} for a Kam.
+     * 
      * @param citationType
      * @return
      * @throws SQLException
@@ -348,7 +381,9 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
-     * Returns all citation matching the specified {@link CitationType} and reference IDs.
+     * Returns all citation matching the specified {@link CitationType} and
+     * reference IDs.
+     * 
      * @param citationType
      * @param refereceIds
      * @return

@@ -61,11 +61,15 @@ import java.util.Map;
 import org.apache.commons.cli.Option;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.openbel.framework.api.AllocatingIterator;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.KAMStore;
 import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.KAMStoreImpl;
+import org.openbel.framework.api.SimpleKAMEdge;
+import org.openbel.framework.api.SimpleKAMNode;
 import org.openbel.framework.api.internal.KAMCatalogDao;
+import org.openbel.framework.api.internal.KAMStoreDaoImpl;
 import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.common.BELUtilities;
@@ -166,7 +170,7 @@ public final class KamManager extends CommandLineApplication {
 
         initializeSystemConfiguration();
         sysconfig = getSystemConfiguration();
-
+        
         // Determine the command that the user wants to use
         determineCommand();
     }
@@ -186,6 +190,26 @@ public final class KamManager extends CommandLineApplication {
                 sysconfig.getKamURL(),
                 sysconfig.getKamUser(),
                 sysconfig.getKamPassword());
+        try {
+            KAMStoreDaoImpl i = new KAMStoreDaoImpl("KAM1", dbConnection);
+            AllocatingIterator<SimpleKAMEdge> edgeIterator = i.iterateEdges();
+            int edges = 0;
+            while (edgeIterator.hasNext()) {
+                SimpleKAMEdge next = edgeIterator.next();
+                edges++;
+            }
+            edgeIterator.close();
+            AllocatingIterator<SimpleKAMNode> nodeIterator = i.iterateNodes();
+            int nodes = 0;
+            while (nodeIterator.hasNext()) {
+                SimpleKAMNode next = nodeIterator.next();
+                nodes++;
+            }
+            System.out.println("nodes " + nodes + " edges " + edges);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Connect to the KAM Store. This establishes a connection to the
         // KAM store database and sets up the system to read and process

@@ -41,6 +41,7 @@ import static org.openbel.framework.common.BELUtilities.noLength;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 import static org.openbel.framework.common.BELUtilities.substringEquals;
+import static org.openbel.framework.common.enums.RelationshipType.fromValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -93,15 +94,7 @@ import org.openbel.framework.core.df.encryption.SymmetricEncryptionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionServiceImpl;
 import org.openbel.framework.core.df.external.ExternalResourceException;
-import org.openbel.framework.api.AnnotationFilterCriteria;
-import org.openbel.framework.api.BelDocumentFilterCriteria;
-import org.openbel.framework.api.CitationFilterCriteria;
-import org.openbel.framework.api.FilterCriteria;
-import org.openbel.framework.api.Kam;
-import org.openbel.framework.api.KamElementImpl;
-import org.openbel.framework.api.KamStoreObjectImpl;
-import org.openbel.framework.api.NamespaceFilterCriteria;
-import org.openbel.framework.api.RelationshipTypeFilterCriteria;
+import org.openbel.framework.api.*;
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
@@ -1603,6 +1596,141 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
         return new Pair<String, List<String>>(sql, bindings);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AllocatingIterator<SimpleKAMNode> iterateNodes() throws SQLException {
+        PreparedStatement ps1, ps2;
+        ps1 = getPreparedStatement(SELECT_PROTO_NODES_SQL);
+        ps2 = getPreparedStatement(SELECT_KAM_NODE_PARAMETERS_PREFIX_SQL
+                + SELECT_KAM_NODE_PARAMETERS_ORDER_SQL,
+                TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
+        
+        final ResultSet nodeRS = ps1.executeQuery();
+        final ResultSet paramRS = ps2.executeQuery();
+
+        class Iter implements AllocatingIterator<SimpleKAMNode> {
+            private boolean closed = false;
+
+            @Override
+            public boolean hasNext() {
+                if (closed) throw new IllegalStateException("closed");
+                try {
+                    return nodeRS.next();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    close();
+                    return false;
+                }
+            }
+
+            @Override
+            public SimpleKAMNode next() {
+                if (closed) throw new IllegalStateException("closed");
+                KamProtoNode kpn;
+                try {
+                    kpn = getKamProtoNode(nodeRS, paramRS);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    close();
+                    return null;
+                }
+                int id = kpn.getId();
+                FunctionEnum fx = kpn.getFunctionType();
+                String lbl = kpn.getLabel();
+                _KamNode node = new _KamNode(id, fx, lbl);
+                return node;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void close() {
+                closed = true;
+                try {
+                    nodeRS.close();
+                    paramRS.close();
+                } catch (SQLException e) {
+                    // ignore it
+                }
+            }
+
+            @Override
+            public void finalize() {
+                close();
+            }
+
+        }
+        return new Iter();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AllocatingIterator<SimpleKAMEdge> iterateEdges() throws SQLException {
+        PreparedStatement ps = getPreparedStatement(SELECT_PROTO_EDGES_SQL);
+        final ResultSet edgeRS = ps.executeQuery();
+        class Iter implements AllocatingIterator<SimpleKAMEdge> {
+            private boolean closed = false;
+
+            @Override
+            public boolean hasNext() {
+                if (closed) throw new IllegalStateException("closed");
+                try {
+                    return edgeRS.next();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    close();
+                    return false;
+                }
+            }
+
+            @Override
+            public SimpleKAMEdge next() {
+                if (closed) throw new IllegalStateException("closed");
+                int id, rel, src, tgt;
+                try {
+                    id = edgeRS.getInt(1);
+                    rel = edgeRS.getInt(2);
+                    src = edgeRS.getInt(3);
+                    tgt = edgeRS.getInt(4);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    close();
+                    return null;
+                }
+                return new _KamEdge(id, fromValue(rel), src, tgt);
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void close() {
+                closed = true;
+                try {
+                    edgeRS.close();
+                } catch (SQLException e) {
+                    // ignore it
+                }
+            }
+
+            @Override
+            public void finalize() {
+                close();
+            }
+
+        }
+        return new Iter();
+    }
 
     /**
      * {@inheritDoc}
@@ -1657,7 +1785,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 }
                 edges.put(kamEdgeId,
                         new KamProtoEdge(kamEdgeId, sourceKamProtoNode,
-                                RelationshipType.fromValue(relationshipTypeId),
+                                fromValue(relationshipTypeId),
                                 targetKamProtoNode));
             }
         } finally {
@@ -1764,7 +1892,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 }
                 edges.put(kamEdgeId,
                         new KamProtoEdge(kamEdgeId, sourceKamProtoNode,
-                                RelationshipType.fromValue(relationshipTypeId),
+                                fromValue(relationshipTypeId),
                                 targetKamProtoNode));
             }
         } finally {
@@ -2257,18 +2385,18 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         } else if (null != objectTermId && !objectTermId.equals(0)) {
             object = getBelTermById(objectTermId);
             return new BelStatement(statementId, subject,
-                    RelationshipType.fromValue(relationshipTypeId), object,
+                    fromValue(relationshipTypeId), object,
                     belDocumentInfo, annotations);
         } else {
             BelTerm nestedSubject = getBelTermById(nestedSubjectId);
             BelTerm nestedObject = getBelTermById(nestedObjectId);
             BelStatement nested =
                     new BelStatement(statementId, nestedSubject,
-                            RelationshipType.fromValue(nestedRelationship),
+                            fromValue(nestedRelationship),
                             nestedObject,
                             belDocumentInfo, annotations);
             return new BelStatement(statementId, subject,
-                    RelationshipType.fromValue(relationshipTypeId), nested,
+                    fromValue(relationshipTypeId), nested,
                     belDocumentInfo, annotations);
         }
     }
@@ -3416,5 +3544,127 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         public String getDisplayValue() {
             return displayValue;
         }
+    }
+    
+    private class _KamEdge implements SimpleKAMEdge {
+        private final int id;
+        private final int source;
+        private final int target;
+        private final RelationshipType relationship;
+
+        _KamEdge(int id, RelationshipType r, int srcID, int tgtID) {
+            this.id = id;
+            this.relationship = r;
+            this.source = srcID;
+            this.target = tgtID;
+        }
+
+        @Override
+        public int getID() {
+            return id;
+        }
+
+        @Override
+        public int getSourceID() {
+            return source;
+        }
+
+        @Override
+        public int getTargetID() {
+            return target;
+        }
+
+        @Override
+        public RelationshipType getRelationship() {
+            return relationship;
+        }
+
+        /**
+         * {@inheritDoc} 
+         */
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result *= prime;
+            result += id;
+            result *= prime;
+            result += relationship.hashCode();
+            result *= prime;
+            result += source;
+            result *= prime;
+            result += target;
+            return result;
+        }
+
+        /**
+         * {@inheritDoc} 
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (!(obj instanceof _KamEdge)) return false;
+            _KamEdge other = (_KamEdge) obj;
+            if (id != other.id) return false;
+            if (relationship != other.relationship) return false;
+            if (source != other.source) return false;
+            if (target != other.target) return false;
+            return true;
+        }
+
+    }
+    
+    private class _KamNode implements SimpleKAMNode {
+        private final int id;
+        private final FunctionEnum function;
+        private final String label;
+
+        _KamNode(int id, FunctionEnum fx, String label) {
+            this.id = id;
+            this.function = fx;
+            this.label = label;
+        }
+
+        @Override
+        public int getID() {
+            return id;
+        }
+
+        @Override
+        public FunctionEnum getFunction() {
+            return function;
+        }
+
+        @Override
+        public String getLabel() {
+            return label;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result *= prime;
+            result += function.hashCode();
+            result *= prime;
+            result += id;
+            result *= prime;
+            result += label.hashCode();
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null) return false;
+            if (!(obj instanceof _KamNode)) return false;
+            _KamNode other = (_KamNode) obj;
+            if (function != other.function) return false;
+            if (id != other.id) return false;
+            if (!label.equals(other.label)) return false;
+            return true;
+        }
+
     }
 }

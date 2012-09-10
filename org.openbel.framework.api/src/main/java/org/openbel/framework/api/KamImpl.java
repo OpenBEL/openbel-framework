@@ -1147,7 +1147,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * @param functionType
          * @param label
          */
-        private KamNodeImpl(Kam kam, Integer id, FunctionEnum functionType,
+        public KamNodeImpl(Kam kam, Integer id, FunctionEnum functionType,
                 String label) {
             super(kam, id);
             this.functionType = functionType;
@@ -1161,7 +1161,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * @return {@link FunctionEnum}
          */
         @Override
-        public FunctionEnum getFunctionType() {
+        public final FunctionEnum getFunctionType() {
             return functionType;
         }
 
@@ -1170,7 +1170,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * @return {@link String}
          */
         @Override
-        public String getLabel() {
+        public final String getLabel() {
             return label;
         }
 
@@ -1183,7 +1183,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          *
          * @return the <tt>int</tt> hashCode
          */
-        private int generateHashCode() {
+        private final int generateHashCode() {
             final int prime = 31;
             int result = 1;
             result = prime * result + getKam().hashCode();
@@ -1197,7 +1197,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * {@inheritDoc}
          */
         @Override
-        public int hashCode() {
+        public final int hashCode() {
             return hashCode;
         }
 
@@ -1205,7 +1205,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * {@inheritDoc}
          */
         @Override
-        public boolean equals(Object obj) {
+        public final boolean equals(Object obj) {
             if (this == obj) {
                 return true;
             }
@@ -1233,7 +1233,7 @@ public final class KamImpl extends KamStoreObjectImpl implements Kam {
          * {@inheritDoc}
          */
         @Override
-        public String toString() {
+        public final String toString() {
             return label;
         }
     }
