@@ -4,6 +4,7 @@
         The functional tests to run for the OpenBEL Framework distribution build.
     </description>
 
+    <property environment="env" />
     <property name="/" value="${file.separator}" />
     <property name=":" value="${path.separator}" />
 
@@ -221,7 +222,7 @@
               executable="${start_server}"
               failonerror="true">
             <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
-            <env key="TOMCAT_HTTP_PORT" value="10000" />
+            <env key="TOMCAT_HTTP_PORT" value="${env.TOMCAT_HTTP_PORT}" />
         </exec>
     </target>
     <target name="start_bel_framework_server_windows" if="windows">
@@ -229,7 +230,7 @@
               executable="cmd"
               failonerror="true">
             <env key="BELFRAMEWORK_HOME" value="${basedir}${/}${dist_dir}" />
-            <env key="TOMCAT_HTTP_PORT" value="10000" />
+            <env key="TOMCAT_HTTP_PORT" value="${env.TOMCAT_HTTP_PORT}" />
             <arg value="/c" />
             <arg value="${start_server}" />
         </exec>
@@ -239,7 +240,7 @@
         <echo>Running Web API tests...</echo>
 
         <junit printsummary="true" haltonfailure="true" fork="true">
-            <env key="TOMCAT_HTTP_PORT" value="10000" />
+            <env key="TOMCAT_HTTP_PORT" value="${env.TOMCAT_HTTP_PORT}" />
 
             <classpath>
                 <path path="${plugin.classpath}" />
