@@ -936,7 +936,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
         final Set<Integer> tidset = tt.getIndexedTerms().keySet();
         final Map<SkinnyUUID, Set<Integer>> uuidterms = sizedHashMap(puuid
                 .size());
-        final Set<Term> pnterms = tt.getVisitedTerms().keySet();
+        final Set<Term> pnterms = new HashSet<Term>(tt.getVisitedTerms().keySet());
         // for each term
         for (final Integer tid : tidset) {
             // get its parameters
@@ -969,20 +969,28 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
 
         // establish cache to skinny uuids to avoid superfluous jdbm lookups
         final Map<Parameter, SkinnyUUID> paramcache = sizedHashMap(total * 2);
-
+        
         // iterate all statements in the orthology document
         ORTHO_STATEMENT: for (final Statement orthoStmt : orthoStmts) {
 
             // rule out invalid or non-orthologous statements
             if (validOrthologousStatement(orthoStmt)) {
-
+                // break down subject
                 final Term sub = orthoStmt.getSubject();
                 final FunctionEnum subf = sub.getFunctionEnum();
                 final List<Parameter> subp = sub.getParameters();
                 final Parameter subjectParam = subp.get(0);
+                
+                // break down object
+                final Term obj = orthoStmt.getObject().getTerm();
+                final FunctionEnum objf = obj.getFunctionEnum();
+                final List<Parameter> objp = obj.getParameters();
+                final Parameter objectParam = objp.get(0);
 
                 // lookup exact match of subject term
                 if (pnterms.contains(sub)) {
+                    pnterms.add(obj);
+                    
                     continue;
                 }
 
@@ -1008,19 +1016,19 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                         for (final Integer tid : tids) {
                             final Term t = tt.getIndexedTerms().get(tid);
                             if (t.getFunctionEnum() == subf) {
+                                pnterms.add(sub);
+                                pnterms.add(t);
+                                pnterms.add(obj);
+                                
                                 continue ORTHO_STATEMENT;
                             }
                         }
                     }
                 }
 
-                final Term obj = orthoStmt.getObject().getTerm();
-                final FunctionEnum objf = obj.getFunctionEnum();
-                final List<Parameter> objp = obj.getParameters();
-                final Parameter objectParam = objp.get(0);
-
                 // lookup exact match of object term
                 if (pnterms.contains(obj)) {
+                    pnterms.add(sub);
                     continue;
                 }
 
@@ -1046,6 +1054,10 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                         for (final Integer tid : tids) {
                             final Term t = tt.getIndexedTerms().get(tid);
                             if (t.getFunctionEnum() == objf) {
+                                pnterms.add(obj);
+                                pnterms.add(t);
+                                pnterms.add(sub);
+                                
                                 continue ORTHO_STATEMENT;
                             }
                         }

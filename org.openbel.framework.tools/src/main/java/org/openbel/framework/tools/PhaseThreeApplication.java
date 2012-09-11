@@ -971,6 +971,29 @@ public final class PhaseThreeApplication extends PhaseApplication {
         markTime(bldr, t1, t2);
         markEndStage(bldr);
         stageOutput(bldr.toString());
+        
+        stageOutput("Equivalence parameters hack.");
+        t1 = currentTimeMillis();
+        
+        // load equivalences
+        Set<EquivalenceDataIndex> equivs;
+        try {
+            equivs = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure e) {
+            stageError(e.getUserFacingMessage());
+            equivs = emptySet();
+        }
+        
+        try {
+            p2.stage3EquivalenceParameters(pn, equivs);
+        } catch (IOException e) {
+        }
+        t2 = currentTimeMillis();
+        
+        bldr.setLength(0);
+        markTime(bldr, t1, t2);
+        markEndStage(bldr);
+        stageOutput(bldr.toString());
 
         return pn;
     }
