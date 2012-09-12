@@ -1697,8 +1697,8 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 int id, rel, src, tgt;
                 try {
                     id = edgeRS.getInt(1);
-                    rel = edgeRS.getInt(2);
-                    src = edgeRS.getInt(3);
+                    src = edgeRS.getInt(2);
+                    rel = edgeRS.getInt(3);
                     tgt = edgeRS.getInt(4);
                 } catch (SQLException e) {
                     e.printStackTrace();
