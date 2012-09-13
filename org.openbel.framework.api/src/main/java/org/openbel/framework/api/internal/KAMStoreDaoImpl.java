@@ -110,6 +110,10 @@ import org.openbel.framework.api.internal.KAMCatalogDao.NamespaceFilter;
 public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         KAMStoreDao {
 
+    private static final String SELECT_COUNT_NODES =
+            "SELECT COUNT(*) FROM @.kam_node kn";
+    private static final String SELECT_COUNT_EDGES =
+            "SELECT COUNT(*) FROM @.kam_edge ke";
     private static final String SELECT_PROTO_NODES_SQL =
             "SELECT kn.kam_node_id, kn.function_type_id, kn.node_label_oid FROM @.kam_node kn";
     private static final String SELECT_PROTO_EDGES_SQL =
@@ -1596,7 +1600,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
         return new Pair<String, List<String>>(sql, bindings);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1607,7 +1611,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         ps2 = getPreparedStatement(SELECT_KAM_NODE_PARAMETERS_PREFIX_SQL
                 + SELECT_KAM_NODE_PARAMETERS_ORDER_SQL,
                 TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
-        
+
         final ResultSet nodeRS = ps1.executeQuery();
         final ResultSet paramRS = ps2.executeQuery();
 
@@ -1668,7 +1672,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
         return new Iter();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -1730,6 +1734,28 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
         }
         return new Iter();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int countNodes() throws SQLException {
+        PreparedStatement ps = getPreparedStatement(SELECT_COUNT_NODES);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) return rs.getInt(1);
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int countEdges() throws SQLException {
+        PreparedStatement ps = getPreparedStatement(SELECT_COUNT_EDGES);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) return rs.getInt(1);
+        return 0;
     }
 
     /**
@@ -3545,7 +3571,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             return displayValue;
         }
     }
-    
+
     private class _KamEdge implements SimpleKAMEdge {
         private final int id;
         private final int source;
@@ -3580,7 +3606,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
 
         /**
-         * {@inheritDoc} 
+         * {@inheritDoc}
          */
         @Override
         public int hashCode() {
@@ -3598,7 +3624,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
 
         /**
-         * {@inheritDoc} 
+         * {@inheritDoc}
          */
         @Override
         public boolean equals(Object obj) {
@@ -3614,7 +3640,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
 
     }
-    
+
     private class _KamNode implements SimpleKAMNode {
         private final int id;
         private final FunctionEnum function;

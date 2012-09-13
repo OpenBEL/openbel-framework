@@ -65,7 +65,7 @@ import org.openbel.framework.core.df.external.ExternalResourceException;
 
 /**
  * KAMStoreDao provides a JDBC-driven DAO for accessing objects in the KamStore.
- * 
+ *
  * @author Julian Ray {@code jray@selventa.com}
  * @version 3.0.0
  */
@@ -92,8 +92,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Iterate all nodes of the KAM.
-     * 
-     * @param kamInfo {@link KamInfo}
+     *
      * @return {@link SimpleKAMNode} {@link AllocatingIterator}
      * @throws SQLException Thrown if an error occurred executing database
      * queries
@@ -104,7 +103,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Iterate all edges of the KAM.
-     * 
+     *
      * @return {@link SimpleKAMNode} {@link AllocatingIterator}
      * @throws SQLException Thrown if an error occurred executing database
      * queries
@@ -114,8 +113,24 @@ public interface KAMStoreDao extends KAMDao {
             throws SQLException;
 
     /**
+     * Returns the count of nodes in this KAM.
+     * @return int
+     * @throws SQLException Thrown if an error occurred executing database
+     * queries
+     */
+    public int countNodes() throws SQLException;
+
+    /**
+     * Returns the count of edges in this KAM.
+     * @return int
+     * @throws SQLException Thrown if an error occurred executing database
+     * queries
+     */
+    public int countEdges() throws SQLException;
+
+    /**
      * TODO Document
-     * 
+     *
      * @param kamInfo
      * @return
      * @throws SQLException
@@ -125,7 +140,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param kamInfo
      * @param kamFilter
      * @return
@@ -136,7 +151,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @return
      * @throws SQLException
      */
@@ -144,7 +159,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param annotationType
      * @return
      * @throws SQLException
@@ -155,7 +170,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param kamEdge
      * @return
      * @throws SQLException
@@ -165,7 +180,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param kamEdgeId
      * @return
      * @throws SQLException
@@ -176,7 +191,7 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Retrieve a filtered {@link List list} of {@link BelStatement supporting
      * evidence} for a {@link KamEdge kam edge}.
-     * 
+     *
      * @param kamEdge the {@link KamEdge kam edge} to retrieve
      * {@link BelStatement supporting evidence} for, which cannot be null
      * @param filter the {@link AnnotationFilter filter} to restrict the
@@ -191,7 +206,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param kamNode
      * @return
      * @throws SQLException
@@ -205,7 +220,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param kamNode
      * @param namespaceFilter
      * @return
@@ -216,7 +231,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Retrieves the term parameters for a BEL Term in the KAM.
-     * 
+     *
      * @param belTermId {@link Integer} the BEL Term id
      * @return {@link List} of {@link TermParameter} for this BEL Term
      * @throws SQLException Thrown if a SQL error occurred retrieving the term
@@ -230,7 +245,7 @@ public interface KAMStoreDao extends KAMDao {
      * function} <em>that were compiled with</em> global parameters that are
      * represented by a {@link Namespace namespace} and {@link String
      * parameterValue} pair.
-     * 
+     *
      * @param functionType {@link FunctionEnum}, the node function
      * @param namespace {@link Namespace}, the namespace, which may be null,
      * indicating a parameter with an undefined namespace
@@ -247,7 +262,7 @@ public interface KAMStoreDao extends KAMDao {
      * Retrieve {@link KamNode kam node} ids <em>that were compiled with</em>
      * global parameters that are represented by a {@link Namespace namespace}
      * and {@link String parameterValue} pair.
-     * 
+     *
      * @param namespace {@link Namespace}, the namespace, which may be null,
      * indicating a parameter with an undefined namespace
      * @param parameterValue {@link String}, the parameter value
@@ -262,7 +277,7 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Retrieve {@link KamNode kam node} ids that contain global parameters that
      * are represented by the given {@link SkinnyUUID uuid}.
-     * 
+     *
      * @param uuid {@link SkinnyUUID uuid} identifying the namespace value which
      * must not be null.
      * @return the {@link KamNode kam node} ids that contain this
@@ -277,7 +292,7 @@ public interface KAMStoreDao extends KAMDao {
      * Retrieve {@link KamNode kam node} ids with the given {@link FunctionEnum
      * function} that contain global parameters that are represented by the
      * given {@link SkinnyUUID uuid}.
-     * 
+     *
      * @param functionType {@link FunctionEnum}, the node function
      * @param uuid {@link SkinnyUUID uuid} identifying the namespace value which
      * must not be null.
@@ -310,7 +325,7 @@ public interface KAMStoreDao extends KAMDao {
      * <li><tt>act(r(2))</tt></li>
      * </ul>
      * </p>
-     * 
+     *
      * @param example {@link KamNode}, the kam node to retrieve similar matches
      * on, which cannot be null or have a null id
      * @return the ids of {@link KamNode kam nodes} containing similar global
@@ -323,7 +338,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @return
      * @throws SQLException
      */
@@ -331,7 +346,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @return
      * @throws SQLException
      */
@@ -339,7 +354,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * TODO Document
-     * 
+     *
      * @param belStatementId
      * @return
      * @throws SQLException
@@ -350,7 +365,7 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Returns all citations from associated with a {@link BelDocumentInfo}
      * object.
-     * 
+     *
      * @param belDocumentInfo
      * @return
      * @throws SQLException
@@ -361,7 +376,7 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Returns all citations from associated with a {@link BelDocumentInfo}
      * object that are of the specified {@link CitationType}
-     * 
+     *
      * @param belDocumentInfo
      * @param citationType
      * @return
@@ -372,7 +387,7 @@ public interface KAMStoreDao extends KAMDao {
 
     /**
      * Returns all citations of the specified {@link CitationType} for a Kam.
-     * 
+     *
      * @param citationType
      * @return
      * @throws SQLException
@@ -383,7 +398,7 @@ public interface KAMStoreDao extends KAMDao {
     /**
      * Returns all citation matching the specified {@link CitationType} and
      * reference IDs.
-     * 
+     *
      * @param citationType
      * @param refereceIds
      * @return
