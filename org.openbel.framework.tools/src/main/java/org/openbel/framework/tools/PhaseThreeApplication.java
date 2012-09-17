@@ -972,29 +972,6 @@ public final class PhaseThreeApplication extends PhaseApplication {
         markEndStage(bldr);
         stageOutput(bldr.toString());
         
-        stageOutput("Equivalence parameters hack.");
-        t1 = currentTimeMillis();
-        
-        // load equivalences
-        Set<EquivalenceDataIndex> equivs;
-        try {
-            equivs = p2.stage2LoadNamespaceEquivalences();
-        } catch (EquivalenceMapResolutionFailure e) {
-            stageError(e.getUserFacingMessage());
-            equivs = emptySet();
-        }
-        
-        try {
-            p2.stage3EquivalenceParameters(pn, equivs);
-        } catch (IOException e) {
-        }
-        t2 = currentTimeMillis();
-        
-        bldr.setLength(0);
-        markTime(bldr, t1, t2);
-        markEndStage(bldr);
-        stageOutput(bldr.toString());
-
         return pn;
     }
 
@@ -1050,7 +1027,18 @@ public final class PhaseThreeApplication extends PhaseApplication {
             return pn;
         }
 
-        long t1 = currentTimeMillis();
+        // equivalence network first, before pruning
+        Set<EquivalenceDataIndex> equivs;
+        try {
+            equivs = p2.stage2LoadNamespaceEquivalences();
+        } catch (EquivalenceMapResolutionFailure e) {
+            stageError(e.getUserFacingMessage());
+            equivs = emptySet();
+        }
+        try {
+            p2.stage3EquivalenceParameters(pn, equivs);
+        } catch (IOException e) {
+        }
 
         final Iterator<ResourceLocation> it = resources.iterator();
 
@@ -1082,13 +1070,6 @@ public final class PhaseThreeApplication extends PhaseApplication {
             bail(ExitCode.GENERAL_FAILURE);
         }
 
-        long t2 = currentTimeMillis();
-
-        final StringBuilder bldr = new StringBuilder();
-        markTime(bldr, t1, t2);
-        markEndStage(bldr);
-        stageOutput(bldr.toString());
-
         return pn;
     }
 
@@ -1117,8 +1098,6 @@ public final class PhaseThreeApplication extends PhaseApplication {
         p3.pruneGene(gsdoc, orthoPn);
         final ProtoNetwork gspn = p3.compile(gsdoc);
         p3.merge(orthoPn, gspn);
-
-        equivalence(orthoPn);
     }
 
     private ProtoNetwork pruneResource(final ProtoNetwork pn,
@@ -1177,51 +1156,6 @@ public final class PhaseThreeApplication extends PhaseApplication {
         }
         Document doc = output.getDocument();
         return doc;
-    }
-
-    /**
-     * Runs equivalencing of the proto-network.
-     *
-     * @param pn Proto-network, post-scaffolding
-     * @return Equivalenced proto-network
-     */
-    private ProtoNetwork equivalence(ProtoNetwork pn) {
-        final StringBuilder bldr = new StringBuilder();
-
-        // Load the equivalences
-        final Set<EquivalenceDataIndex> equivalences;
-        try {
-            equivalences = p2.stage2LoadNamespaceEquivalences();
-        } catch (EquivalenceMapResolutionFailure f) {
-            // Unrecoverable error
-            // TODO Real error handling
-            f.printStackTrace();
-            return null;
-        }
-
-        long t1 = currentTimeMillis();
-        int pct = stage5Parameter(pn, equivalences, bldr);
-        stage5Term(pn, pct);
-        stage5Statement(pn, pct);
-
-        long t2 = currentTimeMillis();
-
-        final int paramct = pn.getParameterTable().getTableParameters().size();
-        final int termct = pn.getTermTable().getTermValues().size();
-        final int stmtct = pn.getStatementTable().getStatements().size();
-
-        bldr.setLength(0);
-        bldr.append(stmtct);
-        bldr.append(" statements, ");
-        bldr.append(termct);
-        bldr.append(" terms, ");
-        bldr.append(paramct);
-        bldr.append(" parameters");
-        stageOutput(bldr.toString());
-
-        bldr.setLength(0);
-        markTime(bldr, t1, t2);
-        return pn;
     }
 
     /**
