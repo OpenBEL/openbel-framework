@@ -47,14 +47,26 @@ import java.util.Set;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.model.Term;
-import org.openbel.framework.common.protonetwork.model.*;
+import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable;
 import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable.TableAnnotationDefinition;
+import org.openbel.framework.common.protonetwork.model.AnnotationValueTable;
 import org.openbel.framework.common.protonetwork.model.AnnotationValueTable.TableAnnotationValue;
+import org.openbel.framework.common.protonetwork.model.DocumentTable;
 import org.openbel.framework.common.protonetwork.model.DocumentTable.DocumentHeader;
+import org.openbel.framework.common.protonetwork.model.NamespaceTable;
 import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
+import org.openbel.framework.common.protonetwork.model.ParameterTable;
 import org.openbel.framework.common.protonetwork.model.ParameterTable.TableParameter;
+import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable;
+import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
+import org.openbel.framework.common.protonetwork.model.ProtoNetwork;
+import org.openbel.framework.common.protonetwork.model.ProtoNodeTable;
+import org.openbel.framework.common.protonetwork.model.StatementAnnotationMapTable;
 import org.openbel.framework.common.protonetwork.model.StatementAnnotationMapTable.AnnotationPair;
+import org.openbel.framework.common.protonetwork.model.StatementTable;
 import org.openbel.framework.common.protonetwork.model.StatementTable.TableStatement;
+import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
+import org.openbel.framework.common.protonetwork.model.TermTable;
 
 /**
  * ProtoNetworkMerger merges two {@link ProtoNetwork} objects together. This
@@ -146,9 +158,12 @@ public class ProtoNetworkMerger {
             // union statements
             StatementTable statementTable = protoNetwork2.getStatementTable();
             List<TableStatement> statements = statementTable.getStatements();
+            List<String> terms = protoNetwork2.getTermTable().getTermValues();
+            Map<Integer, Integer> termMap = new HashMap<Integer, Integer>(
+                    terms.size());
             for (int j = 0; j < statements.size(); j++) {
                 mergeStatement(j, statements.get(j), protoNetwork1,
-                        protoNetwork2, did);
+                        protoNetwork2, did, termMap);
             }
         }
     }
@@ -167,19 +182,15 @@ public class ProtoNetworkMerger {
      * @param documentId <tt>int</tt>, the new merged document index
      * @return {@link Integer}, the new merged statement index
      */
-    protected Integer mergeStatement(int statementIndex,
+    private Integer mergeStatement(int statementIndex,
             TableStatement statement,
             ProtoNetwork protoNetwork1, ProtoNetwork protoNetwork2,
-            int documentId) {
-
-        final ProtoNodeTable mpnt = protoNetwork1.getProtoNodeTable();
-        final ProtoEdgeTable mpet = protoNetwork1.getProtoEdgeTable();
-        final Map<Integer, Integer> nodeIndex = mpnt.getTermNodeIndex();
+            int documentId, Map<Integer, Integer> termMap) {
 
         // always merge subject term since it's present in all statement types
         Integer newSubjectTermId = mergeTerm(statement.getSubjectTermId(),
                 protoNetwork1, protoNetwork2,
-                documentId);
+                documentId, termMap);
 
         int newStatementIndex = 0;
         Statement stmtToMerge =
@@ -196,30 +207,23 @@ public class ProtoNetworkMerger {
             // merge simple statement
             Integer newObjectTermId = mergeTerm(
                     Integer.valueOf(statement.getObjectTermId()),
-                    protoNetwork1, protoNetwork2, documentId);
+                    protoNetwork1, protoNetwork2, documentId, termMap);
 
             newStatementIndex = protoNetwork1.getStatementTable().addStatement(
                     new TableStatement(newSubjectTermId,
                             statement.getRelationshipName(), newObjectTermId),
                     stmtToMerge, documentId);
-
-            // find new proto node ids and merge in proto edge
-            int newSubjectNodeId = nodeIndex.get(newSubjectTermId);
-            int newObjectNodeId = nodeIndex.get(newObjectTermId);
-            mpet.addEdges(newStatementIndex, new ProtoEdgeTable.TableProtoEdge(
-                    newSubjectNodeId, statement.getRelationshipName(),
-                    newObjectNodeId));
         } else {
             // merge nested statement, no creation of proto edge
 
             // merge nested subject
             Integer newNestedSubjectTermId = mergeTerm(
                     Integer.valueOf(statement.getNestedSubject()),
-                    protoNetwork1, protoNetwork2, documentId);
+                    protoNetwork1, protoNetwork2, documentId, termMap);
             // merge nested object
             Integer newNestedObjectTermId = mergeTerm(
                     Integer.valueOf(statement.getNestedObject()),
-                    protoNetwork1, protoNetwork2, documentId);
+                    protoNetwork1, protoNetwork2, documentId, termMap);
 
             newStatementIndex = protoNetwork1.getStatementTable().addStatement(
                     new TableStatement(newSubjectTermId,
@@ -230,6 +234,15 @@ public class ProtoNetworkMerger {
                     stmtToMerge, documentId);
         }
 
+        // remap edges for statement, if any exist
+        ProtoEdgeTable et = protoNetwork2.getProtoEdgeTable();
+        Map<Integer, Set<Integer>> stmtEdges = et.getStatementEdges();
+        Set<Integer> edgeIndices = stmtEdges.get(statementIndex);
+        if (hasItems(edgeIndices)) {
+            remapEdges(protoNetwork1, protoNetwork2, documentId, termMap,
+                    newStatementIndex, et.getProtoEdges(), edgeIndices);
+        }
+        
         // remap annotation definition + value
         Set<AnnotationPair> aps = protoNetwork2
                 .getStatementAnnotationMapTable()
@@ -268,6 +281,57 @@ public class ProtoNetworkMerger {
     }
 
     /**
+     * Remaps {@link TableProtoEdge proto edges} for a
+     * {@link TableStatement statement}.  A new statement index is created from
+     * a merge which requires the old {@link TableProtoEdge proto edges} to be
+     * associated with it.
+     * 
+     * @see https://github.com/OpenBEL/openbel-framework/issues/49
+     * @param protoNetwork1 {@link ProtoNetwork}; merge into
+     * @param protoNetwork2 {@link ProtoNetwork}; merge from
+     * @param documentId {@code int}; bel document id
+     * @param termMap {@link Map} of old term id to new proto node id
+     * @param newStatementIndex {@code int} new merged statement id
+     * @param edges {@link List}; merging statement's
+     * {@link TableProtoEdge edges}
+     * @param edgeIndices {@link Set}; set of old statement's edge indices
+     */
+    private void remapEdges(ProtoNetwork protoNetwork1,
+            ProtoNetwork protoNetwork2, int documentId,
+            Map<Integer, Integer> termMap, int newStatementIndex,
+            List<TableProtoEdge> edges, Set<Integer> edgeIndices) {
+        ProtoNodeTable nt = protoNetwork2.getProtoNodeTable();
+        Map<Integer, Integer> nodeTermIndex = nt.getNodeTermIndex();
+        
+        TableProtoEdge[] remappedEdges = new TableProtoEdge[edgeIndices.size()];
+        int i = 0;
+        for (Integer edgeIndex : edgeIndices) {
+            TableProtoEdge edge = edges.get(edgeIndex);
+            int sourceBefore = edge.getSource();
+            int targetBefore = edge.getTarget();
+
+            Integer sourceTerm = nodeTermIndex.get(sourceBefore);
+            Integer targetTerm = nodeTermIndex.get(targetBefore);
+            Integer newSource = termMap.get(sourceTerm);
+            if (newSource == null) {
+                newSource = mergeTerm(sourceTerm, protoNetwork1, protoNetwork2,
+                        documentId, termMap);
+            }
+            
+            Integer newTarget = termMap.get(targetTerm);
+            if (newTarget == null) {
+                newTarget = mergeTerm(targetTerm, protoNetwork1, protoNetwork2,
+                        documentId, termMap);
+            }
+
+            remappedEdges[i++] = new TableProtoEdge(newSource, edge.getRel(),
+                    newTarget);
+        }
+        ProtoEdgeTable edgeTable = protoNetwork1.getProtoEdgeTable();
+        edgeTable.addEdges(newStatementIndex, remappedEdges);
+    }
+    
+    /**
      * Merge the term into the first {@link ProtoNetwork}
      * <tt>protoNetwork1</tt>.
      *
@@ -279,8 +343,9 @@ public class ProtoNetworkMerger {
      * @param documentId <tt>int</tt>, the new merged document index
      * @return {@link Integer}, the new merged term index
      */
-    protected Integer mergeTerm(Integer termId, ProtoNetwork protoNetwork1,
-            ProtoNetwork protoNetwork2, int documentId) {
+    private Integer mergeTerm(Integer termId, ProtoNetwork protoNetwork1,
+            ProtoNetwork protoNetwork2, int documentId,
+            Map<Integer, Integer> termMap) {
         TermTable termTable = protoNetwork2.getTermTable();
         TermParameterMapTable mapTable =
                 protoNetwork2.getTermParameterMapTable();
@@ -299,6 +364,7 @@ public class ProtoNetworkMerger {
         // adding a new one.
         Integer p1Index = mtt.getVisitedTerms().get(termToMerge);
         if (p1Index != null) {
+            termMap.put(termId, p1Index);
             return p1Index;
         }
 
@@ -319,8 +385,9 @@ public class ProtoNetworkMerger {
         mtpmt.addTermParameterMapping(
                 newTermIndex, newTermParameterIndices);
 
-        mpnt.addNode(newTermIndex, mtt.getTermValues().get(newTermIndex));
+        Integer newNode = mpnt.addNode(newTermIndex, mtt.getTermValues().get(newTermIndex));
 
+        termMap.put(termId, newNode);
         return newTermIndex;
     }
 }
