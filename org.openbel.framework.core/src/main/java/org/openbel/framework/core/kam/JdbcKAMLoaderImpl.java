@@ -56,20 +56,27 @@ import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.AnnotationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.common.protonetwork.model.*;
+import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable;
 import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable.TableAnnotationDefinition;
+import org.openbel.framework.common.protonetwork.model.AnnotationValueTable;
 import org.openbel.framework.common.protonetwork.model.AnnotationValueTable.TableAnnotationValue;
 import org.openbel.framework.common.protonetwork.model.DocumentTable.DocumentHeader;
+import org.openbel.framework.common.protonetwork.model.NamespaceTable;
 import org.openbel.framework.common.protonetwork.model.NamespaceTable.TableNamespace;
+import org.openbel.framework.common.protonetwork.model.ParameterTable;
 import org.openbel.framework.common.protonetwork.model.ParameterTable.TableParameter;
+import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable;
 import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProtoEdge;
+import org.openbel.framework.common.protonetwork.model.ProtoNodeTable;
+import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
+import org.openbel.framework.common.protonetwork.model.StatementAnnotationMapTable;
 import org.openbel.framework.common.protonetwork.model.StatementAnnotationMapTable.AnnotationPair;
+import org.openbel.framework.common.protonetwork.model.StatementTable;
 import org.openbel.framework.common.protonetwork.model.StatementTable.TableStatement;
+import org.openbel.framework.common.protonetwork.model.TermParameterMapTable;
+import org.openbel.framework.common.protonetwork.model.TermTable;
 import org.openbel.framework.core.df.AbstractJdbcDAO;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
-import org.openbel.framework.core.df.encryption.SymmetricEncryptionService;
 
 /**
  * JdbcKAMLoaderImpl implements a {@link KAMLoader} to load a KAM into the
@@ -171,8 +178,6 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
     private Map<String, Integer> valueIndexMap =
             new HashMap<String, Integer>();
 
-    private SymmetricEncryptionService encryptionService;
-
     /**
      * Creates a JdbcKAMLoaderImpl from the Jdbc {@link Connection} that will be
      * used to load the KAM.
@@ -189,7 +194,6 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
     public JdbcKAMLoaderImpl(DBConnection dbc, String schemaName)
             throws SQLException {
         super(dbc, schemaName);
-        this.encryptionService = new KamStoreEncryptionServiceImpl();
     }
 
     /**
@@ -844,11 +848,9 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
         }
 
         try {
-            String encryptedString = encryptionService.encrypt(v);
-
             // Insert into objects_text if we are over MAX_VARCHAR_LENGTH
             Integer objectsTextId = null;
-            if (encryptedString.length() > MAX_VARCHAR_LENGTH) {
+            if (v.length() > MAX_VARCHAR_LENGTH) {
                 final String objectsTextColumn = (dbConnection.isPostgresql() ?
                         OBJECTS_TEXT_COLUMN_POSTGRESQL : OBJECTS_TEXT_COLUMN);
                 PreparedStatement otps = getPreparedStatement(OBJECTS_TEXT_SQL,
@@ -857,8 +859,8 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
                 StringReader sr = null;
 
                 try {
-                    sr = new StringReader(encryptedString);
-                    otps.setClob(1, sr, encryptedString.length());
+                    sr = new StringReader(v);
+                    otps.setClob(1, sr, v.length());
                     otps.execute();
                     otrs = otps.getGeneratedKeys();
                     if (otrs.next()) {
@@ -878,7 +880,7 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
 
             if (objectsTextId == null) {
                 // insert value into objects table
-                ps.setString(2, encryptedString);
+                ps.setString(2, v);
                 ps.setNull(3, Types.INTEGER);
             } else {
                 ps.setNull(2, Types.VARCHAR);
@@ -894,9 +896,6 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
                 throw new IllegalStateException("object insert failed.");
             }
             return oid;
-        } catch (EncryptionServiceException e) {
-            throw new SQLException(
-                    "Unable to encrypt string for object table.", e);
         } finally {
             close(rs);
 

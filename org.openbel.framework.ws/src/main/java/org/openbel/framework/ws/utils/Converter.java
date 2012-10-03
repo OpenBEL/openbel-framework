@@ -672,7 +672,6 @@ public class Converter {
         Citation citation = OBJECT_FACTORY.createCitation();
         citation.setCitationType(convert(objCitation.getCitationType()));
         citation.setComment(objCitation.getComment());
-        // citation id should not be encrypted, as it has a specific meaning
         citation.setId(objCitation.getId());
         citation.setName(objCitation.getName());
 

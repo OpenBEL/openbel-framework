@@ -42,51 +42,20 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.zip.GZIPOutputStream;
 
-import javax.crypto.CipherOutputStream;
-
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
-
 /**
  * PKAMWriter provides a {@link BufferedWriter} that is created from
  * a series of other {@link OutputStream}s.  Data will be processed sequentially
  * by the following streams:<ol>
  * <li>{@link BufferedWriter}, <tt>this</tt>, to write initial data</li>
  * <li>{@link GZIPOutputStream} to compress initial written data</li>
- * <li>{@link CipherOutputStream} to encrypt compressed data</li>
- * <li>{@link FileOutputStream} to write encrypted data to a file</li></ol>
+ * <li>{@link FileOutputStream} to write data to a file</li></ol>
  * 
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class PKAMWriter extends BufferedWriter {
 
     /**
-     * Construct a PKAMWriter that writes a PKAM to <tt>fileName</tt>.  This
-     * writer does encryption thus it needs the
-     * {@link KamStoreEncryptionServiceImpl} and a <tt>password</tt>.
-     * 
-     * @param fileName {@link String}, the PKAM file name
-     * @param password {@link String}, the password to build the encryption
-     * cipher from
-     * @param encryptionService {@link KamStoreEncryptionServiceImpl}, the encryption
-     * service used to encrypt
-     * @throws EncryptionServiceException Thrown if an encryption error
-     * occurred during encryption
-     * @throws IOException Thrown if an IO error occurred establishing the
-     * sequential {@link OutputStream}s
-     */
-    public PKAMWriter(final String fileName, final String password,
-            final KamStoreEncryptionServiceImpl encryptionService)
-            throws IOException,
-            EncryptionServiceException {
-        super(new OutputStreamWriter(new GZIPOutputStream(encryptionService
-                .newEncryptingOutputStream(new FileOutputStream(fileName),
-                        password))));
-    }
-
-    /**
-     * Construct a PKAMWriter that writes a PKAM to <tt>fileName</tt>  This
-     * writer does not encrypt.
+     * Construct a PKAMWriter that writes a PKAM to <tt>fileName</tt>.
      * 
      * @param fileName {@link String}, the PKAM file name
      * @throws IOException Thrown if an IO error occurred establishing the
@@ -97,3 +66,4 @@ class PKAMWriter extends BufferedWriter {
                 fileName))));
     }
 }
+

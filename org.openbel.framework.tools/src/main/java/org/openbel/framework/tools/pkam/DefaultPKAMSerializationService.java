@@ -46,15 +46,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openbel.framework.api.internal.KAMCatalogDao;
-import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.cfg.SystemConfiguration;
 import org.openbel.framework.compiler.kam.KAMStoreSchemaService;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
 
 import au.com.bytecode.opencsv.CSVParser;
 import au.com.bytecode.opencsv.CSVReader;
@@ -72,7 +70,6 @@ public class DefaultPKAMSerializationService implements
     private final static Pattern TABLE_HEADER_PATTERN = Pattern
             .compile("\\[(\\w+)\\]");
     private final DatabaseService databaseService;
-    private final KamStoreEncryptionServiceImpl encryptionService;
     private final KAMStoreSchemaService schemaService;
 
     /**
@@ -85,14 +82,12 @@ public class DefaultPKAMSerializationService implements
      */
     public DefaultPKAMSerializationService(
             final DatabaseService databaseService,
-            final KamStoreEncryptionServiceImpl encryptionService,
             final KAMStoreSchemaService schemaService) {
-        if (nulls(databaseService, encryptionService, schemaService)) {
+        if (nulls(databaseService, schemaService)) {
             throw new InvalidArgument("argument(s) are null");
         }
 
         this.databaseService = databaseService;
-        this.encryptionService = encryptionService;
         this.schemaService = schemaService;
     }
 
@@ -100,8 +95,7 @@ public class DefaultPKAMSerializationService implements
      * {@inheritDoc}
      */
     @Override
-    public void serializeKAM(final String kamName, String filePath,
-            final String password)
+    public void serializeKAM(final String kamName, String filePath)
             throws PKAMSerializationFailure {
         if (nulls(kamName, filePath)) {
             throw new InvalidArgument("argument(s) were null");
@@ -116,21 +110,13 @@ public class DefaultPKAMSerializationService implements
         CSVWriter tabbedWriter = null;
         KAMExportDAO kdao = null;
         try {
-            if (password == null) {
-                // blank password, create PKAM writer without encryption
-                pkw = new PKAMWriter(filePath);
-            } else {
-                // password is set, create PKAM writer with encryption
-                pkw = new PKAMWriter(filePath, password, encryptionService);
-            }
-
+            pkw = new PKAMWriter(filePath);
             tabbedWriter = new CSVWriter(pkw, FIELD_SEPARATOR,
                     CSVParser.DEFAULT_QUOTE_CHARACTER,
                     CSVParser.DEFAULT_ESCAPE_CHARACTER);
 
             final DBConnection kcc = createKAMConnection(kamName, cfg);
-            kdao = new KAMExportDAO(kcc, kamInfo.getSchemaName(),
-                    encryptionService);
+            kdao = new KAMExportDAO(kcc, kamInfo.getSchemaName());
             for (KAMStoreTables1_0 kamTable : KAMStoreTables1_0.values()) {
                 tabbedWriter.writeNext(new String[] { "["
                         + kamTable.getTableName() + "]" });
@@ -148,8 +134,6 @@ public class DefaultPKAMSerializationService implements
                     }
                 }
             }
-        } catch (EncryptionServiceException e) {
-            throw new PKAMSerializationFailure(kamName, e.getMessage());
         } catch (IOException e) {
             throw new PKAMSerializationFailure(kamName, e.getMessage());
         } catch (SQLException e) {
@@ -188,8 +172,7 @@ public class DefaultPKAMSerializationService implements
      */
     @Override
     public void deserializeKAM(final String kamName, final String filePath,
-            final String password, final boolean noPreserve)
-            throws PKAMSerializationFailure {
+            final boolean noPreserve) throws PKAMSerializationFailure {
 
         // load destination KAM
         final SystemConfiguration cfg =
@@ -201,17 +184,10 @@ public class DefaultPKAMSerializationService implements
         KAMImportDAO kamImportDAO = null;
         try {
             try {
-                if (password == null) {
-                    // blank password, create PKAM reader without decryption
-                    pkr = new PKAMReader(filePath);
-                } else {
-                    // password is set, create PKAM reader with decryption
-                    pkr = new PKAMReader(filePath, password, encryptionService);
-                }
+                pkr = new PKAMReader(filePath);
             } catch (Exception e) {
-                throw new PKAMSerializationFailure(
-                        filePath,
-                        "Unable to process encrypted KAM, check that you provided the correct password.");
+                throw new PKAMSerializationFailure(filePath,
+                        "Unable to process KAM.");
             }
             tabbedReader = new CSVReader(pkr, FIELD_SEPARATOR,
                     CSVParser.DEFAULT_QUOTE_CHARACTER,
@@ -232,8 +208,7 @@ public class DefaultPKAMSerializationService implements
 
                         final DBConnection kcc =
                                 createKAMConnection(filePath, cfg);
-                        kamImportDAO = new KAMImportDAO(kcc, newKAMSchema,
-                                encryptionService);
+                        kamImportDAO = new KAMImportDAO(kcc, newKAMSchema);
                         continue;
                     }
 
@@ -262,8 +237,6 @@ public class DefaultPKAMSerializationService implements
 
             // commit final table batch
             kamImportDAO.commitTableBatch();
-        } catch (EncryptionServiceException e) {
-            throw new PKAMSerializationFailure(filePath, e.getMessage());
         } catch (IOException e) {
             throw new PKAMSerializationFailure(filePath, e.getMessage());
         } catch (SQLException e) {

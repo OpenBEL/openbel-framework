@@ -36,7 +36,6 @@
 package org.openbel.framework.tools.pkam;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -48,8 +47,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openbel.framework.common.SystemConfigurationFile;
 import org.openbel.framework.common.cfg.SystemConfigurationBasedTest;
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
 
 /**
  * PKAMSerializationTest provides a {@link SystemConfigurationBasedTest} to
@@ -61,7 +58,6 @@ import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
  */
 @SystemConfigurationFile(path = "src/test/resources/org/openbel/framework/tools/pkam/belframework.cfg")
 public class PKAMSerializationTest extends SystemConfigurationBasedTest {
-    private KamStoreEncryptionServiceImpl encryptionService;
 
     /**
      * {@inheritDoc}
@@ -72,7 +68,6 @@ public class PKAMSerializationTest extends SystemConfigurationBasedTest {
     @Override
     public void setup() {
         super.setup();
-        encryptionService = new KamStoreEncryptionServiceImpl();
     }
 
     /**
@@ -91,9 +86,7 @@ public class PKAMSerializationTest extends SystemConfigurationBasedTest {
      */
     @Test
     public void testPKAMWriteAndRead() {
-        assertNotNull(encryptionService);
-
-        // set up temporary file for encrypted PKAM, assert existence
+        // set up temporary file for PKAM, assert existence
         final String tempPath;
         try {
             File pkamTempFile = File.createTempFile("PKAM", ".kam");
@@ -112,7 +105,7 @@ public class PKAMSerializationTest extends SystemConfigurationBasedTest {
 
         // write PKAM data
         try {
-            PKAMWriter writer = new PKAMWriter(tempPath, "", encryptionService);
+            PKAMWriter writer = new PKAMWriter(tempPath);
             writer.write("Test data 1, Test data 2, Test data 3");
             writer.write("\n");
             writer.write("Test data 4, Test data 5, Test data 6");
@@ -120,10 +113,6 @@ public class PKAMSerializationTest extends SystemConfigurationBasedTest {
             writer.write("Test data 7, Test data 8, Test data 9");
             writer.write("\n");
             writer.close();
-        } catch (EncryptionServiceException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-            return;
         } catch (IOException e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -132,17 +121,13 @@ public class PKAMSerializationTest extends SystemConfigurationBasedTest {
 
         // read PKAM data and assert it equals the original data
         try {
-            PKAMReader reader = new PKAMReader(tempPath, "", encryptionService);
+            PKAMReader reader = new PKAMReader(tempPath);
             assertEquals("Test data 1, Test data 2, Test data 3",
                     reader.readLine());
             assertEquals("Test data 4, Test data 5, Test data 6",
                     reader.readLine());
             assertEquals("Test data 7, Test data 8, Test data 9",
                     reader.readLine());
-        } catch (EncryptionServiceException e) {
-            e.printStackTrace();
-            fail(e.getMessage());
-            return;
         } catch (IOException e) {
             e.printStackTrace();
             fail(e.getMessage());

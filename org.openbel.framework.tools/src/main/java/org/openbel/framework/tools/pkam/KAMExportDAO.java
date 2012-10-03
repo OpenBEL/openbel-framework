@@ -35,9 +35,6 @@
  */
 package org.openbel.framework.tools.pkam;
 
-import static org.openbel.framework.tools.pkam.KAMStoreTables1_0.KAM_OBJECTS;
-import static org.openbel.framework.tools.pkam.KAMStoreTables1_0.KAM_OBJECTS_TEXT;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,21 +45,16 @@ import java.util.List;
 
 import org.openbel.framework.core.df.AbstractJdbcDAO;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.encryption.EncryptionService;
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
 
 class KAMExportDAO extends AbstractJdbcDAO {
-    private final EncryptionService encryptionService;
 
-    KAMExportDAO(final DBConnection dbConnection,
-            final String schemaName, final EncryptionService encryptionService)
+    KAMExportDAO(final DBConnection dbConnection, final String schemaName)
             throws SQLException {
         super(dbConnection, schemaName);
-        this.encryptionService = encryptionService;
     }
 
     public List<String[]> getAllRowsForTable(final KAMStoreTables1_0 table)
-            throws SQLException, EncryptionServiceException {
+            throws SQLException {
         List<String[]> tableRows = new ArrayList<String[]>();
         PreparedStatement allRowsPs = getPreparedStatement(table
                 .getSQLSelect(schemaName));
@@ -82,8 +74,7 @@ class KAMExportDAO extends AbstractJdbcDAO {
     }
 
     private String[] extractData(final ResultSet allRowsRs,
-            final KAMStoreTables1_0 table) throws SQLException,
-            EncryptionServiceException {
+            final KAMStoreTables1_0 table) throws SQLException {
         final String[] cols = table.getColumnNames();
         final Integer[] types = table.getColumnTypes();
         final String[] data = new String[cols.length];
@@ -113,17 +104,6 @@ class KAMExportDAO extends AbstractJdbcDAO {
                     data[i] = "NULL";
                 } else {
                     data[i] = colValue;
-                }
-
-                // can only decrypt a non-null value
-                if (data[i] != null) {
-                    // decrypt column values if text value of objects tables
-                    if ((table == KAM_OBJECTS && "varchar_value"
-                            .equals(colName))
-                            || (table == KAM_OBJECTS_TEXT && "text_value"
-                                    .equals(colName))) {
-                        data[i] = encryptionService.decrypt(data[i]);
-                    }
                 }
             }
         }

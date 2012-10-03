@@ -53,15 +53,12 @@ public interface PKAMSerializationService {
      * be null
      * @param filePath {@link String}, the file path to store serialized data,
      * which cannot be null
-     * @param password {@link String}, the password to use when encrypting the
-     * KAM, which cannot be null
      * @throw PKAMSerializationFailure Thrown if an error occurred serializing
      * the KAM identified by <tt>kamName</tt>
      * @throws InvalidArgument Thrown if either <tt>kamName</tt>,
      * <tt>filePath</tt>, or <tt>password</tt> is null
      */
-    public void serializeKAM(final String kamName, String filePath,
-            final String password)
+    public void serializeKAM(final String kamName, String filePath)
             throws PKAMSerializationFailure;
 
     /**
@@ -73,8 +70,6 @@ public interface PKAMSerializationService {
      * the file 
      * @param filePath {@link String}, the file path where the Portable KAM is
      * stored, which cannot be null
-     * @param password {@link String}, the password to use when decrypting the
-     * KAM, which cannot be null
      * @param noPreserve <tt>boolean</tt>, the noPreserve option needed once
      * the portable KAM file's kam name is read
      * @throws PKAMSerializationFailure Thrown if an error occurred
@@ -83,6 +78,5 @@ public interface PKAMSerializationService {
      * is null
      */
     public void deserializeKAM(final String kamName, final String filePath,
-            final String password, final boolean noPreserve)
-            throws PKAMSerializationFailure;
+            final boolean noPreserve) throws PKAMSerializationFailure;
 }

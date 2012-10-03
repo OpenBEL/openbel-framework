@@ -128,12 +128,6 @@ public final class SystemConfiguration extends Configuration {
             "resource_index_url";
 
     /**
-     * KAM store encryption passphrase: {@value #SYMMETRIC_ENCRYPTION_KEY}
-     */
-    public static final String KAM_STORE_ENCRYPTION_PASSPHRASE =
-            "kamstore_encryption_passphrase";
-
-    /**
      * Location of BEL Templates (for BELWorkbench document creation):
      * {@value #BEL_TEMPLATE_LOCATION}
      *
@@ -171,7 +165,6 @@ public final class SystemConfiguration extends Configuration {
     private File cacheDirectory;
     private File applicationLogPath;
     private String resourceIndexURL;
-    private String kamstoreEncryptionPassphrase;
     private File belTemplateDirectory;
 
     /**
@@ -278,7 +271,6 @@ public final class SystemConfiguration extends Configuration {
      * @see #APPLICATION_LOG_PATH_DESC
      * @see #FRAMEWORK_CACHE_DIRECTORY_DESC
      * @see #FRAMEWORK_WORKING_AREA_DESC
-     * @see #KAM_STORE_ENCRYPTION_PASSPHRASE
      * @see #KAMSTORE_CATALOG_SCHEMA_DESC
      * @see #KAMSTORE_PASSWORD_DESC
      * @see #KAMSTORE_SCHEMA_PREFIX_DESC
@@ -358,8 +350,6 @@ public final class SystemConfiguration extends Configuration {
             applicationLogPath = new File(value);
         } else if (RESOURCE_INDEX_URL_DESC.equals(name)) {
             resourceIndexURL = value;
-        } else if (KAM_STORE_ENCRYPTION_PASSPHRASE.equals(name)) {
-            kamstoreEncryptionPassphrase = value;
         } else if (BEL_TEMPLATE_LOCATION.equals(name)) {
             belTemplateDirectory = new File(value);
         } else if (SYSTEM_MANAGED_SCHEMAS.equals(name)) {
@@ -392,11 +382,6 @@ public final class SystemConfiguration extends Configuration {
 
         if (resourceIndexURL == null || resourceIndexURL.isEmpty()) {
             unsetStrings.add(RESOURCE_INDEX_URL_DESC);
-        }
-
-        if (kamstoreEncryptionPassphrase == null
-                || kamstoreEncryptionPassphrase.isEmpty()) {
-            unsetStrings.add(KAM_STORE_ENCRYPTION_PASSPHRASE);
         }
 
         if (workingDirectory == null) {
@@ -570,15 +555,6 @@ public final class SystemConfiguration extends Configuration {
      */
     public String getResourceIndexURL() {
         return resourceIndexURL;
-    }
-
-    /**
-     * Returns the encryption passphrase for the KAM store.
-     *
-     * @return Non-null, string
-     */
-    public String getKamstoreEncryptionPassphrase() {
-        return kamstoreEncryptionPassphrase;
     }
 
     /**

@@ -61,13 +61,13 @@ import java.util.Map;
 import org.apache.commons.cli.Option;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.KAMStore;
 import org.openbel.framework.api.KAMStoreException;
 import org.openbel.framework.api.KAMStoreImpl;
+import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.internal.KAMCatalogDao;
-import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KamDbObject;
 import org.openbel.framework.common.BELUtilities;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.SimpleOutput;
@@ -79,7 +79,6 @@ import org.openbel.framework.core.CommandLineApplication;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.DatabaseService;
 import org.openbel.framework.core.df.DatabaseServiceImpl;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
 import org.openbel.framework.tools.pkam.DefaultPKAMSerializationService;
 import org.openbel.framework.tools.pkam.PKAMSerializationFailure;
 import org.openbel.framework.tools.pkam.PKAMSerializationService;
@@ -204,11 +203,8 @@ public final class KamManager extends CommandLineApplication {
         }
 
         if (command == Command.IMPORT || command == Command.EXPORT) {
-
-            KamStoreEncryptionServiceImpl encryptionService =
-                    new KamStoreEncryptionServiceImpl();
             pkamService = new DefaultPKAMSerializationService(
-                    dbservice, encryptionService, kamSchemaService);
+                    dbservice, kamSchemaService);
         }
     }
 
@@ -271,7 +267,6 @@ public final class KamManager extends CommandLineApplication {
             }
 
             final String kamName = (extraArgs.length > 1 ? extraArgs[1] : null);
-            final String password = determinePassword();
             ExportFormat exportFormat = determineType();
             if (exportFormat == null) {
                 exportFormat = inferType(pkamFile);
@@ -282,8 +277,7 @@ public final class KamManager extends CommandLineApplication {
             }
             final boolean noPreserve = isNoPreserve();
 
-            runImportCommand(kamName, pkamFile, password, exportFormat,
-                    noPreserve);
+            runImportCommand(kamName, pkamFile, exportFormat, noPreserve);
             if (!quiet) {
                 reportable.output(format("Imported %s file from '%s'.",
                         exportFormat.toString(), pkamPath));
@@ -302,9 +296,8 @@ public final class KamManager extends CommandLineApplication {
             final String kamName = extraArgs[0];
             final String outputFilename =
                     (extraArgs.length > 1 ? extraArgs[1] : null);
-            final String password = determinePassword();
             final boolean noPreserve = isNoPreserve();
-            runExportCommand(kamName, outputFilename, password, exportFormat,
+            runExportCommand(kamName, outputFilename, exportFormat,
                     noPreserve);
 
         } else if (command == Command.SUMMARIZE) {
@@ -492,14 +485,6 @@ public final class KamManager extends CommandLineApplication {
     }
 
     /**
-     * Gets the -p/--password option.
-     * @return
-     */
-    private String determinePassword() {
-        return (hasOption("p") ? getOptionValue("p") : null);
-    }
-
-    /**
      * Gets the -o/--output-file option.
      * @return
      */
@@ -526,7 +511,7 @@ public final class KamManager extends CommandLineApplication {
      */
 
     private void runImportCommand(final String kamName, final File pkamFile,
-            final String password, final ExportFormat exportFormat,
+            final ExportFormat exportFormat,
             final boolean noPreserve) {
 
         if (exportFormat != ExportFormat.PORTABLE_KAM) {
@@ -551,7 +536,7 @@ public final class KamManager extends CommandLineApplication {
                 }
             }
 
-            pkamService.deserializeKAM(kamName, pkamPath, password, noPreserve);
+            pkamService.deserializeKAM(kamName, pkamPath, noPreserve);
         } catch (KAMStoreException e) {
             teardown();
             bailOnException(e);
@@ -575,7 +560,7 @@ public final class KamManager extends CommandLineApplication {
     }
 
     private void runExportCommand(final String kamName, String outputFilename,
-            final String password, final ExportFormat exportFormat,
+            final ExportFormat exportFormat,
             final boolean noPreserve) {
         if (kamName == null) {
             return;
@@ -609,7 +594,7 @@ public final class KamManager extends CommandLineApplication {
                         kAMStore, outputFilename);
             } else if (exportFormat == ExportFormat.PORTABLE_KAM) {
                 formatString = "portable";
-                pkamService.serializeKAM(kamName, outputFilename, password);
+                pkamService.serializeKAM(kamName, outputFilename);
             } else {
                 throw new UnsupportedOperationException(exportFormat.toString()
                         + " is not supported.");
@@ -1028,21 +1013,6 @@ public final class KamManager extends CommandLineApplication {
                         +
                         "to write the summary to.  The file will be written as XHTML.";
         options.add(new Option("o", "output-file", true, outputFileHelp));
-
-        // -p/--password used for the import and export commands
-        final String passwordHelp =
-                "Optional.  With the import command, the password is used to decrypt the "
-                        +
-                        "portable KAM file if the file was encrypted during export. "
-                        +
-                        "With the export command, the password is used to encrypt the "
-                        +
-                        "portable KAM file.  This same password must be used to import "
-                        +
-                        "the portable KAM with the "
-                        + getApplicationShortName() + " import command.\n" +
-                        "The default is to not encrypt or decrypt.";
-        options.add(new Option("p", "password", true, passwordHelp));
 
         // -t/--type used for the import and export commands
         final String typeHelp =

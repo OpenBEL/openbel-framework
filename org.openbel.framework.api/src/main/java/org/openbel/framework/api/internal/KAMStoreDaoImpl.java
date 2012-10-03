@@ -35,8 +35,9 @@
  */
 package org.openbel.framework.api.internal;
 
+import static java.sql.ResultSet.CONCUR_READ_ONLY;
+import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 import static java.util.Collections.emptyList;
-import static java.sql.ResultSet.*;
 import static org.openbel.framework.common.BELUtilities.noLength;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
@@ -67,6 +68,24 @@ import java.util.regex.Pattern;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.openbel.framework.api.AllocatingIterator;
+import org.openbel.framework.api.AnnotationFilterCriteria;
+import org.openbel.framework.api.BelDocumentFilterCriteria;
+import org.openbel.framework.api.CitationFilterCriteria;
+import org.openbel.framework.api.FilterCriteria;
+import org.openbel.framework.api.Kam;
+import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.KamElementImpl;
+import org.openbel.framework.api.KamStoreObjectImpl;
+import org.openbel.framework.api.NamespaceFilterCriteria;
+import org.openbel.framework.api.RelationshipTypeFilterCriteria;
+import org.openbel.framework.api.SimpleKAMEdge;
+import org.openbel.framework.api.SimpleKAMNode;
+import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
+import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
+import org.openbel.framework.api.internal.KAMCatalogDao.NamespaceFilter;
 import org.openbel.framework.common.AnnotationDefinitionResolutionException;
 import org.openbel.framework.common.BELUtilities;
 import org.openbel.framework.common.InvalidArgument;
@@ -88,19 +107,9 @@ import org.openbel.framework.common.util.PackUtils;
 import org.openbel.framework.common.util.Pair;
 import org.openbel.framework.core.df.AbstractJdbcDAO;
 import org.openbel.framework.core.df.DBConnection;
-import org.openbel.framework.core.df.encryption.EncryptionServiceException;
-import org.openbel.framework.core.df.encryption.KamStoreEncryptionServiceImpl;
-import org.openbel.framework.core.df.encryption.SymmetricEncryptionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionService;
 import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionServiceImpl;
 import org.openbel.framework.core.df.external.ExternalResourceException;
-import org.openbel.framework.api.*;
-import org.openbel.framework.api.Kam.KamEdge;
-import org.openbel.framework.api.Kam.KamNode;
-import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
-import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
-import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
-import org.openbel.framework.api.internal.KAMCatalogDao.NamespaceFilter;
 
 /**
  *
@@ -244,8 +253,6 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
     private Map<String, Citation> citationMap = null;
     private Map<Integer, List<Citation>> belDocumentCitationsMap = null;
 
-    private SymmetricEncryptionService encryptionService;
-
     private CacheableAnnotationDefinitionService cacheableAnnotationDefinitionService;
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(
@@ -273,7 +280,6 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         if (dbc.getConnection().isClosed()) {
             throw new InvalidArgument("dbc is closed and cannot be used");
         }
-        this.encryptionService = new KamStoreEncryptionServiceImpl();
         this.cacheableAnnotationDefinitionService =
                 new CacheableAnnotationDefinitionServiceImpl();
     }
@@ -1415,16 +1421,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 havingClause.append(" MAX(CASE WHEN (");
                 int count = 0;
                 for (String annotation : annotations) {
-                    String encryptedValue = null;
-                    try {
-                        // The annotation values are store encrypted in the database, so the match
-                        // must be done on the encrypted values.
-                        encryptedValue = encryptionService.encrypt(annotation);
-                    } catch (EncryptionServiceException ex) {
-                        continue; // TODO
-                    }
-
-                    annotationParameters.add(encryptedValue);
+                    annotationParameters.add(annotation);
                     havingClause.append("(a.annotation_definition_id=");
                     havingClause.append(type);
                     havingClause
@@ -1481,50 +1478,25 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 whereClause.append(" (FALSE");
 
                 for (Citation citation : citations) {
-                    String encryptedReference = null, encryptedDate = null, encryptedName =
-                            null, encryptedComment = null, encryptedType = null, encryptedAuthors =
-                            null;
-                    try {
-                        // The citation annotation values are store encrypted in the database, so the match
-                        // must be done on the encrypted values.
-                        final String id = citation.getId();
-                        encryptedReference =
-                                (id != null ? encryptionService.encrypt(id)
-                                        : null);
-                        final String name = citation.getName();
-                        encryptedName =
-                                (name != null ? encryptionService.encrypt(name)
-                                        : null);
-                        final String comment = citation.getComment();
-                        encryptedComment =
-                                (comment != null ? encryptionService
-                                        .encrypt(comment) : null);
-                        final CitationType citationType =
-                                citation.getCitationType();
-                        encryptedType =
-                                (citationType != null ?
-                                        encryptionService.encrypt(citationType
-                                                .getDisplayValue()) : null);
+                    final String id = citation.getId();
+                    final String name = citation.getName();
+                    final String comment = citation.getComment();
+                    final CitationType citationType =
+                            citation.getCitationType();
+                    final String ctype = citationType != null ? citationType
+                            .getDisplayValue() : null;
 
-                        // Pack the authors string exactly as done in
-                        // CitationDataConverter.convert(Citation, Map<String, BELAnnotationDefinition>).
-                        final List<String> authors = citation.getAuthors();
-                        if (BELUtilities.hasItems(authors)) {
-                            encryptedAuthors =
-                                    encryptionService
-                                            .encrypt(
-                                            StringUtils.left(PackUtils
-                                                    .packValues(authors), 4000));
-                        }
-
-                        final Date date = citation.getPublicationDate();
-                        encryptedDate =
-                                (date != null ? encryptionService
-                                        .encrypt(dateFormat.format(date))
-                                        : null);
-                    } catch (EncryptionServiceException ex) {
-                        continue; // TODO
+                    // Pack the authors string exactly as done in
+                    // CitationDataConverter.convert(Citation, Map<String, BELAnnotationDefinition>).
+                    String author = null;
+                    final List<String> authors = citation.getAuthors();
+                    if (BELUtilities.hasItems(authors)) {
+                        author = StringUtils.left(PackUtils.packValues(authors), 4000);
                     }
+
+                    final Date date = citation.getPublicationDate();
+                    final String publicationDate = (date != null ? dateFormat
+                            .format(date) : null);
 
                     citationJoins.append(" LEFT OUTER JOIN (");
                     citationJoins
@@ -1534,17 +1506,17 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                     for (String type : KAMStoreConstants.CITATION_ANNOTATION_DEFINITION_IDS) {
                         String value = null;
                         if (type == CitationAuthorsAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedAuthors;
+                            value = author;
                         } else if (type == CitationDateAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedDate;
+                            value = publicationDate;
                         } else if (type == CitationNameAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedName;
+                            value = name;
                         } else if (type == CitationTypeAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedType;
+                            value = ctype;
                         } else if (type == CitationCommentAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedComment;
+                            value = comment;
                         } else if (type == CitationReferenceAnnotationDefinition.ANNOTATION_DEFINITION_ID) {
-                            value = encryptedReference;
+                            value = id;
                         }
 
                         if (noLength(value)) {
@@ -2525,7 +2497,6 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
 
         String value = null;
-        String decryptedString = value;
         //Integer typeId = null;
         PreparedStatement ps = null;
         ResultSet rset = null;
@@ -2543,73 +2514,57 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             if (value == null && objectsTextId != 0) { //value is in objects_text table
                 value = getObjectsTextById(objectsTextId);
             }
-            //decrypt object table string
-            if (value != null) {
-                decryptedString = value;
-                try {
-                    decryptedString = encryptionService.decrypt(value);
-                } catch (EncryptionServiceException e) {
-                    throw new SQLException(
-                            "Unable to decrypt data from object table.", e);
-                }
-            } else {
-                // set decryptedString to empty to translate back from database null.
-                // this is a valid entry since we are storing an empty "" on the way in.
-                decryptedString = "";
+            
+            if (value == null) {
+                value = "";
             }
         } finally {
             close(rset);
         }
 
         // Push into the cache
-        objectValueCache.put(objectId, decryptedString);
-        objectValueReverseCache.put(decryptedString, objectId);
+        objectValueCache.put(objectId, value);
+        objectValueReverseCache.put(value, objectId);
 
-        return decryptedString;
+        return value;
     }
 
     /**
-     * TODO: THis will fail if the object value is stored in the text table
+     * TODO: This will fail if the object value is stored in the text table
      *
-     * @param objectValue
+     * @param value
      * @return
      * @throws SQLException
      */
-    private Integer getObjectIdByValue(final String objectValue)
+    private Integer getObjectIdByValue(final String value)
             throws SQLException {
-        if (objectValue == null) {
+        if (value == null) {
             return null;
         }
         // Check to see if the objectValue has already been seen
-        if (objectValueReverseCache.containsKey(objectValue)) {
-            return objectValueReverseCache.get(objectValue);
+        if (objectValueReverseCache.containsKey(value)) {
+            return objectValueReverseCache.get(value);
         }
 
         ResultSet rset = null;
         Integer objectId = null;
 
         try {
-            String encryptedValue = encryptionService.encrypt(objectValue);
-
             PreparedStatement ps = getPreparedStatement(SELECT_OBJECTS_ID_SQL);
-            ps.setString(1, encryptedValue);
+            ps.setString(1, value);
 
             rset = ps.executeQuery();
-
             if (rset.next()) {
                 objectId = rset.getInt(1);
             }
-        } catch (EncryptionServiceException e) {
-            throw new SQLException(
-                    "Unable to encrypt data to lookup in object table.", e);
         } finally {
             close(rset);
         }
 
         // Push into the cache
         if (objectId != null) {
-            objectValueCache.put(objectId, objectValue);
-            objectValueReverseCache.put(objectValue, objectId);
+            objectValueCache.put(objectId, value);
+            objectValueReverseCache.put(value, objectId);
         }
 
         return objectId;
