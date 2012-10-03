@@ -186,6 +186,12 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                                     "', '") + "') order by sam.statement_id";
     private static final String SELECT_TERM_ID_BY_PARAMETERS_SQL =
             "SELECT term_id FROM @.term_parameter WHERE (namespace_id = ? OR (namespace_id IS NULL AND ? IS NULL)) AND parameter_value_oid = ? AND ordinal = ?";
+    private static final String SELECT_KAM_NODE_UUIDS_SQL = 
+            "SELECT kn.kam_node_id, most_significant_bits, least_significant_bits " +
+            "FROM kam_node kn, kam_node_parameter knp, kam_parameter_uuid kpu " +
+            "WHERE kn.kam_node_id = knp.kam_node_id AND " +
+            "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
+            "ORDER BY kn.kam_node_id";
 
     private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W_]");
     private static final String ANY_NUMBER_PLACEHOLDER = "#";
@@ -867,6 +873,37 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         nodeExampleMatchCache.put(example.getId(), kamNodeIds);
 
         return kamNodeIds;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<Integer, Set<SkinnyUUID>> getKamNodeUUIDs() throws SQLException {
+        PreparedStatement ps = getPreparedStatement(SELECT_KAM_NODE_UUIDS_SQL);
+        
+        Map<Integer, Set<SkinnyUUID>> uuidmap = 
+                new HashMap<Integer, Set<SkinnyUUID>>();
+        ResultSet rset = null;
+        try {
+            rset = ps.executeQuery();
+            
+            while (rset.next()) {
+                Integer knid = rset.getInt(1);
+                Long msb = rset.getLong(2);
+                Long lsb = rset.getLong(3);
+                
+                Set<SkinnyUUID> uuids = uuidmap.get(knid);
+                if (uuids == null) {
+                    uuids = new HashSet<SkinnyUUID>();
+                    uuidmap.put(knid, uuids);
+                }
+                uuids.add(new SkinnyUUID(msb, lsb));
+            }
+        } finally {
+            close(rset);
+        }
+        return uuidmap;
     }
 
     private List<Integer> queryForKamNodeCandidates(final PreparedStatement ps)

@@ -38,6 +38,7 @@ package org.openbel.framework.api.internal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.openbel.framework.api.AllocatingIterator;
 import org.openbel.framework.api.Kam.KamEdge;
@@ -336,6 +337,16 @@ public interface KAMStoreDao extends KAMDao {
     public List<Integer> getKamNodeCandidates(KamNode example)
             throws SQLException;
 
+    /**
+     * Returns a {@link Map} of kam node id to the {@link Set} of
+     * {@link SkinnyUUID uuids} representing global parameters that this node
+     * contains.
+     * 
+     * @return {@link Map}; will not be {@code null}
+     * @throws SQLException when a SQL error occurs
+     */
+    public Map<Integer, Set<SkinnyUUID>> getKamNodeUUIDs() throws SQLException;
+    
     /**
      * TODO Document
      *
