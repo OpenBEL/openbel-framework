@@ -37,11 +37,9 @@ package org.openbel.framework.common.record;
 
 import static java.lang.System.arraycopy;
 import static java.util.Arrays.fill;
-import static java.util.regex.Pattern.compile;
 import static org.openbel.framework.common.Strings.UTF_8;
 
 import java.io.UnsupportedEncodingException;
-import java.util.regex.Pattern;
 
 /**
  * Represents a {@link Column} of type {@link String} where the length of the
@@ -57,10 +55,8 @@ import java.util.regex.Pattern;
  */
 public class StringColumn extends Column<String> {
     static final byte space = 32;
-    static final Pattern pattern;
     static final byte[] nullValue;
     static {
-        pattern = compile("[ ]*$");
         nullValue = new byte[space];
         fill(nullValue, space);
         nullValue[0] = (byte) 0;
@@ -111,7 +107,7 @@ public class StringColumn extends Column<String> {
     protected String decodeData(byte[] buffer) {
         // buffer is guaranteed non-null and proper length
         String ret = new String(buffer);
-        ret = pattern.matcher(ret).replaceAll("");
+        if (ret.trim().length() == 0) return "";
         return ret;
     }
 
