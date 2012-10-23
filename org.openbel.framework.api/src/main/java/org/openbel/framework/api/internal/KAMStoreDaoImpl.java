@@ -197,7 +197,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "SELECT term_id FROM @.term_parameter WHERE (namespace_id = ? OR (namespace_id IS NULL AND ? IS NULL)) AND parameter_value_oid = ? AND ordinal = ?";
     private static final String SELECT_KAM_NODE_UUIDS_SQL = 
             "SELECT kn.kam_node_id, most_significant_bits, least_significant_bits " +
-            "FROM kam_node kn, kam_node_parameter knp, kam_parameter_uuid kpu " +
+            "FROM @.kam_node kn, @.kam_node_parameter knp, @.kam_parameter_uuid kpu " +
             "WHERE kn.kam_node_id = knp.kam_node_id AND " +
             "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
             "ORDER BY kn.kam_node_id";
