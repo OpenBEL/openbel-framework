@@ -593,7 +593,9 @@ public final class KAMStoreImpl implements KAMStore {
                     function, uuid);
             List<KamNode> kamNodeList = new ArrayList<KamNode>();
             for (Integer kamNodeId : ids) {
-                kamNodeList.add(k.findNode(kamNodeId));
+                KamNode kn = k.findNode(kamNodeId);
+                if (kn != null)
+                    kamNodeList.add(kn);
             }
             return kamNodeList;
         } catch (SQLException e) {
