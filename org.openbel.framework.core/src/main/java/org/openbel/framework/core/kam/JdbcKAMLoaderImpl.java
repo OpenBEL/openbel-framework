@@ -39,6 +39,7 @@ import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -847,6 +848,12 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
             throw new InvalidArgument("object value cannot be null");
         }
 
+        try {
+            v = new String(v.getBytes(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("utf-8 unsupported", e);
+        }
+        
         try {
             // Insert into objects_text if we are over MAX_VARCHAR_LENGTH
             Integer objectsTextId = null;
