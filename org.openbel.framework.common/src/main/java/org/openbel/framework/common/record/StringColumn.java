@@ -54,6 +54,7 @@ import java.io.UnsupportedEncodingException;
  * @author Nick Bargnesi
  */
 public class StringColumn extends Column<String> {
+    static final String EMPTY = "";
     static final byte space = 32;
     static final byte[] nullValue;
     static {
@@ -107,8 +108,8 @@ public class StringColumn extends Column<String> {
     protected String decodeData(byte[] buffer) {
         // buffer is guaranteed non-null and proper length
         String ret = new String(buffer);
-        if (ret.trim().length() == 0) return "";
-        return ret;
+        ret = ret.trim();
+        return ret.isEmpty() ? EMPTY : ret;
     }
 
     /**
