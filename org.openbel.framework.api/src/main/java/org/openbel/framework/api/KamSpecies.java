@@ -833,13 +833,15 @@ public class KamSpecies implements Kam {
     private void inferOrthologs(final Set<Integer> species) {
         for (final Integer sid : species) {
             final KamNode snode = findNode(sid);
-            final TermParameter param = speciesParams.get(snode.getId());
-
-            // recurse incoming connectsion from species node
-            recurseConnections(snode, param, REVERSE);
-
-            // recurse outgoing connections from species node
-            recurseConnections(snode, param, FORWARD);
+            if (snode != null) {
+                final TermParameter param = speciesParams.get(snode.getId());
+    
+                // recurse incoming connectsion from species node
+                recurseConnections(snode, param, REVERSE);
+    
+                // recurse outgoing connections from species node
+                recurseConnections(snode, param, FORWARD);
+            }
         }
     }
 
