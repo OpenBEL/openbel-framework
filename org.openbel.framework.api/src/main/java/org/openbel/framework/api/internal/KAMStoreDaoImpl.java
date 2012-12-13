@@ -39,6 +39,7 @@ import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 import static java.util.Collections.emptyList;
 import static org.openbel.framework.common.BELUtilities.noLength;
+import static org.openbel.framework.common.BELUtilities.quoteParameter;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 import static org.openbel.framework.common.BELUtilities.substringEquals;
@@ -202,7 +203,6 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
             "ORDER BY kn.kam_node_id";
 
-    private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W_]");
     private static final String ANY_NUMBER_PLACEHOLDER = "#";
     private static final int ANY_NUMBER_PLACEHOLDER_LENGTH =
             ANY_NUMBER_PLACEHOLDER.length();
@@ -970,18 +970,14 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 String label = getObjectValueById(rset.getInt(1));
                 // Get the term parameters for this term and reconstruct the
                 // label based on its original encoding
-                for (TermParameter termParameter : getTermParameters(belTermId)) {
-                    String nsprefix =
-                            termParameter.namespace != null ? termParameter.namespace.prefix
-                                    : null;
+                List<TermParameter> tparams = getTermParameters(belTermId);
+                for (TermParameter termParameter : tparams) {
+                    String nsprefix = termParameter.namespace != null ? 
+                            termParameter.namespace.prefix : null;
+                    
+                    // quote parameter if necessary
                     String paramValue = termParameter.parameterValue;
-                    Matcher m = NON_WORD_PATTERN.matcher(paramValue);
-                    if (m.find()
-                            && (!paramValue.startsWith("\"") && !paramValue
-                                    .endsWith("\""))) {
-                        // values must be quoted if there is a non-word character
-                        paramValue = "\"" + paramValue + "\"";
-                    }
+                    paramValue = quoteParameter(paramValue);
 
                     final String termParam;
                     if (nsprefix != null) {

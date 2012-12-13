@@ -75,6 +75,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.openbel.framework.common.bel.parser.BELParser;
+import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Term;
+
 /**
  * Utility methods used throughout the BEL codebase.
  *
@@ -90,6 +95,19 @@ public class BELUtilities {
     private static final int MIN_PORT = 0;
     private static final int MAX_PORT = 65535;
     private static final int MIN_EPHEMERAL_PORT = 49152;
+    private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W_]");
+    private static final Set<String> _functions = new HashSet<String>();
+    private static final Set<String> _relationships = new HashSet<String>();
+    static {
+        for (FunctionEnum fx : FunctionEnum.values()) {
+            _functions.add(fx.getAbbreviation());
+            _functions.add(fx.getDisplayValue());
+        }
+        for (RelationshipType r : RelationshipType.values()) {
+            _relationships.add(r.getAbbreviation());
+            _relationships.add(r.getDisplayValue());
+        }
+    }
 
     /**
      * Returns a hash set of type {@code E} optimized to the
@@ -1255,6 +1273,42 @@ public class BELUtilities {
         }
 
         return false;
+    }
+    
+    /**
+     * Return a quoted {@link String param} if necessary.  A quoted parameter
+     * is required in order to parse as a {@link Term BEL term} using the
+     * {@link BELParser BEL parser}.
+     * 
+     * @param param {@link String}; {@code null} returns {@code null}
+     * @return quoted {@link String} if necessary, the original
+     * {@link String param}, or {@code null} if {@code param} was {@code null}
+     */
+    public static String quoteParameter(final String param) {
+        // return null if null
+        if (noLength(param))
+            return param;
+        
+        // return immediately if already quoted
+        if (param.startsWith("\"") && param.endsWith("\""))
+            return param;
+
+        // return quoted if string contains non-word character
+        Matcher m = NON_WORD_PATTERN.matcher(param);
+        if (m.find()) {
+            return "\"" + param + "\"";
+        }
+        
+        // return quoted if string matches a function
+        if (_functions.contains(param))
+            return "\"" + param + "\"";
+        
+        // return quoted if string matches a relationship
+        if (_relationships.contains(param))
+            return "\"" + param + "\"";
+        
+        // return as is
+        return param;
     }
 
     /**

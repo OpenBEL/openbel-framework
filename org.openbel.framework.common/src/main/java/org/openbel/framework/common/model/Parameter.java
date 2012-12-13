@@ -35,8 +35,7 @@
  */
 package org.openbel.framework.common.model;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import static org.openbel.framework.common.BELUtilities.quoteParameter;
 
 /**
  * BEL term function parameter.
@@ -45,12 +44,6 @@ import java.util.regex.Pattern;
  */
 public class Parameter implements BELObject {
     private static final long serialVersionUID = -4017778627771812562L;
-
-    /**
-     * Creates a static regex {@link Pattern} to match a non-word character or
-     * an underscore.
-     */
-    private static Pattern NON_WORD_CHAR_PATTERN = Pattern.compile("[\\W_]");
 
     private Namespace namespace;
     private String value;
@@ -176,14 +169,7 @@ public class Parameter implements BELObject {
     public String toBELLongForm() {
         StringBuilder sb = new StringBuilder();
         sb.append(namespace != null ? (namespace.toBELLongForm()) : "");
-
-        Matcher m = NON_WORD_CHAR_PATTERN.matcher(value);
-        if (m.find() && (!value.startsWith("\"") && !value.endsWith("\""))) {
-            sb.append("\"").append(value).append("\"");
-        } else {
-            sb.append(value);
-        }
-
+        sb.append(quoteParameter(value));
         return sb.toString();
     }
 
