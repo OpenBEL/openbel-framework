@@ -208,4 +208,10 @@ public class MockKamStore implements KAMStore {
     public void teardown() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public KamNode getKamNodeForTerm(Kam kam, String term, FunctionEnum fx,
+            SkinnyUUID[] uuids) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -35,6 +35,7 @@
  */
 package org.openbel.framework.api.internal;
 
+import static java.lang.String.valueOf;
 import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 import static java.util.Collections.emptyList;
@@ -180,15 +181,15 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
     private static final String SELECT_KAM_NODE_IDS_FOR_PARAMETER_SQL =
             "SELECT DISTINCT(k.kam_node_id) FROM @.kam_node k LEFT JOIN @.term t ON k.kam_node_id = t.kam_node_id LEFT JOIN @.term_parameter tp ON t.term_id = tp.term_id WHERE (tp.namespace_id = ? OR (tp.namespace_id IS NULL AND ? IS NULL)) AND tp.parameter_value_oid = ?";
     private static final String SELECT_KAM_NODE_IDS_FOR_UUID_FUNCTION_SQL =
-            "SELECT k.kam_node_id FROM @.kam_node k INNER JOIN @.kam_node_parameter p ON k.kam_node_id = p.kam_node_id INNER JOIN @.kam_parameter_uuid u ON p.kam_global_parameter_id = u.kam_global_parameter_id WHERE k.function_type_id = ? AND u.most_significant_bits = ? and u.least_significant_bits = ?";
+            "SELECT k.kam_node_id FROM @.kam_node k INNER JOIN @.kam_node_parameter p ON k.kam_node_id = p.kam_node_id INNER JOIN @.kam_parameter_uuid u ON p.kam_global_parameter_id = u.kam_global_parameter_id WHERE k.function_type_id = ? AND u.most_significant_bits = ? AND u.least_significant_bits = ?";
     private static final String SELECT_KAM_NODE_IDS_FOR_UUID_SQL =
-            "SELECT DISTINCT(p.kam_node_id) FROM @.kam_node_parameter p LEFT JOIN @.kam_parameter_uuid u ON p.kam_global_parameter_id = u.kam_global_parameter_id WHERE u.most_significant_bits = ? and u.least_significant_bits = ?";
+            "SELECT DISTINCT(p.kam_node_id) FROM @.kam_node_parameter p LEFT JOIN @.kam_parameter_uuid u ON p.kam_global_parameter_id = u.kam_global_parameter_id WHERE u.most_significant_bits = ? AND u.least_significant_bits = ?";
     private static final String SELECT_STATEMENT_BY_ID_SQL =
             "SELECT statement_id, document_id, subject_term_id, relationship_type_id, object_term_id, nested_subject_id, nested_relationship_type_id, nested_object_id FROM @.statement WHERE statement_id = ?";
     private static final String SELECT_TERMS_IDS_BY_NODE_ID_SQL =
             "SELECT term_id FROM @.term WHERE kam_node_id = ?";
     private static final String SELECT_KAM_NODES_CONTAINING_KAM_NODE_PARAMETER_SQL =
-            "SELECT DISTINCT(knp2.kam_node_id) FROM @.kam_node_parameter knp1, @.kam_node_parameter knp2 where knp1.kam_node_id = ? and knp1.kam_global_parameter_id = knp2.kam_global_parameter_id and knp2.kam_node_id != ?";
+            "SELECT DISTINCT(knp2.kam_node_id) FROM @.kam_node_parameter knp1, @.kam_node_parameter knp2 where knp1.kam_node_id = ? AND knp1.kam_global_parameter_id = knp2.kam_global_parameter_id AND knp2.kam_node_id != ?";
     private static final String SELECT_CITATION_ANNOTATIONS_SQL =
             "SELECT sam.annotation_id, sam.statement_id, s.document_id FROM @.statement s LEFT JOIN @.statement_annotation_map sam ON s.statement_id = sam.statement_id LEFT JOIN @.annotation a ON a.annotation_id = sam.annotation_id LEFT JOIN @.annotation_definition ad ON ad.annotation_definition_id = a.annotation_definition_id WHERE ad.name IN ('"
                     + StringUtils
@@ -202,6 +203,16 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "WHERE kn.kam_node_id = knp.kam_node_id AND " +
             "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
             "ORDER BY kn.kam_node_id";
+    private static final String SELECT_KAM_NODE_BY_TERM_CHUNK1 =
+            "SELECT kn.kam_node_id " +                                                                      
+            "from @.kam_node kn, @.term t, @.term_parameter tp, @.namespace n, @.objects ot, @.objects otp, @.kam_parameter_uuid kpu " + 
+            "where kn.function_type_id = ? AND t.kam_node_id = kn.kam_node_id AND " +
+            "tp.term_id = t.term_id AND t.term_label_oid = ot.objects_id AND " +
+            "ot.varchar_value = ? AND tp.kam_global_parameter_id = kpu.kam_global_parameter_id AND "; 
+    private static final String SELECT_KAM_NODE_BY_TERM_CHUNK2 =        
+            "tp.namespace_id = n.namespace_id AND " +
+            "tp.parameter_value_oid = otp.objects_id " +
+            "order by kn.kam_node_id, tp.ordinal";
 
     private static final String ANY_NUMBER_PLACEHOLDER = "#";
     private static final int ANY_NUMBER_PLACEHOLDER_LENGTH =
@@ -573,6 +584,8 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             // invalid BEL
             return null;
         }
+        
+        String termLongForm = term.toBELLongForm();
 
         Collection<Integer> possibleTermIds = null;
         int ordinal = 0;
@@ -647,7 +660,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         if (possibleTermIds != null) {
             for (Integer termId : possibleTermIds) {
                 BelTerm belTerm = getBelTermById(termId);
-                if (belTerm.getLabel().equals(belTermString)) {
+                if (belTerm.getLabel().equals(termLongForm)) {
                     kamNodeId = getKamNodeId(belTerm);
                     break;
                 }
@@ -910,6 +923,68 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             close(rset);
         }
         return uuidmap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getKamNodeForTerm(String term, FunctionEnum fx,
+            SkinnyUUID[] u) throws SQLException {
+        if (term == null) throw new InvalidArgument("term is null");
+        if (fx == null) throw new InvalidArgument("fx is null");
+        if (u == null) throw new InvalidArgument("u is null");
+        if (u.length == 0) throw new InvalidArgument("u is empty");
+        
+        // build sql by concatenation
+        String sql = SELECT_KAM_NODE_BY_TERM_CHUNK1;
+        String msb = "(kpu.most_significant_bits = ";
+        String lsb = "kpu.least_significant_bits = ";
+        sql += "(";
+        for (int i = 0; i < u.length; i++) {
+            SkinnyUUID item = u[i];
+            String msbval = valueOf(item.getMostSignificantBits());
+            String lsbval = valueOf(item.getLeastSignificantBits());
+            sql += msb + msbval + " AND " + lsb + lsbval + ")";
+            if (i < (u.length-1))
+                sql += " OR ";
+        }
+        sql += ") AND ";
+        sql += SELECT_KAM_NODE_BY_TERM_CHUNK2;
+        
+        PreparedStatement ps = getPreparedStatement(sql);
+        ps.setInt(1, fx.getValue());
+        ps.setString(2, term);
+        
+        ResultSet rset = null;
+        try {
+            rset = ps.executeQuery();
+            int matchCount = 1;
+            int previousId = 0;
+            int match = -1;
+            while (rset.next()) {
+                int nextId = rset.getInt(1);
+                
+                // mismatch; start over
+                if (nextId != previousId) {
+                    previousId = nextId;
+                    matchCount = 1;
+                }
+                
+                // count match; break out
+                if (matchCount == u.length) {
+                    match = nextId;
+                    break;
+                }
+                
+                // increment match
+                matchCount++;
+            }
+            
+            return match == -1 ? null : match;
+        } finally {
+            close(rset);
+        }
     }
 
     private List<Integer> queryForKamNodeCandidates(final PreparedStatement ps)

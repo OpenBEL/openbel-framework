@@ -633,6 +633,29 @@ public final class KAMStoreImpl implements KAMStore {
         }
         return kamNodeList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public KamNode getKamNodeForTerm(Kam k, String t, FunctionEnum fx,
+            SkinnyUUID[] uuids) {
+        if (k == null) throw new InvalidArgument("k is null");
+        if (t == null) throw new InvalidArgument("t is null");
+        if (fx == null) throw new InvalidArgument("fx is null");
+        if (uuids == null || uuids.length == 0)
+            throw new InvalidArgument("uuids", uuids);
+        
+        try {
+            final KAMStoreDao dao = kamStoreDao(k.getKamInfo());
+            Integer nid = dao.getKamNodeForTerm(t, fx, uuids);
+            return nid == null ? null : k.findNode(nid);
+        } catch (SQLException e) {
+            final String fmt = "error retrieving KAM node for term %s, kam %s";
+            final String msg = format(fmt, t, k.getKamInfo().getName());
+            throw new KAMStoreException(msg, e);
+        }
+    }
 
     /**
      * {@inheritDoc}

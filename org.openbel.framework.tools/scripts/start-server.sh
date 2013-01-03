@@ -11,7 +11,7 @@
 . $(dirname $0)/setenv.sh 
 
 if [ -z "$TOMCAT_HTTP_PORT" ]; then
-    export $TOMCAT_HTTP_PORT=8080
+    export TOMCAT_HTTP_PORT=8080
 fi
 export JAVA_OPTS="$JAVA_OPTS -Dtomcat.http.port=$TOMCAT_HTTP_PORT"
 

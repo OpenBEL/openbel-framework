@@ -457,6 +457,25 @@ public interface KAMStore {
     public List<KamNode> getKamNodes(Kam k, KamNode node);
 
     /**
+     * Returns the {@link KamNode KAM Node} given a BEL term signature and one
+     * or more {@link SkinnyUUID uuids}.  Returns {@code null} if a
+     * {@link KamNode KAM Node} could not be found.
+     * 
+     * @param kam {@link Kam}; may not be {@code null}
+     * @param term {@link String}, the term signature; may not be {@code null}
+     * @param fx {@link FunctionEnum}; the term functionmay not be {@code null}
+     * @param uuids {@code SkinnyUUID[]}; may not be {@code null} or empty
+     * @return {@link Integer KAM node id} or {@code null} if one could not be
+     * found
+     * @throws InvalidArgument when {@code term} is {@code null}, {@code kam}
+     * is {@code null}, {@code uuids} is {@code null}, or {@code uuids} is
+     * empty
+     * @throws KAMStoreException when a database error occurred
+     */
+    public KamNode getKamNodeForTerm(Kam kam, String term, FunctionEnum fx,
+            SkinnyUUID[] uuids);
+    
+    /**
      * Returns all citations associated with the {@link BelDocumentInfo} in the
      * KAM identified by the {@link KamInfo}.
      * 

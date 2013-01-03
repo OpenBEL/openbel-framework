@@ -65,6 +65,10 @@ public class EquivalencerServiceImpl implements EquivalencerService {
     public EquivalencerServiceImpl() {
         equivalencer = new Equivalencer();
     }
+    
+    public Equivalencer leak() {
+        return equivalencer;
+    }
 
     /**
      * {@inheritDoc}
@@ -146,7 +150,7 @@ public class EquivalencerServiceImpl implements EquivalencerService {
                 equivalencer.getUUID(convert(nv.getNamespace()), nv.getValue());
         return convert(uuid);
     }
-
+    
     private org.openbel.framework.common.model.Namespace convert(
             final Namespace ns) {
         final String prefix = ns.getPrefix();

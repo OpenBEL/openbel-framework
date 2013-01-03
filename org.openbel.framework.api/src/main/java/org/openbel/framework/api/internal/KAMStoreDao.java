@@ -348,6 +348,24 @@ public interface KAMStoreDao extends KAMDao {
     public Map<Integer, Set<SkinnyUUID>> getKamNodeUUIDs() throws SQLException;
     
     /**
+     * Returns a {@link Integer KAM node id} given a BEL term signature and one
+     * or more {@link SkinnyUUID uuids} or {@code null} if one could not be
+     * found.
+     * 
+     * @param term {@link String}; may not be {@code null}
+     * @param fx {@link FunctionEnum}, the term function; may not be
+     * {@code null}
+     * @param uuids {@code SkinnyUUID[]}; may not be {@code null} or empty
+     * @return {@link Integer KAM node id} or {@code null} if one could not be
+     * found
+     * @throws InvalidArgument when {@code term} is {@code null}, {@code uuids}
+     * is {@code null}, or {@code uuids} is empty
+     * @throws SQLException when a SQL error occurs
+     */
+    public Integer getKamNodeForTerm(String term, FunctionEnum fx,
+            SkinnyUUID[] uuids) throws SQLException;
+    
+    /**
      * TODO Document
      *
      * @return
