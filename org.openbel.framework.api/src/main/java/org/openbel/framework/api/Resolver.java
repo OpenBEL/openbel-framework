@@ -37,8 +37,12 @@ package org.openbel.framework.api;
 
 import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.nulls;
+import static org.openbel.framework.common.enums.FunctionEnum.PROTEIN_MODIFICATION;
+import static org.openbel.framework.common.enums.FunctionEnum.SUBSTITUTION;
+import static org.openbel.framework.common.enums.FunctionEnum.TRUNCATION;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -114,7 +118,7 @@ public class Resolver {
             Term term = BELParser.parseTerm(belTerm);
             
             // get all parameters; remap to kam namespace by prefix
-            List<Parameter> params = term.getAllParameters();
+            List<Parameter> params = extractParameters(term);
             remapNamespace(params, nsmap);
             
             // convert bel term to signature
@@ -312,13 +316,41 @@ public class Resolver {
         return b.toString();
     }
     
+    private static List<Parameter> extractParameters(Term t) {
+        List<Parameter> ret = new ArrayList<Parameter>();
+        
+        List<Parameter> p = t.getParameters();
+        if (p != null)
+            ret.addAll(p);
+
+        List<Term> tl = t.getTerms();
+        if (tl != null) {
+            for (final Term inner : tl) {
+                if (inner.getFunctionEnum() != PROTEIN_MODIFICATION &&
+                        inner.getFunctionEnum() != SUBSTITUTION &&
+                        inner.getFunctionEnum() != TRUNCATION) {
+                    ret.addAll(extractParameters(inner));
+                }
+            }
+        }
+
+        return ret;
+    }
+    
     private static void replaceParameters(Term t, StringBuilder b) {
         String fx = t.getFunctionEnum().getDisplayValue();
         b.append(fx).append("(");
         if (hasItems(t.getFunctionArguments())) {
             for (BELObject bo : t.getFunctionArguments()) {
                 if (Term.class.isAssignableFrom(bo.getClass())) {
-                    replaceParameters((Term) bo, b);
+                    Term inner = (Term) bo;
+                    if (inner.getFunctionEnum() == PROTEIN_MODIFICATION || 
+                        inner.getFunctionEnum() == SUBSTITUTION ||
+                        inner.getFunctionEnum() == TRUNCATION) {
+                        b.append(inner.toBELLongForm());
+                    } else {
+                        replaceParameters((Term) bo, b);
+                    }
                 } else {
                     b.append("#");
                 }
