@@ -35,7 +35,7 @@
  */
 package org.openbel.framework.api.internal;
 
-import static java.lang.String.valueOf;
+import static java.lang.String.format;
 import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 import static java.util.Collections.emptyList;
@@ -203,16 +203,17 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "WHERE kn.kam_node_id = knp.kam_node_id AND " +
             "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
             "ORDER BY kn.kam_node_id";
-    private static final String SELECT_KAM_NODE_BY_TERM_CHUNK1 =
-            "SELECT kn.kam_node_id " +                                                                      
-            "from @.kam_node kn, @.term t, @.term_parameter tp, @.namespace n, @.objects ot, @.objects otp, @.kam_parameter_uuid kpu " + 
-            "where kn.function_type_id = ? AND t.kam_node_id = kn.kam_node_id AND " +
-            "tp.term_id = t.term_id AND t.term_label_oid = ot.objects_id AND " +
-            "ot.varchar_value = ? AND tp.kam_global_parameter_id = kpu.kam_global_parameter_id AND "; 
-    private static final String SELECT_KAM_NODE_BY_TERM_CHUNK2 =        
-            "tp.namespace_id = n.namespace_id AND " +
-            "tp.parameter_value_oid = otp.objects_id " +
-            "order by kn.kam_node_id, tp.ordinal";
+    private static final String $TERM_PARAMETER_TABLE = "@.term_parameter tp%d";
+    private static final String $KAM_PARAMETER_UUID_TABLE = "@.kam_parameter_uuid kpu%d";
+    private static final String $TERM_ID_JOIN = "tp%d.term_id = t.term_id ";
+    private static final String $ORDINAL_JOIN = "tp%d.ordinal = %d ";
+    private static final String $KAM_UUID_JOIN = "tp%d.kam_global_parameter_id = kpu%d.kam_global_parameter_id ";
+    private static final String $UUID_JOIN = "(kpu%d.most_significant_bits = ? AND kpu%d.least_significant_bits = ?) ";
+    private static final String SELECT_KAM_NODE_BY_TERM_UUIDS =
+            "SELECT kn.kam_node_id " + 
+            "FROM @.kam_node kn, @.term t, @.objects ot, %s, %s " + 
+            "WHERE kn.function_type_id = ? AND t.kam_node_id = kn.kam_node_id AND t.term_label_oid = ot.objects_id AND ot.varchar_value = ? AND " + 
+            "%s AND %s AND %s AND ( %s )";
 
     private static final String ANY_NUMBER_PLACEHOLDER = "#";
     private static final int ANY_NUMBER_PLACEHOLDER_LENGTH =
@@ -937,51 +938,53 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         if (u.length == 0) throw new InvalidArgument("u is empty");
         
         // build sql by concatenation
-        String sql = SELECT_KAM_NODE_BY_TERM_CHUNK1;
-        String msb = "(kpu.most_significant_bits = ";
-        String lsb = "kpu.least_significant_bits = ";
-        sql += "(";
+        String sql = SELECT_KAM_NODE_BY_TERM_UUIDS;
+        String tpt = "";
+        String kput = "";
+        String tidj = "";
+        String oj = "";
+        String kuj = "";
+        String uj = "";
         for (int i = 0; i < u.length; i++) {
-            SkinnyUUID item = u[i];
-            String msbval = valueOf(item.getMostSignificantBits());
-            String lsbval = valueOf(item.getLeastSignificantBits());
-            sql += msb + msbval + " AND " + lsb + lsbval + ")";
-            if (i < (u.length-1))
-                sql += " OR ";
+            if (i < (u.length - 1)) {
+                tpt = tpt + format($TERM_PARAMETER_TABLE, i) + ",";
+                kput = kput + format($KAM_PARAMETER_UUID_TABLE, i) + ",";
+                tidj = tidj + format($TERM_ID_JOIN, i) + " AND ";
+                oj = oj + format($ORDINAL_JOIN, i, i) + " AND ";
+                kuj = kuj + format($KAM_UUID_JOIN, i, i) + " AND ";
+                uj = uj + format($UUID_JOIN, i, i) + " AND ";
+            } else {
+                tpt = tpt + format($TERM_PARAMETER_TABLE, i);
+                kput = kput + format($KAM_PARAMETER_UUID_TABLE, i);
+                tidj = tidj + format($TERM_ID_JOIN, i);
+                oj = oj + format($ORDINAL_JOIN, i, i);
+                kuj = kuj + format($KAM_UUID_JOIN, i, i);
+                uj = uj + format($UUID_JOIN, i, i);
+            }
         }
-        sql += ") AND ";
-        sql += SELECT_KAM_NODE_BY_TERM_CHUNK2;
+
+        sql = format(sql, tpt, kput, tidj, oj, kuj, uj);
         
         PreparedStatement ps = getPreparedStatement(sql);
         ps.setInt(1, fx.getValue());
         ps.setString(2, term);
+
+        int index = 3;
+        for (int i = 0; i < u.length; i++) {
+            SkinnyUUID item = u[i];
+            ps.setLong(index, item.getMostSignificantBits());
+            ps.setLong(index + 1, item.getLeastSignificantBits());
+            index += 2;
+        }
         
         ResultSet rset = null;
         try {
             rset = ps.executeQuery();
-            int matchCount = 1;
-            int previousId = 0;
-            int match = -1;
-            while (rset.next()) {
-                int nextId = rset.getInt(1);
-                
-                // mismatch; start over
-                if (nextId != previousId) {
-                    previousId = nextId;
-                    matchCount = 1;
-                }
-                
-                // count match; break out
-                if (matchCount == u.length) {
-                    match = nextId;
-                    break;
-                }
-                
-                // increment match
-                matchCount++;
+            if (rset.next()) {
+                int kamNodeId = rset.getInt(1);
+                return kamNodeId;
             }
-            
-            return match == -1 ? null : match;
+            return null;
         } finally {
             close(rset);
         }

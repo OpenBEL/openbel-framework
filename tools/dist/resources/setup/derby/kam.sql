@@ -343,3 +343,10 @@ CREATE INDEX kpu_global_parameter_idx
     
 CREATE INDEX kpu_uuid_idx
     ON kam_parameter_uuid (most_significant_bits, least_significant_bits);
+
+CREATE INDEX tp_ordinal
+    ON @.term_parameter (ordinal)
+
+CREATE INDEX kn_ordinal
+    ON @.kam_node_parameter (ordinal)
+
