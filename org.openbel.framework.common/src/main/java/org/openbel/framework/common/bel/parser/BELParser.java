@@ -35,6 +35,8 @@
  */
 package org.openbel.framework.common.bel.parser;
 
+import static org.openbel.framework.common.BELUtilities.noLength;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,11 +53,18 @@ import org.openbel.framework.common.bel.parser.BELScriptWalker.document_return;
 import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.model.Term;
 
+/**
+ * {@link BELParser} provides static utilities for parsing BEL {@link String}
+ * expressions.
+ */
 public class BELParser {
 
-    private BELParser() {
-    }
-
+    /**
+     * Parse BEL Script contents and return a {@link BELParseResults} object.
+     * 
+     * @param belScriptSyntax
+     * @return {@link BELParseResults}
+     */
     public static final BELParseResults parse(final String belScriptSyntax) {
         CharStream stream = new ANTLRStringStream(belScriptSyntax);
         BELScriptLexer lexer = new BELScriptLexer(stream);
@@ -65,7 +74,7 @@ public class BELParser {
         // parse and extract syntax errors
         BELScriptParser.document_return result = null;
         try {
-        result = parser.document();
+            result = parser.document();
         } catch (RecognitionException e) {}
         List<BELParseErrorException> syntaxErrors = parser.getSyntaxErrors();
         List<BELParseWarningException> syntaxWarnings =
@@ -93,20 +102,54 @@ public class BELParser {
         return new BELParseResults(syntaxWarnings, syntaxErrors, doc);
     }
 
+    /**
+     * Parses a {@link Term} from a BEL term {@link String}.  Returns the
+     * {@link Term} if parse succeeded, {@code null} if parse failed.
+     * 
+     * @param belTermSyntax {@link String} 
+     * @return {@link Term} if parse succeeded; {@code null} if parse failed
+     * or {@code belTermSyntax} was empty
+     */
     public static final Term parseTerm(final String belTermSyntax) {
+        if (noLength(belTermSyntax))
+            return null;
         CharStream stream = new ANTLRStringStream(belTermSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
         BELStatementParser bsp = new BELStatementParser(tokenStream);
-        return bsp.outer_term().r;
+        try {
+            return bsp.outer_term().r;
+        } catch (RecognitionException e) {
+            return null;
+        }
     }
 
+    /**
+     * Parses a {@link Statement} from a BEL statement {@link String}.  Returns
+     * the {@link Statement} if parse succeeded, {@code null} if parse failed.
+     * 
+     * @param belStatementSyntax {@link String} 
+     * @return {@link Statement} if parse succeeded; {@code null} if parse
+     * failed or {@code belTermSyntax} was empty
+     */
     public static final Statement
             parseStatement(final String belStatementSyntax) {
+        if (noLength(belStatementSyntax))
+            return null;
         CharStream stream = new ANTLRStringStream(belStatementSyntax);
         BELStatementLexer lexer = new BELStatementLexer(stream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
         BELStatementParser bsp = new BELStatementParser(tokenStream);
-        return bsp.statement().r;
+        try {
+            return bsp.statement().r;
+        } catch (RecognitionException e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Prevent instantiation.  All methods must be statically accessed.
+     */
+    private BELParser() {
     }
 }

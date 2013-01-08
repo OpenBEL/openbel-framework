@@ -6,6 +6,10 @@ options {
     output = AST;
 }
 
+@lexer::header {
+    package org.openbel.framework.common.bel.parser;
+}
+
 @header {
     package org.openbel.framework.common.bel.parser;
   
@@ -18,11 +22,40 @@ options {
     import org.openbel.framework.common.enums.RelationshipType;
 }
 
-@lexer::header {
-    package org.openbel.framework.common.bel.parser;
+@lexer::members {
+    private final List<BELParseErrorException> errors = new ArrayList<BELParseErrorException>();
+    
+    public List<BELParseErrorException> getSyntaxErrors() {
+        return errors;
+    }
+    
+    @Override
+    public void emitErrorMessage(String msg) {
+    }
+    
+    @Override
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String context = "";
+        errors.add(new BELParseErrorException.SyntaxException(e.line, e.charPositionInLine, context, e));
+    }
 }
 
 @members {
+    private final List<BELParseErrorException> errors = new ArrayList<BELParseErrorException>();
+    
+    public List<BELParseErrorException> getSyntaxErrors() {
+        return errors;
+    }
+    
+    @Override
+    public void emitErrorMessage(String msg) {
+    }
+    
+    @Override
+    public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String context = "";
+        errors.add(new BELParseErrorException.SyntaxException(e.line, e.charPositionInLine, context, e));
+    }
 }
 
 statement returns [Statement r]:
