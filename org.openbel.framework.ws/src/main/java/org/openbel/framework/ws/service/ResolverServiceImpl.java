@@ -62,12 +62,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implements a resolver service that resolves nodes and edges to a KAM.
- *
+ * 
  * <p>
- * The namespace values do not have to exist in a specific KAM, but they must
- * be discoverable within the current BELFramework instance.
+ * The namespace values do not have to exist in a specific KAM, but they must be
+ * discoverable within the current BELFramework instance.
  * </p>
- *
+ * 
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 @Service
@@ -93,9 +93,9 @@ public class ResolverServiceImpl implements ResolverService {
             throws ResolverServiceException {
         final List<KamNode> resolvedKamNodes = sizedArrayList(nodes.size());
         final Equivalencer eq = getEquivalencer();
-        
+
         Map<String, String> nsmap = namespaces(kam);
-        
+
         for (final Node node : nodes) {
             if (node == null || node.getLabel() == null) {
                 throw new InvalidArgument("Node is invalid.");
@@ -132,7 +132,7 @@ public class ResolverServiceImpl implements ResolverService {
         final Equivalencer eq = getEquivalencer();
 
         Map<String, String> nsmap = namespaces(kam);
-        
+
         for (final Edge edge : edges) {
 
             // If relationship type is UNKNOWN then we cannot find it in the
@@ -183,40 +183,42 @@ public class ResolverServiceImpl implements ResolverService {
     /**
      * Assemble all known namespaces from the resource index and {@link Kam}.
      * 
-     * @param kam {@link Kam}
-     * @return {@link Map} of namespace {@link String prefix} to
-     * {@link String resource location}
+     * @param kam
+     *            {@link Kam}
+     * @return {@link Map} of namespace {@link String prefix} to {@link String
+     *         resource location}
      */
     private Map<String, String> namespaces(Kam kam) {
         Map<String, String> nsmap = new HashMap<String, String>();
-        
+
         // find namespaces in resource index
         List<NamespaceDescriptor> ns = nsrsvc.getAllNamespaceDescriptors();
         for (NamespaceDescriptor n : ns) {
             Namespace the_ns = n.getNamespace();
             nsmap.put(the_ns.getPrefix(), the_ns.getResourceLocation());
         }
-        
+
         // then find namespaces identified by the KAM
-        List<org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace> nsl = 
+        List<org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace> nsl =
                 kAMStore.getNamespaces(kam);
         for (org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace kam_ns : nsl) {
             nsmap.put(kam_ns.getPrefix(), kam_ns.getResourceLocation());
         }
         return nsmap;
     }
-    
+
     /**
      * Build the BEL expression syntax for the {@link Edge}.
-     *
-     * @param edge {@link Edge}, the edge to build BEL expression from
+     * 
+     * @param edge
+     *            {@link Edge}, the edge to build BEL expression from
      * @return {@link String}, the BEL expression for the <tt>edge</tt>
      */
     private String getEdgeExpression(final Edge edge) {
         return edge.getSource() + edge.getRelationship().value()
                 + edge.getTarget();
     }
-    
+
     private Equivalencer getEquivalencer() {
         return ((EquivalencerServiceImpl) eqsvc).leak();
     }

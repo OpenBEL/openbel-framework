@@ -132,6 +132,11 @@ public class Resolver {
             for (int i = 0; i < parray.length; i++) {
                 Parameter param = parray[i];
                 Namespace ns = param.getNamespace();
+                if (ns == null) {
+                    missing = true;
+                    break;
+                }
+                
                 String value = clean(param.getValue());
                 SkinnyUUID uuid = equivalencer.getUUID(ns, value);
                 if (uuid != null && !kAMStore.getKamNodes(kam, uuid).isEmpty()) {
@@ -365,8 +370,10 @@ public class Resolver {
             Map<String, String> nsmap) {
         for (Parameter p : params) {
             Namespace ns = p.getNamespace();
-            String rloc = nsmap.get(ns.getPrefix());
-            p.setNamespace(new Namespace(ns.getPrefix(), rloc));
+            if (ns != null) {
+                String rloc = nsmap.get(ns.getPrefix());
+                p.setNamespace(new Namespace(ns.getPrefix(), rloc));
+            }
         }
     }
     
