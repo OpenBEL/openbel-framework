@@ -64,6 +64,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -98,6 +99,7 @@ public class BELUtilities {
     private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W_]");
     private static final Set<String> _functions = new HashSet<String>();
     private static final Set<String> _relationships = new HashSet<String>();
+    private static final Set<String> _keywords = new HashSet<String>();
     static {
         for (FunctionEnum fx : FunctionEnum.values()) {
             _functions.add(fx.getAbbreviation());
@@ -107,6 +109,9 @@ public class BELUtilities {
             _relationships.add(r.getAbbreviation());
             _relationships.add(r.getDisplayValue());
         }
+        _keywords.addAll(Arrays.asList("ALL", "ANNOTATION", "AS", "DEFAULT",
+                "DEFINE", "DOCUMENT", "LIST", "NAMESPACE", "PATTERN", "SET",
+                "STATEMENT_GROUP", "UNSET", "URL"));
     }
 
     /**
@@ -1305,6 +1310,9 @@ public class BELUtilities {
         
         // return quoted if string matches a relationship
         if (_relationships.contains(param))
+            return "\"" + param + "\"";
+        
+        if (_keywords.contains(param))
             return "\"" + param + "\"";
         
         // return as is
