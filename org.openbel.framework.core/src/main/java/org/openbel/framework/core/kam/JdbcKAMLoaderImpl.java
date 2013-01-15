@@ -383,6 +383,7 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
             TermParameterMapTable tpmt, ProtoNodeTable pnt) throws SQLException {
         List<String> terms = tt.getTermValues();
         Map<Integer, List<Integer>> tpmtidx = tpmt.getTermParameterIndex();
+        Map<Integer, Integer> node2term = pnt.getNodeTermIndex();
 
         PreparedStatement knps = getPreparedStatement(KAM_NODE_SQL);
 
@@ -400,7 +401,20 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
 
             added.add(eqId);
 
-            final String nl = nodes.get(i);
+            // build BEL kam node label
+            Integer tid = node2term.get(i);
+            String nl = terms.get(tid);
+            List<Integer> pids = tpmtidx.get(tid);
+            for (Integer pid : pids) {
+                TableParameter param = pt.getTableParameter(pid);
+                String paramString = "";
+                TableNamespace ns = param.getNamespace();
+                if (ns != null) {
+                    paramString = ns.getPrefix() + ":";
+                }
+                paramString += param.getValue();
+                nl = nl.replaceFirst("#", paramString);
+            }
 
             Integer knl = valueIndexMap.get(nl);
             if (knl == null) {
