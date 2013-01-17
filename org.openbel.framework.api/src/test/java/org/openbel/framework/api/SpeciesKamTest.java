@@ -102,9 +102,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         OrthologizedKam skam;
         try {
-            skam = new OrthologizedKam(kam, new DefaultSpeciesDialect(info,
-                    kamstore, 9606, true),
-                    kamstore);
+            Orthologize orthologize = new DefaultOrthologize();
+            SpeciesDialect dialect = new DefaultSpeciesDialect(info, kamstore, 9606, true);
+            skam = orthologize.orthologize(kam, kamstore, dialect);
         } catch (InvalidArgument e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
@@ -163,9 +163,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         OrthologizedKam skam;
         try {
-            skam = new OrthologizedKam(kam,
-                    new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    kamstore);
+            Orthologize orthologize = new DefaultOrthologize();
+            SpeciesDialect dialect = new DefaultSpeciesDialect(info, kamstore, 9606, true);
+            skam = orthologize.orthologize(kam, kamstore, dialect);
         } catch (InvalidArgument e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");
@@ -218,9 +218,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
 
         OrthologizedKam skam;
         try {
-            skam = new OrthologizedKam(kam,
-                    new DefaultSpeciesDialect(info, kamstore, 9606, true),
-                    kamstore);
+            Orthologize orthologize = new DefaultOrthologize();
+            SpeciesDialect dialect = new DefaultSpeciesDialect(info, kamstore, 9606, true);
+            skam = orthologize.orthologize(kam, kamstore, dialect);
         } catch (InvalidArgument e) {
             e.printStackTrace();
             fail("Failed to load species-specific KAM.");

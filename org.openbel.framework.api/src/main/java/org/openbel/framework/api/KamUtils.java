@@ -35,10 +35,14 @@
  */
 package org.openbel.framework.api;
 
+import static org.openbel.framework.common.BELUtilities.hasItems;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.openbel.framework.api.Kam.KamEdge;
+import org.openbel.framework.api.Kam.KamNode;
 import org.openbel.framework.common.InvalidArgument;
 
 /**
@@ -234,5 +238,46 @@ public final class KamUtils {
         Kam newKam = newInstance(kam1);
         newKam.union(kamEdges);
         return newKam;
+    }
+    
+    /**
+     * Copy the {@link Kam} by creating a new {@link KamImpl} instance with
+     * new {@link KamNode}s and {@link KamEdge}s.
+     *
+     * @param kam {@link Kam}
+     * @return the new instance {@link Kam}
+     */
+    public static Kam copy(final Kam kam) {
+        if (kam == null) {
+            return null;
+        }
+
+        final Kam copy = new KamImpl(kam.getKamInfo());
+
+        final Collection<KamNode> nodes = kam.getNodes();
+        if (hasItems(nodes)) {
+            for (final KamNode node : nodes) {
+                copy.createNode(node.getId(), node.getFunctionType(),
+                        node.getLabel());
+            }
+        }
+
+        final Collection<KamEdge> edges = kam.getEdges();
+        if (hasItems(edges)) {
+            for (final KamEdge edge : edges) {
+                final KamNode source = copy.findNode(edge.getSourceNode()
+                        .getId());
+                final KamNode target = copy.findNode(edge.getTargetNode()
+                        .getId());
+
+                assert source != null;
+                assert target != null;
+
+                copy.createEdge(edge.getId(), source,
+                        edge.getRelationshipType(), target);
+            }
+        }
+
+        return copy;
     }
 }
