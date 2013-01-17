@@ -100,9 +100,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             return;
         }
 
-        KamSpecies skam;
+        OrthologizedKam skam;
         try {
-            skam = new KamSpecies(kam, new DefaultSpeciesDialect(info,
+            skam = new OrthologizedKam(kam, new DefaultSpeciesDialect(info,
                     kamstore, 9606, true),
                     kamstore);
         } catch (InvalidArgument e) {
@@ -161,9 +161,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             return;
         }
 
-        KamSpecies skam;
+        OrthologizedKam skam;
         try {
-            skam = new KamSpecies(kam,
+            skam = new OrthologizedKam(kam,
                     new DefaultSpeciesDialect(info, kamstore, 9606, true),
                     kamstore);
         } catch (InvalidArgument e) {
@@ -216,9 +216,9 @@ public class SpeciesKamTest extends SystemConfigurationBasedTest {
             return;
         }
 
-        KamSpecies skam;
+        OrthologizedKam skam;
         try {
-            skam = new KamSpecies(kam,
+            skam = new OrthologizedKam(kam,
                     new DefaultSpeciesDialect(info, kamstore, 9606, true),
                     kamstore);
         } catch (InvalidArgument e) {

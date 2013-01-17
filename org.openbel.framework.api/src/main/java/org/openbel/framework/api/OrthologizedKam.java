@@ -66,25 +66,25 @@ import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
 
 /**
- * {@link KamSpecies} defines a {@link Kam kam} that provides a
- * species-specific view using a {@link SpeciesDialect species dialect}.
+ * {@link OrthologizedKam} defines a {@link Kam kam} that provides a
+ * orthologized view using a {@link SpeciesDialect species dialect}.
  *
- * The {@link KamSpecies} orthologization occurs on construction in
- * {@link KamSpecies#KamSpecies(Kam, SpeciesDialect, KAMStore)}.  The
- * existing {@link Kam} is cloned to preserve the original {@link Kam}.
+ * The {@link OrthologizedKam} orthologization occurs on construction in
+ * {@link OrthologizedKam#OrthologizedKam(Kam, SpeciesDialect, KAMStore)}.
+ * The existing {@link Kam} is cloned to preserve the original {@link Kam}.
  *
  * The process of {@link Kam} orthologization involves:
  * <ol>
  * <li>Removing orthologous edges.</li>
- * <li>Redirecting (remove/create) ortholog's edges to the species node
- * being collapsed to.</li>
- * <li>Remove ortholog nodes.  This is done at construction of
- * {@link KamSpecies}.</ol>
+ * <li>Reconnect orthologous {@link KamEdge kam edges} to the collapsed
+ * species nodes.</li>
+ * <li>Remove ortholog {@link KamNode kam nodes}.  This is done at
+ * construction of {@link OrthologizedKam}.</ol>
  *
  * @see SpeciesDialect
  * @author Anthony Bargnesi &lt;abargnesi@selventa.com&gt;
  */
-public class KamSpecies implements Kam {
+public class OrthologizedKam implements Kam {
 
     private static final RelationshipType[] RELS = new RelationshipType[] {
         ACTS_IN,
@@ -114,7 +114,7 @@ public class KamSpecies implements Kam {
 
 
     /**
-     * Constructs a {@link KamSpecies species-specific kam}.
+     * Constructs a {@link OrthologizedKam species-specific kam}.
      *
      * @param kam {@link Kam} to orthologize, which cannot be {@code null}
      * @param speciesDialect {@link SpeciesDialect} to control species
@@ -126,7 +126,7 @@ public class KamSpecies implements Kam {
      * @throws InvalidArgument Thrown if {@code kam}, {@code speciesDialect},
      * or {@code kamStore} is {@code null}
      */
-    public KamSpecies(final Kam kam,
+    public OrthologizedKam(final Kam kam,
             final SpeciesDialect speciesDialect,
             final KAMStore kAMStore) throws KAMStoreException {
         this.kamCopy = copy(kam);
@@ -846,7 +846,7 @@ public class KamSpecies implements Kam {
     }
 
     /**
-     * Walks {@link KamSpecies#RELS certain relationship types} and infers
+     * Walks {@link OrthologizedKam#RELS certain relationship types} and infers
      * orthologous edges based on matching relationships.
      *
      * <p>
