@@ -71,6 +71,7 @@ import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.SearchFunction;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.external.ExternalResourceException;
@@ -90,7 +91,8 @@ public final class KAMStoreImpl implements KAMStore {
 
     /* Map populated as KAMs are requested. */
     private Map<KamInfo, KAMStoreDao> daomap;
-
+    private Map<KamInfo, KAMUpdateDao> updatemap;
+    
     /**
      * Creates a KAM store associated to the provided database connection.
      * 
@@ -101,6 +103,7 @@ public final class KAMStoreImpl implements KAMStore {
         this.catalog = getSystemConfiguration().getKamCatalogSchema();
         this.prefix = getSystemConfiguration().getKamSchemaPrefix();
         daomap = new HashMap<KamInfo, KAMStoreDao>();
+        updatemap = new HashMap<KAMCatalogDao.KamInfo, KAMUpdateDao>();
     }
 
     /**
@@ -148,9 +151,16 @@ public final class KAMStoreImpl implements KAMStore {
         if (kam == null) throw new InvalidArgument(DEFAULT_MSG);
         final KamInfo ki = kam.getKamInfo();
         KAMStoreDao dao = daomap.get(ki);
-        if (dao == null) return;
-        dao.terminate();
-        daomap.remove(ki);
+        if (dao != null) {
+            dao.terminate();
+            daomap.remove(ki);
+        }
+        
+        KAMUpdateDao update = updatemap.get(ki);
+        if (update != null) {
+            update.terminate();
+            updatemap.remove(ki);
+        }
     }
 
     /**
@@ -166,6 +176,14 @@ public final class KAMStoreImpl implements KAMStore {
             Entry<KamInfo, KAMStoreDao> next = iter.next();
             next.getValue().terminate();
             iter.remove();
+        }
+        
+        Set<Entry<KamInfo, KAMUpdateDao>> e = entries(updatemap);
+        Iterator<Entry<KamInfo, KAMUpdateDao>> ie = e.iterator();
+        while (ie.hasNext()) {
+            Entry<KamInfo, KAMUpdateDao> next = ie.next();
+            next.getValue().terminate();
+            ie.remove();
         }
     }
 
@@ -734,12 +752,52 @@ public final class KAMStoreImpl implements KAMStore {
             throw new KAMStoreException(msg, e);
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean collapseKamNode(KamInfo info, KamNode collapsing, KamNode collapseTo) {
+        try {
+            KAMUpdateDao updateDao = kamUpdateDao(info);
+            return updateDao.collapseKamNode(collapsing, collapseTo);
+        } catch (SQLException e) {
+            final String fmt = "error collapsing node for %s";
+            final String msg = format(fmt, info.getName());
+            throw new KAMStoreException(msg, e);
+        }
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int removeKamEdges(KamInfo info, RelationshipType relationship) {
+        try {
+            KAMUpdateDao updateDao = kamUpdateDao(info);
+            return updateDao.removeKamEdges(relationship);
+        } catch (SQLException e) {
+            final String fmt = "error removing edges with relationship %s for %s";
+            final String msg = format(fmt, relationship.getDisplayValue(),
+                    info.getName());
+            throw new KAMStoreException(msg, e);
+        }
+    }
+    
     private KAMStoreDao kamStoreDao(KamInfo ki) throws SQLException {
         KAMStoreDao dao = daomap.get(ki);
         if (dao != null) return dao;
         dao = new KAMStoreDaoImpl(ki.getKamDbObject().getSchemaName(), dbc);
         daomap.put(ki, dao);
+        return dao;
+    }
+
+    private KAMUpdateDao kamUpdateDao(KamInfo ki) throws SQLException {
+        KAMUpdateDao dao = updatemap.get(ki);
+        if (dao != null) return dao;
+        String schema = ki.getKamDbObject().getSchemaName();
+        dao = new KAMUpdateDaoImpl(dbc, schema);
+        updatemap.put(ki, dao);
         return dao;
     }
 

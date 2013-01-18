@@ -53,6 +53,7 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
 /**
@@ -528,4 +529,28 @@ public interface KAMStore {
      */
     public List<Citation> getCitations(KamInfo info, CitationType types,
             String... refIDs);
+    
+    /**
+     * Collapse a {@link KamNode kam node} to another {@link KamNode kam node}.
+     * 
+     * @param info {@link KamInfo}; may not be {@code null}
+     * @param collapsing {@link KamNode} node to collapse; may not be
+     * {@code null}
+     * @param collapseTo {@link KamNode} the collapse target; may not be
+     * {@code null}
+     * @return {@code true} if the collapse occurred; {@code false} if the
+     * collapse did not occur
+     */
+    public boolean collapseKamNode(KamInfo info, KamNode collapsing,
+            KamNode collapseTo);
+    
+    /**
+     * Remove {@link KamEdge kam edges} for a specific
+     * {@link RelationshipType relationship}.
+     * 
+     * @param info {@link KamInfo}; may not be {@code null}
+     * @param relationship {@link RelationshipType}; may not be {@code null}
+     * @return {@code int} records deleted (kam edges + statements)
+     */
+    public int removeKamEdges(KamInfo info, RelationshipType relationship);
 }

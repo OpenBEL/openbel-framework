@@ -17,6 +17,7 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.Namespace;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
+import org.openbel.framework.common.enums.RelationshipType;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
 public class MockKamStore implements KAMStore {
@@ -212,6 +213,17 @@ public class MockKamStore implements KAMStore {
     @Override
     public KamNode getKamNodeForTerm(Kam kam, String term, FunctionEnum fx,
             SkinnyUUID[] uuids) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean collapseKamNode(KamInfo info, KamNode collapsing,
+            KamNode collapseTo) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int removeKamEdges(KamInfo info, RelationshipType relationship) {
         throw new UnsupportedOperationException();
     }
 }
