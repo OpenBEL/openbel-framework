@@ -2,6 +2,7 @@ package org.openbel.framework.api;
 
 import static org.openbel.framework.api.EdgeDirectionType.FORWARD;
 import static org.openbel.framework.api.EdgeDirectionType.REVERSE;
+import static org.openbel.framework.api.KamUtils.copy;
 import static org.openbel.framework.common.BELUtilities.constrainedHashSet;
 import static org.openbel.framework.common.BELUtilities.noItems;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
@@ -118,9 +119,11 @@ public class DefaultOrthologize implements Orthologize {
     @Override
     public OrthologizedKam orthologize(Kam kam, KAMStore kAMStore,
             SpeciesDialect dialect) {
-        Map<KamNode, KamNode> ortho = orthologousNodes(kam, kAMStore, dialect);
+        Kam copy = copy(kam);
         
-        EdgeFilter inferf = kam.createEdgeFilter();
+        Map<KamNode, KamNode> ortho = orthologousNodes(copy, kAMStore, dialect);
+        
+        EdgeFilter inferf = copy.createEdgeFilter();
         final RelationshipTypeFilterCriteria c =
                 new RelationshipTypeFilterCriteria();
         c.getValues().addAll(Arrays.asList(INFERRED_ORTHOLOGIZED_EDGES));
@@ -131,15 +134,15 @@ public class DefaultOrthologize implements Orthologize {
                 speciesNodes.size());
         species.addAll(speciesNodes);
         
-        replaceOrthologousEdges(kam, ortho);
-        removeOrthologousNodes(kam, ortho);
+        replaceOrthologousEdges(copy, ortho);
+        removeOrthologousNodes(copy, ortho);
         Pair<Map<Integer, TermParameter>, Map<Integer, TermParameter>> tpm = 
-                inferOrthologs(kam, kAMStore, dialect, inferf, species, ortho);
+                inferOrthologs(copy, kAMStore, dialect, inferf, species, ortho);
         
         Map<Integer, TermParameter> ntp = tpm.getFirst();
         Map<Integer, TermParameter> etp = tpm.getSecond();
         
-        return new OrthologizedKam(kam, dialect, ntp, etp, ortho);
+        return new OrthologizedKam(copy, dialect, ntp, etp, ortho);
     }
 
     /**

@@ -35,7 +35,6 @@
  */
 package org.openbel.framework.api;
 
-import static org.openbel.framework.api.KamUtils.copy;
 import static org.openbel.framework.common.BELUtilities.nulls;
 
 import java.util.Collection;
@@ -113,7 +112,7 @@ public class OrthologizedKam implements Kam {
             Map<KamNode, KamNode> collapsed) throws KAMStoreException {
         if (nulls(kam, dialect, ntp, etp, collapsed))
             throw new InvalidArgument("parameter(s) are null");
-        this.kam = copy(kam);
+        this.kam = kam;
         this.dialect = dialect;
         this.ntp = ntp;
         this.etp = etp;
