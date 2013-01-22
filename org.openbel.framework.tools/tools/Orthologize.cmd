@@ -12,7 +12,7 @@ REM
 REM Copyright 2011 Selventa, Inc. All rights reserved.
 
 call "%~dp0\..\setenv.cmd"
-java %JAVA_OPTS% -classpath "%BELCOMPILER_CLASSPATH%" org.openbel.framework.tools.OrthologizeTool %*
+java %JAVA_OPTS% -Dderby.system.durability=test -classpath "%BELCOMPILER_CLASSPATH%" org.openbel.framework.tools.OrthologizeTool %*
 
 :END
 endlocal

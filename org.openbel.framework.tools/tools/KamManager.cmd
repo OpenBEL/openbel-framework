@@ -12,7 +12,7 @@ REM
 REM Copyright 2011 Selventa, Inc. All rights reserved.
 
 call "%~dp0\..\setenv.cmd"
-java %JAVA_OPTS% -classpath "%BELCOMPILER_CLASSPATH%" -Dderby.system.durability=test org.openbel.framework.tools.kamstore.KamManager "KamManager.cmd" %*
+java %JAVA_OPTS% -Dderby.system.durability=test -classpath "%BELCOMPILER_CLASSPATH%" org.openbel.framework.tools.kamstore.KamManager "KamManager.cmd" %*
 
 :END
 endlocal
