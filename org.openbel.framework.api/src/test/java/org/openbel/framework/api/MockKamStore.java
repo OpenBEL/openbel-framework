@@ -226,4 +226,14 @@ public class MockKamStore implements KAMStore {
     public int removeKamEdges(KamInfo info, RelationshipType relationship) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public int removeKamEdges(KamInfo info, int[] edgeIds) {
+        return 0;
+    }
+
+    @Override
+    public int coalesceKamEdges(KamInfo info) {
+        return 0;
+    }
 }

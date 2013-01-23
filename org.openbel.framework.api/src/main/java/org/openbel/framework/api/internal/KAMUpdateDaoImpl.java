@@ -4,7 +4,9 @@ import static org.openbel.framework.api.EdgeDirectionType.FORWARD;
 import static org.openbel.framework.api.EdgeDirectionType.REVERSE;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.openbel.framework.api.Kam;
@@ -20,16 +22,26 @@ import org.openbel.framework.core.df.DBConnection;
  */
 public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
 
+    private static final int MAX_BATCH_COUNT = 500;
     private static final String UPDATE_KAM_EDGES_SOURCE = "update @.kam_edge " +
     		"set kam_source_node_id = ? where kam_edge_id = ?";
     private static final String UPDATE_KAM_EDGES_TARGET = "update @.kam_edge " +
             "set kam_target_node_id = ? where kam_edge_id = ?";
     private static final String UPDATE_TERM = "update @.term set kam_node_id = ? " +
     		"where kam_node_id = ?";
+    private static final String SELECTED_ORDERED_EDGES =
+            "select kam_edge_id, kam_source_node_id, relationship_type_id, " +
+            "kam_target_node_id from @.kam_edge order by kam_source_node_id, " +
+            "relationship_type_id, kam_target_node_id";
+    private static final String UPDATE_KAM_EDGE_STATEMENT = 
+            "update @.kam_edge_statement_map set kam_edge_id = ? " +
+            "where kam_edge_id = ?";
     private static final String DELETE_KAM_NODE_PARAMETER =
             "delete from @.kam_node_parameter where kam_node_id = ?";
     private static final String DELETE_KAM_NODE =
             "delete from @.kam_node where kam_node_id = ?";
+    private static final String DELETE_KAM_EDGES =
+            "delete from @.kam_edge where kam_edge_id = ?";
     private static final String DELETE_ORTHOLOGOUS_KAM_EDGES =
             "delete from @.kam_edge where relationship_type_id = ?";
     private static final String DELETE_ORTHOLOGOUS_STATEMENTS =
@@ -80,6 +92,43 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
 
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int removeKamEdges(int[] edgeIds) throws SQLException {
+        if (edgeIds == null)
+            throw new InvalidArgument("edgeIds is null");
+        if (edgeIds.length == 0)
+            return 0;
+        
+        int batch = 0;
+        int deletes = 0;
+        PreparedStatement keps = getPreparedStatement(DELETE_KAM_EDGES);
+        
+        // add delete command; submit batches per MAX_BATCH_COUNT
+        for (int e : edgeIds) {
+            keps.setInt(1, e);
+            keps.addBatch();
+            batch++;
+            
+            if (batch == MAX_BATCH_COUNT) {
+                int[] rowsAffected = keps.executeBatch();
+                for (int d : rowsAffected)
+                    deletes += d;
+            }
+        }
+        
+        // submit batch for anything left over
+        if (batch > 0) {
+            int[] rowsAffected = keps.executeBatch();
+            for (int d : rowsAffected)
+                deletes += d;
+        }
+        
+        return deletes;
+    }
     
     /**
      * {@inheritDoc}
@@ -101,6 +150,60 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
         updates += sps.executeUpdate();
         
         return updates;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int coalesceKamEdges() throws SQLException {
+        PreparedStatement eps = getPreparedStatement(SELECTED_ORDERED_EDGES);
+        PreparedStatement kesps = getPreparedStatement(UPDATE_KAM_EDGE_STATEMENT);
+        ResultSet rset = null;
+        int coalesced = 0;
+        try {
+            rset = eps.executeQuery();
+            if (rset.first()) {
+                int xSource = rset.getInt(2);
+                int xRel = rset.getInt(3);
+                int xTarget = rset.getInt(4);
+
+                int xEdgeId = rset.getInt(1);
+                int[] xTriple = new int[] {xSource, xRel, xTarget};
+                while (rset.next()) {
+                    int edgeId = rset.getInt(1);
+                    int source = rset.getInt(2);
+                    int rel = rset.getInt(3);
+                    int target = rset.getInt(4);
+                    int[] triple = new int[] {source, rel, target};
+                    
+                    if (Arrays.equals(triple, xTriple)) {
+                        // duplicate triple, move over statements
+                        kesps.setInt(1, xEdgeId);
+                        kesps.setInt(2, edgeId);
+                        kesps.executeUpdate();
+                        
+                        // remove duplicate
+                        removeKamEdges(new int[] {edgeId});
+                        
+                        coalesced++;
+                    } else {
+                        // move to next unseen triple
+                        xTriple = triple;
+                        xEdgeId = edgeId;
+                    }
+                }
+            }
+        } finally {
+            if (rset != null) {
+                try {
+                    rset.close();
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+        }
+        return coalesced;
     }
 
     /**

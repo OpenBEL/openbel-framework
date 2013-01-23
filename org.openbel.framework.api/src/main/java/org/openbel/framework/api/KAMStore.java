@@ -35,7 +35,9 @@
  */
 package org.openbel.framework.api;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
@@ -545,6 +547,16 @@ public interface KAMStore {
             KamNode collapseTo);
     
     /**
+     * Remove all {@link KamEdge kam edges} from the {@link Set}.
+     * 
+     * @param edgeIds {@code int[]} array of edge ids
+     * @return {@code int} kam edges deleted
+     * @throws SQLException when a SQL error occurred deleting records
+     * @throws InvalidArgument when {@code edges} is {@code null}
+     */
+    public int removeKamEdges(KamInfo info, int[] edgeIds);
+    
+    /**
      * Remove {@link KamEdge kam edges} for a specific
      * {@link RelationshipType relationship}.
      * 
@@ -553,4 +565,15 @@ public interface KAMStore {
      * @return {@code int} records deleted (kam edges + statements)
      */
     public int removeKamEdges(KamInfo info, RelationshipType relationship);
+    
+    /**
+     * Coalesce duplicate {@link KamEdge kam edges} to one
+     * {@link KamEdge kam edge}.  The statements for each duplicate
+     * {@link KamEdge kam edge} will be remapped and then that
+     * {@link KamEdge kam edge} will be removed.
+     * 
+     * @param info {@link KamInfo}; may not be {@code null}
+     * @return {@code int} kam edges coalesced/removed
+     */
+    public int coalesceKamEdges(KamInfo info);
 }

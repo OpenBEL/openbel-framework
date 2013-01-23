@@ -128,6 +128,9 @@ public class OrthologizeTool extends CommandLineApplication {
         // remove orthologous edges/statements
         kamstore.removeKamEdges(info, ORTHOLOGOUS);
         
+        // coalesce duplicate edges
+        kamstore.coalesceKamEdges(info);
+        
         // clean up
         kamstore.teardown();
     }

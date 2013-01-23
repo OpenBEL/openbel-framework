@@ -772,6 +772,20 @@ public final class KAMStoreImpl implements KAMStore {
      * {@inheritDoc}
      */
     @Override
+    public int removeKamEdges(KamInfo info, int[] edgeIds) {
+        try {
+            KAMUpdateDao updateDao = kamUpdateDao(info);
+            return updateDao.removeKamEdges(edgeIds);
+        } catch (SQLException e) {
+            final String msg = "error removing edges with edge ids";
+            throw new KAMStoreException(msg, e);
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int removeKamEdges(KamInfo info, RelationshipType relationship) {
         try {
             KAMUpdateDao updateDao = kamUpdateDao(info);
@@ -780,6 +794,20 @@ public final class KAMStoreImpl implements KAMStore {
             final String fmt = "error removing edges with relationship %s for %s";
             final String msg = format(fmt, relationship.getDisplayValue(),
                     info.getName());
+            throw new KAMStoreException(msg, e);
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int coalesceKamEdges(KamInfo info) {
+        try {
+            KAMUpdateDao updateDao = kamUpdateDao(info);
+            return updateDao.coalesceKamEdges();
+        } catch (SQLException e) {
+            final String msg = "error coalescing edges";
             throw new KAMStoreException(msg, e);
         }
     }
