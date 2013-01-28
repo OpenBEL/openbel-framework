@@ -108,8 +108,8 @@ public class OrthologizeTool extends CommandLineApplication {
         KamInfo info = kam.getKamInfo();
         KAMStore kamstore = kamstore();
         Orthologize ortho = new DefaultOrthologize();
-        OrthologizedKam orthokam = ortho.orthologize(kam, kamstore,
-                dialect(taxId, kam.getKamInfo(), kamstore));
+        SpeciesDialect dialect = dialect(taxId, info, kamstore);
+        OrthologizedKam orthokam = ortho.orthologize(kam, kamstore, dialect);
         
         // remap collapsing nodes
         kam = kam(kamName);
