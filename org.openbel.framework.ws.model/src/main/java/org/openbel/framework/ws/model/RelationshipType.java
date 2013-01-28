@@ -35,6 +35,9 @@
  */
 package org.openbel.framework.ws.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
@@ -81,48 +84,64 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "RelationshipType")
 @XmlEnum
 public enum RelationshipType {
+    
+    UNKNOWN("unknown"),
+    ACTS_IN("actsIn"),
+    ANALOGOUS("analogous"),
+    ASSOCIATION("association"),
+    BIOMARKER_FOR("biomarkerFor"),
+    CAUSES_NO_CHANGE("causesNoChange"),
+    DECREASES("decreases"),
+    DIRECTLY_DECREASES("directlyDecreases"),
+    DIRECTLY_INCREASES("directlyIncreases"),
+    HAS_COMPONENT("hasComponent"),
+    HAS_MEMBER("hasMember"),
+    HAS_MODIFICATION("hasModification"),
+    HAS_PRODUCT("hasProduct"),
+    HAS_VARIANT("hasVariant"),
+    INCLUDES("includes"),
+    INCREASES("increases"),
+    IS_A("isA"),
+    NEGATIVE_CORRELATION("negativeCorrelation"),
+    ORTHOLOGOUS("orthologous"),
+    POSITIVE_CORRELATION("positiveCorrelation"),
+    PROGNOSTIC_BIOMARKER_FOR("prognosticBiomarkerFor"),
+    RATE_LIMITING_STEP_OF("rateLimitingStepOf"),
+    REACTANT_IN("reactantIn"),
+    SUB_PROCESS_OF("subProcessOf"),
+    TRANSCRIBED_TO("transcribedTo"),
+    TRANSLATED_TO("translatedTo"),
+    TRANSLOCATES("translocates");
 
-    /**
-     * 
-     *                         Represents the state where the edge's relationship is
-     *                         unknown.
-     *                     
-     * 
-     */
-    UNKNOWN,
-    ACTS_IN,
-    ANALOGOUS,
-    ASSOCIATION,
-    BIOMARKER_FOR,
-    CAUSES_NO_CHANGE,
-    DECREASES,
-    DIRECTLY_DECREASES,
-    DIRECTLY_INCREASES,
-    HAS_COMPONENT,
-    HAS_MEMBER,
-    HAS_MODIFICATION,
-    HAS_PRODUCT,
-    HAS_VARIANT,
-    INCLUDES,
-    INCREASES,
-    IS_A,
-    NEGATIVE_CORRELATION,
-    ORTHOLOGOUS,
-    POSITIVE_CORRELATION,
-    PROGNOSTIC_BIOMARKER_FOR,
-    RATE_LIMITING_STEP_OF,
-    REACTANT_IN,
-    SUB_PROCESS_OF,
-    TRANSCRIBED_TO,
-    TRANSLATED_TO,
-    TRANSLOCATES;
-
+    private static final Map<String, RelationshipType> mapping = 
+            new HashMap<String, RelationshipType>(values().length);
+    
+    static {
+        for (RelationshipType r : values()) {
+            mapping.put(r.displayValue, r);
+        }
+    }
+    
+    private String displayValue;
+    
+    private RelationshipType(final String displayValue) {
+        this.displayValue = displayValue;
+    }
+    
     public String value() {
         return name();
     }
 
+    public String getDisplayValue() {
+        return displayValue;
+    }
+    
     public static RelationshipType fromValue(String v) {
+        // try display value
+        RelationshipType r = mapping.get(v);
+        if (r != null) return r;
+
+        // try enum name
         return valueOf(v);
     }
-
 }

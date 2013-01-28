@@ -35,6 +35,9 @@
  */
 package org.openbel.framework.ws.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
@@ -81,46 +84,62 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum FunctionType {
 
-    /**
-     * 
-     *                         Represents the state where the node's function is
-     *                         unknown.
-     *                     
-     * 
-     */
-    UNKNOWN,
-    ABUNDANCE,
-    BIOLOGICAL_PROCESS,
-    CATALYTIC_ACTIVITY,
-    CELL_SECRETION,
-    CELL_SURFACE_EXPRESSION,
-    CHAPERONE_ACTIVITY,
-    COMPLEX_ABUNDANCE,
-    COMPOSITE_ABUNDANCE,
-    DEGRADATION,
-    GENE_ABUNDANCE,
-    GTP_BOUND_ACTIVITY,
-    KINASE_ACTIVITY,
-    LIST,
-    MICRORNA_ABUNDANCE,
-    MOLECULAR_ACTIVITY,
-    PATHOLOGY,
-    PEPTIDASE_ACTIVITY,
-    PHOSPHATASE_ACTIVITY,
-    PROTEIN_ABUNDANCE,
-    REACTION,
-    RIBOSYLATION_ACTIVITY,
-    RNA_ABUNDANCE,
-    TRANSCRIPTIONAL_ACTIVITY,
-    TRANSLOCATION,
-    TRANSPORT_ACTIVITY;
+    UNKNOWN("unknown"),
+    ABUNDANCE("abundance"),
+    BIOLOGICAL_PROCESS("biologicalProcess"),
+    CATALYTIC_ACTIVITY("catalyticActivity"),
+    CELL_SECRETION("cellSecretion"),
+    CELL_SURFACE_EXPRESSION("cellSurfaceExpression"),
+    CHAPERONE_ACTIVITY("chaperoneActivity"),
+    COMPLEX_ABUNDANCE("complexAbundance"),
+    COMPOSITE_ABUNDANCE("compositeAbundance"),
+    DEGRADATION("degradation"),
+    GENE_ABUNDANCE("geneAbundance"),
+    GTP_BOUND_ACTIVITY("gtpBoundActivity"),
+    KINASE_ACTIVITY("kinaseActivity"),
+    LIST("list"),
+    MICRORNA_ABUNDANCE("microRNAAbundance"),
+    MOLECULAR_ACTIVITY("molecularActivity"),
+    PATHOLOGY("pathology"),
+    PEPTIDASE_ACTIVITY("peptidaseActivity"),
+    PHOSPHATASE_ACTIVITY("phosphataseActivity"),
+    PROTEIN_ABUNDANCE("proteinAbundance"),
+    REACTION("reaction"),
+    RIBOSYLATION_ACTIVITY("ribosylationActivity"),
+    RNA_ABUNDANCE("rnaAbundance"),
+    TRANSCRIPTIONAL_ACTIVITY("transcriptionalActivity"),
+    TRANSLOCATION("translocation"),
+    TRANSPORT_ACTIVITY("transportActivity");
 
+    private static final Map<String, FunctionType> mapping = 
+            new HashMap<String, FunctionType>(values().length);
+    
+    static {
+        for (FunctionType r : values()) {
+            mapping.put(r.displayValue, r);
+        }
+    }
+    
+    private String displayValue;
+    
+    private FunctionType(final String displayValue) {
+        this.displayValue = displayValue;
+    }
+    
     public String value() {
         return name();
     }
-
+    
+    public String getDisplayValue() {
+        return displayValue;
+    }
+    
     public static FunctionType fromValue(String v) {
+        // try display value
+        FunctionType r = mapping.get(v);
+        if (r != null) return r;
+
+        // try enum name
         return valueOf(v);
     }
-
 }
