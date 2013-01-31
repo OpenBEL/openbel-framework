@@ -41,7 +41,6 @@ import static org.openbel.framework.common.enums.FunctionEnum.PROTEIN_MODIFICATI
 import static org.openbel.framework.common.enums.FunctionEnum.SUBSTITUTION;
 import static org.openbel.framework.common.enums.FunctionEnum.TRUNCATION;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,18 +87,13 @@ public class Resolver {
      * or the empty string
      * @return the resolved {@link KamNode} for the BelTerm, or null if one
      * could not be found
-     * @throws InvalidArgument Thrown if <tt>kam</tt>, <tt>kamStore</tt>, or
-     * <tt>belTerm</tt> is null
-     * @throws ParseException Thrown if <tt>belTerm</tt> cannot be parsed to a
-     * valid BEL term expression
+     * @throws InvalidArgument Thrown when a parameter is {@code null}
      * @throws ResolverException Thrown if an error occurred resolving the
-     * BelTerm using the {@link KAMStore}
-     * @throws EquivalencerException when an equivalencing error occurred
+     * BelTerm; exceptions will be wrapped
      */
     public KamNode resolve(final Kam kam, final KAMStore kAMStore,
             final String belTerm, Map<String, String> nsmap,
-            Equivalencer equivalencer)
-            throws ParseException, ResolverException, EquivalencerException {
+            Equivalencer equivalencer) throws ResolverException {
         if (nulls(kam, kAMStore, belTerm, nsmap, equivalencer)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
@@ -115,7 +109,14 @@ public class Resolver {
             //   - find kam node by term signature / uuids
             
             // parse the bel term
-            Term term = BELParser.parseTerm(belTerm);
+            Term term = null;
+            try {
+                term = BELParser.parseTerm(belTerm);
+                if (term == null) return null;
+            } catch (Exception e) {
+                // unrecognized BEL structure
+                return null;
+            }
             
             // get all parameters; remap to kam namespace by prefix
             List<Parameter> params = extractParameters(term);
@@ -138,7 +139,14 @@ public class Resolver {
                 }
                 
                 String value = clean(param.getValue());
-                SkinnyUUID uuid = equivalencer.getUUID(ns, value);
+                
+                SkinnyUUID uuid = null;
+                try {
+                    uuid = equivalencer.getUUID(ns, value);
+                } catch (EquivalencerException e) {
+                    throw new ResolverException(e);
+                }
+                
                 if (uuid != null && !kAMStore.getKamNodes(kam, uuid).isEmpty()) {
                     uuids[i] = uuid;
                 } else {
@@ -170,10 +178,9 @@ public class Resolver {
      * @param belTerm {@link BelTerm}, the BelTerm which cannot be null
      * @return the resolved {@link KamNode} for the BelTerm, or null if one
      * could not be found
-     * @throws InvalidArgument Thrown if <tt>kam</tt>, <tt>kamStore</tt>, or
-     * <tt>belTerm</tt> is null
+     * @throws InvalidArgument Thrown when a parameter is {@code null}
      * @throws ResolverException Thrown if an error occurred resolving the
-     * BelTerm using the {@link KAMStore}
+     * BelTerm; exceptions will be wrapped
      */
     public KamNode resolve(final Kam kam, final KAMStore kAMStore,
             final BelTerm belTerm) throws ResolverException {
@@ -220,20 +227,15 @@ public class Resolver {
      * {@link KamNode}, which cannot be null
      * @return the resolved {@link KamEdge} in <tt>kam</tt>, or <tt>null</tt>
      * if the edge does not exist
-     * @throws InvalidArgument Thrown if <tt>kam</tt>, <tt>kamStore</tt>,
-     * <tt>subjectBelTerm</tt>, <tt>rtype</tt>, or <tt>objectBelTerm</tt> is
-     * null
+     * @throws InvalidArgument Thrown when a parameter is {@code null}
      * @throws ResolverException Thrown if an error occurred resolving the
-     * BelTerm using the {@link KAMStore}
-     * @throws ParseException Thrown if <tt>subjectBelTerm</tt> or
-     * <tt>objectBelTerm</tt> cannot be parsed to a valid BEL term expression
-     * @throws EquivalencerException when equivalencing fails
+     * BelTerm; exceptions will be wrapped
      */
     public KamEdge resolve(final Kam kam, final KAMStore kAMStore,
             final String subject, final RelationshipType r,
             final String object, Map<String, String> nsmap, Equivalencer eq)
-                    throws ResolverException, ParseException, EquivalencerException {
-        if (nulls(kam, kAMStore, subject, r, object)) {
+            throws ResolverException {
+        if (nulls(kam, kAMStore, subject, r, object, eq)) {
             throw new InvalidArgument(
                     "null parameter(s) provided to resolve API.");
         }
@@ -271,9 +273,7 @@ public class Resolver {
      * {@link KamNode}, which cannot be null
      * @return the resolved {@link KamEdge} in <tt>kam</tt>, or <tt>null</tt>
      * if the edge does not exist
-     * @throws InvalidArgument Thrown if <tt>kam</tt>, <tt>kamStore</tt>,
-     * <tt>subjectBelTerm</tt>, <tt>rtype</tt>, or <tt>objectBelTerm</tt> is
-     * null
+     * @throws InvalidArgument Thrown when a parameter is {@code null}
      * @throws ResolverException Thrown if an error occurred resolving the
      * BelTerm using the {@link KAMStore}
      */

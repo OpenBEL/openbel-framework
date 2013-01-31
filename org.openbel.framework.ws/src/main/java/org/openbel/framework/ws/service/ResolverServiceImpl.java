@@ -35,16 +35,15 @@
  */
 package org.openbel.framework.ws.service;
 
+import static java.lang.String.format;
 import static org.openbel.framework.common.BELUtilities.sizedArrayList;
 import static org.openbel.framework.ws.utils.Converter.convert;
 
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.openbel.framework.api.Equivalencer;
-import org.openbel.framework.api.EquivalencerException;
 import org.openbel.framework.api.KAMStore;
 import org.openbel.framework.api.Kam;
 import org.openbel.framework.api.Resolver;
@@ -100,22 +99,15 @@ public class ResolverServiceImpl implements ResolverService {
             if (node == null || node.getLabel() == null) {
                 throw new InvalidArgument("Node is invalid.");
             }
+            
+            String bel = node.getLabel();
 
             try {
                 resolvedKamNodes.add(convert(kam.getKamInfo(), resolver
-                        .resolve(kam, kAMStore, node.getLabel(), nsmap, eq)));
-            } catch (ParseException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '" + node.getLabel()
-                                + "' to a KAM node");
+                        .resolve(kam, kAMStore, bel, nsmap, eq)));
             } catch (ResolverException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '" + node.getLabel()
-                                + "' to a KAM node");
-            } catch (EquivalencerException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '" + node.getLabel()
-                                + "' to a KAM node");
+                String fmt = "Failed to resolve BEL node %s.";
+                throw new ResolverServiceException(format(fmt, bel), e);
             }
         }
 
@@ -162,18 +154,10 @@ public class ResolverServiceImpl implements ResolverService {
                 re = resolver.resolve(kam, kAMStore, subLbl, rel, objLbl,
                         nsmap, eq);
                 resolvedKamEdges.add(convert(kam.getKamInfo(), re));
-            } catch (ParseException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '"
-                                + getEdgeExpression(edge) + "' to a KAM edge");
             } catch (ResolverException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '"
-                                + getEdgeExpression(edge) + "' to a KAM edge");
-            } catch (EquivalencerException e) {
-                throw new ResolverServiceException(
-                        "Unable to resolve BEL expression '"
-                                + getEdgeExpression(edge) + "' to a KAM edge");
+                String fmt = "Failed to resolve BEL edge %s %s %s.";
+                throw new ResolverServiceException(format(fmt, subLbl,
+                        rel.getAbbreviation(), objLbl), e);
             }
         }
 
@@ -205,18 +189,6 @@ public class ResolverServiceImpl implements ResolverService {
             nsmap.put(kam_ns.getPrefix(), kam_ns.getResourceLocation());
         }
         return nsmap;
-    }
-
-    /**
-     * Build the BEL expression syntax for the {@link Edge}.
-     * 
-     * @param edge
-     *            {@link Edge}, the edge to build BEL expression from
-     * @return {@link String}, the BEL expression for the <tt>edge</tt>
-     */
-    private String getEdgeExpression(final Edge edge) {
-        return edge.getSource() + edge.getRelationship().value()
-                + edge.getTarget();
     }
 
     private Equivalencer getEquivalencer() {
