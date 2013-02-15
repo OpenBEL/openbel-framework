@@ -274,10 +274,14 @@ public class BELScriptExporter {
             statementGroupStack.push(statementGroup);
             Map<String, List<String>> currentAnnotationMapSnapshot = null;
             if (statementGroupStack.size() == TARGET_STATEMENT_GROUP_LEVEL) {
-                String statementGroupName =
-                        "\"Group " + ++statementGroupCounter + "\"";
-                writer.write("SET STATEMENT_GROUP = " + statementGroupName
-                        + "\n");
+                String sgname;
+                if (statementGroup.getName() != null) {
+                    sgname = statementGroup.getName();
+                } else {
+                    sgname = "\"Group " + ++statementGroupCounter + "\"";
+                }
+                writer.write("SET STATEMENT_GROUP = " + sgname + "\n");
+                
                 //save existing annotation statement, when group is unset, restore to this state
                 currentAnnotationMapSnapshot =
                         new HashMap<String, List<String>>();
