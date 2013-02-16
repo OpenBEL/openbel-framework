@@ -66,7 +66,7 @@ public class BELScriptExporter {
     private static final int TARGET_STATEMENT_GROUP_LEVEL = 1; //BEL Script only support 1 level of statement group
 
     private boolean useShortForm = false;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private int statementGroupCounter = 0;
 
     public boolean isUseShortForm() {
@@ -276,7 +276,7 @@ public class BELScriptExporter {
             if (statementGroupStack.size() == TARGET_STATEMENT_GROUP_LEVEL) {
                 String sgname;
                 if (statementGroup.getName() != null) {
-                    sgname = statementGroup.getName();
+                    sgname = "\"" + statementGroup.getName() + "\"";
                 } else {
                     sgname = "\"Group " + ++statementGroupCounter + "\"";
                 }
