@@ -20,4 +20,4 @@ echo "BEL Server successfully started. Default url is $BASE_URL/"
 echo "    WebAPI is available. Default url is $BASE_URL/openbel-ws/"
 echo "    WebAPI WSDL is available. Default url is $BASE_URL/openbel-ws/belframework.wsdl"
 
-${BELFRAMEWORK_HOME}/server/tomcat/bin/catalina.sh run
+exec ${BELFRAMEWORK_HOME}/server/tomcat/bin/catalina.sh run
