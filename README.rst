@@ -100,7 +100,7 @@ Distribution
 The OpenBEL Framework is distributed as an archive that can be extracted and
 used on many platforms. See downloads_ for the latest release archive.
 
-.. _downloads: https://github.com/OpenBEL/openbel-framework/downloads
+.. _downloads: http://download.openbel.org/index.html
 
 Building
 --------
