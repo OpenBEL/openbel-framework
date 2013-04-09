@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,11 +43,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for Edge complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="Edge">
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Edge", propOrder = {
@@ -87,11 +87,11 @@ public class Edge {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -99,11 +99,11 @@ public class Edge {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -111,11 +111,11 @@ public class Edge {
 
     /**
      * Gets the value of the source property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Node }
-     *     
+     *
      */
     public Node getSource() {
         return source;
@@ -123,11 +123,11 @@ public class Edge {
 
     /**
      * Sets the value of the source property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Node }
-     *     
+     *
      */
     public void setSource(Node value) {
         this.source = value;
@@ -135,11 +135,11 @@ public class Edge {
 
     /**
      * Gets the value of the relationship property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link RelationshipType }
-     *     
+     *
      */
     public RelationshipType getRelationship() {
         return relationship;
@@ -147,11 +147,11 @@ public class Edge {
 
     /**
      * Sets the value of the relationship property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link RelationshipType }
-     *     
+     *
      */
     public void setRelationship(RelationshipType value) {
         this.relationship = value;
@@ -159,11 +159,11 @@ public class Edge {
 
     /**
      * Gets the value of the target property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Node }
-     *     
+     *
      */
     public Node getTarget() {
         return target;
@@ -171,11 +171,11 @@ public class Edge {
 
     /**
      * Sets the value of the target property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Node }
-     *     
+     *
      */
     public void setTarget(Node value) {
         this.target = value;

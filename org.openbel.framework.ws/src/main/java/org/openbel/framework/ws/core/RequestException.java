@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -67,7 +67,7 @@ public class RequestException extends Exception {
      * {@link RequestException#RequestException(String, Throwable) the
      * appropriate constructor}.
      * </p>
-     * 
+     *
      * @param msg {@link String}, the request message
      */
     public RequestException(final String msg) {
@@ -80,7 +80,7 @@ public class RequestException extends Exception {
     /**
      * Construct the request exception providing the request message and the
      * cause of this exception.
-     * 
+     *
      * @param msg {@link String}, the request message
      * @param cause {@link Throwable}, the cause of this exception
      */
@@ -94,7 +94,7 @@ public class RequestException extends Exception {
     /**
      * Static method to build request exception message using a message and an
      * underlying {@link Throwable cause}.
-     * 
+     *
      * @param msg {@link String}, the message
      * @param cause {@link Throwable}, the underlying {@link Throwable cause}
      * @return the full request exception message

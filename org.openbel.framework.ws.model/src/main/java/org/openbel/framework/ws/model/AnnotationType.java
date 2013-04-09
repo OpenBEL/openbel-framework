@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,11 +42,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for AnnotationType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="AnnotationType">
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AnnotationType", propOrder = {
@@ -86,11 +86,11 @@ public class AnnotationType {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -98,11 +98,11 @@ public class AnnotationType {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -110,11 +110,11 @@ public class AnnotationType {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -122,11 +122,11 @@ public class AnnotationType {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -134,11 +134,11 @@ public class AnnotationType {
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -146,11 +146,11 @@ public class AnnotationType {
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -158,11 +158,11 @@ public class AnnotationType {
 
     /**
      * Gets the value of the usage property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUsage() {
         return usage;
@@ -170,11 +170,11 @@ public class AnnotationType {
 
     /**
      * Sets the value of the usage property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUsage(String value) {
         this.usage = value;
@@ -182,11 +182,11 @@ public class AnnotationType {
 
     /**
      * Gets the value of the annotationDefinitionType property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AnnotationDefinitionType }
-     *     
+     *
      */
     public AnnotationDefinitionType getAnnotationDefinitionType() {
         return annotationDefinitionType;
@@ -194,11 +194,11 @@ public class AnnotationType {
 
     /**
      * Sets the value of the annotationDefinitionType property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AnnotationDefinitionType }
-     *     
+     *
      */
     public void setAnnotationDefinitionType(AnnotationDefinitionType value) {
         this.annotationDefinitionType = value;

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,11 +42,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for NamespaceValue complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="NamespaceValue">
  *   &lt;complexContent>
@@ -60,8 +60,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NamespaceValue", propOrder = {
@@ -79,11 +79,11 @@ public class NamespaceValue {
 
     /**
      * Gets the value of the namespace property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Namespace }
-     *     
+     *
      */
     public Namespace getNamespace() {
         return namespace;
@@ -91,11 +91,11 @@ public class NamespaceValue {
 
     /**
      * Sets the value of the namespace property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Namespace }
-     *     
+     *
      */
     public void setNamespace(Namespace value) {
         this.namespace = value;
@@ -103,11 +103,11 @@ public class NamespaceValue {
 
     /**
      * Gets the value of the value property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getValue() {
         return value;
@@ -115,11 +115,11 @@ public class NamespaceValue {
 
     /**
      * Sets the value of the value property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setValue(String value) {
         this.value = value;
@@ -127,11 +127,11 @@ public class NamespaceValue {
 
     /**
      * Gets the value of the equivalence property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link EquivalenceId }
-     *     
+     *
      */
     public EquivalenceId getEquivalence() {
         return equivalence;
@@ -139,11 +139,11 @@ public class NamespaceValue {
 
     /**
      * Sets the value of the equivalence property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link EquivalenceId }
-     *     
+     *
      */
     public void setEquivalence(EquivalenceId value) {
         this.equivalence = value;

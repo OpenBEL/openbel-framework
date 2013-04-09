@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -65,7 +65,7 @@ public class LongColumn extends Column<Long> {
 
     /**
      * Returns the {@link LongColumn non-null long column} singleton.
-     * 
+     *
      * @return {@link LongColumn non-null long column}
      */
     public static LongColumn nonNullLongColumn() {
@@ -74,7 +74,7 @@ public class LongColumn extends Column<Long> {
 
     /**
      * Returns the {@link LongColumn nullable long column} singleton.
-     * 
+     *
      * @return {@link LongColumn nullable long column}
      */
     public static LongColumn nullLongColumn() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -63,7 +63,7 @@ import org.openbel.framework.common.model.Term;
  * TermTable holds the term values for statements. This class manages the
  * insertion index and occurrence count state through the {@code addTerm}
  * operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -109,7 +109,7 @@ public class TermTable extends ExternalType {
     /**
      * Adds a term to the {@code terms} set. The insertion index and term
      * occurrences are also indexed in the {@code index} and {@code count} map.
-     * 
+     *
      * @param term {@link Term}, the term to be added as a {@link String} to the
      * {@code terms} set, which cannot be null
      * @throws InvalidArgument Thrown if {@code term} is null
@@ -153,7 +153,7 @@ public class TermTable extends ExternalType {
     /**
      * Constructs the BEL syntax for a {@link Term} replacing a
      * {@link Parameter} if it exists in {@code psub}.
-     * 
+     *
      * @param sb {@link StringBuilder}, the container for the BEL syntax
      * @param t {@link Term}, the term to convert to BEL syntax
      * @param psub {@link List} of {@link Parameter}, the parameters to replace
@@ -183,7 +183,7 @@ public class TermTable extends ExternalType {
 
     /**
      * Removes a term by index, from the list of terms within the table.
-     * 
+     *
      * @param tid Term index
      */
     public void removeTerm(final int tid) {
@@ -193,7 +193,7 @@ public class TermTable extends ExternalType {
     /**
      * Returns the term table's {@code termValues} list. This list is
      * unmodifiable to preserve the state of the term table.
-     * 
+     *
      * @return {@link List}, which cannot be null or modified
      */
     public List<String> getTermValues() {
@@ -203,7 +203,7 @@ public class TermTable extends ExternalType {
     /**
      * Returns the visited common-model {@link Term} objects to term index map.
      * This map is unmodifiable to preserve the state of the term table.
-     * 
+     *
      * @return {@link Map} of {@link Term} to {@link Integer} index, which
      * cannot be null or modified
      */
@@ -214,7 +214,7 @@ public class TermTable extends ExternalType {
     /**
      * Returns the {@link Integer} to visited common-model {@link Term} map.
      * This map is unmodifiable to preserve the state of the term table.
-     * 
+     *
      * @return {@link Map} of {@link Integer} index to common-model {@link Term}
      * , which cannot be null or modified
      */
@@ -225,7 +225,7 @@ public class TermTable extends ExternalType {
     /**
      * Returns the term table's {@code globalTermIndex} map of term index to
      * global term index.
-     * 
+     *
      * @return {@link Map} of term index (key) to global term index (value)
      */
     public Map<Integer, Integer> getGlobalTermIndex() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,20 +41,20 @@ import org.openbel.framework.common.model.AnnotationDefinition;
 /**
  * CacheableAnnotationDefinitionService defines a service to resolve BEL
  * annotation files and cache the data for subsequent calls.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface CacheableAnnotationDefinitionService {
 
     /**
      * Resolve the BEL annotation file an cache the data for subsequent calls.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location, which
      * cannot be null
      * @return {@link AnnotationDefinition} the annotation definition populated
      * from the BEL annotation <tt>resourceLocation</tt>
      * @throws AnnotationDefinitionResolutionException Thrown if an error
-     * occurred while resolve an annotation resource 
+     * occurred while resolve an annotation resource
      */
     public abstract AnnotationDefinition resolveAnnotationDefinition(
             String resourceLocation)

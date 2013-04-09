@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,7 +45,7 @@ import java.io.PrintStream;
  * <li>Errors will be printed with the line prefix {@code ERROR: }.</li>
  * </ol>
  * </p>
- * 
+ *
  */
 public final class SimpleOutput implements Reportable {
 
@@ -62,7 +62,7 @@ public final class SimpleOutput implements Reportable {
 
     /**
      * Sets the stream that receives normal output.
-     * 
+     *
      * @param stream {@link PrintStream}
      */
     public void setOutputStream(PrintStream stream) {
@@ -71,7 +71,7 @@ public final class SimpleOutput implements Reportable {
 
     /**
      * Sets the stream that receives errors and warnings.
-     * 
+     *
      * @param stream {@link PrintStream}
      */
     public void setErrorStream(final PrintStream stream) {

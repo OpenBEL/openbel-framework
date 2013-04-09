@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,11 +45,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for KamPath complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="KamPath">
  *   &lt;complexContent>
@@ -63,8 +63,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "KamPath", propOrder = {
@@ -82,11 +82,11 @@ public class KamPath {
 
     /**
      * Gets the value of the source property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamNode }
-     *     
+     *
      */
     public KamNode getSource() {
         return source;
@@ -94,11 +94,11 @@ public class KamPath {
 
     /**
      * Sets the value of the source property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamNode }
-     *     
+     *
      */
     public void setSource(KamNode value) {
         this.source = value;
@@ -106,11 +106,11 @@ public class KamPath {
 
     /**
      * Gets the value of the target property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamNode }
-     *     
+     *
      */
     public KamNode getTarget() {
         return target;
@@ -118,11 +118,11 @@ public class KamPath {
 
     /**
      * Sets the value of the target property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamNode }
-     *     
+     *
      */
     public void setTarget(KamNode value) {
         this.target = value;
@@ -130,25 +130,25 @@ public class KamPath {
 
     /**
      * Gets the value of the edges property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the edges property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getEdges().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link KamEdge }
-     * 
-     * 
+     *
+     *
      */
     public List<KamEdge> getEdges() {
         if (edges == null) {

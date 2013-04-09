@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import org.openbel.framework.common.InvalidArgument;
 
 /**
  * SimplePath represents a path within a {@link Kam} without cycles.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public final class SimplePath {
@@ -58,7 +58,7 @@ public final class SimplePath {
 
     /**
      * Construct a new KAM Path.
-     * 
+     *
      * @param kam the {@link Kam} the path was derived from
      * @param source the source {@link KamNode}, must not be <code>null</code>
      * @param target the target {@link KamNode}, may be <code>null</code>

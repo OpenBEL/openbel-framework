@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlType;
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -86,7 +86,7 @@ public class ScanRequest {
      * <CODE>set</CODE> method for the sources property.
      * <p>
      * For example, to add a new item, do as follows:
-     * 
+     *
      * <pre>
      * getSources().add(newItem);
      * </pre>
@@ -102,7 +102,7 @@ public class ScanRequest {
 
     /**
      * Gets the value of the dialect property.
-     * 
+     *
      * @return possible object is {@link DialectHandle }
      */
     public DialectHandle getDialect() {
@@ -111,7 +111,7 @@ public class ScanRequest {
 
     /**
      * Sets the value of the dialect property.
-     * 
+     *
      * @param value allowed object is {@link DialectHandle }
      */
     public void setDialect(DialectHandle value) {
@@ -120,7 +120,7 @@ public class ScanRequest {
 
     /**
      * Gets the value of the maxDepth property.
-     * 
+     *
      * @return possible object is {@link Integer }
      */
     public int getMaxDepth() {
@@ -132,7 +132,7 @@ public class ScanRequest {
 
     /**
      * Sets the value of the maxDepth property.
-     * 
+     *
      * @param value allowed object is {@link Integer }
      */
     public void setMaxDepth(Integer value) {

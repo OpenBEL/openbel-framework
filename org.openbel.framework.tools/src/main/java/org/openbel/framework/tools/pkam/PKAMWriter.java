@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,14 +49,14 @@ import java.util.zip.GZIPOutputStream;
  * <li>{@link BufferedWriter}, <tt>this</tt>, to write initial data</li>
  * <li>{@link GZIPOutputStream} to compress initial written data</li>
  * <li>{@link FileOutputStream} to write data to a file</li></ol>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class PKAMWriter extends BufferedWriter {
 
     /**
      * Construct a PKAMWriter that writes a PKAM to <tt>fileName</tt>.
-     * 
+     *
      * @param fileName {@link String}, the PKAM file name
      * @throws IOException Thrown if an IO error occurred establishing the
      * sequential {@link OutputStream}s

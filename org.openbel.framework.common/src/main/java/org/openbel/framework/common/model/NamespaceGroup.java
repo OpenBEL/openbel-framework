@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * Contains any number of namespaces.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class NamespaceGroup implements BELModelObject {
@@ -54,7 +54,7 @@ public class NamespaceGroup implements BELModelObject {
 
     /**
      * Creates a namespace group with the optional properties.
-     * 
+     *
      * @param location
      * @param namespaces
      */
@@ -72,7 +72,7 @@ public class NamespaceGroup implements BELModelObject {
     /**
      * Returns the default resource location of the default namespace used by
      * the document.
-     * 
+     *
      * @return String, which may be null
      */
     public String getDefaultResourceLocation() {
@@ -82,7 +82,7 @@ public class NamespaceGroup implements BELModelObject {
     /**
      * Sets the default resource location of the default namespace used by the
      * document.
-     * 
+     *
      * @param s Default resource location
      */
     public void setDefaultResourceLocation(final String s) {
@@ -95,7 +95,7 @@ public class NamespaceGroup implements BELModelObject {
      * The namespace representing the {@link #getDefaultResourceLocation()
      * default resource location} is not included, if present.
      * </p>
-     * 
+     *
      * @return {@link List} of {@link Namespace namespaces}, which may be null
      * @see #getAllNamespaces()
      */
@@ -110,7 +110,7 @@ public class NamespaceGroup implements BELModelObject {
      * namespace representing the {@link #getDefaultResourceLocation() default
      * resource location}, if present.
      * </p>
-     * 
+     *
      * @return {@link List} of {@link Namespace namespaces}; which may be empty
      * @see #getNamespaces()
      */
@@ -130,7 +130,7 @@ public class NamespaceGroup implements BELModelObject {
 
     /**
      * Sets the group's namespaces.
-     * 
+     *
      * @param namespaces List of namespaces
      */
     public void setNamespaces(List<Namespace> namespaces) {

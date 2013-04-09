@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for RelationshipType.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
@@ -79,12 +79,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
+ *
  */
 @XmlType(name = "RelationshipType")
 @XmlEnum
 public enum RelationshipType {
-    
+
     UNKNOWN("unknown"),
     ACTS_IN("actsIn"),
     ANALOGOUS("analogous"),
@@ -113,21 +113,21 @@ public enum RelationshipType {
     TRANSLATED_TO("translatedTo"),
     TRANSLOCATES("translocates");
 
-    private static final Map<String, RelationshipType> mapping = 
+    private static final Map<String, RelationshipType> mapping =
             new HashMap<String, RelationshipType>(values().length);
-    
+
     static {
         for (RelationshipType r : values()) {
             mapping.put(r.displayValue, r);
         }
     }
-    
+
     private String displayValue;
-    
+
     private RelationshipType(final String displayValue) {
         this.displayValue = displayValue;
     }
-    
+
     public String value() {
         return name();
     }
@@ -135,7 +135,7 @@ public enum RelationshipType {
     public String getDisplayValue() {
         return displayValue;
     }
-    
+
     public static RelationshipType fromValue(String v) {
         // try display value
         RelationshipType r = mapping.get(v);

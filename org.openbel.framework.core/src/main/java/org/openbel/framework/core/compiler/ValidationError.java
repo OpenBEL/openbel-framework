@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -73,7 +73,7 @@ public class ValidationError extends BELErrorException {
      * Creates a validation error for the provided resource {@code name},
      * with the supplied message, at the location specified by {@code line} and
      * {@code column}.
-     * 
+     *
      * @param name Resource name failing validation
      * @param msg Message indicative of validation failure
      * @param line Line location of failure
@@ -89,7 +89,7 @@ public class ValidationError extends BELErrorException {
      * Creates a validation error for the provided resource {@code name},
      * with the supplied message and cause, and at the location specified by
      * {@code line} and {@code column}.
-     * 
+     *
      * @param name Resource name failing validation
      * @param msg Message indicative of validation failure
      * @param cause The cause of the error

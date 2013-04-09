@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,11 +47,11 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for anonymous complex type.
- * 
+ *
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -66,8 +66,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "handle", "labels", "filter", "dialect" })
@@ -83,9 +83,9 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Gets the value of the handle property.
-     * 
+     *
      * @return possible object is {@link KamHandle }
-     * 
+     *
      */
     public KamHandle getHandle() {
         return handle;
@@ -93,10 +93,10 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Sets the value of the handle property.
-     * 
+     *
      * @param value
      *            allowed object is {@link KamHandle }
-     * 
+     *
      */
     public void setHandle(KamHandle value) {
         this.handle = value;
@@ -104,25 +104,25 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Gets the value of the labels property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
      * <CODE>set</CODE> method for the labels property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
-     * 
+     *
      * <pre>
      * getLabels().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getLabels() {
         if (labels == null) {
@@ -133,9 +133,9 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Gets the value of the filter property.
-     * 
+     *
      * @return possible object is {@link NodeFilter }
-     * 
+     *
      */
     public NodeFilter getFilter() {
         return filter;
@@ -143,10 +143,10 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Sets the value of the filter property.
-     * 
+     *
      * @param value
      *            allowed object is {@link NodeFilter }
-     * 
+     *
      */
     public void setFilter(NodeFilter value) {
         this.filter = value;
@@ -154,9 +154,9 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Gets the value of the dialect property.
-     * 
+     *
      * @return possible object is {@link DialectHandle }
-     * 
+     *
      */
     public DialectHandle getDialect() {
         return dialect;
@@ -164,10 +164,10 @@ public class FindKamNodesByLabelsRequest {
 
     /**
      * Sets the value of the dialect property.
-     * 
+     *
      * @param value
      *            allowed object is {@link DialectHandle }
-     * 
+     *
      */
     public void setDialect(DialectHandle value) {
         this.dialect = value;

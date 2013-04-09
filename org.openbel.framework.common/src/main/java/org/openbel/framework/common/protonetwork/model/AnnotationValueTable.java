@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -57,7 +57,7 @@ import org.openbel.framework.common.external.WriteCache;
  * AnnotationValueTable holds the unique annotation value {@link String}s. This
  * class manages the annotation values through the
  * {@link #addAnnotationValue(String)} operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -90,7 +90,7 @@ public class AnnotationValueTable extends ExternalType {
     /**
      * Adds an annotation value to the {@code annotationValues} set. The
      * insertion index is captured by {@code valueIndex}.
-     * 
+     *
      * @param annotationValue {@link String}, the annotation value to add, which
      * cannot be null
      * @return {@code int}, the index of the added annotation value, which must
@@ -120,7 +120,7 @@ public class AnnotationValueTable extends ExternalType {
     /**
      * Returns the annotation value table's {@code annotationValues} set. This
      * set is unmodifiable to preserve the state of the annotation value table.
-     * 
+     *
      * @return {@link Set}, which cannot be null or modified
      */
     public Set<TableAnnotationValue> getAnnotationValues() {
@@ -130,7 +130,7 @@ public class AnnotationValueTable extends ExternalType {
     /**
      * Returns the map of {@link String} to index. This map is unmodifiable to
      * preserve the state of the annotation value table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<TableAnnotationValue, Integer> getValueIndex() {
@@ -140,7 +140,7 @@ public class AnnotationValueTable extends ExternalType {
     /**
      * Returns the map of index to {@link String}. This map is unmodifiable to
      * preserve the state of the annotation value table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<Integer, TableAnnotationValue> getIndexValue() {
@@ -281,7 +281,7 @@ public class AnnotationValueTable extends ExternalType {
         /**
          * Compute the hash for {@link TableAnnotationValue this table
          * annotation value}.
-         * 
+         *
          * @return the hash
          */
         private int computeHash() {

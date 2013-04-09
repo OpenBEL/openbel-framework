@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
 /**
  * FileProtocolHandler implements an {@link ProtocolHandler} to
  * download a resource from a {@code ftp://} url.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class FTPProtocolHandler implements ProtocolHandler {
@@ -67,7 +67,7 @@ public class FTPProtocolHandler implements ProtocolHandler {
     /**
      * Creates the ftp protocol handler using an input stream to read
      * the user's password from.
-     *  
+     *
      * @param pwdInputStream {@link InputStream}, the input stream
      * to read the user's password from
      */

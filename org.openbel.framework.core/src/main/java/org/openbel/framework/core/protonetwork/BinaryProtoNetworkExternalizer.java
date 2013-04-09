@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -57,7 +57,7 @@ import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
  * {@link ProtoNetwork} to a {@link ProtoNetworkDescriptor}.
  *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
- * @version 1.3 Updated 
+ * @version 1.3 Updated
  */
 
 public class BinaryProtoNetworkExternalizer implements ProtoNetworkExternalizer {

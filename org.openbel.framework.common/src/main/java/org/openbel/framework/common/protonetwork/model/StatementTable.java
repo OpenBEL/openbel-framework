@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -64,7 +64,7 @@ import org.openbel.framework.common.model.Term;
 /**
  * StatementTable holds the statement values. This class manages the statements
  * through the {@link #addStatement(TableStatement, int)} operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -131,7 +131,7 @@ public class StatementTable extends ExternalType {
      * <br/>
      * Uses statement ids as 1-based to support nested statements as an
      * <tt>int</tt>.
-     * 
+     *
      * @param tblStatement {@link TableStatement}, the statement to be added to
      * the {@code statements} set
      * @param did Document index
@@ -161,7 +161,7 @@ public class StatementTable extends ExternalType {
     /**
      * Returns the statement table's <tt>statements</tt> list. This list is
      * unmodifiable to preserve the state of the statement table.
-     * 
+     *
      * @return {@link List}, which cannot be null or modified
      */
     public List<TableStatement> getStatements() {
@@ -171,7 +171,7 @@ public class StatementTable extends ExternalType {
     /**
      * Returns the statement table's global index {@link Map}. This map is
      * unmodifiable to preserve the state of the statement table.
-     * 
+     *
      * @return {@link Map} of {@link Integer} statement index to {@link Integer}
      * global index, which cannot be null
      */
@@ -182,7 +182,7 @@ public class StatementTable extends ExternalType {
     /**
      * Returns the statement table's table statement index {@link Map}. This map
      * is unmodifiable to preserve the state of the statement table.
-     * 
+     *
      * @return {@link Map} of {@link TableStatement} to {@link Integer}
      * statement index, which cannot be null or modified
      */
@@ -193,7 +193,7 @@ public class StatementTable extends ExternalType {
     /**
      * Returns the map of statement index to document index. This map is
      * unmodifiable to preserve the state of the statement table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<Integer, Integer> getStatementDocument() {
@@ -204,7 +204,7 @@ public class StatementTable extends ExternalType {
      * Returns the map of common-model {@link Statement} to {@link Integer}
      * statement index. This map it unmodifiable to preserve the state of the
      * statement table.
-     * 
+     *
      * @return {@link Map} of {@link Statement} to {@link Integer} index, which
      * cannot be null or modified
      */
@@ -216,7 +216,7 @@ public class StatementTable extends ExternalType {
      * Returns the map of {@link Integer} index to common-model
      * {@link Statement}. This map it unmodifiable to preserve the state of the
      * statement table.
-     * 
+     *
      * @return {@link Map} of {@link Integer} index to {@link Statement} index,
      * which cannot be null or modified
      */
@@ -449,7 +449,7 @@ public class StatementTable extends ExternalType {
 
     /**
      * TableStatement holds the statement values.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -493,7 +493,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Create a definitional {@link TableStatement statement}.
-         * 
+         *
          * @param subjectTerm the subject term index
          * @throws InvalidArgument Thrown if the {@code subjectTerm} is
          * {@code null} is null
@@ -513,11 +513,11 @@ public class StatementTable extends ExternalType {
 
         /**
          * Creates a simple statement from a
-         * 
+         *
          * <pre>
          * subject term, relationship, object term
          * </pre>
-         * 
+         *
          * @param subjectTerm {@link Integer}, the subject term id, which cannot
          * be null
          * @param relationship {@link String}, the relationship name, which can
@@ -542,12 +542,12 @@ public class StatementTable extends ExternalType {
 
         /**
          * Creates a nested statement from a
-         * 
+         *
          * <pre>
          * subject term, relationship,
          * nested subject term, nested relationship, nested object term
          * </pre>
-         * 
+         *
          * @param subjectTerm the subject term index
          * @param relationship the relationship name
          * @param nestedSubject the nested subject term index
@@ -579,7 +579,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the subject term id.
-         * 
+         *
          * @return {@link Integer}, the subject term id, which cannot be null
          */
         public Integer getSubjectTermId() {
@@ -588,7 +588,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the relationship name.
-         * 
+         *
          * @return {@link String}, the relationship name, which can be null
          */
         public String getRelationshipName() {
@@ -597,7 +597,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the object term index.
-         * 
+         *
          * @return the {@link Integer object term index}
          */
         public Integer getObjectTermId() {
@@ -606,7 +606,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the nested subject term index.
-         * 
+         *
          * @return the {@link Integer nested subject term index}
          */
         public Integer getNestedSubject() {
@@ -615,7 +615,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the {@link RelationshipType nested relationship}.
-         * 
+         *
          * @return the {@link Integer nested subject term index}
          */
         public String getNestedRelationship() {
@@ -624,7 +624,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Return the {@link Integer nested object term index}.
-         * 
+         *
          * @return the {@link Integer nested object term index}
          */
         public Integer getNestedObject() {
@@ -633,7 +633,7 @@ public class StatementTable extends ExternalType {
 
         /**
          * Compute the hashCode of {@link TableStatement this table statement}.
-         * 
+         *
          * @return the hashCode
          */
         private int computeHash() {

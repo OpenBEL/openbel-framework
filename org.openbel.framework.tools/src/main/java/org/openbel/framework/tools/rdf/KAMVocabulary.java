@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,9 +49,9 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 /**
  * Defines the KAM Vocabulary (RDF-based).
- * 
+ *
  * TODO Convert to Owl2-based Vocabulary.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class KAMVocabulary {
@@ -84,7 +84,7 @@ public class KAMVocabulary {
      * <p>
      * The namespace of the vocabulary as a string
      * </p>
-     * 
+     *
      * @see #NS
      */
     public static String getURI() {
@@ -861,7 +861,7 @@ public class KAMVocabulary {
 
     /**
      * Retrieves the RDF {@link Resource} for the BEL {@link FunctionEnum}.
-     * 
+     *
      * @param function
      *            {@link FunctionEnum}, the BEL function
      * @return {@link Resource} the rdf resource for the Function type
@@ -872,7 +872,7 @@ public class KAMVocabulary {
 
     /**
      * Retrieves the RDF {@link Resource} for the BEL {@link RelationshipType}.
-     * 
+     *
      * @param rtype
      *            {@link RelationshipType}, the BEL relationship
      * @return {@link Resource} the rdf resource for the Relationship type

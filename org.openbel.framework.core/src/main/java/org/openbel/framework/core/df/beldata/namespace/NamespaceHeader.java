@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,7 +53,7 @@ import org.openbel.framework.core.df.beldata.ProcessingBlock;
  * <li>Processing block - States how the BEL framework should process this
  * namespace</li>
  * </ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class NamespaceHeader extends BELDataHeader {
@@ -79,7 +79,7 @@ public class NamespaceHeader extends BELDataHeader {
      * This describes the namespace and its type of data. This is the first
      * block of the namespace.
      * </p>
-     * 
+     *
      * @return {@link NamespaceBlock}, the namespace block, which cannot be null
      */
     public NamespaceBlock getNamespaceBlock() {

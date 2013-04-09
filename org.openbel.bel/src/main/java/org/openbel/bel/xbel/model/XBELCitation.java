@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,14 +48,14 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * 
+ *
  *                     The citation annotation type to capture the knowledge source details.
- *                 
- * 
+ *
+ *
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -82,8 +82,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -113,11 +113,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the reference property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getReference() {
         return reference;
@@ -125,11 +125,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the reference property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setReference(String value) {
         this.reference = value;
@@ -141,11 +141,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -153,11 +153,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -169,11 +169,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the comment property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getComment() {
         return comment;
@@ -181,11 +181,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the comment property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setComment(String value) {
         this.comment = value;
@@ -197,11 +197,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the date property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Calendar getDate() {
         return date;
@@ -209,11 +209,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the date property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDate(Calendar value) {
         this.date = value;
@@ -225,11 +225,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the authorGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELCitation.AuthorGroup }
-     *     
+     *
      */
     public XBELCitation.AuthorGroup getAuthorGroup() {
         return authorGroup;
@@ -237,11 +237,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the authorGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELCitation.AuthorGroup }
-     *     
+     *
      */
     public void setAuthorGroup(XBELCitation.AuthorGroup value) {
         this.authorGroup = value;
@@ -253,11 +253,11 @@ public class XBELCitation
 
     /**
      * Gets the value of the type property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link CitationType }
-     *     
+     *
      */
     public CitationType getType() {
         return type;
@@ -265,11 +265,11 @@ public class XBELCitation
 
     /**
      * Sets the value of the type property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link CitationType }
-     *     
+     *
      */
     public void setType(CitationType value) {
         this.type = value;
@@ -280,14 +280,14 @@ public class XBELCitation
     }
 
     /**
-     * 
+     *
      *                                 The author type for a citation.
-     *                             
-     * 
+     *
+     *
      * <p>Java class for anonymous complex type.
-     * 
+     *
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -299,8 +299,8 @@ public class XBELCitation
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -315,25 +315,25 @@ public class XBELCitation
 
         /**
          * Gets the value of the author property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the author property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getAuthor().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link String }
-         * 
-         * 
+         *
+         *
          */
         public List<String> getAuthor() {
             if (author == null) {

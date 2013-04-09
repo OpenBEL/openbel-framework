@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ public class FunctionReturnFilterCriteria extends FilterCriteria {
     private Set<ReturnType> valueSet;
 
     /**
-     * 
+     *
      */
     public FunctionReturnFilterCriteria() {
         super();

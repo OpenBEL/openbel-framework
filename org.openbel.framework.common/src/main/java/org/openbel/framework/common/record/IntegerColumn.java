@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,7 +42,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Represents a {@link Column} of type {@link Integer} sized to 4 bytes.
- * 
+ *
  * @author Nick Bargnesi
  */
 public class IntegerColumn extends Column<Integer> {
@@ -67,7 +67,7 @@ public class IntegerColumn extends Column<Integer> {
 
     /**
      * Returns the {@link IntegerColumn non-null integer column} singleton.
-     * 
+     *
      * @return {@link IntegerColumn non-null integer column}
      */
     public static IntegerColumn nonNullIntegerColumn() {
@@ -76,7 +76,7 @@ public class IntegerColumn extends Column<Integer> {
 
     /**
      * Returns the {@link IntegerColumn nullable integer column} singleton.
-     * 
+     *
      * @return {@link IntegerColumn nullable integer column}
      */
     public static IntegerColumn nullIntegerColumn() {

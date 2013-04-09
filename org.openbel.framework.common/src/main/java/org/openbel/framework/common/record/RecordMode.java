@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import java.util.Map;
  * <p>
  * Portions of this enum have been automatically generated.
  * </p>
- * 
+ *
  * @author Nick Bargnesi
  */
 public enum RecordMode {
@@ -75,7 +75,7 @@ public enum RecordMode {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      */
@@ -94,7 +94,7 @@ public enum RecordMode {
 
     /**
      * Returns the record mode's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -104,7 +104,7 @@ public enum RecordMode {
 
     /**
      * Returns the record mode's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -113,7 +113,7 @@ public enum RecordMode {
 
     /**
      * Returns the record mode by its string representation.
-     * 
+     *
      * @param s {@link RecordMode} string representation
      * @return {@link RecordMode}, may be null if the provided string has no
      * {@link RecordMode} representation

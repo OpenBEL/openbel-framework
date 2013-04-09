@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,7 +42,7 @@ import org.openbel.framework.common.model.Namespace;
 
 /**
  * Constants for {@link Namespace} domains.
- * 
+ *
  * @author Steve Ungerer
  */
 public enum NamespaceDomain {
@@ -58,7 +58,7 @@ public enum NamespaceDomain {
 
     /**
      * Retrieve the domain string to which this {@link NamespaceDomain} maps.
-     * 
+     *
      * @return
      */
     public String getDomainString() {
@@ -76,7 +76,7 @@ public enum NamespaceDomain {
     /**
      * Retrieve the {@link NamespaceDomain} constant for the given domain
      * string.
-     * 
+     *
      * @param domainString
      * @return
      */

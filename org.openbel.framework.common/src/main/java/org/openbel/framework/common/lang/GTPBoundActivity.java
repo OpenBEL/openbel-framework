@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,13 +42,13 @@ import org.openbel.framework.common.Strings;
  * abundance is GTP-bound.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * gtpBoundActivity(F:abundance)abundance
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class GTPBoundActivity extends Function {
@@ -82,7 +82,7 @@ public class GTPBoundActivity extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

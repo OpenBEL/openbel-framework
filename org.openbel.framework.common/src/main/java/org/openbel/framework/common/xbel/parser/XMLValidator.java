@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  * Defines an XML validator to validate for well-formed and rule-conforming XML.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface XMLValidator {
@@ -55,7 +55,7 @@ public interface XMLValidator {
     /**
      * Returns {@code true} if the provided string is valid XML, {@code false}
      * otherwise.
-     * 
+     *
      * @param string XML string
      * @return boolean
      */
@@ -64,7 +64,7 @@ public interface XMLValidator {
     /**
      * Returns {@code true} if the provided file is valid XML, {@code false}
      * otherwise.
-     * 
+     *
      * @param file XML file
      * @return boolean
      */
@@ -73,7 +73,7 @@ public interface XMLValidator {
     /**
      * Returns {@code true} if the provided source is valid XML, {@code false}
      * otherwise.
-     * 
+     *
      * @param source XML source
      * @return boolean
      */
@@ -81,7 +81,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML string against this validator's schema.
-     * 
+     *
      * @param s String to validate against the schema; assumed to be non-null
      * @throws SAXException Thrown by the SAX error handler, or if a fatal error
      * occurred; an embedded exception may be present in the SAX exception, see
@@ -93,7 +93,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML strings against this validator's schema.
-     * 
+     *
      * @param s String to validate against the schema; assumed to be non-null
      * @return A non-null list of SAX parse exceptions
      * @throws SAXException Thrown by the SAX error handler, or if a fatal error
@@ -107,7 +107,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML file against this validator's schema.
-     * 
+     *
      * @param f File to validate against the schema; assumed to be non-null and
      * readable
      * @throws SAXException Thrown by the SAX error handler, or if a fatal error
@@ -120,7 +120,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML file against this validator's schema.
-     * 
+     *
      * @param f File to validate against the schema; assumed to be non-null and
      * readable
      * @return A non-null list of SAX parse exceptions
@@ -135,7 +135,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML source against this validator's schema.
-     * 
+     *
      * @param s Source to validate against the schema; assumed to be non-null
      * @throws SAXException Thrown by the SAX error handler, or if a fatal error
      * occurred; an embedded exception may be present in the SAX exception, see
@@ -147,7 +147,7 @@ public interface XMLValidator {
 
     /**
      * Validates the provided XML source against this validator's schema.
-     * 
+     *
      * @param s Source to validate against the schema; assumed to be non-null
      * @return A non-null list of SAX parse exceptions
      * @throws SAXException Thrown by the SAX error handler, or if a fatal error
@@ -162,7 +162,7 @@ public interface XMLValidator {
     /**
      * Validates the provided XML string against this validator's schema,
      * placing XML results in the provided object {@code r}.
-     * 
+     *
      * @param s String to validate against the schema; assumed to be non-null
      * @param r The result object that receives the XML; may be null
      * @throws IOException Thrown by the underlying reader (or stream)
@@ -176,7 +176,7 @@ public interface XMLValidator {
     /**
      * Validates the provided XML file against this validator's schema, placing
      * XML results in the provided object {@code r}.
-     * 
+     *
      * @param f File to validate against the schema; assumed to be non-null and
      * readable
      * @param r The result object that receives the XML; may be null
@@ -191,7 +191,7 @@ public interface XMLValidator {
     /**
      * Validates the provided XML source against the validator's schema, placing
      * XML results in the provided object {@code r}.
-     * 
+     *
      * @param s Source to validate against the schema; assumed to be non-null
      * @param r The result object that receives the XML; may be null
      * @throws IOException Thrown by the underlying stream processing the XML

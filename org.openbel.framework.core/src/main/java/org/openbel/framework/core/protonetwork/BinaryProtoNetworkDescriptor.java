@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import java.io.File;
 /**
  * BinaryProtoNetworkDescriptor represents the file descriptor for the binary-encoded
  * proto network.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BinaryProtoNetworkDescriptor implements ProtoNetworkDescriptor {
@@ -52,7 +52,7 @@ public class BinaryProtoNetworkDescriptor implements ProtoNetworkDescriptor {
 
     /**
      * Creates the BinaryProtoNetworkDescriptor from a binary {@code binaryProtoNetworkFile} file.
-     * 
+     *
      * @param binaryProtoNetworkFile {@link File}, the proto network binary file
      */
     public BinaryProtoNetworkDescriptor(File binaryProtoNetworkFile) {
@@ -69,7 +69,7 @@ public class BinaryProtoNetworkDescriptor implements ProtoNetworkDescriptor {
 
     /**
      * Retrieves the proto network file, which could be null.
-     * 
+     *
      * @return {@link File}, the proto network binary file
      */
     public File getProtoNetwork() {

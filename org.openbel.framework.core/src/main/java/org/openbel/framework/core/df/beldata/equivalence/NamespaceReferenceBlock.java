@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.core.df.beldata.BELDataMissingPropertyException;
 /**
  * CitationBlock encapsulates the '[NamespaceReference]' block of a BEL
  * equivalence document.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class NamespaceReferenceBlock implements Serializable {
@@ -93,7 +93,7 @@ public class NamespaceReferenceBlock implements Serializable {
 
     /**
      * Retrieves the name string.
-     * 
+     *
      * @return {@link String}, the name string
      */
     public String getNameString() {
@@ -102,7 +102,7 @@ public class NamespaceReferenceBlock implements Serializable {
 
     /**
      * Sets the name string.
-     * 
+     *
      * @param nameString {@link String}, the name string
      */
     public void setNameString(String nameString) {
@@ -111,7 +111,7 @@ public class NamespaceReferenceBlock implements Serializable {
 
     /**
      * Retrieves the version string.
-     * 
+     *
      * @return {@link String}, the version string
      */
     public String getVersionString() {
@@ -120,7 +120,7 @@ public class NamespaceReferenceBlock implements Serializable {
 
     /**
      * Sets the version string.
-     * 
+     *
      * @param versionString {@link String}, the version string
      */
 

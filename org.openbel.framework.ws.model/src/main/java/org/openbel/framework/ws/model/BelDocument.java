@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,11 +45,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for BelDocument complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="BelDocument">
  *   &lt;complexContent>
@@ -71,8 +71,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BelDocument", propOrder = {
@@ -108,11 +108,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -120,11 +120,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -132,11 +132,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -144,11 +144,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -156,11 +156,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -168,11 +168,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -180,11 +180,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the version property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVersion() {
         return version;
@@ -192,11 +192,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the version property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVersion(String value) {
         this.version = value;
@@ -204,11 +204,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the copyright property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCopyright() {
         return copyright;
@@ -216,11 +216,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the copyright property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCopyright(String value) {
         this.copyright = value;
@@ -228,11 +228,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the disclaimer property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDisclaimer() {
         return disclaimer;
@@ -240,11 +240,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the disclaimer property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDisclaimer(String value) {
         this.disclaimer = value;
@@ -252,11 +252,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the contactInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getContactInfo() {
         return contactInfo;
@@ -264,11 +264,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the contactInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setContactInfo(String value) {
         this.contactInfo = value;
@@ -276,11 +276,11 @@ public class BelDocument {
 
     /**
      * Gets the value of the licenseInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLicenseInfo() {
         return licenseInfo;
@@ -288,11 +288,11 @@ public class BelDocument {
 
     /**
      * Sets the value of the licenseInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLicenseInfo(String value) {
         this.licenseInfo = value;
@@ -300,25 +300,25 @@ public class BelDocument {
 
     /**
      * Gets the value of the authors property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the authors property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAuthors().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getAuthors() {
         if (authors == null) {
@@ -329,25 +329,25 @@ public class BelDocument {
 
     /**
      * Gets the value of the annotationTypes property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the annotationTypes property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAnnotationTypes().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AnnotationType }
-     * 
-     * 
+     *
+     *
      */
     public List<AnnotationType> getAnnotationTypes() {
         if (annotationTypes == null) {
@@ -358,25 +358,25 @@ public class BelDocument {
 
     /**
      * Gets the value of the namespaces property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the namespaces property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getNamespaces().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Namespace }
-     * 
-     * 
+     *
+     *
      */
     public List<Namespace> getNamespaces() {
         if (namespaces == null) {

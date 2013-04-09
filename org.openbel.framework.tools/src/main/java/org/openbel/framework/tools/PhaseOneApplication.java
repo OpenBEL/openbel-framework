@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -123,7 +123,7 @@ import org.openbel.framework.core.protonetwork.TextProtoNetworkExternalizer;
  */
 public final class PhaseOneApplication extends PhaseApplication {
     private final DefaultPhaseOne p1;
-    
+
     /** Phase one artifact directory. */
     public final static String DIR_ARTIFACT = "phaseI";
 
@@ -136,7 +136,7 @@ public final class PhaseOneApplication extends PhaseApplication {
     private final static String NO_NS_LONG_OPT = "no-nested-statements";
     private final static String NO_SEMANTIC_CHECK = "no-semantic-check";
     private final static String NO_SYNTAX_CHECK = "no-syntax-check";
-    
+
     private final static String NUM_PHASES = "7";
 
     /**
@@ -165,7 +165,7 @@ public final class PhaseOneApplication extends PhaseApplication {
                 new DefaultAnnotationService();
         final AnnotationDefinitionService annotationDefinitionService =
                 new DefaultAnnotationDefinitionService(cache, cacheLookup);
-        
+
         p1 = new PhaseOneImpl(validator, converter,
                 belValidator, belConverter, nsService, semantics,
                 expansion, protonetService, annotationService,

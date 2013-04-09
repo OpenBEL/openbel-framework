@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -38,7 +38,7 @@ package org.openbel.framework.api;
 import java.util.Set;
 
 /**
- * 
+ *
  * @author julianjray
  *
  */
@@ -47,13 +47,13 @@ public abstract class FilterCriteria {
     private boolean isInclude = true;
 
     /**
-     * 
+     *
      */
     public FilterCriteria() {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public boolean isInclude() {
@@ -61,7 +61,7 @@ public abstract class FilterCriteria {
     }
 
     /**
-     * 
+     *
      * @param isInclude
      */
     public void setInclude(boolean isInclude) {
@@ -69,7 +69,7 @@ public abstract class FilterCriteria {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public abstract Set<?> getValues();

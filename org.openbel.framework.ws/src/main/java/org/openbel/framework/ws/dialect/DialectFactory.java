@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.framework.common.model.Namespace;
 
 /**
  * Factory class for creation of {@link Dialect}s
- * 
+ *
  * @author Steve Ungerer
  */
 public interface DialectFactory {
@@ -58,7 +58,7 @@ public interface DialectFactory {
 
     /**
      * Construct a new {@link CustomDialect}
-     * 
+     *
      * @param kamInfo {@link KamInfo} of the {@link Kam} the dialect is being
      *            constructed for
      * @param geneNamespaces {@link List} of {@link Namespace}s to display

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ abstract class UserFacingException extends BELException {
      * Creates a user-facing exception for the resource name with the provided
      * detail message. The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param name Resource name on which the exception was caused
      * @param msg The detailed exception message
      * @see #initCause(Throwable)
@@ -60,7 +60,7 @@ abstract class UserFacingException extends BELException {
     /**
      * Creates a user-facing exception for the resource name with the provided
      * detail message and cause.
-     * 
+     *
      * @param name Resource name on which the exception was caused
      * @param msg The detailed exception message
      * @param cause The cause of the exception
@@ -74,7 +74,7 @@ abstract class UserFacingException extends BELException {
 
     /**
      * Returns the resource name failing validation.
-     * 
+     *
      * @return String, may be null
      */
     public String getName() {
@@ -83,7 +83,7 @@ abstract class UserFacingException extends BELException {
 
     /**
      * Sets the resource name failing validation.
-     * 
+     *
      * @param name String, may be null
      */
     public void setName(final String name) {
@@ -92,7 +92,7 @@ abstract class UserFacingException extends BELException {
 
     /**
      * Returns the user-facing message.
-     * 
+     *
      * @return User-facing message
      */
     public abstract String getUserFacingMessage();

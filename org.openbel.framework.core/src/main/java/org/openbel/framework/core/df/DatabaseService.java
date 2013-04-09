@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ public interface DatabaseService {
 
     /**
      * Gets a {@link DBConnection} for the provided URL, username, and password.
-     * 
+     *
      * @param url JDBC URL, in
      * {@code protocol:driver/connectivity mechanism:database identification}
      * format
@@ -63,7 +63,7 @@ public interface DatabaseService {
 
     /**
      * Creates a statement and executes the SQL.
-     * 
+     *
      * @param dbc {@link DBConnection}
      * @param sql SQL string
      * @throws SQLException Thrown if a database error occurs or the provided
@@ -75,7 +75,7 @@ public interface DatabaseService {
     /**
      * Returns {@code true} if the connection to the provided URL succeeds,
      * {@code false} otherwise.
-     * 
+     *
      * @param url JDBC URL, in
      * {@code protocol:driver/connectivity mechanism:database identification}
      * format

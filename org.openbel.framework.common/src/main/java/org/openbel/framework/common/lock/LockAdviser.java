@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -64,7 +64,7 @@ import org.openbel.framework.common.InvalidArgument;
  * TODO Document Lockable implementations with LockAdviser-specific details.
  * TODO Review and refactor if necessary. TODO Document fully once you're happy
  * with the design.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class LockAdviser implements Lockable {
@@ -80,7 +80,7 @@ public class LockAdviser implements Lockable {
      * Private constructor for {@link LockAdviser lock advisers} that uses a
      * {@link File lock path directory} where {@link Lock read / write locks}
      * will be stored.
-     * 
+     *
      * @param lockPath {@link File}, the lock path directory where {@link Lock
      * read / write locks} will be strored, which cannot be <tt>null</tt>, must
      * exist as a directory, and must be readable and writeable.
@@ -223,7 +223,7 @@ public class LockAdviser implements Lockable {
     /**
      * Reads {@link LockAdviser#lockPath lock path directory} and finds the
      * {@link File read lock files}, if any.
-     * 
+     *
      * @return the {@link Set set} of {@link read lock files}, or an empty
      * {@link Set} if no read locks exist
      */
@@ -242,7 +242,7 @@ public class LockAdviser implements Lockable {
     /**
      * Reads {@link LockAdviser#lockPath lock path directory} and finds the
      * {@link File write lock file}, if any.
-     * 
+     *
      * @return the {@link write lock file}, or <tt>null</tt> if no write lock
      * exists
      */
@@ -262,7 +262,7 @@ public class LockAdviser implements Lockable {
      * {@link LockAdviser}. If <tt>writer</tt> is false then a {@link File read
      * lock file} is created, otherwise a {@link File write lock file is
      * created}.
-     * 
+     *
      * @param writer, <tt>true</tt> if a {@link File write lock file} should be
      * created, <tt>false</tt> otherwise
      * @return the created {@link Lock}

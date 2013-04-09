@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,7 +53,7 @@ import org.openbel.framework.core.indexer.EquivalenceLookup;
  * {@link EquivalenceDataIndex equivalence data indices} associated with a
  * parameter domain. For example:
  * <p>
- * 
+ *
  * <pre>
  * <code>
  * [...]
@@ -64,12 +64,12 @@ import org.openbel.framework.core.indexer.EquivalenceLookup;
  * eqSet.add(rgdSyms);
  * eqSet.add(spAccNum);
  * eqSet.add(spEntNam);
- * BucketEquivalencer be = new BucketEquivalencer(network, eqSet); 
+ * BucketEquivalencer be = new BucketEquivalencer(network, eqSet);
  * be.equivalence();
  * [...]
  * </code>
  * </pre>
- * 
+ *
  * </p>
  */
 public final class BucketEquivalencer extends Equivalencer {
@@ -78,7 +78,7 @@ public final class BucketEquivalencer extends Equivalencer {
     /**
      * Constructs a bucket equivalencer for parameter equivalencing against a
      * set of data indices.
-     * 
+     *
      * @param pn {@link ProtoNetwork Proto-network}
      * @param equivs {@link EquivalenceResource}
      * @throws InvalidArgument Thrown if {@code pn} or {@code equivs} is null

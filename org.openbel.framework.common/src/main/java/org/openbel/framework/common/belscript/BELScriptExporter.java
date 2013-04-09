@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -281,7 +281,7 @@ public class BELScriptExporter {
                     sgname = "\"Group " + ++statementGroupCounter + "\"";
                 }
                 writer.write("SET STATEMENT_GROUP = " + sgname + "\n");
-                
+
                 //save existing annotation statement, when group is unset, restore to this state
                 currentAnnotationMapSnapshot =
                         new HashMap<String, List<String>>();

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,18 +41,18 @@ import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the org.openbel.bel.xbel.model package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the org.openbel.bel.xbel.model package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
+ *
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -86,14 +86,14 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.openbel.bel.xbel.model
-     * 
+     *
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link XBELParameter }
-     * 
+     *
      */
     public XBELParameter createXBELParameter() {
         return new XBELParameter();
@@ -101,7 +101,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELStatement }
-     * 
+     *
      */
     public XBELStatement createXBELStatement() {
         return new XBELStatement();
@@ -109,7 +109,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELLicenseGroup }
-     * 
+     *
      */
     public XBELLicenseGroup createXBELLicenseGroup() {
         return new XBELLicenseGroup();
@@ -117,7 +117,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELInternalAnnotationDefinition }
-     * 
+     *
      */
     public XBELInternalAnnotationDefinition
             createXBELInternalAnnotationDefinition() {
@@ -126,7 +126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELHeader }
-     * 
+     *
      */
     public XBELHeader createXBELHeader() {
         return new XBELHeader();
@@ -134,7 +134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELSubject }
-     * 
+     *
      */
     public XBELSubject createXBELSubject() {
         return new XBELSubject();
@@ -142,7 +142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELCitation.AuthorGroup }
-     * 
+     *
      */
     public XBELCitation.AuthorGroup createXBELCitationAuthorGroup() {
         return new XBELCitation.AuthorGroup();
@@ -150,7 +150,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELObject }
-     * 
+     *
      */
     public XBELObject createXBELObject() {
         return new XBELObject();
@@ -158,7 +158,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELTerm }
-     * 
+     *
      */
     public XBELTerm createXBELTerm() {
         return new XBELTerm();
@@ -166,7 +166,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELAnnotationGroup }
-     * 
+     *
      */
     public XBELAnnotationGroup createXBELAnnotationGroup() {
         return new XBELAnnotationGroup();
@@ -174,7 +174,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELStatementGroup }
-     * 
+     *
      */
     public XBELStatementGroup createXBELStatementGroup() {
         return new XBELStatementGroup();
@@ -182,7 +182,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELDocument }
-     * 
+     *
      */
     public XBELDocument createXBELDocument() {
         return new XBELDocument();
@@ -190,7 +190,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELExternalAnnotationDefinition }
-     * 
+     *
      */
     public XBELExternalAnnotationDefinition
             createXBELExternalAnnotationDefinition() {
@@ -199,7 +199,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELAnnotation }
-     * 
+     *
      */
     public XBELAnnotation createXBELAnnotation() {
         return new XBELAnnotation();
@@ -207,7 +207,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELNamespaceGroup }
-     * 
+     *
      */
     public XBELNamespaceGroup createXBELNamespaceGroup() {
         return new XBELNamespaceGroup();
@@ -215,7 +215,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELAuthorGroup }
-     * 
+     *
      */
     public XBELAuthorGroup createXBELAuthorGroup() {
         return new XBELAuthorGroup();
@@ -223,7 +223,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELNamespace }
-     * 
+     *
      */
     public XBELNamespace createXBELNamespace() {
         return new XBELNamespace();
@@ -231,7 +231,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELCitation }
-     * 
+     *
      */
     public XBELCitation createXBELCitation() {
         return new XBELCitation();
@@ -239,7 +239,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELAnnotationDefinitionGroup }
-     * 
+     *
      */
     public XBELAnnotationDefinitionGroup createXBELAnnotationDefinitionGroup() {
         return new XBELAnnotationDefinitionGroup();
@@ -247,7 +247,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link XBELListAnnotation }
-     * 
+     *
      */
     public XBELListAnnotation createXBELListAnnotation() {
         return new XBELListAnnotation();
@@ -255,7 +255,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "evidence")
     public
@@ -266,7 +266,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "disclaimer")
     public
@@ -277,7 +277,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "patternAnnotation")
     public
@@ -288,7 +288,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "version")
     public
@@ -299,7 +299,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "copyright")
     public
@@ -310,7 +310,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "name")
     public
@@ -320,7 +320,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "description")
     public
@@ -331,7 +331,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "contactInfo")
     public
@@ -342,7 +342,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "listValue")
     public
@@ -353,7 +353,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "author")
     public
@@ -363,7 +363,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "comment")
     public
@@ -374,7 +374,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "license")
     public
@@ -385,7 +385,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
-     * 
+     *
      */
     @XmlElementDecl(namespace = "http://belframework.org/schema/1.0/xbel", name = "usage")
     public

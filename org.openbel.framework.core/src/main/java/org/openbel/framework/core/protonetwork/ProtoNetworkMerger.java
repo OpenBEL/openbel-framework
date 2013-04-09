@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -242,7 +242,7 @@ public class ProtoNetworkMerger {
             remapEdges(protoNetwork1, protoNetwork2, documentId, termMap,
                     newStatementIndex, et.getProtoEdges(), edgeIndices);
         }
-        
+
         // remap annotation definition + value
         Set<AnnotationPair> aps = protoNetwork2
                 .getStatementAnnotationMapTable()
@@ -285,7 +285,7 @@ public class ProtoNetworkMerger {
      * {@link TableStatement statement}.  A new statement index is created from
      * a merge which requires the old {@link TableProtoEdge proto edges} to be
      * associated with it.
-     * 
+     *
      * @see https://github.com/OpenBEL/openbel-framework/issues/49
      * @param protoNetwork1 {@link ProtoNetwork}; merge into
      * @param protoNetwork2 {@link ProtoNetwork}; merge from
@@ -302,7 +302,7 @@ public class ProtoNetworkMerger {
             List<TableProtoEdge> edges, Set<Integer> edgeIndices) {
         ProtoNodeTable nt = protoNetwork2.getProtoNodeTable();
         Map<Integer, Integer> nodeTermIndex = nt.getNodeTermIndex();
-        
+
         TableProtoEdge[] remappedEdges = new TableProtoEdge[edgeIndices.size()];
         int i = 0;
         for (Integer edgeIndex : edgeIndices) {
@@ -317,7 +317,7 @@ public class ProtoNetworkMerger {
                 newSource = mergeTerm(sourceTerm, protoNetwork1, protoNetwork2,
                         documentId, termMap);
             }
-            
+
             Integer newTarget = termMap.get(targetTerm);
             if (newTarget == null) {
                 newTarget = mergeTerm(targetTerm, protoNetwork1, protoNetwork2,
@@ -330,7 +330,7 @@ public class ProtoNetworkMerger {
         ProtoEdgeTable edgeTable = protoNetwork1.getProtoEdgeTable();
         edgeTable.addEdges(newStatementIndex, remappedEdges);
     }
-    
+
     /**
      * Merge the term into the first {@link ProtoNetwork}
      * <tt>protoNetwork1</tt>.

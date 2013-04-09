@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,9 +46,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -63,8 +63,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -86,11 +86,11 @@ public class GetCitationsRequest {
 
     /**
      * Gets the value of the handle property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public KamHandle getHandle() {
         return handle;
@@ -98,11 +98,11 @@ public class GetCitationsRequest {
 
     /**
      * Sets the value of the handle property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public void setHandle(KamHandle value) {
         this.handle = value;
@@ -110,11 +110,11 @@ public class GetCitationsRequest {
 
     /**
      * Gets the value of the citationType property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link CitationType }
-     *     
+     *
      */
     public CitationType getCitationType() {
         return citationType;
@@ -122,11 +122,11 @@ public class GetCitationsRequest {
 
     /**
      * Sets the value of the citationType property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link CitationType }
-     *     
+     *
      */
     public void setCitationType(CitationType value) {
         this.citationType = value;
@@ -134,25 +134,25 @@ public class GetCitationsRequest {
 
     /**
      * Gets the value of the referenceIds property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the referenceIds property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getReferenceIds().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getReferenceIds() {
         if (referenceIds == null) {
@@ -163,11 +163,11 @@ public class GetCitationsRequest {
 
     /**
      * Gets the value of the document property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelDocument }
-     *     
+     *
      */
     public BelDocument getDocument() {
         return document;
@@ -175,11 +175,11 @@ public class GetCitationsRequest {
 
     /**
      * Sets the value of the document property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelDocument }
-     *     
+     *
      */
     public void setDocument(BelDocument value) {
         this.document = value;

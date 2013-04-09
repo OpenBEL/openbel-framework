@@ -44,12 +44,12 @@ import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
  */
 public class PhaseZeroApplication extends CommandLineApplication {
     private final String[] commandLineArgs;
-    
+
     // These fields were added as part of --no-preserve implementation.
     private DBConnection dbConnection;
     private KAMStoreImpl kamStore;
     private List<KamInfo> kams;
-    
+
     /**
      * Creates the phase zero application.
      *
@@ -59,7 +59,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
     public PhaseZeroApplication(String[] args) {
         super(args);
         this.commandLineArgs = args;
-        
+
         final SimpleOutput reportable = new SimpleOutput();
         reportable.setErrorStream(System.err);
         reportable.setOutputStream(System.out);
@@ -125,7 +125,7 @@ public class PhaseZeroApplication extends CommandLineApplication {
             reportable.error(e.getUserFacingMessage());
             bail(ExitCode.KAM_CONNECTION_FAILURE);
         }
-        
+
         // If "--no-preserve" is not specified, query the database for an
         // existing KAM w/same name. If one exists, exit with proper ExitCode.
         if (!hasOption(LONG_OPT_NO_PRESERVE)){
@@ -205,19 +205,19 @@ public class PhaseZeroApplication extends CommandLineApplication {
     @Override
     public List<Option> getCommandLineOptions() {
         List<Option> ret = new LinkedList<Option>();
-        
+
 
         String help = KAM_NAME_HELP;
-        Option o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, 
+        Option o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME,
                 true, help);
-        
+
         o.setArgName("kam");
         ret.add(o);
-        
+
         help = NO_PRESERVE_HELP;
         o = new Option(null, LONG_OPT_NO_PRESERVE, false, help);
         ret.add(o);
-        
+
         return ret;
     }
 

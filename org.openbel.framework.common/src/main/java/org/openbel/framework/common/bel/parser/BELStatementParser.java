@@ -1,7 +1,7 @@
 // $ANTLR 3.4 /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g 2013-01-08 15:04:16
 
     package org.openbel.framework.common.bel.parser;
-  
+
     import java.util.ArrayList;
 import java.util.List;
 
@@ -161,15 +161,15 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         private final List<BELParseErrorException> errors = new ArrayList<BELParseErrorException>();
-        
+
         public List<BELParseErrorException> getSyntaxErrors() {
             return errors;
         }
-        
+
         @Override
         public void emitErrorMessage(String msg) {
         }
-        
+
         @Override
         public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
             String context = "";
@@ -228,7 +228,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     final Statement s = new Statement((st!=null?st.r:null));
                     retval.r = s;
-                
+
 
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:66:5: (rel= relationship ( ( OPEN_PAREN nst= outer_term nrel= relationship not= outer_term CLOSE_PAREN ) |ot= outer_term ) )?
             int alt2=2;
@@ -250,7 +250,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                                 s.setRelationshipType((rel!=null?rel.r:null));
-                            
+
 
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:70:9: ( ( OPEN_PAREN nst= outer_term nrel= relationship not= outer_term CLOSE_PAREN ) |ot= outer_term )
                     int alt1=2;
@@ -276,8 +276,8 @@ public TreeAdaptor getTreeAdaptor() {
                             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:71:13: ( OPEN_PAREN nst= outer_term nrel= relationship not= outer_term CLOSE_PAREN )
                             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:72:17: OPEN_PAREN nst= outer_term nrel= relationship not= outer_term CLOSE_PAREN
                             {
-                            OPEN_PAREN1=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_statement145); 
-                            OPEN_PAREN1_tree = 
+                            OPEN_PAREN1=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_statement145);
+                            OPEN_PAREN1_tree =
                             (Object)adaptor.create(OPEN_PAREN1)
                             ;
                             adaptor.addChild(root_0, OPEN_PAREN1_tree);
@@ -292,7 +292,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                                                 final Statement ns = new Statement((nst!=null?nst.r:null));
-                                            
+
 
                             pushFollow(FOLLOW_relationship_in_statement188);
                             nrel=relationship();
@@ -303,7 +303,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                                                 ns.setRelationshipType((nrel!=null?nrel.r:null));
-                                            
+
 
                             pushFollow(FOLLOW_outer_term_in_statement211);
                             not=outer_term();
@@ -316,10 +316,10 @@ public TreeAdaptor getTreeAdaptor() {
                                                 ns.setObject(new Statement.Object((not!=null?not.r:null)));
                                                 s.setObject(new Statement.Object(ns));
                                                 retval.r = s;
-                                            
 
-                            CLOSE_PAREN2=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_statement231); 
-                            CLOSE_PAREN2_tree = 
+
+                            CLOSE_PAREN2=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_statement231);
+                            CLOSE_PAREN2_tree =
                             (Object)adaptor.create(CLOSE_PAREN2)
                             ;
                             adaptor.addChild(root_0, CLOSE_PAREN2_tree);
@@ -343,7 +343,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                                                 s.setObject(new Statement.Object((ot!=null?ot.r:null)));
                                                 retval.r = s;
-                                            
+
 
                             }
                             break;
@@ -425,10 +425,10 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     final Term outerTerm = new Term((f!=null?f.r:null));
-                
 
-            OPEN_PAREN3=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_outer_term330); 
-            OPEN_PAREN3_tree = 
+
+            OPEN_PAREN3=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_outer_term330);
+            OPEN_PAREN3_tree =
             (Object)adaptor.create(OPEN_PAREN3)
             ;
             adaptor.addChild(root_0, OPEN_PAREN3_tree);
@@ -460,8 +460,8 @@ public TreeAdaptor getTreeAdaptor() {
             	        case 1 :
             	            // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:100:6: ','
             	            {
-            	            char_literal4=(Token)match(input,16,FOLLOW_16_in_outer_term337); 
-            	            char_literal4_tree = 
+            	            char_literal4=(Token)match(input,16,FOLLOW_16_in_outer_term337);
+            	            char_literal4_tree =
             	            (Object)adaptor.create(char_literal4)
             	            ;
             	            adaptor.addChild(root_0, char_literal4_tree);
@@ -480,7 +480,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    adaptor.addChild(root_0, arg.getTree());
 
-            	     outerTerm.addFunctionArgument((arg!=null?arg.r:null)); 
+            	     outerTerm.addFunctionArgument((arg!=null?arg.r:null));
 
             	    }
             	    break;
@@ -491,8 +491,8 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            CLOSE_PAREN5=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_outer_term352); 
-            CLOSE_PAREN5_tree = 
+            CLOSE_PAREN5=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_outer_term352);
+            CLOSE_PAREN5_tree =
             (Object)adaptor.create(CLOSE_PAREN5)
             ;
             adaptor.addChild(root_0, CLOSE_PAREN5_tree);
@@ -500,7 +500,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     retval.r = outerTerm;
-                
+
 
             }
 
@@ -580,7 +580,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     adaptor.addChild(root_0, fp.getTree());
 
-                     retval.r = (fp!=null?fp.r:null); 
+                     retval.r = (fp!=null?fp.r:null);
 
                     }
                     break;
@@ -597,7 +597,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     adaptor.addChild(root_0, ff.getTree());
 
-                     retval.r = (ff!=null?ff.r:null); 
+                     retval.r = (ff!=null?ff.r:null);
 
                     }
                     break;
@@ -671,10 +671,10 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     final Term parentTerm = new Term((pfv!=null?pfv.r:null));
-                
 
-            OPEN_PAREN6=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_term424); 
-            OPEN_PAREN6_tree = 
+
+            OPEN_PAREN6=(Token)match(input,OPEN_PAREN,FOLLOW_OPEN_PAREN_in_term424);
+            OPEN_PAREN6_tree =
             (Object)adaptor.create(OPEN_PAREN6)
             ;
             adaptor.addChild(root_0, OPEN_PAREN6_tree);
@@ -706,8 +706,8 @@ public TreeAdaptor getTreeAdaptor() {
             	        case 1 :
             	            // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:117:9: ','
             	            {
-            	            char_literal7=(Token)match(input,16,FOLLOW_16_in_term440); 
-            	            char_literal7_tree = 
+            	            char_literal7=(Token)match(input,16,FOLLOW_16_in_term440);
+            	            char_literal7_tree =
             	            (Object)adaptor.create(char_literal7)
             	            ;
             	            adaptor.addChild(root_0, char_literal7_tree);
@@ -749,7 +749,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             	                        parentTerm.addFunctionArgument((it!=null?it.r:null));
-            	                    
+
 
             	            }
             	            break;
@@ -763,7 +763,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             	            adaptor.addChild(root_0, pp.getTree());
 
-            	             parentTerm.addFunctionArgument((pp!=null?pp.r:null)); 
+            	             parentTerm.addFunctionArgument((pp!=null?pp.r:null));
 
             	            }
             	            break;
@@ -780,8 +780,8 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            CLOSE_PAREN8=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_term486); 
-            CLOSE_PAREN8_tree = 
+            CLOSE_PAREN8=(Token)match(input,CLOSE_PAREN,FOLLOW_CLOSE_PAREN_in_term486);
+            CLOSE_PAREN8_tree =
             (Object)adaptor.create(CLOSE_PAREN8)
             ;
             adaptor.addChild(root_0, CLOSE_PAREN8_tree);
@@ -789,7 +789,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     retval.r = parentTerm;
-                
+
 
             }
 
@@ -857,8 +857,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:129:8: nsp= NS_PREFIX
                     {
-                    nsp=(Token)match(input,NS_PREFIX,FOLLOW_NS_PREFIX_in_param510); 
-                    nsp_tree = 
+                    nsp=(Token)match(input,NS_PREFIX,FOLLOW_NS_PREFIX_in_param510);
+                    nsp_tree =
                     (Object)adaptor.create(nsp)
                     ;
                     adaptor.addChild(root_0, nsp_tree);
@@ -891,8 +891,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:131:9: NS_VALUE
                     {
-                    NS_VALUE9=(Token)match(input,NS_VALUE,FOLLOW_NS_VALUE_in_param527); 
-                    NS_VALUE9_tree = 
+                    NS_VALUE9=(Token)match(input,NS_VALUE,FOLLOW_NS_VALUE_in_param527);
+                    NS_VALUE9_tree =
                     (Object)adaptor.create(NS_VALUE9)
                     ;
                     adaptor.addChild(root_0, NS_VALUE9_tree);
@@ -900,25 +900,25 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                                 Namespace ns = null;
-                            
+
                                 if(nsp != null) {
                                     String prefix = nsp.getText();
                                     prefix = prefix.substring(0, prefix.length() - 1);
                                     ns = new Namespace(prefix, "FIX_ME");
                                 }
-                            
+
                                 retval.r = new Parameter();
                                 retval.r.setValue(NS_VALUE9.getText());
                                 retval.r.setNamespace(ns);
-                            
+
 
                     }
                     break;
                 case 2 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:144:9: QUOTED_VALUE
                     {
-                    QUOTED_VALUE10=(Token)match(input,QUOTED_VALUE,FOLLOW_QUOTED_VALUE_in_param541); 
-                    QUOTED_VALUE10_tree = 
+                    QUOTED_VALUE10=(Token)match(input,QUOTED_VALUE,FOLLOW_QUOTED_VALUE_in_param541);
+                    QUOTED_VALUE10_tree =
                     (Object)adaptor.create(QUOTED_VALUE10)
                     ;
                     adaptor.addChild(root_0, QUOTED_VALUE10_tree);
@@ -926,17 +926,17 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                                 Namespace ns = null;
-                                
+
                                 if(nsp != null) {
                                     String prefix = nsp.getText();
                                     prefix = prefix.substring(0, prefix.length() - 1);
                                     ns = new Namespace(prefix, "FIX_ME");
                                 }
-                                
+
                                 retval.r = new Parameter();
                                 retval.r.setValue(QUOTED_VALUE10.getText());
                                 retval.r.setNamespace(ns);
-                            
+
 
                     }
                     break;
@@ -1305,8 +1305,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:162:9: fv= 'proteinAbundance'
                     {
-                    fv=(Token)match(input,79,FOLLOW_79_in_function581); 
-                    fv_tree = 
+                    fv=(Token)match(input,79,FOLLOW_79_in_function581);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1319,8 +1319,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 2 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:163:9: fv= 'p'
                     {
-                    fv=(Token)match(input,68,FOLLOW_68_in_function607); 
-                    fv_tree = 
+                    fv=(Token)match(input,68,FOLLOW_68_in_function607);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1333,8 +1333,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 3 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:164:9: fv= 'rnaAbundance'
                     {
-                    fv=(Token)match(input,87,FOLLOW_87_in_function648); 
-                    fv_tree = 
+                    fv=(Token)match(input,87,FOLLOW_87_in_function648);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1347,8 +1347,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 4 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:165:9: fv= 'r'
                     {
-                    fv=(Token)match(input,81,FOLLOW_81_in_function679); 
-                    fv_tree = 
+                    fv=(Token)match(input,81,FOLLOW_81_in_function679);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1361,8 +1361,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 5 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:166:9: fv= 'abundance'
                     {
-                    fv=(Token)match(input,25,FOLLOW_25_in_function720); 
-                    fv_tree = 
+                    fv=(Token)match(input,25,FOLLOW_25_in_function720);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1375,8 +1375,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 6 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:167:9: fv= 'a'
                     {
-                    fv=(Token)match(input,24,FOLLOW_24_in_function754); 
-                    fv_tree = 
+                    fv=(Token)match(input,24,FOLLOW_24_in_function754);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1389,8 +1389,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 7 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:168:9: fv= 'microRNAAbundance'
                     {
-                    fv=(Token)match(input,64,FOLLOW_64_in_function795); 
-                    fv_tree = 
+                    fv=(Token)match(input,64,FOLLOW_64_in_function795);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1403,8 +1403,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 8 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:169:9: fv= 'm'
                     {
-                    fv=(Token)match(input,63,FOLLOW_63_in_function821); 
-                    fv_tree = 
+                    fv=(Token)match(input,63,FOLLOW_63_in_function821);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1417,8 +1417,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 9 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:170:9: fv= 'geneAbundance'
                     {
-                    fv=(Token)match(input,51,FOLLOW_51_in_function862); 
-                    fv_tree = 
+                    fv=(Token)match(input,51,FOLLOW_51_in_function862);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1431,8 +1431,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 10 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:171:9: fv= 'g'
                     {
-                    fv=(Token)match(input,50,FOLLOW_50_in_function891); 
-                    fv_tree = 
+                    fv=(Token)match(input,50,FOLLOW_50_in_function891);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1445,8 +1445,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 11 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:172:9: fv= 'biologicalProcess'
                     {
-                    fv=(Token)match(input,29,FOLLOW_29_in_function932); 
-                    fv_tree = 
+                    fv=(Token)match(input,29,FOLLOW_29_in_function932);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1459,8 +1459,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 12 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:173:9: fv= 'bp'
                     {
-                    fv=(Token)match(input,31,FOLLOW_31_in_function958); 
-                    fv_tree = 
+                    fv=(Token)match(input,31,FOLLOW_31_in_function958);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1473,8 +1473,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 13 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:174:9: fv= 'pathology'
                     {
-                    fv=(Token)match(input,70,FOLLOW_70_in_function998); 
-                    fv_tree = 
+                    fv=(Token)match(input,70,FOLLOW_70_in_function998);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1487,8 +1487,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 14 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:175:9: fv= 'path'
                     {
-                    fv=(Token)match(input,69,FOLLOW_69_in_function1031); 
-                    fv_tree = 
+                    fv=(Token)match(input,69,FOLLOW_69_in_function1031);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1501,8 +1501,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 15 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:176:9: fv= 'complexAbundance'
                     {
-                    fv=(Token)match(input,40,FOLLOW_40_in_function1069); 
-                    fv_tree = 
+                    fv=(Token)match(input,40,FOLLOW_40_in_function1069);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1515,8 +1515,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 16 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:177:9: fv= 'complex'
                     {
-                    fv=(Token)match(input,39,FOLLOW_39_in_function1096); 
-                    fv_tree = 
+                    fv=(Token)match(input,39,FOLLOW_39_in_function1096);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1529,8 +1529,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 17 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:178:9: fv= 'translocation'
                     {
-                    fv=(Token)match(input,99,FOLLOW_99_in_function1131); 
-                    fv_tree = 
+                    fv=(Token)match(input,99,FOLLOW_99_in_function1131);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1543,8 +1543,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 18 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:179:9: fv= 'tloc'
                     {
-                    fv=(Token)match(input,94,FOLLOW_94_in_function1161); 
-                    fv_tree = 
+                    fv=(Token)match(input,94,FOLLOW_94_in_function1161);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1557,8 +1557,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 19 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:180:9: fv= 'cellSecretion'
                     {
-                    fv=(Token)match(input,35,FOLLOW_35_in_function1199); 
-                    fv_tree = 
+                    fv=(Token)match(input,35,FOLLOW_35_in_function1199);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1571,8 +1571,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 20 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:181:9: fv= 'sec'
                     {
-                    fv=(Token)match(input,89,FOLLOW_89_in_function1229); 
-                    fv_tree = 
+                    fv=(Token)match(input,89,FOLLOW_89_in_function1229);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1585,8 +1585,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 21 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:182:9: fv= 'cellSurfaceExpression'
                     {
-                    fv=(Token)match(input,36,FOLLOW_36_in_function1268); 
-                    fv_tree = 
+                    fv=(Token)match(input,36,FOLLOW_36_in_function1268);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1599,8 +1599,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 22 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:183:9: fv= 'surf'
                     {
-                    fv=(Token)match(input,93,FOLLOW_93_in_function1289); 
-                    fv_tree = 
+                    fv=(Token)match(input,93,FOLLOW_93_in_function1289);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1613,8 +1613,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 23 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:184:9: fv= 'reaction'
                     {
-                    fv=(Token)match(input,84,FOLLOW_84_in_function1327); 
-                    fv_tree = 
+                    fv=(Token)match(input,84,FOLLOW_84_in_function1327);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1627,8 +1627,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 24 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:185:9: fv= 'rxn'
                     {
-                    fv=(Token)match(input,88,FOLLOW_88_in_function1361); 
-                    fv_tree = 
+                    fv=(Token)match(input,88,FOLLOW_88_in_function1361);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1641,8 +1641,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 25 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:186:9: fv= 'compositeAbundance'
                     {
-                    fv=(Token)match(input,42,FOLLOW_42_in_function1400); 
-                    fv_tree = 
+                    fv=(Token)match(input,42,FOLLOW_42_in_function1400);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1655,8 +1655,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 26 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:187:9: fv= 'composite'
                     {
-                    fv=(Token)match(input,41,FOLLOW_41_in_function1424); 
-                    fv_tree = 
+                    fv=(Token)match(input,41,FOLLOW_41_in_function1424);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1669,8 +1669,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 27 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:188:9: fv= 'fusion'
                     {
-                    fv=(Token)match(input,49,FOLLOW_49_in_function1457); 
-                    fv_tree = 
+                    fv=(Token)match(input,49,FOLLOW_49_in_function1457);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1683,8 +1683,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 28 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:189:9: fv= 'fus'
                     {
-                    fv=(Token)match(input,48,FOLLOW_48_in_function1493); 
-                    fv_tree = 
+                    fv=(Token)match(input,48,FOLLOW_48_in_function1493);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1697,8 +1697,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 29 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:190:9: fv= 'degradation'
                     {
-                    fv=(Token)match(input,45,FOLLOW_45_in_function1532); 
-                    fv_tree = 
+                    fv=(Token)match(input,45,FOLLOW_45_in_function1532);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1711,8 +1711,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 30 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:191:9: fv= 'deg'
                     {
-                    fv=(Token)match(input,44,FOLLOW_44_in_function1563); 
-                    fv_tree = 
+                    fv=(Token)match(input,44,FOLLOW_44_in_function1563);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1725,8 +1725,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 31 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:192:9: fv= 'molecularActivity'
                     {
-                    fv=(Token)match(input,65,FOLLOW_65_in_function1602); 
-                    fv_tree = 
+                    fv=(Token)match(input,65,FOLLOW_65_in_function1602);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1739,8 +1739,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 32 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:193:9: fv= 'act'
                     {
-                    fv=(Token)match(input,26,FOLLOW_26_in_function1627); 
-                    fv_tree = 
+                    fv=(Token)match(input,26,FOLLOW_26_in_function1627);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1753,8 +1753,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 33 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:194:9: fv= 'catalyticActivity'
                     {
-                    fv=(Token)match(input,33,FOLLOW_33_in_function1666); 
-                    fv_tree = 
+                    fv=(Token)match(input,33,FOLLOW_33_in_function1666);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1767,8 +1767,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 34 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:195:9: fv= 'cat'
                     {
-                    fv=(Token)match(input,32,FOLLOW_32_in_function1691); 
-                    fv_tree = 
+                    fv=(Token)match(input,32,FOLLOW_32_in_function1691);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1781,8 +1781,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 35 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:196:9: fv= 'kinaseActivity'
                     {
-                    fv=(Token)match(input,61,FOLLOW_61_in_function1730); 
-                    fv_tree = 
+                    fv=(Token)match(input,61,FOLLOW_61_in_function1730);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1795,8 +1795,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 36 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:197:9: fv= 'kin'
                     {
-                    fv=(Token)match(input,60,FOLLOW_60_in_function1758); 
-                    fv_tree = 
+                    fv=(Token)match(input,60,FOLLOW_60_in_function1758);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1809,8 +1809,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 37 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:198:9: fv= 'phosphataseActivity'
                     {
-                    fv=(Token)match(input,74,FOLLOW_74_in_function1797); 
-                    fv_tree = 
+                    fv=(Token)match(input,74,FOLLOW_74_in_function1797);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1823,8 +1823,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 38 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:199:9: fv= 'phos'
                     {
-                    fv=(Token)match(input,73,FOLLOW_73_in_function1820); 
-                    fv_tree = 
+                    fv=(Token)match(input,73,FOLLOW_73_in_function1820);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1837,8 +1837,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 39 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:200:9: fv= 'peptidaseActivity'
                     {
-                    fv=(Token)match(input,72,FOLLOW_72_in_function1858); 
-                    fv_tree = 
+                    fv=(Token)match(input,72,FOLLOW_72_in_function1858);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1851,8 +1851,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 40 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:201:9: fv= 'pep'
                     {
-                    fv=(Token)match(input,71,FOLLOW_71_in_function1883); 
-                    fv_tree = 
+                    fv=(Token)match(input,71,FOLLOW_71_in_function1883);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1865,8 +1865,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 41 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:202:9: fv= 'ribosylationActivity'
                     {
-                    fv=(Token)match(input,86,FOLLOW_86_in_function1922); 
-                    fv_tree = 
+                    fv=(Token)match(input,86,FOLLOW_86_in_function1922);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1879,8 +1879,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 42 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:203:9: fv= 'ribo'
                     {
-                    fv=(Token)match(input,85,FOLLOW_85_in_function1944); 
-                    fv_tree = 
+                    fv=(Token)match(input,85,FOLLOW_85_in_function1944);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1893,8 +1893,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 43 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:204:9: fv= 'transcriptionalActivity'
                     {
-                    fv=(Token)match(input,97,FOLLOW_97_in_function1982); 
-                    fv_tree = 
+                    fv=(Token)match(input,97,FOLLOW_97_in_function1982);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1907,8 +1907,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 44 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:205:9: fv= 'tscript'
                     {
-                    fv=(Token)match(input,103,FOLLOW_103_in_function2001); 
-                    fv_tree = 
+                    fv=(Token)match(input,103,FOLLOW_103_in_function2001);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1921,8 +1921,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 45 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:206:9: fv= 'transportActivity'
                     {
-                    fv=(Token)match(input,100,FOLLOW_100_in_function2036); 
-                    fv_tree = 
+                    fv=(Token)match(input,100,FOLLOW_100_in_function2036);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1935,8 +1935,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 46 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:207:9: fv= 'tport'
                     {
-                    fv=(Token)match(input,95,FOLLOW_95_in_function2061); 
-                    fv_tree = 
+                    fv=(Token)match(input,95,FOLLOW_95_in_function2061);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1949,8 +1949,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 47 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:208:9: fv= 'gtpBoundActivity'
                     {
-                    fv=(Token)match(input,53,FOLLOW_53_in_function2098); 
-                    fv_tree = 
+                    fv=(Token)match(input,53,FOLLOW_53_in_function2098);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1963,8 +1963,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 48 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:209:9: fv= 'gtp'
                     {
-                    fv=(Token)match(input,52,FOLLOW_52_in_function2124); 
-                    fv_tree = 
+                    fv=(Token)match(input,52,FOLLOW_52_in_function2124);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1977,8 +1977,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 49 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:210:9: fv= 'chaperoneActivity'
                     {
-                    fv=(Token)match(input,38,FOLLOW_38_in_function2163); 
-                    fv_tree = 
+                    fv=(Token)match(input,38,FOLLOW_38_in_function2163);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -1991,8 +1991,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 50 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:211:9: fv= 'chap'
                     {
-                    fv=(Token)match(input,37,FOLLOW_37_in_function2188); 
-                    fv_tree = 
+                    fv=(Token)match(input,37,FOLLOW_37_in_function2188);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2005,8 +2005,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 51 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:212:9: fv= 'proteinModification'
                     {
-                    fv=(Token)match(input,80,FOLLOW_80_in_function2226); 
-                    fv_tree = 
+                    fv=(Token)match(input,80,FOLLOW_80_in_function2226);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2019,8 +2019,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 52 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:213:9: fv= 'pmod'
                     {
-                    fv=(Token)match(input,75,FOLLOW_75_in_function2249); 
-                    fv_tree = 
+                    fv=(Token)match(input,75,FOLLOW_75_in_function2249);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2033,8 +2033,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 53 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:214:9: fv= 'substitution'
                     {
-                    fv=(Token)match(input,92,FOLLOW_92_in_function2288); 
-                    fv_tree = 
+                    fv=(Token)match(input,92,FOLLOW_92_in_function2288);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2047,8 +2047,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 54 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:215:9: fv= 'sub'
                     {
-                    fv=(Token)match(input,90,FOLLOW_90_in_function2318); 
-                    fv_tree = 
+                    fv=(Token)match(input,90,FOLLOW_90_in_function2318);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2061,8 +2061,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 55 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:216:9: fv= 'truncation'
                     {
-                    fv=(Token)match(input,102,FOLLOW_102_in_function2357); 
-                    fv_tree = 
+                    fv=(Token)match(input,102,FOLLOW_102_in_function2357);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2075,8 +2075,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 56 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:217:9: fv= 'trunc'
                     {
-                    fv=(Token)match(input,101,FOLLOW_101_in_function2389); 
-                    fv_tree = 
+                    fv=(Token)match(input,101,FOLLOW_101_in_function2389);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2089,8 +2089,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 57 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:218:9: fv= 'reactants'
                     {
-                    fv=(Token)match(input,83,FOLLOW_83_in_function2426); 
-                    fv_tree = 
+                    fv=(Token)match(input,83,FOLLOW_83_in_function2426);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2103,8 +2103,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 58 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:219:9: fv= 'products'
                     {
-                    fv=(Token)match(input,77,FOLLOW_77_in_function2459); 
-                    fv_tree = 
+                    fv=(Token)match(input,77,FOLLOW_77_in_function2459);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2117,8 +2117,8 @@ public TreeAdaptor getTreeAdaptor() {
                 case 59 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:220:9: fv= 'list'
                     {
-                    fv=(Token)match(input,62,FOLLOW_62_in_function2493); 
-                    fv_tree = 
+                    fv=(Token)match(input,62,FOLLOW_62_in_function2493);
+                    fv_tree =
                     (Object)adaptor.create(fv)
                     ;
                     adaptor.addChild(root_0, fv_tree);
@@ -2338,392 +2338,392 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:226:9: rv= 'increases'
                     {
-                    rv=(Token)match(input,58,FOLLOW_58_in_relationship2559); 
-                    rv_tree = 
+                    rv=(Token)match(input,58,FOLLOW_58_in_relationship2559);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 2 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:227:9: rv= '->'
                     {
-                    rv=(Token)match(input,18,FOLLOW_18_in_relationship2592); 
-                    rv_tree = 
+                    rv=(Token)match(input,18,FOLLOW_18_in_relationship2592);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 3 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:228:9: rv= 'decreases'
                     {
-                    rv=(Token)match(input,43,FOLLOW_43_in_relationship2632); 
-                    rv_tree = 
+                    rv=(Token)match(input,43,FOLLOW_43_in_relationship2632);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 4 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:229:9: rv= '-|'
                     {
-                    rv=(Token)match(input,19,FOLLOW_19_in_relationship2665); 
-                    rv_tree = 
+                    rv=(Token)match(input,19,FOLLOW_19_in_relationship2665);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 5 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:230:9: rv= 'directlyIncreases'
                     {
-                    rv=(Token)match(input,47,FOLLOW_47_in_relationship2705); 
-                    rv_tree = 
+                    rv=(Token)match(input,47,FOLLOW_47_in_relationship2705);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 6 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:231:9: rv= '=>'
                     {
-                    rv=(Token)match(input,21,FOLLOW_21_in_relationship2730); 
-                    rv_tree = 
+                    rv=(Token)match(input,21,FOLLOW_21_in_relationship2730);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 7 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:232:9: rv= 'directlyDecreases'
                     {
-                    rv=(Token)match(input,46,FOLLOW_46_in_relationship2770); 
-                    rv_tree = 
+                    rv=(Token)match(input,46,FOLLOW_46_in_relationship2770);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 8 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:233:9: rv= '=|'
                     {
-                    rv=(Token)match(input,22,FOLLOW_22_in_relationship2795); 
-                    rv_tree = 
+                    rv=(Token)match(input,22,FOLLOW_22_in_relationship2795);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 9 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:234:9: rv= 'causesNoChange'
                     {
-                    rv=(Token)match(input,34,FOLLOW_34_in_relationship2835); 
-                    rv_tree = 
+                    rv=(Token)match(input,34,FOLLOW_34_in_relationship2835);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 10 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:235:9: rv= 'positiveCorrelation'
                     {
-                    rv=(Token)match(input,76,FOLLOW_76_in_relationship2863); 
-                    rv_tree = 
+                    rv=(Token)match(input,76,FOLLOW_76_in_relationship2863);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 11 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:236:9: rv= 'negativeCorrelation'
                     {
-                    rv=(Token)match(input,66,FOLLOW_66_in_relationship2886); 
-                    rv_tree = 
+                    rv=(Token)match(input,66,FOLLOW_66_in_relationship2886);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 12 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:237:9: rv= 'translatedTo'
                     {
-                    rv=(Token)match(input,98,FOLLOW_98_in_relationship2909); 
-                    rv_tree = 
+                    rv=(Token)match(input,98,FOLLOW_98_in_relationship2909);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 13 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:238:9: rv= '>>'
                     {
-                    rv=(Token)match(input,23,FOLLOW_23_in_relationship2939); 
-                    rv_tree = 
+                    rv=(Token)match(input,23,FOLLOW_23_in_relationship2939);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 14 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:239:9: rv= 'transcribedTo'
                     {
-                    rv=(Token)match(input,96,FOLLOW_96_in_relationship2979); 
-                    rv_tree = 
+                    rv=(Token)match(input,96,FOLLOW_96_in_relationship2979);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 15 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:240:9: rv= ':>'
                     {
-                    rv=(Token)match(input,20,FOLLOW_20_in_relationship3008); 
-                    rv_tree = 
+                    rv=(Token)match(input,20,FOLLOW_20_in_relationship3008);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 16 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:241:9: rv= 'isA'
                     {
-                    rv=(Token)match(input,59,FOLLOW_59_in_relationship3048); 
-                    rv_tree = 
+                    rv=(Token)match(input,59,FOLLOW_59_in_relationship3048);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 17 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:242:9: rv= 'subProcessOf'
                     {
-                    rv=(Token)match(input,91,FOLLOW_91_in_relationship3087); 
-                    rv_tree = 
+                    rv=(Token)match(input,91,FOLLOW_91_in_relationship3087);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 18 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:243:9: rv= 'rateLimitingStepOf'
                     {
-                    rv=(Token)match(input,82,FOLLOW_82_in_relationship3117); 
-                    rv_tree = 
+                    rv=(Token)match(input,82,FOLLOW_82_in_relationship3117);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 19 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:244:9: rv= 'biomarkerFor'
                     {
-                    rv=(Token)match(input,30,FOLLOW_30_in_relationship3141); 
-                    rv_tree = 
+                    rv=(Token)match(input,30,FOLLOW_30_in_relationship3141);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 20 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:245:9: rv= 'prognosticBiomarkerFor'
                     {
-                    rv=(Token)match(input,78,FOLLOW_78_in_relationship3171); 
-                    rv_tree = 
+                    rv=(Token)match(input,78,FOLLOW_78_in_relationship3171);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 21 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:246:9: rv= 'orthologous'
                     {
-                    rv=(Token)match(input,67,FOLLOW_67_in_relationship3191); 
-                    rv_tree = 
+                    rv=(Token)match(input,67,FOLLOW_67_in_relationship3191);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 22 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:247:9: rv= 'analogous'
                     {
-                    rv=(Token)match(input,27,FOLLOW_27_in_relationship3222); 
-                    rv_tree = 
+                    rv=(Token)match(input,27,FOLLOW_27_in_relationship3222);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 23 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:248:9: rv= 'association'
                     {
-                    rv=(Token)match(input,28,FOLLOW_28_in_relationship3255); 
-                    rv_tree = 
+                    rv=(Token)match(input,28,FOLLOW_28_in_relationship3255);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 24 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:249:9: rv= '--'
                     {
-                    rv=(Token)match(input,17,FOLLOW_17_in_relationship3286); 
-                    rv_tree = 
+                    rv=(Token)match(input,17,FOLLOW_17_in_relationship3286);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 25 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:250:9: rv= 'hasMembers'
                     {
-                    rv=(Token)match(input,57,FOLLOW_57_in_relationship3326); 
-                    rv_tree = 
+                    rv=(Token)match(input,57,FOLLOW_57_in_relationship3326);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 26 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:251:9: rv= 'hasComponents'
                     {
-                    rv=(Token)match(input,55,FOLLOW_55_in_relationship3358); 
-                    rv_tree = 
+                    rv=(Token)match(input,55,FOLLOW_55_in_relationship3358);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 27 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:252:9: rv= 'hasMember'
                     {
-                    rv=(Token)match(input,56,FOLLOW_56_in_relationship3387); 
-                    rv_tree = 
+                    rv=(Token)match(input,56,FOLLOW_56_in_relationship3387);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
                 case 28 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:253:9: rv= 'hasComponent'
                     {
-                    rv=(Token)match(input,54,FOLLOW_54_in_relationship3420); 
-                    rv_tree = 
+                    rv=(Token)match(input,54,FOLLOW_54_in_relationship3420);
+                    rv_tree =
                     (Object)adaptor.create(rv)
                     ;
                     adaptor.addChild(root_0, rv_tree);
 
 
-                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); } 
+                     retval.r = RelationshipType.fromString(rv.getText()); if(retval.r == null) { retval.r = RelationshipType.fromAbbreviation(rv.getText()); }
 
                     }
                     break;
@@ -2757,7 +2757,7 @@ public TreeAdaptor getTreeAdaptor() {
     // Delegated rules
 
 
- 
+
 
     public static final BitSet FOLLOW_outer_term_in_statement81 = new BitSet(new long[]{0x0FC0C80458FE0002L,0x000000050804500CL});
     public static final BitSet FOLLOW_relationship_in_statement101 = new BitSet(new long[]{0xF03F37FBA7000800L,0x000000FAF7FBAFF3L});

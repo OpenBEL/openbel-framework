@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,9 +46,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -65,8 +65,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -92,11 +92,11 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the kam property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public KamHandle getKam() {
         return kam;
@@ -104,11 +104,11 @@ public class GetCustomDialectRequest {
 
     /**
      * Sets the value of the kam property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public void setKam(KamHandle value) {
         this.kam = value;
@@ -116,25 +116,25 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the geneNamespaces property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the geneNamespaces property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getGeneNamespaces().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Namespace }
-     * 
-     * 
+     *
+     *
      */
     public List<Namespace> getGeneNamespaces() {
         if (geneNamespaces == null) {
@@ -145,25 +145,25 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the bpNamespaces property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the bpNamespaces property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getBpNamespaces().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Namespace }
-     * 
-     * 
+     *
+     *
      */
     public List<Namespace> getBpNamespaces() {
         if (bpNamespaces == null) {
@@ -174,25 +174,25 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the chemNamespaces property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the chemNamespaces property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getChemNamespaces().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Namespace }
-     * 
-     * 
+     *
+     *
      */
     public List<Namespace> getChemNamespaces() {
         if (chemNamespaces == null) {
@@ -203,11 +203,11 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the syntax property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelSyntax }
-     *     
+     *
      */
     public BelSyntax getSyntax() {
         return syntax;
@@ -215,11 +215,11 @@ public class GetCustomDialectRequest {
 
     /**
      * Sets the value of the syntax property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelSyntax }
-     *     
+     *
      */
     public void setSyntax(BelSyntax value) {
         this.syntax = value;
@@ -227,7 +227,7 @@ public class GetCustomDialectRequest {
 
     /**
      * Gets the value of the hideNamespacePrefixes property.
-     * 
+     *
      */
     public boolean isHideNamespacePrefixes() {
         return hideNamespacePrefixes;
@@ -235,7 +235,7 @@ public class GetCustomDialectRequest {
 
     /**
      * Sets the value of the hideNamespacePrefixes property.
-     * 
+     *
      */
     public void setHideNamespacePrefixes(boolean value) {
         this.hideNamespacePrefixes = value;

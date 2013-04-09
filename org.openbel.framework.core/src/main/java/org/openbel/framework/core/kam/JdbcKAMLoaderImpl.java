@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -867,7 +867,7 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("utf-8 unsupported", e);
         }
-        
+
         try {
             // Insert into objects_text if we are over MAX_VARCHAR_LENGTH
             Integer objectsTextId = null;

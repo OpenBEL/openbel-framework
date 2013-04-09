@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -54,7 +54,7 @@ import org.openbel.framework.common.protonetwork.model.ProtoEdgeTable.TableProto
 /**
  * {@link ProtoNodeTable} defines the symbol table to hold proto nodes for the
  * {@link ProtoNetwork proto network}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -101,7 +101,7 @@ public class ProtoNodeTable extends ExternalType {
      * <p>
      * This operation maintains the {@link Map map} of term index to node index.
      * </p>
-     * 
+     *
      * @param termIndex {@link Integer} the term index created from the addition
      * to the {@link TermTable term table}
      * @param label {@link String} the placeholder label from the
@@ -135,7 +135,7 @@ public class ProtoNodeTable extends ExternalType {
     /**
      * Return the {@link List proto nodes list}. This list is modifiable to
      * allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link List proto nodes list}
      */
     public List<String> getProtoNodes() {
@@ -145,7 +145,7 @@ public class ProtoNodeTable extends ExternalType {
     /**
      * Return the {@link Map proto nodes index map}. This map is modifiable to
      * allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map proto nodes index map}, keys are {@link Integer
      * term index}, values are {@link Integer proto node index}
      */
@@ -156,7 +156,7 @@ public class ProtoNodeTable extends ExternalType {
     /**
      * Return the {@link Map node term index map}. This map is modifiable to
      * allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map visited term index map}, keys are {@link Integer
      * term index}, values are {@link Integer node index}.
      */
@@ -169,7 +169,7 @@ public class ProtoNodeTable extends ExternalType {
      * hold equivalenced nodes so {@link TableProtoEdge proto edges} can be
      * properly equivalenced. This map is modifiable to allow equivalencing to
      * main the remapped state.
-     * 
+     *
      * @return the {@link Map remapped old to new nodes map}
      */
     public Map<Integer, Integer> getRemappedNodes() {

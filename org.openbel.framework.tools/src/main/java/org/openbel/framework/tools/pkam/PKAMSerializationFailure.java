@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.common.BELFatalException;
 /**
  * PKAMSerializationFailure defines a {@link BELFatalException} that represents
  * a failure to serialize a particular KAM.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class PKAMSerializationFailure extends BELFatalException {
@@ -48,7 +48,7 @@ public class PKAMSerializationFailure extends BELFatalException {
 
     /**
      * Constructs the exception with kam name and error message.
-     * 
+     *
      * @param kamName {@link String}, the kam name
      * @param errorMsg {@link String}, the error message
      */
@@ -59,7 +59,7 @@ public class PKAMSerializationFailure extends BELFatalException {
 
     /**
      * Constructs the exception with kam name, error message, and cause.
-     * 
+     *
      * @param kamName {@link String}, the kam name
      * @param errorMsg {@link String}, the error message
      * @param cause {@link Throwable}, the cause of this failure

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ import org.openbel.framework.core.df.beldata.BELDataMissingPropertyException;
 /**
  * EquivalenceBlock encapsulates the '[Equivalence]' block of a BEL equivalence
  * document.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class EquivalenceBlock implements Serializable {
@@ -116,7 +116,7 @@ public class EquivalenceBlock implements Serializable {
 
     /**
      * Retrieves the name string.
-     * 
+     *
      * @return {@link String}, the name string, will not be null
      */
     public String getNameString() {
@@ -125,7 +125,7 @@ public class EquivalenceBlock implements Serializable {
 
     /**
      * Retrieves the description string.
-     * 
+     *
      * @return {@link String}, the description string, may be null
      */
     public String getDescriptionString() {
@@ -134,7 +134,7 @@ public class EquivalenceBlock implements Serializable {
 
     /**
      * Retrieves the version string.
-     * 
+     *
      * @return {@link String}, the version string, may be null
      */
     public String getVersionString() {
@@ -143,7 +143,7 @@ public class EquivalenceBlock implements Serializable {
 
     /**
      * Retrieves the created date time.
-     * 
+     *
      * @return {@link Date}, the created date time, will not be null
      */
     public Date getCreatedDateTime() {

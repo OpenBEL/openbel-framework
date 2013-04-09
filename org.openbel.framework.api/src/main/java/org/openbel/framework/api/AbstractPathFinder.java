@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -157,7 +157,7 @@ public abstract class AbstractPathFinder implements PathFinder {
 
     /**
      * Concatenate arrays {@code nodes1} and {@code nodes2}.
-     * 
+     *
      * @param nodes1 KAM nodes
      * @param nodes2 KAM nodes
      * @return KamNode[]
@@ -171,7 +171,7 @@ public abstract class AbstractPathFinder implements PathFinder {
 
     /**
      * Returns {@code true} if the kams are all equal, {@code false} otherwise.
-     * 
+     *
      * @param kams KAMs
      * @return boolean
      */
@@ -188,7 +188,7 @@ public abstract class AbstractPathFinder implements PathFinder {
 
     /**
      * Returns the KAMs associated with each KAM node.
-     * 
+     *
      * @param nodes KAM nodes
      * @return Kam array
      */
@@ -203,7 +203,7 @@ public abstract class AbstractPathFinder implements PathFinder {
 
     /**
      * Returns all paths from source to target within the kam.
-     * 
+     *
      * @param kam KAM; contains the source and target nodes
      * @param src Non-null source KAM node
      * @param tgt Non-null target KAM node
@@ -217,7 +217,7 @@ public abstract class AbstractPathFinder implements PathFinder {
      * <p>
      * Each KAM node array is guaranteed to contain no null elements.
      * </p>
-     * 
+     *
      * @param kam KAM; contains the source and target nodes
      * @param srcs Non-null source KAM nodes
      * @param tgts Non-null target KAM nodes
@@ -232,7 +232,7 @@ public abstract class AbstractPathFinder implements PathFinder {
      * The KAM node array {@code nodes} is guaranteed to contain no null
      * elements.
      * </p>
-     * 
+     *
      * @param kam KAM; contains the nodes
      * @param nodes Non-null KAM nodes
      * @return {@link SimplePath SimplePath[]}
@@ -242,7 +242,7 @@ public abstract class AbstractPathFinder implements PathFinder {
 
     /**
      * Returns all paths scanning out from the source node.
-     * 
+     *
      * @param kam KAM; contains the source node
      * @param src Non-null source KAM node
      * @return {@link SimplePath SimplePath[]}
@@ -256,7 +256,7 @@ public abstract class AbstractPathFinder implements PathFinder {
      * The KAM node array {@code srcs} is guaranteed to contain no null
      * elements.
      * </p>
-     * 
+     *
      * @param kam KAM; contains the source node
      * @param srcs kam KAM; contains the source nodes
      * @return {@link SimplePath SimplePath[]}

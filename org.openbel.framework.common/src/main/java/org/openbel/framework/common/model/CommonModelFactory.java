@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,14 +47,14 @@ import org.openbel.framework.common.enums.CitationType;
  * CommonModelFactory represents a factory for common model BEL objects.  The
  * factory deals with managing the construction of common model objects in
  * order to reduce redundant object creation.<br/><br/>
- * 
+ *
  * For instance, any {@link String} used in a common model will be managed in
  * the a local {@link Map} in order to reduce duplicate {@link String} objects.
  * <br/><br/>
- * 
+ *
  * The CommonModelFactory is a singleton class.  To obtain the single reference
  * access the static {@link CommonModelFactory#getInstance()}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public final class CommonModelFactory {
@@ -71,7 +71,7 @@ public final class CommonModelFactory {
 
     /**
      * Returns the singleton instance of this class.
-     * 
+     *
      * @return {@link CommonModelFactory} the single instance of this class
      */
     public synchronized static CommonModelFactory getInstance() {
@@ -144,7 +144,7 @@ public final class CommonModelFactory {
     /**
      * Resolve a {@link String} against the string pool to obtain the canonical
      * instance of the string.
-     * 
+     *
      * @param value {@link String} the string to obtain canonical reference for
      * @return {@link String} the canonical reference for the string
      */

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,7 +46,7 @@ public interface EquivalenceResource {
 
     /**
      * Opens all resources, making them available for access.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurred while opening
      * @see {@link #forResourceLocation(String)}
      */
@@ -54,7 +54,7 @@ public interface EquivalenceResource {
 
     /**
      * Closes all resources, making them unavailable for access.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurred while closing
      */
     public void closeResources() throws IOException;
@@ -62,14 +62,14 @@ public interface EquivalenceResource {
     /**
      * Returns {@code true} if the resources have been {@link #openResources()
      * opened}, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean opened();
 
     /**
      * Return a {@link EquivalenceLookup} for a resource location.
-     * 
+     *
      * @param rl Resource location
      * @return {@link EquivalenceLookup}; may be null
      * @throws IllegalStateException Thrown if resources have not been

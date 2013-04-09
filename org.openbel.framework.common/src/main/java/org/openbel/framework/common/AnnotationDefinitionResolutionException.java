@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ package org.openbel.framework.common;
  * AnnotationDefinitionResolutionException encapsulates a
  * {@link BELWarningException} designating an error in resolving an annotation
  * definition.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AnnotationDefinitionResolutionException extends
@@ -49,7 +49,7 @@ public class AnnotationDefinitionResolutionException extends
     /**
      * Construct the exception with the annotation definition resource
      * location, a user msg, and the exception's cause.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location
      * @param msg {@link String}, the exception msg
      * @param cause {@link Throwable}, the exception's cause
@@ -62,7 +62,7 @@ public class AnnotationDefinitionResolutionException extends
     /**
      * Construct the exception with the annotation definition resource
      * location and a user msg.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location
      * @param msg {@link String}, the exception msg
      */

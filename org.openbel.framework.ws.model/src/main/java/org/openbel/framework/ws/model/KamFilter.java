@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,11 +44,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for KamFilter complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="KamFilter">
  *   &lt;complexContent>
@@ -63,8 +63,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "KamFilter", propOrder = {
@@ -82,25 +82,25 @@ public class KamFilter {
 
     /**
      * Gets the value of the annotationCriteria property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the annotationCriteria property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAnnotationCriteria().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AnnotationFilterCriteria }
-     * 
-     * 
+     *
+     *
      */
     public List<AnnotationFilterCriteria> getAnnotationCriteria() {
         if (annotationCriteria == null) {
@@ -111,25 +111,25 @@ public class KamFilter {
 
     /**
      * Gets the value of the documentCriteria property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the documentCriteria property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getDocumentCriteria().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link BelDocumentFilterCriteria }
-     * 
-     * 
+     *
+     *
      */
     public List<BelDocumentFilterCriteria> getDocumentCriteria() {
         if (documentCriteria == null) {
@@ -140,25 +140,25 @@ public class KamFilter {
 
     /**
      * Gets the value of the citationCriteria property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the citationCriteria property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getCitationCriteria().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link CitationFilterCriteria }
-     * 
-     * 
+     *
+     *
      */
     public List<CitationFilterCriteria> getCitationCriteria() {
         if (citationCriteria == null) {
@@ -169,25 +169,25 @@ public class KamFilter {
 
     /**
      * Gets the value of the relationshipCriteria property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the relationshipCriteria property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getRelationshipCriteria().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link RelationshipTypeFilterCriteria }
-     * 
-     * 
+     *
+     *
      */
     public List<RelationshipTypeFilterCriteria> getRelationshipCriteria() {
         if (relationshipCriteria == null) {

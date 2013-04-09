@@ -17,15 +17,15 @@ public interface KAMUpdateDao extends KAMDao {
 
     /**
      * Collapse a {@link KamNode kam node} to another {@link KamNode kam node}.
-     * 
+     *
      * <p>
      * Collapsing a {@link KamNode kam node} involves the following:<ul>
      * <li>Redirect incoming and outgoing {@link KamEdge kam edges} from
      * {@code collapsingNode} to {@code collapseToNode}</li>
      * <li>Delete {@code collapsingNode}</li>
      * <li>Move supporting {@link BelTerm BEL term} data from
-     * {@code collapsingNode} to {@code collapseToNode}</li></ul>  
-     * 
+     * {@code collapsingNode} to {@code collapseToNode}</li></ul>
+     *
      * @param collapsing {@link KamNode} node to collapse; may not be
      * {@code null}
      * @param collapseTo {@link KamNode} the collapse target; may not be
@@ -43,18 +43,18 @@ public interface KAMUpdateDao extends KAMDao {
 
     /**
      * Remove all {@link KamEdge kam edges} from the {@link Set}.
-     * 
+     *
      * @param edgeIds {@code int[]} array of edge ids
      * @return {@code int} kam edges deleted
      * @throws SQLException when a SQL error occurred deleting records
      * @throws InvalidArgument when {@code edges} is {@code null}
      */
     public int removeKamEdges(int[] edgeIds) throws SQLException;
-    
+
     /**
      * Remove {@link KamEdge kam edges} for a specific
      * {@link RelationshipType relationship}.
-     * 
+     *
      * @param relationship {@link RelationshipType}; may not be {@code null}
      * @return {@code int} records deleted (kam edges + statements)
      * @throws SQLException when a SQL error occurred deleting records
@@ -62,17 +62,17 @@ public interface KAMUpdateDao extends KAMDao {
      */
     public int removeKamEdges(RelationshipType relationship)
             throws SQLException;
-    
+
     /**
      * Coalesce duplicate {@link KamEdge kam edges} to one
      * {@link KamEdge kam edge}.  The statements for each duplicate
      * {@link KamEdge kam edge} will be remapped and then that
      * {@link KamEdge kam edge} will be removed.
-     * 
+     *
      * <p>
      * For example if there exists the following
      * edges:
-     * 
+     *
      * <p>
      * <table>
      * <tr>
@@ -100,10 +100,10 @@ public interface KAMUpdateDao extends KAMDao {
      *   <td>17</td>
      * </tr>
      * </table>
-     * 
+     *
      * <p>
      * then edges will coalesce to:
-     * 
+     *
      * <p>
      * <table>
      * <tr>
@@ -119,7 +119,7 @@ public interface KAMUpdateDao extends KAMDao {
      *   <td>15, 16, 17</td>
      * </tr>
      * </table>
-     * 
+     *
      * @return {@code int} kam edges coalesced/removed
      * @throws SQLException when a SQL error occurred collapsing edges
      */

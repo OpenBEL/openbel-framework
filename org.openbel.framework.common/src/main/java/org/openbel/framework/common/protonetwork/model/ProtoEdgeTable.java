@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -59,14 +59,14 @@ import org.openbel.framework.common.protonetwork.model.StatementTable.TableState
 /**
  * {@link ProtoEdgeTable} defines a symbol table to hold proto edges for the
  * {@link ProtoNetwork proto network}. The proto edge is composed of the triple:
- * 
+ *
  * <pre>
  * source node, relationship, target node
  * </pre>
  * <p>
  * This symbol table holds the association
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -116,7 +116,7 @@ public class ProtoEdgeTable extends ExternalType {
      * There must be at least one {@link TableProtoEdge proto edge} to
      * associate to a statement otherwise an exception is thrown.
      * </p>
-     * 
+     *
      * @param stmt the {@link TableStatement statement} index to associate the
      * {@link TableProtoEdge proto edges} to, which cannot be null
      * @param newEdges the {@link TableProtoEdge proto edges} array to add to
@@ -161,7 +161,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link List proto edges list}. This list is modifiable to
      * allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link List proto edges list}
      */
     public List<TableProtoEdge> getProtoEdges() {
@@ -171,7 +171,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map statement to edges associations map}. This map is
      * modifiable to allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map statement to edges associations map}
      */
     public Map<Integer, Set<Integer>> getStatementEdges() {
@@ -181,7 +181,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map edge to statements associations map}. This map is
      * modifiable to allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map edge to statements associations map}
      */
     public Map<Integer, Set<Integer>> getEdgeStatements() {
@@ -191,7 +191,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map proto edges to index map}. This map is unmodifiable
      * to prevent the visited state from being changed.
-     * 
+     *
      * @return the {@link Map edge to statements associations map}
      */
     public Map<TableProtoEdge, Integer> getVisitedEdges() {
@@ -343,11 +343,11 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * {@link TableProtoEdge} defines the container object for a proto network
      * edge. The {@link TableProtoEdge proto network edge} is made up of:
-     * 
+     *
      * <pre>
      * source (int), rel (RelationshipType), target (int)
      * </pre>
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -376,11 +376,11 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Create the {@link TableProtoEdge proto edge} with the triple:
-         * 
+         *
          * <pre>
          * source, rel, target
          * </pre>
-         * 
+         *
          * @param source the {@code int} source index
          * @param relName the {@link String relationship name}
          * @param target the {@code int} target index
@@ -404,7 +404,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the source.
-         * 
+         *
          * @return the source
          */
         public int getSource() {
@@ -413,7 +413,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the {@link String relationship name}.
-         * 
+         *
          * @return the {@link String relationship name}
          */
         public String getRel() {
@@ -422,7 +422,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the target.
-         * 
+         *
          * @return the target
          */
         public int getTarget() {
@@ -431,7 +431,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Compute the hash since {@link TableProtoEdge this} is immutable.
-         * 
+         *
          * @return the computed hash {@code int}
          */
         private int computeHash() {

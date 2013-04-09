@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,12 +61,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implements a resolver service that resolves nodes and edges to a KAM.
- * 
+ *
  * <p>
  * The namespace values do not have to exist in a specific KAM, but they must be
  * discoverable within the current BELFramework instance.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 @Service
@@ -99,7 +99,7 @@ public class ResolverServiceImpl implements ResolverService {
             if (node == null || node.getLabel() == null) {
                 throw new InvalidArgument("Node is invalid.");
             }
-            
+
             String bel = node.getLabel();
 
             try {
@@ -166,7 +166,7 @@ public class ResolverServiceImpl implements ResolverService {
 
     /**
      * Assemble all known namespaces from the resource index and {@link Kam}.
-     * 
+     *
      * @param kam
      *            {@link Kam}
      * @return {@link Map} of namespace {@link String prefix} to {@link String

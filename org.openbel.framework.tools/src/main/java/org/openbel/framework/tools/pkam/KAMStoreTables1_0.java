@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * KAMStoreTables1_0 defines the 1.0 version of the KamStore in order to
  * understand how to read / write KAM data for Portable KAM format.
- * 
+ *
  * <p>
  * Ordinal in {@link KAMStoreTables1_0} enum is important
  * in correct processing of SQL insert statements in order to maintatin

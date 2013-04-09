@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,20 +46,20 @@ public interface ValidationService {
 
     /**
      * Validate a {@link Document}.
-     * 
+     *
      * @param document {@link Document} to validate, can not be null.
-     * @return {@link ValidationResult} containing all errors and/or 
-     * warnings that occurred during the validation, never null but can be 
+     * @return {@link ValidationResult} containing all errors and/or
+     * warnings that occurred during the validation, never null but can be
      * empty.
      */
     ValidationResult validate(Document document);
 
     /***
      * Validate a {@link Statement}.
-     * 
+     *
      * @param statement {@link Statement} to validate, can not be null.
-     * @return {@link ValidationResult} containing all errors and/or 
-     * warnings that occurred during the validation, never null but can be 
+     * @return {@link ValidationResult} containing all errors and/or
+     * warnings that occurred during the validation, never null but can be
      * empty.
      */
     ValidationResult validate(Statement statement);

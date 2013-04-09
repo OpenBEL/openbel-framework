@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,17 +40,17 @@ import org.openbel.framework.ws.model.ObjectFactory;
 /**
  * Utility class to store a singleton object for the generated
  * {@link ObjectFactory} class.
- * 
+ *
  * @author James McMahon {@code <jmcmahon@selventa.com>}
  */
 public class ObjectFactorySingleton {
 
     private static final ObjectFactory INSTANCE = new ObjectFactory();
-    
+
     private ObjectFactorySingleton() {
         // private constructor to insure no instances of class
     }
-    
+
     public static ObjectFactory getInstance() {
         return INSTANCE;
     }

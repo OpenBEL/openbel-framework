@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.framework.ws.model.NamespaceValue;
 
 /**
  * Defines an equivalencer service that finds equivalences for namespace values.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface EquivalencerService {
@@ -52,7 +52,7 @@ public interface EquivalencerService {
     /**
      * Finds an equivalent namespace value, for <tt>sourceNamespaceValue</tt>,
      * in the <tt>targetNamespace</tt>.
-     * 
+     *
      * @param sourceNamespaceValue {@link NamespaceValue}, the source namespace
      *            value
      * @param targetNamespace {@link Namespace}, the target namespace
@@ -66,7 +66,7 @@ public interface EquivalencerService {
 
     /**
      * Finds all equivalent namespace values for <tt>sourceNamespaceValue</tt>.
-     * 
+     *
      * @param sourceNamespaceValue {@link NamespaceValue}, the source namespace
      *            value
      * @return the equivalent {@link NamespaceValue} objects, or an empty
@@ -80,7 +80,7 @@ public interface EquivalencerService {
 
     /**
      * Obtain the {@link EquivalenceId} for a {@link NamespaceValue}.
-     * 
+     *
      * @param namespaceValue. If {@link EquivalenceId} is populated in the
      *            namespace value, it will be ignored.
      * @return {@link EquivalenceId} or <code>null</code> if no equivalent can

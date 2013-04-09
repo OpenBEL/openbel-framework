@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,8 +39,8 @@ import org.openbel.framework.common.InvalidArgument;
 
 /**
  * ResourceLocation encapsulates the {@link String} location of the
- * resource. 
- * 
+ * resource.
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ResourceLocation {
@@ -49,7 +49,7 @@ public class ResourceLocation {
     /**
      * Constructs the ResourceLocation object with the {@link String}
      * resource location.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location
      * @throws InvalidArgument Thrown if the <tt>resourceLocation</tt>,
      * {@link String} is null
@@ -64,7 +64,7 @@ public class ResourceLocation {
 
     /**
      * Returns the {@link String} resource location.
-     * 
+     *
      * @return {@link String}, the resource location
      */
     public String getResourceLocation() {

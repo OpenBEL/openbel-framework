@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import org.openbel.framework.tools.xgmml.XGMMLObjects.Node;
 /**
  * XGMMLUtility provides utility methods for writing graph, node, and edge
  * sections of an XGMML xml document.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class XGMMLUtility {
@@ -86,7 +86,7 @@ public class XGMMLUtility {
 
     /**
      * Returns a shape for the supplied {@link FunctionEnum}.
-     * 
+     *
      * @param fe {@link FunctionEnum}
      * @return Non-null {@link String}
      * @see #DFLT_NODE_SHAPE
@@ -149,7 +149,7 @@ public class XGMMLUtility {
     /**
      * Returns an RGB tuple of the form {@code "x,x,x"} for the supplied
      * {@link FunctionEnum}. Defaults to gray; RGB {@code "150,150,150"}.
-     * 
+     *
      * @param fe {@link FunctionEnum}
      * @return Non-null {@link String}
      */
@@ -211,7 +211,7 @@ public class XGMMLUtility {
     /**
      * Returns an RGB tuple of the form {@code "x,x,x"} for the supplied
      * {@link RelationshipType}. Defaults to black; RGB {@code "0,0,0"}.
-     * 
+     *
      * @param fe {@link RelationshipType}
      * @return Non-null {@link String}
      */
@@ -252,7 +252,7 @@ public class XGMMLUtility {
 
     /**
      * Write the XGMML start using the {@code graphName} as the label.
-     * 
+     *
      * @param name {@link String}, the name of the XGMML graph
      * @param writer {@link PrintWriter}, the writer
      */
@@ -268,7 +268,7 @@ public class XGMMLUtility {
 
     /**
      * Write an XGMML {@code <node>} from {@code node} properties.
-     * 
+     *
      * @param node {@link Node}, the node to write
      * @param writer {@link PrintWriter}, the writer
      */
@@ -314,7 +314,7 @@ public class XGMMLUtility {
 
     /**
      * Write an XGMML &lt;edge&gt; from {@code edge} properties.
-     * 
+     *
      * @param edge {@link Edge}, the edge to write
      * @param writer {@link PrintWriter}, the writer
      */
@@ -347,7 +347,7 @@ public class XGMMLUtility {
 
     /**
      * Write the XGMML end.
-     * 
+     *
      * @param writer {@link PrintWriter}, the writer
      */
     public static void writeEnd(PrintWriter writer) {

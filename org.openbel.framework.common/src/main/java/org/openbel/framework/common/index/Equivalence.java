@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,7 +42,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * Equivalence encapsulates an equivalence resource and it's associated
  * source and target namespace resources.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public final class Equivalence extends ResourceLocation {
@@ -51,7 +51,7 @@ public final class Equivalence extends ResourceLocation {
     /**
      * Constructs the Equivalence object with an equivalence resource and a
      * namespace resource.
-     * 
+     *
      * @param equivalenceResource {@link String}, the equivalence resource
      * location, which cannot be null
      * @param namespaceResourceLocation {@link ResourceLocation}, the
@@ -73,7 +73,7 @@ public final class Equivalence extends ResourceLocation {
     /**
      * Returns the namespace {@link ResourceLocation} that should point to a
      * namespace document.
-     * 
+     *
      * @return {@link ResourceLocation} the namespace resource location
      */
     public ResourceLocation getNamespaceResourceLocation() {

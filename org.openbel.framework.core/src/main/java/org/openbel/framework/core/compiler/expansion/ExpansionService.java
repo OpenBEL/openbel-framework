@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.core.protonetwork.ProtoNetworkBuilder;
  * {@link ExpansionService} defines the mechanism which expands terms and
  * statements to {@link ProtoNetwork proto network} proto nodes and proto
  * edges.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface ExpansionService {
@@ -51,7 +51,7 @@ public interface ExpansionService {
     /**
      * Expand terms in the {@link ProtoNetwork proto network} based on a set
      * of {@link TermExpansionRule term expansion rules}.
-     * 
+     *
      * @param doc the original {@link Document document} needed as a dependency
      * when using {@link ProtoNetworkBuilder proto network builder}
      * @param pn the {@link ProtoNetwork proto network}
@@ -62,7 +62,7 @@ public interface ExpansionService {
     /**
      * Expand statements in the {@link ProtoNetwork proto network} based on a
      * set of {@link StatementExpansionRule statement expansion rules}.
-     * 
+     *
      * @param doc the original {@link Document document} needed as a dependency
      * when using {@link ProtoNetworkBuilder proto network builder}
      * @param pn the {@link ProtoNetwork proto network}

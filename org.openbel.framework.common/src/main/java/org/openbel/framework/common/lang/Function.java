@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,7 +61,7 @@ public abstract class Function {
 
     /**
      * Creates a function.
-     * 
+     *
      * @param name Function name
      * @param abbr The function's abbreviation; its short notation (may be null)
      * @param brfDesc A brief, <b>one-line</b> description of the function
@@ -88,7 +88,7 @@ public abstract class Function {
 
     /**
      * Returns a read-only version of the function's signature set.
-     * 
+     *
      * @return Read-only {@link Set set} of {@link Signature signatures}
      */
     public Set<Signature> getSignatures() {
@@ -97,7 +97,7 @@ public abstract class Function {
 
     /**
      * Returns the function's name.
-     * 
+     *
      * @return {@link String}
      */
     public String getName() {
@@ -106,7 +106,7 @@ public abstract class Function {
 
     /**
      * Returns the function's abbreviation.
-     * 
+     *
      * @return {@link String}, may be null
      */
     public String getAbbreviation() {
@@ -115,7 +115,7 @@ public abstract class Function {
 
     /**
      * Returns the function's brief description.
-     * 
+     *
      * @return {@link String}
      */
     public String getBriefDescription() {
@@ -129,7 +129,7 @@ public abstract class Function {
      * You can access the semantic status of invalid signatures (those returning
      * {@code false} here) via {@link #getStatus(Signature) getStatus}.
      * </p>
-     * 
+     *
      * @param sig {@link Signature}
      * @return boolean
      * @see #getStatus(Signature)
@@ -148,7 +148,7 @@ public abstract class Function {
      * Returns a map of {@link Signature signatures} to {@link SemanticStatus
      * semantic status}. The provided signature is checked against all
      * signatures of this function.
-     * 
+     *
      * @param sig {@link Signature}
      * @return Map of signatures to semantic status
      * @see #validSignature(Signature)
@@ -218,7 +218,7 @@ public abstract class Function {
     /**
      * Returns {@code true} if the argument {@code count} is valid for this
      * function, {@code false} otherwise.
-     * 
+     *
      * @param count Argument count
      * @return boolean
      */

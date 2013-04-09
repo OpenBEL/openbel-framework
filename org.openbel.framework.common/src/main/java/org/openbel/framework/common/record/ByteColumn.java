@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,7 +46,7 @@ import org.openbel.framework.common.record.Column;
  * Represents a {@link Column} of type {@link Byte} with a size of 1 byte.
  */
 public class ByteColumn extends Column<Byte> {
-    
+
     private static final ByteColumn selfNonNull;
     private static final ByteColumn selfNull;
     private static final byte space = 1;
@@ -61,31 +61,31 @@ public class ByteColumn extends Column<Byte> {
 
     /**
      * Return the {@code non-null} {@link ByteColumn} instance.
-     * 
+     *
      * @return {@link ByteColumn}
      */
     public static ByteColumn nonNullByteColumn() {
         return selfNonNull;
     }
-    
+
     /**
      * Return the {@code nullable} {@link ByteColumn} instance.
-     * 
+     *
      * @return {@link ByteColumn}
      */
     public static ByteColumn nullByteColumn() {
         return selfNull;
     }
-    
+
     /**
      * Private constructor.
-     * 
+     *
      * @param nullable {@code boolean}; {@code nullable} value or not
      */
     private ByteColumn(boolean nullable) {
         super(space, nullable);
     }
-    
+
     /**
      * {@inheritDoc}
      */

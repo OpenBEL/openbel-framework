@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.core.compiler.ResourceSyntaxWarning;
 /**
  * A resource syntax warning indicating a given value is syntactically incorrect
  * for an annotation.
- * 
+ *
  * @author Steve Ungerer
  */
 public class AnnotationSyntaxWarning extends ResourceSyntaxWarning {
@@ -55,7 +55,7 @@ public class AnnotationSyntaxWarning extends ResourceSyntaxWarning {
      * Construct an {@link AnnotationSyntaxWarning} indicating that a given
      * value, defined with the given name is syntactically incorrect based on
      * the definition located at the given resourceLocation.
-     * 
+     *
      * @param resourceLocation
      *            the URL defining the annotation definition
      * @param annotationName
@@ -73,7 +73,7 @@ public class AnnotationSyntaxWarning extends ResourceSyntaxWarning {
     /**
      * Construct an {@link AnnotationSyntaxWarning} indicating that a given
      * value, defined internally with the given name is syntactically incorrect.
-     * 
+     *
      * @param annotationName the name of the annotation
      * @param value the value of the annotation
      */

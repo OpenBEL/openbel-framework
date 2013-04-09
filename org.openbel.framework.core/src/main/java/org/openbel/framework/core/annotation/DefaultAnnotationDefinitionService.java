@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ import org.openbel.framework.core.df.external.CacheableAnnotationDefinitionServi
 /**
  * DefaultAnnotationDefinitionService implements a service to populate an
  * {@link AnnotationDefinition} from an external resource location.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class DefaultAnnotationDefinitionService implements
@@ -60,7 +60,7 @@ public class DefaultAnnotationDefinitionService implements
      * Defines the map of parsed annotations. The entries are keyed by
      * annotation resource location with {@link AnnotationDefinition} as the
      * value.
-     * 
+     *
      * <p>
      * This map in thread-safe as it uses {@link ConcurrentHashMap}.
      * </p>

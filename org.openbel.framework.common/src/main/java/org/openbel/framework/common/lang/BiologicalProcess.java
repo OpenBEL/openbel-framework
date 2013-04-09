@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes a process or population of events.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * biologicalProcess(E:biologicalProcess)biologicalProcess
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class BiologicalProcess extends Function {

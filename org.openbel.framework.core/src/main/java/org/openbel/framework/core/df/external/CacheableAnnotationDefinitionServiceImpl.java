@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -62,7 +62,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
 /**
  * CacheableAnnotationDefinitionServiceImpl implements a service to resolve BEL
  * annotation files and cache the data for subsequent calls.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class CacheableAnnotationDefinitionServiceImpl implements
@@ -164,7 +164,7 @@ public class CacheableAnnotationDefinitionServiceImpl implements
     /**
      * Reads each line after the [Values] block as enumeration values for the
      * annotation definition.
-     * 
+     *
      * @param annotationCacheCopy {@link File}, the annotation file to read
      * from
      * @param valueDelimiter {@link String}, the delimiter that separates
@@ -209,7 +209,7 @@ public class CacheableAnnotationDefinitionServiceImpl implements
     /**
      * Reads the first line after the annotation header as a regular expression
      * for the annotation definition.
-     * 
+     *
      * @param annotationCacheCopy
      *            {@link File}, the annotation cache copy to parse
      * @param characterOffset

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,8 +45,8 @@ import org.apache.commons.lang.StringUtils;
 import org.openbel.framework.common.InvalidArgument;
 
 /**
- * AuthorBlock encapsulates the '[Author]' block of a BEL namespace document. 
- * 
+ * AuthorBlock encapsulates the '[Author]' block of a BEL namespace document.
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AuthorBlock implements Serializable {
@@ -93,7 +93,7 @@ public class AuthorBlock implements Serializable {
 
     /**
      * Retrieves the name string.
-     * 
+     *
      * @return {@link String}, the name string, will not be null
      */
     public String getNameString() {
@@ -102,7 +102,7 @@ public class AuthorBlock implements Serializable {
 
     /**
      * Retrieves the copyright string.
-     * 
+     *
      * @return {@link String}, the copyright string, may be null
      */
     public String getCopyrightString() {
@@ -111,7 +111,7 @@ public class AuthorBlock implements Serializable {
 
     /**
      * Retrieves the contact info string.
-     * 
+     *
      * @return {@link String}, the contact info string, may be null
      */
     public String getContactInfoString() {

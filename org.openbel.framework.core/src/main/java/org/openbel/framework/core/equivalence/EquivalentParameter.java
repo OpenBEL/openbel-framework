@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,14 +47,14 @@ import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
  * If a bucket is provided during time of construction, the equivalence relation
  * for these objects will be based solely on the bucket field. The effect of
  * this is that for two equivalence parameter objects:
- * 
+ *
  * <pre>
  * <code>
  * x: (NAMESPACE1:VALUE1)
  * y: (NAMESPACE2:VALUE2)
  * </code>
  * </pre>
- * 
+ *
  * If {@code x} and {@code y} have the same bucket, i.e., they both express the
  * same biological knowledge, the Java object representations are equal.
  * Therefore {@code x.equals(y)} and {@code y.equals(x)}. Note that for
@@ -70,7 +70,7 @@ public class EquivalentParameter extends Parameter {
      * Creates an equivalent parameter with the optional properties similar to
      * {@link Parameter#Parameter(Namespace, String) super} with the exception
      * of an additional bucket parameter.
-     * 
+     *
      * @param ns {@link Namespace}
      * @param value Value
      * @param bucket Equivalence bucket

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,14 +40,14 @@ import org.openbel.framework.common.enums.RelationshipType;
 
 /**
  * Defines a node data structure for XGMML output.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class XGMMLObjects {
 
     /**
      * Defines a node data structure for XGMML output.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected static class Node {
@@ -58,7 +58,7 @@ class XGMMLObjects {
 
     /**
      * Defines an edge data structure for XGMML output.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected static class Edge {
@@ -70,7 +70,7 @@ class XGMMLObjects {
 
     /**
      * Defines a statement data structure for XGMML output.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected static class Statement {
@@ -82,7 +82,7 @@ class XGMMLObjects {
     /**
      * Defines a document data structure to include as a graph attribute to
      * the XGMML output.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected static class Document {
@@ -93,7 +93,7 @@ class XGMMLObjects {
     /**
      * Defines a term data structure to include as a node attribute to the
      * XGMML output.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     protected static class Term {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -54,7 +54,7 @@ import org.springframework.ws.soap.SoapMessage;
  * {@link CustomizeSoapFaultExceptionResolver} is a custom implementation of an
  * {@link EndpointExceptionResolver endpoint exception resolver} that prepends
  * the webservice operation name to the endpoint's exception message.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class CustomizeSoapFaultExceptionResolver extends
@@ -134,7 +134,7 @@ public class CustomizeSoapFaultExceptionResolver extends
     /**
      * Create the soap fault and attach to the {@link SoapBody} of the
      * {@link SoapMessage soap response}.
-     * 
+     *
      * @param msgctx {@link MessageContext}, the message context for this
      * webservice message
      * @param wsopName {@link String}, the webservice operation name, which can

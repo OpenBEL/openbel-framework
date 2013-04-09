@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -78,7 +78,7 @@ import org.openbel.framework.core.df.external.ExternalResourceException;
 
 /**
  * Provides access to a KamStore and the KAMs.
- * 
+ *
  * @author julianjray
  */
 public final class KAMStoreImpl implements KAMStore {
@@ -92,10 +92,10 @@ public final class KAMStoreImpl implements KAMStore {
     /* Map populated as KAMs are requested. */
     private Map<KamInfo, KAMStoreDao> daomap;
     private Map<KamInfo, KAMUpdateDao> updatemap;
-    
+
     /**
      * Creates a KAM store associated to the provided database connection.
-     * 
+     *
      * @param dbConnection Database connection
      */
     public KAMStoreImpl(DBConnection dbConnection) {
@@ -155,7 +155,7 @@ public final class KAMStoreImpl implements KAMStore {
             dao.terminate();
             daomap.remove(ki);
         }
-        
+
         KAMUpdateDao update = updatemap.get(ki);
         if (update != null) {
             update.terminate();
@@ -177,7 +177,7 @@ public final class KAMStoreImpl implements KAMStore {
             next.getValue().terminate();
             iter.remove();
         }
-        
+
         Set<Entry<KamInfo, KAMUpdateDao>> e = entries(updatemap);
         Iterator<Entry<KamInfo, KAMUpdateDao>> ie = e.iterator();
         while (ie.hasNext()) {
@@ -651,7 +651,7 @@ public final class KAMStoreImpl implements KAMStore {
         }
         return kamNodeList;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -663,7 +663,7 @@ public final class KAMStoreImpl implements KAMStore {
         if (fx == null) throw new InvalidArgument("fx is null");
         if (uuids == null || uuids.length == 0)
             throw new InvalidArgument("uuids", uuids);
-        
+
         try {
             final KAMStoreDao dao = kamStoreDao(k.getKamInfo());
             Integer nid = dao.getKamNodeForTerm(t, fx, uuids);
@@ -752,7 +752,7 @@ public final class KAMStoreImpl implements KAMStore {
             throw new KAMStoreException(msg, e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -781,7 +781,7 @@ public final class KAMStoreImpl implements KAMStore {
             throw new KAMStoreException(msg, e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -797,7 +797,7 @@ public final class KAMStoreImpl implements KAMStore {
             throw new KAMStoreException(msg, e);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -811,7 +811,7 @@ public final class KAMStoreImpl implements KAMStore {
             throw new KAMStoreException(msg, e);
         }
     }
-    
+
     private KAMStoreDao kamStoreDao(KamInfo ki) throws SQLException {
         KAMStoreDao dao = daomap.get(ki);
         if (dao != null) return dao;

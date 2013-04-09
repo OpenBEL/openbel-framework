@@ -19,18 +19,18 @@ import org.openbel.framework.core.compiler.expansion.ExpansionServiceImpl;
 /**
  * Unit test for {@link ProtoNetworkMerger}.  This unit test's purpose is to
  * exercise the merge routines for completeness and correctness.
- * 
+ *
  * <p>
  * Created to assert the commutative property of network merges holds true.
  * </p>
- * 
+ *
  * @see https://github.com/OpenBEL/openbel-framework/issues/49
  */
 public class ProtoNetworkMerge_CommutativeTest {
 
     private static final String URL = "http://resource.belframework.org/" +
     		"belframework/1.0/namespace/hgnc-approved-symbols.belns";
-    
+
     @Test
     /**
      * Tests that statement triples in two {@link Document documents} will
@@ -45,14 +45,14 @@ public class ProtoNetworkMerge_CommutativeTest {
                 new NamespaceGroup(URL, null),
                 parse("m(AKT1) =| p(AKT2)"),
                 parse("cat(g(AKT2)) -| p(PARP1)"));
-        
+
         // merge in different orders
         ProtoNetwork ab = merge(a, b);
         ProtoNetwork ba = merge(b, a);
 
         network_asserts(ab, ba);
     }
-    
+
     @Test
     /**
      * Tests that subject-only statements in two {@link Document documents}
@@ -67,11 +67,11 @@ public class ProtoNetworkMerge_CommutativeTest {
                 new NamespaceGroup(URL, null),
                 parse("m(AKT1)"),
                 parse("g(AKT2)"));
-        
+
         // merge in different orders
         ProtoNetwork ab = merge(a, b);
         ProtoNetwork ba = merge(b, a);
-        
+
         network_asserts(ab, ba);
     }
 
@@ -89,20 +89,20 @@ public class ProtoNetworkMerge_CommutativeTest {
                 new NamespaceGroup(URL, null),
                 parse("m(AKT1) => (g(PARP1) -| p(AKT2))"),
                 parse("g(AKT2) -> (r(AKT1) => p(PARP1))"));
-        
+
         // merge in different orders
         ProtoNetwork ab = merge(a, b);
         ProtoNetwork ba = merge(b, a);
-        
+
         network_asserts(ab, ba);
     }
-    
+
     /**
      * Asserts equal table counts.  The {@link ProtoNetwork} objects cannot be
      * compared directly because {@link ProtoNetwork#equals(Object)} relies on
      * collection ordering which will not be consistent when {@link Document}s
      * are merged in different sequences.
-     * 
+     *
      * @param ab {@link ProtoNetwork}
      * @param ba {@link ProtoNetwork}
      */
@@ -123,7 +123,7 @@ public class ProtoNetworkMerge_CommutativeTest {
      * Merges two {@link Document}s together after each has been compiled.
      * The compilation step builds the {@link ProtoNetwork} and expands
      * additional knowledge.
-     * 
+     *
      * @param a {@link Document}
      * @param b {@link Document}
      * @return merged {@link ProtoNetwork}
@@ -140,10 +140,10 @@ public class ProtoNetworkMerge_CommutativeTest {
         merger.merge(networkA, n2);
         return networkA;
     }
-    
+
     /**
      * Build a {@link Document} for testing.
-     * 
+     *
      * @param h {@link Header}; document header
      * @param n {@link NamespaceGroup}; namespace group
      * @param statements {@link Statement}; bel statements
@@ -154,10 +154,10 @@ public class ProtoNetworkMerge_CommutativeTest {
         g.setStatements(Arrays.asList(statements));
         return new Document(h, Arrays.asList(g), n, null);
     }
-    
+
     /**
      * Parses a {@link String string} into a {@link Statement bel statement}.
-     * 
+     *
      * @param statement {@link String}
      * @return {@link Statement}
      */

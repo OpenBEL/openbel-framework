@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,14 +52,14 @@ import org.openbel.framework.core.df.beldata.namespace.NamespaceHeader;
 /**
  * EquivalenceHeaderParser parses an equivalence file into a
  * {@link EquivalenceHeader} object.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class EquivalenceHeaderParser extends BELDataHeaderParser {
 
     /**
      * Parses the equivalence {@link File} into a {@link EquivalenceHeader} object.
-     * 
+     *
      * @param equivalenceFile {@link File}, the equivalence file, which cannot be
      * null, must exist, and must be readable
      * @return {@link NamespaceHeader}, the parsed equivalence header
@@ -67,8 +67,8 @@ class EquivalenceHeaderParser extends BELDataHeaderParser {
      * <tt>equivalenceFile</tt>
      * @throws BELDataHeaderParseException Thrown if a parsing error occurred
      * when processing the <tt>equivalenceFile</tt>
-     * @throws BELDataConversionException 
-     * @throws BELDataMissingPropertyException 
+     * @throws BELDataConversionException
+     * @throws BELDataMissingPropertyException
      * @throws InvalidArgument Thrown if the <tt>equivalenceFile</tt> is null,
      * does not exist, or cannot be read
      */

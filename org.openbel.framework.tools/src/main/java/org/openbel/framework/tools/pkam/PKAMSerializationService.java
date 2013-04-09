@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * PKAMSerializationService defines a service to serialize a KamStore KAM
  * database into Portable KAM format.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface PKAMSerializationService {
@@ -48,7 +48,7 @@ public interface PKAMSerializationService {
     /**
      * Serializes KAM, identified by <tt>kamName</tt>, to a file, identified by
      * <tt>fileName</tt>, in Portable KAM (PKAM) format.
-     * 
+     *
      * @param kamName {@link String}, the kam name to serialize, which cannot
      * be null
      * @param filePath {@link String}, the file path to store serialized data,
@@ -64,10 +64,10 @@ public interface PKAMSerializationService {
     /**
      * Deserializes KAM from a file, identified by <tt>filePath</tt>, in
      * Portable KAM format.
-     * 
+     *
      * @param kamName {@link String}, the kam name to save the deserialized
      * KAM to, which can be null, indicating the kam name should be read from
-     * the file 
+     * the file
      * @param filePath {@link String}, the file path where the Portable KAM is
      * stored, which cannot be null
      * @param noPreserve <tt>boolean</tt>, the noPreserve option needed once

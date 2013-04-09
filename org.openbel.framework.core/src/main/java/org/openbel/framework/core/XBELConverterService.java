@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,13 +45,13 @@ import org.openbel.framework.common.model.Document;
 
 /**
  * Converts between XBEL XML documents and Java objects.
- * 
+ *
  */
 public interface XBELConverterService {
 
     /**
      * Converts from an XML model document to XML.
-     * 
+     *
      * @param d XBEL model document
      * @return XML
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -63,7 +63,7 @@ public interface XBELConverterService {
 
     /**
      * Converts from XML string data to a XBEL XML model document.
-     * 
+     *
      * @param s XML string
      * @return XBEL model document
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -75,7 +75,7 @@ public interface XBELConverterService {
 
     /**
      * Converts from an XML file to a XBEL XML model document.
-     * 
+     *
      * @param f XBEL XML file
      * @return XBEL model document
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -87,7 +87,7 @@ public interface XBELConverterService {
 
     /**
      * Converts from a common model document to an XML string.
-     * 
+     *
      * @param d Common model document
      * @return XML
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -99,7 +99,7 @@ public interface XBELConverterService {
 
     /**
      * Writes a common model document as XML to a file.
-     * 
+     *
      * @param d Common model document
      * @param f File
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -111,7 +111,7 @@ public interface XBELConverterService {
 
     /**
      * Converts from XML string data to a XBEL common model document.
-     * 
+     *
      * @param s XML string
      * @return XBEL common model document
      * @throws IOException Thrown if an I/O exception occurred during JAXB
@@ -123,7 +123,7 @@ public interface XBELConverterService {
 
     /**
      * Converts from an XML file to a XBEL common model document.
-     * 
+     *
      * @param f XBEL XML file
      * @return XBEL common model document
      * @throws IOException Thrown if an I/O exception occurred during JAXB

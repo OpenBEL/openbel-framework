@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * A grouping of annotations, evidence, and citation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AnnotationGroup implements BELModelObject {
@@ -53,7 +53,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Creates an annotation group with the supplied properties.
-     * 
+     *
      * @param annotations List of annotations
      * @param evidence evidence
      * @param citation citation
@@ -73,7 +73,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Returns the list of annotations.
-     * 
+     *
      * @return List of annotations, which may be null
      */
     public List<Annotation> getAnnotations() {
@@ -82,7 +82,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Sets the list of annotations.
-     * 
+     *
      * @param annotations List of annotations
      */
     public void setAnnotations(List<Annotation> annotations) {
@@ -91,7 +91,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Returns the evidence.
-     * 
+     *
      * @return evidence, which may be null
      */
     public Evidence getEvidence() {
@@ -100,7 +100,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Sets the evidence.
-     * 
+     *
      * @param evidence evidence
      */
     public void setEvidence(Evidence evidence) {
@@ -109,7 +109,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Returns the citation.
-     * 
+     *
      * @return citation, which may be null
      */
     public Citation getCitation() {
@@ -118,7 +118,7 @@ public class AnnotationGroup implements BELModelObject {
 
     /**
      * Sets the citation.
-     * 
+     *
      * @param citation
      */
     public void setCitation(Citation citation) {

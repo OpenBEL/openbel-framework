@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -37,7 +37,7 @@ package org.openbel.framework.api;
 
 /**
  * Finite set of allowable graph edge types.
- * 
+ *
  * @author julianray
  *
  */
@@ -51,7 +51,7 @@ public enum EdgeDirectionType {
     private String displayValue;
 
     /**
-     * 
+     *
      * @param id
      * @param displayValue
      */
@@ -61,7 +61,7 @@ public enum EdgeDirectionType {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public String toString() {
@@ -69,21 +69,21 @@ public enum EdgeDirectionType {
     }
 
     /**
-     * 
+     *
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 
+     *
      */
     public String getDisplayValue() {
         return displayValue;
     }
 
     /**
-     * 
+     *
      */
     public EdgeDirectionType getEnum() {
         return this;

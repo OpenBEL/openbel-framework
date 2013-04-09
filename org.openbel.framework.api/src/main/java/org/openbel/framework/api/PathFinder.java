@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,7 +46,7 @@ import org.openbel.framework.common.InvalidArgument;
  * <li>Scan outwards from a source set</li>
  * <li>Interconnect between nodes in a source set</li>
  * </ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface PathFinder {
@@ -54,7 +54,7 @@ public interface PathFinder {
     /**
      * Finds all paths, if there are any, between the source and target
      * {@link KamNode}.
-     * 
+     *
      * @param source {@link KamNode}, the source KAM node to search from, which
      * cannot be null
      * @param target {@link KamNode}, the target KAM node to search to, which
@@ -69,7 +69,7 @@ public interface PathFinder {
     /**
      * Finds all paths, if there are any, between all pairs of {@link KamNode}
      * sources and targets.
-     * 
+     *
      * @param sources {@link KamNode KamNode[]}, array of source KAM nodes to
      * search from, which cannot be null or empty
      * @param targets {@link KamNode KamNode[]}, array of target KAM nodes to
@@ -86,7 +86,7 @@ public interface PathFinder {
     /**
      * Finds all paths, if there are any, that interconnect any pair of
      * {@link KamNode nodes}.
-     * 
+     *
      * @param nodes {@link KamNode KamNode[]}, array of KAM nodes to
      * interconnect, which cannot be null and must contain at least two
      * {@link KamNode KAM nodes}
@@ -105,7 +105,7 @@ public interface PathFinder {
      * The implementation of the scan algorithm should impose path constraints
      * in order to prevent infinite graph traversal.
      * </p>
-     * 
+     *
      * @param source {@link KamNode}, the source KAM node to scan out from,
      * which cannot be null
      * @return a populated {@link SimplePath KamPath[]}, or an empty array if no
@@ -122,7 +122,7 @@ public interface PathFinder {
      * The implementation of the scan algorithm should impose constraints in
      * order to prevent infinite graph traversal.
      * </p>
-     * 
+     *
      * @param sources {@link KamNode KamNode[]}, array of source KAM nodes to
      * scan out from, which cannot be null or empty
      * @return a populated {@link SimplePath KamPath[]}, or an empty array if no

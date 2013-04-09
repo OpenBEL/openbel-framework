@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ public class ConversionError extends BELErrorException {
      * Creates a conversion error for the provided resource {@code name} and
      * with the supplied message. The cause is not initialized, and may
      * subsequently be initialized by a call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param name Resource name failing conversion
      * @param msg Message indicative of conversion failure
      */
@@ -59,7 +59,7 @@ public class ConversionError extends BELErrorException {
     /**
      * Creates a conversion error for the provided resource {@code name}, with
      * the supplied message and cause.
-     * 
+     *
      * @param name Resource name failing conversion
      * @param msg Message indicative of conversion failure
      * @param cause The cause of the exception

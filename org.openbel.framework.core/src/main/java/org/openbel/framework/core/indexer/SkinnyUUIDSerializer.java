@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import jdbm.SerializerOutput;
  * Note: JDBM provides the ability to pack longs when (de)serializing. This
  * functionality is not implemented as the storage requirements differed by less
  * than 0.1mb for 500k UUIDs with no noticeable impact on performance.
- * 
+ *
  * @author Steve Ungerer
  */
 public class SkinnyUUIDSerializer implements Serializer<SkinnyUUID> {

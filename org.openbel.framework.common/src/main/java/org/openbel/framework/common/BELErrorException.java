@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,7 +46,7 @@ public abstract class BELErrorException extends UserFacingException {
      * Creates a user-facing BEL error exception, for a resource name and
      * message. The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param name Resource name
      * @param msg The detailed warning message
      * @see #initCause(Throwable)
@@ -58,7 +58,7 @@ public abstract class BELErrorException extends UserFacingException {
     /**
      * Creates a user-facing BEL error exception, for a resource name,
      * message, and cause.
-     * 
+     *
      * @param name Resource name
      * @param msg The detailed warning message
      * @param cause The cause of the exception

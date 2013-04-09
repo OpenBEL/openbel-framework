@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.core.df.cache.ResourceType;
 
 /**
  * CacheManagerService defines a service for managing the framework cache.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface CacheManagerService {
@@ -62,7 +62,7 @@ public interface CacheManagerService {
      * Updates a single resource in the cache identified by it's {@link String}
      * <tt>location</tt>.  The <tt>type</tt> {@link ResourceType} must also be
      * provided in order to identify where it should live in the cache.
-     * 
+     *
      * @param type {@link ResourceType}, the resource type
      * @param location {@link String}, the resource location
      */
@@ -70,7 +70,7 @@ public interface CacheManagerService {
 
     /**
      * Updates all resources identified in the resource index.
-     * 
+     *
      * @param index {@link Index}, the resource index to update resources from
      */
     public void updateResourceIndexInCache(Index index);

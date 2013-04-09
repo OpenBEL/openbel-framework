@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,14 +42,14 @@ import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
  * API for obtaining universally unique identifiers for namespace values.
  * A single {@link EquivalenceLookup} instance is responsibile only for a
  * single {@link Namespace}.
- * 
+ *
  * @author Steve Ungerer
  */
 public interface EquivalenceLookup {
 
     /**
      * Performs a lookup for the given {@code key}.
-     * 
+     *
      * @param key Key - a value within a namespace.
      * @return {@link SkinnyUUID}; may be <code>null</code> for the given key
      */

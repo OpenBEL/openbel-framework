@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ import java.util.Set;
  * This caching mechanism should only be used to cache objects of a specific
  * type.
  * </p>
- * 
+ *
  * @see WriteCache
  */
 public class ReadCache {
@@ -60,7 +60,7 @@ public class ReadCache {
     /**
      * Constructs a read cache. Prefer {@link #ReadCache(int)} to this
      * constructor.
-     * 
+     *
      * @see #ReadCache(int)
      */
     public ReadCache() {
@@ -70,7 +70,7 @@ public class ReadCache {
 
     /**
      * Constructs a read cache with the specified initial capacity.
-     * 
+     *
      * @param capacity Initial capacity of the backing map
      * @see HashMap#HashMap(int)
      */
@@ -81,7 +81,7 @@ public class ReadCache {
 
     /**
      * Retrieves a cached object by its key.
-     * 
+     *
      * @param key {@link Integer} key of object to retrieve; null is allowable
      * here though nothing will ever be returned
      * @return Cached {@link Object}; may be null if nothing is cached for the
@@ -95,7 +95,7 @@ public class ReadCache {
 
     /**
      * Caches an object by the provided key.
-     * 
+     *
      * @param key {@link Integer} key
      * @param value {@link Object} to cache
      */
@@ -111,7 +111,7 @@ public class ReadCache {
 
     /**
      * Returns a read-only view of the cache's contents.
-     * 
+     *
      * @return {@link Set} of {@link Entry} objects
      */
     public Set<Entry<Integer, Object>> entries() {
@@ -122,7 +122,7 @@ public class ReadCache {
 
     /**
      * Returns the number of items cached.
-     * 
+     *
      * @return {@code int}
      */
     public int size() {

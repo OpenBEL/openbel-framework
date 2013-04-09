@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,12 +52,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * Implements an equivalencer service that finds equivalences for namespace values.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 @Service
 public class EquivalencerServiceImpl implements EquivalencerService {
-    
+
     private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
             .getInstance();
     private final Equivalencer equivalencer;
@@ -65,7 +65,7 @@ public class EquivalencerServiceImpl implements EquivalencerService {
     public EquivalencerServiceImpl() {
         equivalencer = new Equivalencer();
     }
-    
+
     public Equivalencer leak() {
         return equivalencer;
     }
@@ -150,7 +150,7 @@ public class EquivalencerServiceImpl implements EquivalencerService {
                 equivalencer.getUUID(convert(nv.getNamespace()), nv.getValue());
         return convert(uuid);
     }
-    
+
     private org.openbel.framework.common.model.Namespace convert(
             final Namespace ns) {
         final String prefix = ns.getPrefix();

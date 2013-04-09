@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import java.util.Set;
  * Portions of this enum have been automatically generated from <a
  * href="http://en.wikipedia.org/wiki/Amino_acid">here</a>.
  * </p>
- * 
+ *
  * @see CovalentModification#isAcetylated(AminoAcid)
  * @see CovalentModification#isFarnesylated(AminoAcid)
  * @see CovalentModification#isGlycolsylated(AminoAcid)
@@ -372,7 +372,7 @@ public enum AminoAcid {
     /**
      * Constructor for setting enum, display, three-letter, and one-letter
      * values.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      * @param threeLetter Three-letter value
@@ -396,7 +396,7 @@ public enum AminoAcid {
 
     /**
      * Returns the amino acid's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -406,7 +406,7 @@ public enum AminoAcid {
 
     /**
      * Returns the amino acid's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -415,7 +415,7 @@ public enum AminoAcid {
 
     /**
      * Returns the amino acid by its string representation.
-     * 
+     *
      * @param s Amino acid {@link String string} representation
      * @return {@link AminoAcid}, may be null if the provided string has no
      * amino acid representation
@@ -434,7 +434,7 @@ public enum AminoAcid {
 
     /**
      * Returns the one-letter abbreviation of this amino acid.
-     * 
+     *
      * @return {@link String}
      */
     public String getOneLetter() {
@@ -443,7 +443,7 @@ public enum AminoAcid {
 
     /**
      * Returns the one-letter abbreviation of an amino acid.
-     * 
+     *
      * @param a {@link AminoAcid}
      * @return {@link String}
      */
@@ -453,7 +453,7 @@ public enum AminoAcid {
 
     /**
      * Returns a set of all the one-letter amino acid abbreviations.
-     * 
+     *
      * @return {@link Set}
      */
     public static Set<String> getOneLetters() {
@@ -466,7 +466,7 @@ public enum AminoAcid {
 
     /**
      * Returns the three-letter abbreivation of this amino acid.
-     * 
+     *
      * @return {@link String}
      */
     public String getThreeLetter() {
@@ -475,7 +475,7 @@ public enum AminoAcid {
 
     /**
      * Returns the three-letter abbreviation of an amino acid.
-     * 
+     *
      * @param a {@link AminoAcid}
      * @return {@link String}
      */
@@ -486,7 +486,7 @@ public enum AminoAcid {
     /**
      * Returns a {@link Set set} of all the three-letter amino acid
      * abbreviations.
-     * 
+     *
      * @return {@link Set}
      */
     public static Set<String> getThreeLetters() {
@@ -500,7 +500,7 @@ public enum AminoAcid {
     /**
      * Returns {@code true} if this amino acid's side-chain polarity is polar,
      * {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isPolar() {
@@ -510,7 +510,7 @@ public enum AminoAcid {
     /**
      * Returns {@code true} if the amino acid's side-chain polariy is polar,
      * {@code false} otherwise.
-     * 
+     *
      * @param a {@link AminoAcid}
      * @return boolean
      */
@@ -535,7 +535,7 @@ public enum AminoAcid {
     /**
      * Returns {@code true} if this amino acid's side-chain polarity is
      * non-polar, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isNonPolar() {
@@ -545,7 +545,7 @@ public enum AminoAcid {
     /**
      * Returns {@code true} if the amino acid's side-chain polariy is non-polar,
      * {@code false} otherwise.
-     * 
+     *
      * @param a {@link AminoAcid}
      * @return boolean
      */

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,9 +44,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -87,11 +87,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the comment property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getComment() {
         return comment;
@@ -99,11 +99,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the comment property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setComment(String value) {
         this.comment = value;
@@ -115,11 +115,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the annotationGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public XBELAnnotationGroup getAnnotationGroup() {
         return annotationGroup;
@@ -127,11 +127,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the annotationGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public void setAnnotationGroup(XBELAnnotationGroup value) {
         this.annotationGroup = value;
@@ -143,11 +143,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the subject property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELSubject }
-     *     
+     *
      */
     public XBELSubject getSubject() {
         return subject;
@@ -155,11 +155,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the subject property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELSubject }
-     *     
+     *
      */
     public void setSubject(XBELSubject value) {
         this.subject = value;
@@ -171,11 +171,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the object property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELObject }
-     *     
+     *
      */
     public XBELObject getObject() {
         return object;
@@ -183,11 +183,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the object property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELObject }
-     *     
+     *
      */
     public void setObject(XBELObject value) {
         this.object = value;
@@ -199,11 +199,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the relationship property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Relationship }
-     *     
+     *
      */
     public Relationship getRelationship() {
         return relationship;
@@ -211,11 +211,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the relationship property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Relationship }
-     *     
+     *
      */
     public void setRelationship(Relationship value) {
         this.relationship = value;

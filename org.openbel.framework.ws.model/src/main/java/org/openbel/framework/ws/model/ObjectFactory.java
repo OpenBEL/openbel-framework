@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlRegistry;
  * can consist of schema derived interfaces and classes representing the binding
  * of schema type definitions, element declarations and model groups. Factory
  * methods for each of these are provided in this class.
- * 
+ *
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -55,14 +55,14 @@ public class ObjectFactory {
     /**
      * Create a new ObjectFactory that can be used to create new instances of
      * schema derived classes for package: org.openbel.framework.ws.model
-     * 
+     *
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link AnnotationFilterCriteria }
-     * 
+     *
      */
     public AnnotationFilterCriteria createAnnotationFilterCriteria() {
         return new AnnotationFilterCriteria();
@@ -70,7 +70,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link KamNode }
-     * 
+     *
      */
     public KamNode createKamNode() {
         return new KamNode();
@@ -78,7 +78,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Node }
-     * 
+     *
      */
     public Node createNode() {
         return new Node();
@@ -86,7 +86,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link SimplePath }
-     * 
+     *
      */
     public SimplePath createSimplePath() {
         return new SimplePath();
@@ -94,7 +94,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindPathsResponse }
-     * 
+     *
      */
     public FindPathsResponse createFindPathsResponse() {
         return new FindPathsResponse();
@@ -102,7 +102,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetBelDocumentsRequest }
-     * 
+     *
      */
     public GetBelDocumentsRequest createGetBelDocumentsRequest() {
         return new GetBelDocumentsRequest();
@@ -110,7 +110,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCitationsResponse }
-     * 
+     *
      */
     public GetCitationsResponse createGetCitationsResponse() {
         return new GetCitationsResponse();
@@ -118,7 +118,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AnnotationType }
-     * 
+     *
      */
     public AnnotationType createAnnotationType() {
         return new AnnotationType();
@@ -126,7 +126,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MapDataRequest }
-     * 
+     *
      */
     public MapDataRequest createMapDataRequest() {
         return new MapDataRequest();
@@ -134,7 +134,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindEquivalencesRequest }
-     * 
+     *
      */
     public FindEquivalencesRequest createFindEquivalencesRequest() {
         return new FindEquivalencesRequest();
@@ -142,7 +142,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAdjacentKamEdgesResponse }
-     * 
+     *
      */
     public GetAdjacentKamEdgesResponse
             createGetAdjacentKamEdgesResponse() {
@@ -151,7 +151,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetNamespacesResponse }
-     * 
+     *
      */
     public GetNamespacesResponse createGetNamespacesResponse() {
         return new GetNamespacesResponse();
@@ -159,7 +159,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetBelDocumentsResponse }
-     * 
+     *
      */
     public GetBelDocumentsResponse createGetBelDocumentsResponse() {
         return new GetBelDocumentsResponse();
@@ -167,7 +167,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindNamespaceValuesResponse }
-     * 
+     *
      */
     public FindNamespaceValuesResponse
             createFindNamespaceValuesResponse() {
@@ -176,7 +176,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Edge }
-     * 
+     *
      */
     public Edge createEdge() {
         return new Edge();
@@ -184,7 +184,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReleaseKamResponse }
-     * 
+     *
      */
     public ReleaseKamResponse createReleaseKamResponse() {
         return new ReleaseKamResponse();
@@ -192,7 +192,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByPatternsRequest }
-     * 
+     *
      */
     public FindKamNodesByPatternsRequest
             createFindKamNodesByPatternsRequest() {
@@ -201,7 +201,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RelationshipTypeFilterCriteria }
-     * 
+     *
      */
     public RelationshipTypeFilterCriteria
             createRelationshipTypeFilterCriteria() {
@@ -210,7 +210,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetSupportingEvidenceResponse }
-     * 
+     *
      */
     public GetSupportingEvidenceResponse
             createGetSupportingEvidenceResponse() {
@@ -219,7 +219,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link KamHandle }
-     * 
+     *
      */
     public KamHandle createKamHandle() {
         return new KamHandle();
@@ -227,7 +227,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAdjacentKamNodesRequest }
-     * 
+     *
      */
     public GetAdjacentKamNodesRequest createGetAdjacentKamNodesRequest() {
         return new GetAdjacentKamNodesRequest();
@@ -235,7 +235,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetNamespacesRequest }
-     * 
+     *
      */
     public GetNamespacesRequest createGetNamespacesRequest() {
         return new GetNamespacesRequest();
@@ -243,7 +243,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCatalogResponse }
-     * 
+     *
      */
     public GetCatalogResponse createGetCatalogResponse() {
         return new GetCatalogResponse();
@@ -251,7 +251,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EdgeFilter }
-     * 
+     *
      */
     public EdgeFilter createEdgeFilter() {
         return new EdgeFilter();
@@ -259,7 +259,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FilterCriteria }
-     * 
+     *
      */
     public FilterCriteria createFilterCriteria() {
         return new FilterCriteria();
@@ -267,7 +267,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindPathsRequest }
-     * 
+     *
      */
     public FindPathsRequest createFindPathsRequest() {
         return new FindPathsRequest();
@@ -275,7 +275,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link NamespaceValue }
-     * 
+     *
      */
     public NamespaceValue createNamespaceValue() {
         return new NamespaceValue();
@@ -283,7 +283,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ResolveNodesRequest }
-     * 
+     *
      */
     public ResolveNodesRequest createResolveNodesRequest() {
         return new ResolveNodesRequest();
@@ -291,7 +291,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Citation }
-     * 
+     *
      */
     public Citation createCitation() {
         return new Citation();
@@ -299,7 +299,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindNamespaceEquivalenceRequest }
-     * 
+     *
      */
     public FindNamespaceEquivalenceRequest
             createFindNamespaceEquivalenceRequest() {
@@ -308,7 +308,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetNewInstanceRequest }
-     * 
+     *
      */
     public GetNewInstanceRequest createGetNewInstanceRequest() {
         return new GetNewInstanceRequest();
@@ -316,7 +316,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link IntersectKamsRequest }
-     * 
+     *
      */
     public IntersectKamsRequest createIntersectKamsRequest() {
         return new IntersectKamsRequest();
@@ -324,7 +324,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FunctionTypeFilterCriteria }
-     * 
+     *
      */
     public FunctionTypeFilterCriteria createFunctionTypeFilterCriteria() {
         return new FunctionTypeFilterCriteria();
@@ -332,7 +332,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ResolveNodesResponse }
-     * 
+     *
      */
     public ResolveNodesResponse createResolveNodesResponse() {
         return new ResolveNodesResponse();
@@ -340,7 +340,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAdjacentKamNodesResponse }
-     * 
+     *
      */
     public GetAdjacentKamNodesResponse
             createGetAdjacentKamNodesResponse() {
@@ -349,7 +349,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BelDocumentFilterCriteria }
-     * 
+     *
      */
     public BelDocumentFilterCriteria createBelDocumentFilterCriteria() {
         return new BelDocumentFilterCriteria();
@@ -357,7 +357,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamEdgesResponse }
-     * 
+     *
      */
     public FindKamEdgesResponse createFindKamEdgesResponse() {
         return new FindKamEdgesResponse();
@@ -365,7 +365,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByIdsResponse }
-     * 
+     *
      */
     public FindKamNodesByIdsResponse createFindKamNodesByIdsResponse() {
         return new FindKamNodesByIdsResponse();
@@ -373,7 +373,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindEquivalencesResponse }
-     * 
+     *
      */
     public FindEquivalencesResponse createFindEquivalencesResponse() {
         return new FindEquivalencesResponse();
@@ -381,7 +381,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InterconnectRequest }
-     * 
+     *
      */
     public InterconnectRequest createInterconnectRequest() {
         return new InterconnectRequest();
@@ -389,7 +389,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LoadKamRequest }
-     * 
+     *
      */
     public LoadKamRequest createLoadKamRequest() {
         return new LoadKamRequest();
@@ -397,7 +397,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BelDocument }
-     * 
+     *
      */
     public BelDocument createBelDocument() {
         return new BelDocument();
@@ -405,7 +405,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindNamespaceValuesRequest }
-     * 
+     *
      */
     public FindNamespaceValuesRequest createFindNamespaceValuesRequest() {
         return new FindNamespaceValuesRequest();
@@ -413,7 +413,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ScanRequest }
-     * 
+     *
      */
     public ScanRequest createScanRequest() {
         return new ScanRequest();
@@ -421,7 +421,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByLabelsRequest }
-     * 
+     *
      */
     public FindKamNodesByLabelsRequest
             createFindKamNodesByLabelsRequest() {
@@ -430,7 +430,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DifferenceKamsRequest }
-     * 
+     *
      */
     public DifferenceKamsRequest createDifferenceKamsRequest() {
         return new DifferenceKamsRequest();
@@ -438,7 +438,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetNewInstanceResponse }
-     * 
+     *
      */
     public GetNewInstanceResponse createGetNewInstanceResponse() {
         return new GetNewInstanceResponse();
@@ -446,7 +446,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetKamResponse }
-     * 
+     *
      */
     public GetKamResponse createGetKamResponse() {
         return new GetKamResponse();
@@ -454,7 +454,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetSupportingTermsResponse }
-     * 
+     *
      */
     public GetSupportingTermsResponse createGetSupportingTermsResponse() {
         return new GetSupportingTermsResponse();
@@ -462,7 +462,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAdjacentKamEdgesRequest }
-     * 
+     *
      */
     public GetAdjacentKamEdgesRequest createGetAdjacentKamEdgesRequest() {
         return new GetAdjacentKamEdgesRequest();
@@ -470,7 +470,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Namespace }
-     * 
+     *
      */
     public Namespace createNamespace() {
         return new Namespace();
@@ -478,7 +478,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetKamRequest }
-     * 
+     *
      */
     public GetKamRequest createGetKamRequest() {
         return new GetKamRequest();
@@ -486,7 +486,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MapDataResponse }
-     * 
+     *
      */
     public MapDataResponse createMapDataResponse() {
         return new MapDataResponse();
@@ -494,7 +494,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetSupportingTermsRequest }
-     * 
+     *
      */
     public GetSupportingTermsRequest createGetSupportingTermsRequest() {
         return new GetSupportingTermsRequest();
@@ -502,7 +502,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByPatternsResponse }
-     * 
+     *
      */
     public FindKamNodesByPatternsResponse
             createFindKamNodesByPatternsResponse() {
@@ -511,7 +511,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link CitationFilterCriteria }
-     * 
+     *
      */
     public CitationFilterCriteria createCitationFilterCriteria() {
         return new CitationFilterCriteria();
@@ -519,7 +519,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamEdgesRequest }
-     * 
+     *
      */
     public FindKamEdgesRequest createFindKamEdgesRequest() {
         return new FindKamEdgesRequest();
@@ -527,7 +527,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetBELFrameworkVersionResponse }
-     * 
+     *
      */
     public GetBELFrameworkVersionResponse
             createGetBELFrameworkVersionResponse() {
@@ -536,7 +536,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Kam }
-     * 
+     *
      */
     public Kam createKam() {
         return new Kam();
@@ -544,7 +544,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAnnotationTypesRequest }
-     * 
+     *
      */
     public GetAnnotationTypesRequest createGetAnnotationTypesRequest() {
         return new GetAnnotationTypesRequest();
@@ -552,7 +552,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCatalogRequest }
-     * 
+     *
      */
     public GetCatalogRequest createGetCatalogRequest() {
         return new GetCatalogRequest();
@@ -560,7 +560,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link KamFilter }
-     * 
+     *
      */
     public KamFilter createKamFilter() {
         return new KamFilter();
@@ -568,7 +568,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link UnionKamsResponse }
-     * 
+     *
      */
     public UnionKamsResponse createUnionKamsResponse() {
         return new UnionKamsResponse();
@@ -576,7 +576,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ScanResponse }
-     * 
+     *
      */
     public ScanResponse createScanResponse() {
         return new ScanResponse();
@@ -584,7 +584,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ResolveEdgesRequest }
-     * 
+     *
      */
     public ResolveEdgesRequest createResolveEdgesRequest() {
         return new ResolveEdgesRequest();
@@ -592,7 +592,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindNamespaceEquivalenceResponse }
-     * 
+     *
      */
     public FindNamespaceEquivalenceResponse
             createFindNamespaceEquivalenceResponse() {
@@ -601,7 +601,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DifferenceKamsResponse }
-     * 
+     *
      */
     public DifferenceKamsResponse createDifferenceKamsResponse() {
         return new DifferenceKamsResponse();
@@ -609,7 +609,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReleaseKamRequest }
-     * 
+     *
      */
     public ReleaseKamRequest createReleaseKamRequest() {
         return new ReleaseKamRequest();
@@ -617,7 +617,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link KamEdge }
-     * 
+     *
      */
     public KamEdge createKamEdge() {
         return new KamEdge();
@@ -625,7 +625,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAnnotationTypesResponse }
-     * 
+     *
      */
     public GetAnnotationTypesResponse createGetAnnotationTypesResponse() {
         return new GetAnnotationTypesResponse();
@@ -633,7 +633,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link NodeFilter }
-     * 
+     *
      */
     public NodeFilter createNodeFilter() {
         return new NodeFilter();
@@ -641,7 +641,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BelTerm }
-     * 
+     *
      */
     public BelTerm createBelTerm() {
         return new BelTerm();
@@ -649,7 +649,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FunctionReturnTypeFilterCriteria }
-     * 
+     *
      */
     public FunctionReturnTypeFilterCriteria
             createFunctionReturnTypeFilterCriteria() {
@@ -658,7 +658,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetSupportingEvidenceRequest }
-     * 
+     *
      */
     public GetSupportingEvidenceRequest
             createGetSupportingEvidenceRequest() {
@@ -667,7 +667,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ResolveEdgesResponse }
-     * 
+     *
      */
     public ResolveEdgesResponse createResolveEdgesResponse() {
         return new ResolveEdgesResponse();
@@ -675,7 +675,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link DialectHandle }
-     * 
+     *
      */
     public DialectHandle createDialectHandle() {
         return new DialectHandle();
@@ -683,7 +683,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByIdsRequest }
-     * 
+     *
      */
     public FindKamNodesByIdsRequest createFindKamNodesByIdsRequest() {
         return new FindKamNodesByIdsRequest();
@@ -691,7 +691,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link IntersectKamsResponse }
-     * 
+     *
      */
     public IntersectKamsResponse createIntersectKamsResponse() {
         return new IntersectKamsResponse();
@@ -699,7 +699,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BelStatement }
-     * 
+     *
      */
     public BelStatement createBelStatement() {
         return new BelStatement();
@@ -707,7 +707,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link InterconnectResponse }
-     * 
+     *
      */
     public InterconnectResponse createInterconnectResponse() {
         return new InterconnectResponse();
@@ -715,7 +715,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Annotation }
-     * 
+     *
      */
     public Annotation createAnnotation() {
         return new Annotation();
@@ -723,7 +723,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByLabelsResponse }
-     * 
+     *
      */
     public FindKamNodesByLabelsResponse
             createFindKamNodesByLabelsResponse() {
@@ -732,7 +732,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link UnionKamsRequest }
-     * 
+     *
      */
     public UnionKamsRequest createUnionKamsRequest() {
         return new UnionKamsRequest();
@@ -740,7 +740,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCitationsRequest }
-     * 
+     *
      */
     public GetCitationsRequest createGetCitationsRequest() {
         return new GetCitationsRequest();
@@ -748,7 +748,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link NamespaceFilterCriteria }
-     * 
+     *
      */
     public NamespaceFilterCriteria createNamespaceFilterCriteria() {
         return new NamespaceFilterCriteria();
@@ -756,7 +756,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link EquivalenceId }
-     * 
+     *
      */
     public EquivalenceId createEquivalenceId() {
         return new EquivalenceId();
@@ -764,7 +764,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link LoadKamResponse }
-     * 
+     *
      */
     public LoadKamResponse createLoadKamResponse() {
         return new LoadKamResponse();
@@ -772,7 +772,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCustomDialectRequest }
-     * 
+     *
      */
     public GetCustomDialectRequest createGetCustomDialectRequest() {
         return new GetCustomDialectRequest();
@@ -780,7 +780,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetCustomDialectResponse }
-     * 
+     *
      */
     public GetCustomDialectResponse createGetCustomDialectResponse() {
         return new GetCustomDialectResponse();
@@ -788,7 +788,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetDefaultDialectRequest }
-     * 
+     *
      */
     public GetDefaultDialectRequest createGetDefaultDialectRequest() {
         return new GetDefaultDialectRequest();
@@ -796,7 +796,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetDefaultDialectResponse }
-     * 
+     *
      */
     public GetDefaultDialectResponse createGetDefaultDialectResponse() {
         return new GetDefaultDialectResponse();
@@ -804,7 +804,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReleaseDialectRequest }
-     * 
+     *
      */
     public ReleaseDialectRequest createReleaseDialectRequest() {
         return new ReleaseDialectRequest();
@@ -812,7 +812,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReleaseDialectResponse }
-     * 
+     *
      */
     public ReleaseDialectResponse createReleaseDialectResponse() {
         return new ReleaseDialectResponse();
@@ -820,7 +820,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByNamespaceValuesRequest }
-     * 
+     *
      */
     public FindKamNodesByNamespaceValuesRequest
             createFindKamNodesByNamespaceValuesRequest() {
@@ -829,7 +829,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link FindKamNodesByNamespaceValuesResponse }
-     * 
+     *
      */
     public FindKamNodesByNamespaceValuesResponse
             createFindKamNodesByNamespaceValuesResponse() {
@@ -838,7 +838,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link NamespaceDescriptor }
-     * 
+     *
      */
     public NamespaceDescriptor createNamespaceDescriptor() {
         return new NamespaceDescriptor();
@@ -846,7 +846,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAllNamespacesRequest }
-     * 
+     *
      */
     public GetAllNamespacesRequest createGetAllNamespacesRequest() {
         return new GetAllNamespacesRequest();
@@ -854,7 +854,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link GetAllNamespacesResponse }
-     * 
+     *
      */
     public GetAllNamespacesResponse createGetAllNamespacesResponse() {
         return new GetAllNamespacesResponse();

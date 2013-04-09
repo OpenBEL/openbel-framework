@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  * The following schema fragment specifies the expected content contained within
  * this class.
  * <p>
- * 
+ *
  * <pre>
  * &lt;simpleType name="KAMLoadStatus">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">

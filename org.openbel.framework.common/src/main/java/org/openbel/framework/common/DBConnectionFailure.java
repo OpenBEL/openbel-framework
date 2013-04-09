@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.common.BELFatalException;
 /**
  * DBConnectionFailure represents a fatal exception when a connection cannot
  * be made to either the DocStore or KAMStore.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class DBConnectionFailure extends BELFatalException {
@@ -48,7 +48,7 @@ public class DBConnectionFailure extends BELFatalException {
 
     /**
      * Constructs the exception with url, message, and cause.
-     * 
+     *
      * @param url {@link String}, the kam jdbc url
      * @param errorMsg {@link String}, the error message
      * @param cause {@link Throwable}, the exception's cause
@@ -59,7 +59,7 @@ public class DBConnectionFailure extends BELFatalException {
 
     /**
      * Constructs the exception with url, message, and cause.
-     * 
+     *
      * @param url {@link String}, the kam jdbc url
      * @param errorMsg {@link String}, the error message
      * @param cause {@link Throwable}, the exception's cause

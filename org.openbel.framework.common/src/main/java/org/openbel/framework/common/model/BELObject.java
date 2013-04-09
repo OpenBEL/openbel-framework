@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,21 +44,21 @@ import java.io.Serializable;
  * TODO Reconsider hierarchy: should BELObject be the base for a LanguageElement
  * and BELModelObject?
  * </p>
- * 
+ *
  * @author Steve Ungerer
  */
 public interface BELObject extends Cloneable, Serializable {
 
     /**
      * Serializes the {@link BELObject} to long form BEL syntax.
-     * 
+     *
      * @return
      */
     String toBELLongForm();
 
     /**
      * Serializes the {@link BELObject} to short form BEL syntax.
-     * 
+     *
      * @return
      */
     String toBELShortForm();
@@ -69,7 +69,7 @@ public interface BELObject extends Cloneable, Serializable {
      * <p>
      * This method should be used judiciously.
      * </p>
-     * 
+     *
      * @return {@link BELObject} clone, sharing no state with its source object
      */
     BELObject clone();

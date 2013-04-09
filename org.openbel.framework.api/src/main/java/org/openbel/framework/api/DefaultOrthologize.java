@@ -38,7 +38,7 @@ public class DefaultOrthologize implements Orthologize {
                     TRANSCRIBED_TO,
                     TRANSLATED_TO
             };
-    
+
     /**
      * {@inheritDoc}
      */
@@ -120,28 +120,28 @@ public class DefaultOrthologize implements Orthologize {
     public OrthologizedKam orthologize(Kam kam, KAMStore kAMStore,
             SpeciesDialect dialect) {
         Kam copy = copy(kam);
-        
+
         Map<KamNode, KamNode> ortho = orthologousNodes(copy, kAMStore, dialect);
-        
+
         EdgeFilter inferf = copy.createEdgeFilter();
         final RelationshipTypeFilterCriteria c =
                 new RelationshipTypeFilterCriteria();
         c.getValues().addAll(Arrays.asList(INFERRED_ORTHOLOGIZED_EDGES));
         inferf.add(c);
-        
+
         final Collection<KamNode> speciesNodes = ortho.values();
         final Set<KamNode> species = new LinkedHashSet<KamNode>(
                 speciesNodes.size());
         species.addAll(speciesNodes);
-        
+
         replaceOrthologousEdges(copy, ortho);
         removeOrthologousNodes(copy, ortho);
-        Pair<Map<Integer, TermParameter>, Map<Integer, TermParameter>> tpm = 
+        Pair<Map<Integer, TermParameter>, Map<Integer, TermParameter>> tpm =
                 inferOrthologs(copy, kAMStore, dialect, inferf, species, ortho);
-        
+
         Map<Integer, TermParameter> ntp = tpm.getFirst();
         Map<Integer, TermParameter> etp = tpm.getSecond();
-        
+
         return new OrthologizedKam(copy, dialect, ntp, etp, ortho);
     }
 
@@ -223,14 +223,14 @@ public class DefaultOrthologize implements Orthologize {
             Kam kam, KAMStore kAMStore, SpeciesDialect dialect,
             EdgeFilter inferf, Set<KamNode> species,
             Map<KamNode, KamNode> ortho) {
-        
+
         final List<org.openbel.framework.common.model.Namespace> spl = dialect
                 .getSpeciesNamespaces();
         final Set<String> rlocs = constrainedHashSet(spl.size());
         for (final org.openbel.framework.common.model.Namespace n : spl) {
             rlocs.add(n.getResourceLocation());
         }
-        
+
         Map<Integer, TermParameter> ntp = sizedHashMap(species.size());
         Map<Integer, TermParameter> etp = sizedHashMap(species.size());
         for (final KamNode snode : species) {
@@ -238,14 +238,14 @@ public class DefaultOrthologize implements Orthologize {
                 // XXX term parameter looked up 2x; may impact perf/determinism
                 // TODO redesign orthologousNodes / inferOrthologs
                 TermParameter p = findParameter(kam, kAMStore, snode, rlocs);
-    
+
                 // recurse incoming connections from species node
                 recurseConnections(kam, snode, p, inferf, REVERSE, ortho, ntp, etp);
                 // recurse outgoing connections from species node
                 recurseConnections(kam, snode, p, inferf, FORWARD, ortho, ntp, etp);
             }
         }
-        
+
         return new Pair<Map<Integer, TermParameter>, Map<Integer, TermParameter>>(
                 ntp, etp);
     }
@@ -304,7 +304,7 @@ public class DefaultOrthologize implements Orthologize {
                 }
 
                 kam.collapseNode(opnode, node);
-                
+
                 // hang on to collapsed node
                 ortho.put(opnode, node);
             } else {
@@ -341,7 +341,7 @@ public class DefaultOrthologize implements Orthologize {
                     etp);
         }
     }
-    
+
     /**
      * Matches {@link BelTerm terms} for a {@link KamNode node} against a
      * species-specific {@link Namespace}.

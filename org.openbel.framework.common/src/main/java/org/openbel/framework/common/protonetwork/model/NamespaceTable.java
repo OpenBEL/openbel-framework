@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,7 +61,7 @@ import org.openbel.framework.common.model.Namespace;
  * NamespaceTable holds the namespaces seen from documents. This class manages
  * the {@code namespaces} through the {@link #addNamespace(TableNamespace, int)}
  * operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -102,7 +102,7 @@ public class NamespaceTable extends ExternalType {
      * Adds a namespace to the {@code namespaces} set. The insertion index is
      * captured by {@code namespaceIndex}. The association of document to
      * namespaces is also captured using the {@code documentNamespaces} map.
-     * 
+     *
      * @param namespace {@link TableNamespace}, the namespace to add, which
      * cannot be null
      * @param did {@code int}, the document id that this {@code namespace} is
@@ -134,7 +134,7 @@ public class NamespaceTable extends ExternalType {
 
     /**
      * Returns the table namespace by index.
-     * 
+     *
      * @param nid Table namespace index
      * @return TableNamespace
      */
@@ -145,7 +145,7 @@ public class NamespaceTable extends ExternalType {
     /**
      * Returns the namespace table's {@code namespaces} set. This set is
      * unmodifiable to preserve the state of the namespace table.
-     * 
+     *
      * @return {@link Set}, which cannot be null or modified
      */
     public Set<TableNamespace> getNamespaces() {
@@ -155,7 +155,7 @@ public class NamespaceTable extends ExternalType {
     /**
      * Returns the map of {@link TableNamespace} to index. This map is
      * unmodifiable to preserve the state of the namespace table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<TableNamespace, Integer> getNamespaceIndex() {
@@ -165,7 +165,7 @@ public class NamespaceTable extends ExternalType {
     /**
      * Returns the map of index to {@link TableNamespace}. This map is
      * unmodifiable to preserve the state of the namespace table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<Integer, TableNamespace> getIndexNamespace() {
@@ -176,7 +176,7 @@ public class NamespaceTable extends ExternalType {
      * Returns the map of document index to {@link List} of {@link Integer}
      * namespace indexes. This map is unmodifiable to preserve the state of the
      * namespace table.
-     * 
+     *
      * @return {@link Map}, which cannot be null or modified
      */
     public Map<Integer, List<Integer>> getDocumentNamespaces() {
@@ -300,7 +300,7 @@ public class NamespaceTable extends ExternalType {
      * Table namespace encapsulates a document namespace. The table namespace
      * holds the {@code prefix} and {@code resourceLocation} URL, but the prefix
      * can be null if the namespace was the default on the document.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -327,7 +327,7 @@ public class NamespaceTable extends ExternalType {
         /**
          * Creates a table namespace from the {@code resourceLocation} URL and
          * sets a null {@code prefix}.
-         * 
+         *
          * @param resourceLocation {@link String}, the resource location URL,
          * which cannot be null
          * @throws InvalidArgument Thrown if the {@code resourceLocation} is
@@ -346,7 +346,7 @@ public class NamespaceTable extends ExternalType {
         /**
          * Creates a table namespace from the bel
          * {@link org.openbel.framework.common.model.Namespace}.
-         * 
+         *
          * @param belNamespace
          * {@link org.openbel.framework.common.model.Namespace}, the bel
          * namespace, which cannot be null
@@ -372,7 +372,7 @@ public class NamespaceTable extends ExternalType {
 
         /**
          * Returns the table namespace prefix.
-         * 
+         *
          * @return {@link String}, the table namespace prefix, which can be null
          */
         public String getPrefix() {
@@ -381,7 +381,7 @@ public class NamespaceTable extends ExternalType {
 
         /**
          * Returns the table namespace resource location.
-         * 
+         *
          * @return {@link String}, the namespace resource location, which cannot
          * be null
          */
@@ -391,7 +391,7 @@ public class NamespaceTable extends ExternalType {
 
         /**
          * Compute the hashCode of {@link TableNamespace this table namespace}.
-         * 
+         *
          * @return the hashCode
          */
         private int computeHash() {

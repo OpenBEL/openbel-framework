@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -37,7 +37,7 @@ package org.openbel.framework.ws.dialect;
 
 /**
  * Defines the different syntaxes of BEL.
- * 
+ *
  * @author Steve Ungerer
  */
 public enum BELSyntax {

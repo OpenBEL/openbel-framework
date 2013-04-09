@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,9 +45,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -86,11 +86,11 @@ public class XBELDocument
 
     /**
      * Gets the value of the header property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELHeader }
-     *     
+     *
      */
     public XBELHeader getHeader() {
         return header;
@@ -98,11 +98,11 @@ public class XBELDocument
 
     /**
      * Sets the value of the header property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELHeader }
-     *     
+     *
      */
     public void setHeader(XBELHeader value) {
         this.header = value;
@@ -114,11 +114,11 @@ public class XBELDocument
 
     /**
      * Gets the value of the namespaceGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELNamespaceGroup }
-     *     
+     *
      */
     public XBELNamespaceGroup getNamespaceGroup() {
         return namespaceGroup;
@@ -126,11 +126,11 @@ public class XBELDocument
 
     /**
      * Sets the value of the namespaceGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELNamespaceGroup }
-     *     
+     *
      */
     public void setNamespaceGroup(XBELNamespaceGroup value) {
         this.namespaceGroup = value;
@@ -142,11 +142,11 @@ public class XBELDocument
 
     /**
      * Gets the value of the annotationDefinitionGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAnnotationDefinitionGroup }
-     *     
+     *
      */
     public XBELAnnotationDefinitionGroup getAnnotationDefinitionGroup() {
         return annotationDefinitionGroup;
@@ -154,11 +154,11 @@ public class XBELDocument
 
     /**
      * Sets the value of the annotationDefinitionGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAnnotationDefinitionGroup }
-     *     
+     *
      */
     public void
             setAnnotationDefinitionGroup(XBELAnnotationDefinitionGroup value) {
@@ -171,25 +171,25 @@ public class XBELDocument
 
     /**
      * Gets the value of the statementGroup property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the statementGroup property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getStatementGroup().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link XBELStatementGroup }
-     * 
-     * 
+     *
+     *
      */
     public List<XBELStatementGroup> getStatementGroup() {
         if (statementGroup == null) {

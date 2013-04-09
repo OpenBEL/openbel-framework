@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes a list of terms.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * list(E:abundance)list
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @author Tat Chu
  * @see Signature
  */
@@ -81,7 +81,7 @@ public class TermList extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

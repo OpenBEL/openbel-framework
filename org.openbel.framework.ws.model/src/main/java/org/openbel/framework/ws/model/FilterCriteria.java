@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlType;
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="FilterCriteria">
  *   &lt;complexContent>
@@ -77,7 +77,7 @@ public class FilterCriteria {
 
     /**
      * Gets the value of the isInclude property.
-     * 
+     *
      * @return possible object is {@link Boolean }
      */
     public boolean isIsInclude() {
@@ -89,7 +89,7 @@ public class FilterCriteria {
 
     /**
      * Sets the value of the isInclude property.
-     * 
+     *
      * @param value allowed object is {@link Boolean }
      */
     public void setIsInclude(Boolean value) {

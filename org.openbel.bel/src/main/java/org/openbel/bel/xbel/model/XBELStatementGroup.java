@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,9 +44,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -86,11 +86,11 @@ public class XBELStatementGroup
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -98,11 +98,11 @@ public class XBELStatementGroup
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -114,11 +114,11 @@ public class XBELStatementGroup
 
     /**
      * Gets the value of the comment property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getComment() {
         return comment;
@@ -126,11 +126,11 @@ public class XBELStatementGroup
 
     /**
      * Sets the value of the comment property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setComment(String value) {
         this.comment = value;
@@ -142,11 +142,11 @@ public class XBELStatementGroup
 
     /**
      * Gets the value of the annotationGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public XBELAnnotationGroup getAnnotationGroup() {
         return annotationGroup;
@@ -154,11 +154,11 @@ public class XBELStatementGroup
 
     /**
      * Sets the value of the annotationGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public void setAnnotationGroup(XBELAnnotationGroup value) {
         this.annotationGroup = value;
@@ -170,25 +170,25 @@ public class XBELStatementGroup
 
     /**
      * Gets the value of the statement property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the statement property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getStatement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link XBELStatement }
-     * 
-     * 
+     *
+     *
      */
     public List<XBELStatement> getStatement() {
         if (statement == null) {
@@ -207,25 +207,25 @@ public class XBELStatementGroup
 
     /**
      * Gets the value of the statementGroup property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the statementGroup property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getStatementGroup().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link XBELStatementGroup }
-     * 
-     * 
+     *
+     *
      */
     public List<XBELStatementGroup> getStatementGroup() {
         if (statementGroup == null) {

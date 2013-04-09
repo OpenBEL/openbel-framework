@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * ProcessingBlock encapsulates the '[Processing]' block of a BEL namespace
  * document.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ProcessingBlock implements Serializable {
@@ -104,7 +104,7 @@ public class ProcessingBlock implements Serializable {
 
     /**
      * Retrieves the case sensitive flag.
-     * 
+     *
      * @return {@code boolean}, the case sensitive flag
      */
     public boolean isCaseSensitiveFlag() {
@@ -113,7 +113,7 @@ public class ProcessingBlock implements Serializable {
 
     /**
      * Retrieves the delimiter string.
-     * 
+     *
      * @return {@link String}, the delimiter string
      */
     public String getDelimiterString() {
@@ -122,7 +122,7 @@ public class ProcessingBlock implements Serializable {
 
     /**
      * Retrieves the cacheable flag.
-     * 
+     *
      * @return {@code boolean}, the cacheable flag
      */
     public boolean isCacheableFlag() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,9 +43,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -64,8 +64,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -90,11 +90,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -102,11 +102,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -118,11 +118,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -130,11 +130,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -146,11 +146,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the version property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVersion() {
         return version;
@@ -158,11 +158,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the version property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVersion(String value) {
         this.version = value;
@@ -174,11 +174,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the copyright property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCopyright() {
         return copyright;
@@ -186,11 +186,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the copyright property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCopyright(String value) {
         this.copyright = value;
@@ -202,11 +202,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the disclaimer property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDisclaimer() {
         return disclaimer;
@@ -214,11 +214,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the disclaimer property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDisclaimer(String value) {
         this.disclaimer = value;
@@ -230,11 +230,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the contactInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getContactInfo() {
         return contactInfo;
@@ -242,11 +242,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the contactInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setContactInfo(String value) {
         this.contactInfo = value;
@@ -258,11 +258,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the authorGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAuthorGroup }
-     *     
+     *
      */
     public XBELAuthorGroup getAuthorGroup() {
         return authorGroup;
@@ -270,11 +270,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the authorGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAuthorGroup }
-     *     
+     *
      */
     public void setAuthorGroup(XBELAuthorGroup value) {
         this.authorGroup = value;
@@ -286,11 +286,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the licenseGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELLicenseGroup }
-     *     
+     *
      */
     public XBELLicenseGroup getLicenseGroup() {
         return licenseGroup;
@@ -298,11 +298,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the licenseGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELLicenseGroup }
-     *     
+     *
      */
     public void setLicenseGroup(XBELLicenseGroup value) {
         this.licenseGroup = value;

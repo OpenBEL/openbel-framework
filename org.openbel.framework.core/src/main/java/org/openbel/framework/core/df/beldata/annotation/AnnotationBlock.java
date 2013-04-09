@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -103,7 +103,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the keyword; the annotation block's {@code Keyword}
      * entry.
-     * 
+     *
      * @return the keyword {@link String}, will not be null
      */
     public String getKeyword() {
@@ -113,7 +113,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the annotation type; the annotation block's {@code TypeString}
      * entry converted to {@link AnnotationType}.
-     * 
+     *
      * @return the type {@link AnnotationType}, will not be null
      */
     public AnnotationType getAnnotationType() {
@@ -123,7 +123,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the description; the annotation block's
      * {@code DescriptionString} entry.
-     * 
+     *
      * @return the description {@link String}, will not be null
      */
     public String getDescriptionString() {
@@ -133,7 +133,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the usage; the annotation block's {@code UsageString}
      * entry.
-     * 
+     *
      * @return the usage {@link String}, will not be null
      */
     public String getUsageString() {
@@ -143,7 +143,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the version; the annotation block's {@code VersionString}
      * entry.
-     * 
+     *
      * @return the version {@link String}, may be null
      */
     public String getVersionString() {
@@ -153,7 +153,7 @@ public class AnnotationBlock implements Serializable {
     /**
      * Retrieves the created date time; the annotation block's
      * {@code CreatedDateTime} entry.
-     * 
+     *
      * @return the created date time {@link Date}, will not be null
      */
     public Date getCreatedDateTime() {

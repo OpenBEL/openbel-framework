@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import static java.lang.Thread.getAllStackTraces;
 /**
  * Utility methods for accessing and leveraging the stack-based architecture of
  * the virtual machine.
- * 
+ *
  */
 public class StackUtilities {
     private final static String CLASS = StackUtilities.class.getName();
@@ -52,7 +52,7 @@ public class StackUtilities {
      * You should consider use of this method carefully. Unwinding the stack
      * should be considered an expensive operation.
      * </p>
-     * 
+     *
      * @return StackTraceElement of the caller
      * @see StackTraceElement
      */
@@ -75,7 +75,7 @@ public class StackUtilities {
      * You should consider use of this method carefully. Unwinding the stack
      * should be considered an expensive operation.
      * </p>
-     * 
+     *
      * @return StackTraceElement of the caller
      * @see StackTraceElement
      */

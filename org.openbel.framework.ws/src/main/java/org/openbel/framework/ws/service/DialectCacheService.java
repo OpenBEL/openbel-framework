@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,14 +39,14 @@ import org.openbel.framework.api.Dialect;
 
 /**
  * Provides server-side caching of {@link Dialect}s
- * 
+ *
  * @author Steve Ungerer
  */
 public interface DialectCacheService {
 
     /**
      * Obtain a {@link Dialect} for a handle
-     * 
+     *
      * @param dialectHandle
      * @return
      */
@@ -55,14 +55,14 @@ public interface DialectCacheService {
     /**
      * Store a {@link Dialect} in the cache. If a {@link Dialect} was previously
      * cached, the returned handle will be for the previously cached instance.
-     * 
+     *
      * @return The handle for the cached {@link Dialect}
      */
     String cacheDialect(Dialect dialect);
 
     /**
      * Release a {@link Dialect} from the cache
-     * 
+     *
      * @param dialectHandle The handle of the {@link Dialect} to release
      */
     void releaseDialect(String dialectHandle);

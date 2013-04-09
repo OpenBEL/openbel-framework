@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * A BEL Warning indicating there is a syntactical problem with a given value
  * defined for a given resource location.
- * 
+ *
  * @author Steve Ungerer
  */
 public abstract class ResourceSyntaxWarning extends BELWarningException {
@@ -62,7 +62,7 @@ public abstract class ResourceSyntaxWarning extends BELWarningException {
     /**
      * Creates the {@link ResourceSyntaxWarning} for a given resourceLocation
      * and value.
-     * 
+     *
      * @param resourceLocation
      * @param value
      */
@@ -80,7 +80,7 @@ public abstract class ResourceSyntaxWarning extends BELWarningException {
 
     /**
      * Returns the {@code resourceLocation}.
-     * 
+     *
      * @return {@link String}, the resource location
      */
     public String getResourceLocation() {
@@ -89,7 +89,7 @@ public abstract class ResourceSyntaxWarning extends BELWarningException {
 
     /**
      * Returns the {@code value}.
-     * 
+     *
      * @return {@link String}, the value
      */
     public String getValue() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.common.model.Parameter;
  * not available to the converter and will need to be resolved prior to use as a
  * common {@link Parameter} object.
  * </p>
- * 
+ *
  */
 public final class ParameterConverter extends
         JAXBConverter<XBELParameter, Parameter> {

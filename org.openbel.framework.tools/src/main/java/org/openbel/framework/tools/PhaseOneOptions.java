@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ import org.openbel.framework.common.cfg.RuntimeConfiguration;
  * This is a {@link #phaseOneOptions() singleton object} that sets its
  * properties based on the presence and contents of a file.
  * </p>
- * 
+ *
  * @see org.openbel.framework.common.PathConstants BEL framework path
  * constants
  */
@@ -74,7 +74,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
 
     /**
      * Default private constructor.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     private PhaseOneOptions() throws IOException {
@@ -83,7 +83,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
 
     /**
      * Returns the phase one compiler options.
-     * 
+     *
      * @return PhaseOneOptions
      */
     public static PhaseOneOptions phaseOneOptions() {
@@ -92,7 +92,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
 
     /**
      * Returns phase one's input path option.
-     * 
+     *
      * @return String; may be null
      */
     public final String getInputPath() {
@@ -101,7 +101,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
 
     /**
      * Sets phase one's input path option.
-     * 
+     *
      * @param inputPath Phase one's input path
      */
     public final void setInputPath(String inputPath) {
@@ -109,7 +109,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     protected void processSetting(String name, String value) {
@@ -120,7 +120,7 @@ public class PhaseOneOptions extends RuntimeConfiguration {
 
     /**
      * Prints the default configuration for phase one.
-     * 
+     *
      * @param args Ignored command-line arguments
      */
     public static void main(String... args) {

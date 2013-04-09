@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -1279,12 +1279,12 @@ public class BELUtilities {
 
         return false;
     }
-    
+
     /**
      * Return a quoted {@link String param} if necessary.  A quoted parameter
      * is required in order to parse as a {@link Term BEL term} using the
      * {@link BELParser BEL parser}.
-     * 
+     *
      * @param param {@link String}; {@code null} returns {@code null}
      * @return quoted {@link String} if necessary, the original
      * {@link String param}, or {@code null} if {@code param} was {@code null}
@@ -1293,7 +1293,7 @@ public class BELUtilities {
         // return null if null
         if (noLength(param))
             return param;
-        
+
         // return immediately if already quoted
         if (param.startsWith("\"") && param.endsWith("\""))
             return param;
@@ -1303,18 +1303,18 @@ public class BELUtilities {
         if (m.find()) {
             return "\"" + param + "\"";
         }
-        
+
         // return quoted if string matches a function
         if (_functions.contains(param))
             return "\"" + param + "\"";
-        
+
         // return quoted if string matches a relationship
         if (_relationships.contains(param))
             return "\"" + param + "\"";
-        
+
         if (_keywords.contains(param))
             return "\"" + param + "\"";
-        
+
         // return as is
         return param;
     }

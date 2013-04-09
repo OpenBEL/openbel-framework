@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -461,12 +461,12 @@ public class Strings {
      * {@value}
      */
     public static final String KAM_NAME = "KAM Store name";
-    
+
     /*
      * {@value}
      */
     public static final String KAM_NAME_ALREADY_EXISTS = "KAM name already exists.\n";
-    
+
     /**
      * {@value}
      */
@@ -572,12 +572,12 @@ public class Strings {
      * {@value}
      */
     public static final String MICRO_RNA_ABUNDANCE = "microRNAAbundance";
-    
+
     /*
      * {@value}
      */
     public final static String LONG_OPT_KAM_NAME = "kam-name";
-    
+
     /**
      * {@value}
      */
@@ -1156,7 +1156,7 @@ public class Strings {
      * {@value}
      */
     public final static String SHA_256 = "SHA-256";
-    
+
     /*
      * {@value}
      */

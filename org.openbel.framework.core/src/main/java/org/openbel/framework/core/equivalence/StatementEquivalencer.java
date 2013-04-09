@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -72,15 +72,15 @@ public class StatementEquivalencer extends Equivalencer {
     public int equivalence() {
         ProtoNodeTable pnt = network.getProtoNodeTable();
         ProtoEdgeTable pet = network.getProtoEdgeTable();
-        
+
         List<TableProtoEdge> edges = pet.getProtoEdges();
         Map<Integer, Set<Integer>> edgeStmts = pet.getEdgeStatements();
         Map<Integer, Integer> eqn = pnt.getEquivalences();
         Map<Integer, Integer> eqe = pet.getEquivalences();
-        
+
         return equivalenceInternal(edges, edgeStmts, eqn, eqe);
     }
-    
+
     protected static int equivalenceInternal(List<TableProtoEdge> edges,
             Map<Integer, Set<Integer>> edgeStmts, Map<Integer, Integer> eqn,
             Map<Integer, Integer> eqe) {
@@ -125,5 +125,5 @@ public class StatementEquivalencer extends Equivalencer {
 
         return eqct;
     }
-    
+
 }

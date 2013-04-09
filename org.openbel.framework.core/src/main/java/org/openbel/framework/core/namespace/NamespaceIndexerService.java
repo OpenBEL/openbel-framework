@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.framework.core.indexer.IndexingFailure;
  * NamespaceIndexerService defines a service to index namespace values to
  * provide an efficient method of looking up namespace vales for BEL document
  * syntax verification.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface NamespaceIndexerService {
@@ -55,7 +55,7 @@ public interface NamespaceIndexerService {
      * {@link DataFileIndex}, including namespace header and namespace index,
      * that can be used for efficient lookups of namespace values and semantic
      * function flags.
-     * 
+     *
      * @param resourceLocation {@link String}, the namespace resource location,
      * which cannot be null
      * @param rawNamespaceFile {@link File}, the plain-text BEL namespace

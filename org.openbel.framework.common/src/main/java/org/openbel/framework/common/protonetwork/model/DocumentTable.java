@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -55,7 +55,7 @@ import org.openbel.framework.common.model.Header;
  * DocumentTable holds the document header information. This class manages the
  * document headers through the {@link #addDocumentHeader(DocumentHeader)}
  * operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -71,7 +71,7 @@ public class DocumentTable extends ExternalType {
     /**
      * Adds a document to the {@code headers} set. The insertion index is
      * maintained in the {@code headers} list.
-     * 
+     *
      * @param header {@link DocumentHeader}, the header to add, which cannot be
      * null
      * @return {@code int}, the index of the added document header, which will
@@ -90,7 +90,7 @@ public class DocumentTable extends ExternalType {
     /**
      * Returns the document table's {@code headers} list. This list is
      * unmodifiable to preserve the state of the document table.
-     * 
+     *
      * @return {@link List}, the document {@code headers} list, which cannot be
      * null or modified
      */
@@ -180,7 +180,7 @@ public class DocumentTable extends ExternalType {
 
     /**
      * DocumentHeader holds the document header properties
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -238,7 +238,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Creates a DocumentHeader from a bel {@link Header}.
-         * 
+         *
          * @param belHeader {@link Header}, the bel header, which cannot be null
          * @throws InvalidArgument - Thrown if {@code belHeader} is null
          */
@@ -289,7 +289,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's name.
-         * 
+         *
          * @return {@link String}, the document's name, which cannot be null
          */
         public String getName() {
@@ -298,7 +298,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's description.
-         * 
+         *
          * @return {@link String}, the document's description, which can be null
          */
         public String getDescription() {
@@ -307,7 +307,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's version.
-         * 
+         *
          * @return {@link String}, the document's version, which can be null
          */
         public String getVersion() {
@@ -316,7 +316,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's copyright.
-         * 
+         *
          * @return {@link String}, the document's copyright, which can be null
          */
         public String getCopyright() {
@@ -325,7 +325,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's disclaimer.
-         * 
+         *
          * @return {@link String}, the document's disclaimer, which can be null
          */
         public String getDisclaimer() {
@@ -334,7 +334,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's contact info.
-         * 
+         *
          * @return {@link String}, the document's contact info, which can be
          * null
          */
@@ -346,7 +346,7 @@ public class DocumentTable extends ExternalType {
          * Returns the document's authors as a packed {@link String} where the
          * author names are separated by a {@value ProtoNetwork#VALUE_SEPARATOR}
          * .
-         * 
+         *
          * @return {@link String}, the document's authors, which can be null
          */
         public String getAuthors() {
@@ -357,7 +357,7 @@ public class DocumentTable extends ExternalType {
          * Returns the document's licenses as a packed {@link String} where the
          * license values are separated by a
          * {@value ProtoNetwork#VALUE_SEPARATOR}.
-         * 
+         *
          * @return {@link String}, the document's licenses, which can be null
          */
         public String getLicenses() {
@@ -366,7 +366,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Compute the hash for {@link DocumentHeader this document header}.
-         * 
+         *
          * @return the hash
          */
         private int computeHash() {

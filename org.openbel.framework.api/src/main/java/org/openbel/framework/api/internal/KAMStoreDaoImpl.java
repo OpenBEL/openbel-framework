@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -197,7 +197,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                                     "', '") + "') order by sam.statement_id";
     private static final String SELECT_TERM_ID_BY_PARAMETERS_SQL =
             "SELECT term_id FROM @.term_parameter WHERE (namespace_id = ? OR (namespace_id IS NULL AND ? IS NULL)) AND parameter_value_oid = ? AND ordinal = ?";
-    private static final String SELECT_KAM_NODE_UUIDS_SQL = 
+    private static final String SELECT_KAM_NODE_UUIDS_SQL =
             "SELECT kn.kam_node_id, most_significant_bits, least_significant_bits " +
             "FROM @.kam_node kn, @.kam_node_parameter knp, @.kam_parameter_uuid kpu " +
             "WHERE kn.kam_node_id = knp.kam_node_id AND " +
@@ -210,9 +210,9 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
     private static final String $KAM_UUID_JOIN = "tp%d.kam_global_parameter_id = kpu%d.kam_global_parameter_id ";
     private static final String $UUID_JOIN = "(kpu%d.most_significant_bits = ? AND kpu%d.least_significant_bits = ?) ";
     private static final String SELECT_KAM_NODE_BY_TERM_UUIDS =
-            "SELECT kn.kam_node_id " + 
-            "FROM @.kam_node kn, @.term t, @.objects ot, %s, %s " + 
-            "WHERE kn.function_type_id = ? AND t.kam_node_id = kn.kam_node_id AND t.term_label_oid = ot.objects_id AND ot.varchar_value = ? AND " + 
+            "SELECT kn.kam_node_id " +
+            "FROM @.kam_node kn, @.term t, @.objects ot, %s, %s " +
+            "WHERE kn.function_type_id = ? AND t.kam_node_id = kn.kam_node_id AND t.term_label_oid = ot.objects_id AND ot.varchar_value = ? AND " +
             "%s AND %s AND %s AND ( %s )";
 
     private static final String ANY_NUMBER_PLACEHOLDER = "#";
@@ -585,7 +585,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             // invalid BEL
             return null;
         }
-        
+
         String termLongForm = term.toBELLongForm();
 
         Collection<Integer> possibleTermIds = null;
@@ -894,25 +894,25 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
         return kamNodeIds;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Map<Integer, Set<SkinnyUUID>> getKamNodeUUIDs() throws SQLException {
         PreparedStatement ps = getPreparedStatement(SELECT_KAM_NODE_UUIDS_SQL);
-        
-        Map<Integer, Set<SkinnyUUID>> uuidmap = 
+
+        Map<Integer, Set<SkinnyUUID>> uuidmap =
                 new HashMap<Integer, Set<SkinnyUUID>>();
         ResultSet rset = null;
         try {
             rset = ps.executeQuery();
-            
+
             while (rset.next()) {
                 Integer knid = rset.getInt(1);
                 Long msb = rset.getLong(2);
                 Long lsb = rset.getLong(3);
-                
+
                 Set<SkinnyUUID> uuids = uuidmap.get(knid);
                 if (uuids == null) {
                     uuids = new HashSet<SkinnyUUID>();
@@ -936,7 +936,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         if (fx == null) throw new InvalidArgument("fx is null");
         if (u == null) throw new InvalidArgument("u is null");
         if (u.length == 0) throw new InvalidArgument("u is empty");
-        
+
         // build sql by concatenation
         String sql = SELECT_KAM_NODE_BY_TERM_UUIDS;
         String tpt = "";
@@ -964,7 +964,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         }
 
         sql = format(sql, tpt, kput, tidj, oj, kuj, uj);
-        
+
         PreparedStatement ps = getPreparedStatement(sql);
         ps.setInt(1, fx.getValue());
         ps.setString(2, term);
@@ -976,7 +976,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             ps.setLong(index + 1, item.getLeastSignificantBits());
             index += 2;
         }
-        
+
         ResultSet rset = null;
         try {
             rset = ps.executeQuery();
@@ -1050,9 +1050,9 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 // label based on its original encoding
                 List<TermParameter> tparams = getTermParameters(belTermId);
                 for (TermParameter termParameter : tparams) {
-                    String nsprefix = termParameter.namespace != null ? 
+                    String nsprefix = termParameter.namespace != null ?
                             termParameter.namespace.prefix : null;
-                    
+
                     // quote parameter if necessary
                     String paramValue = termParameter.parameterValue;
                     paramValue = quoteParameter(paramValue);
@@ -2588,7 +2588,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             if (value == null && objectsTextId != 0) { //value is in objects_text table
                 value = getObjectsTextById(objectsTextId);
             }
-            
+
             if (value == null) {
                 value = "";
             }

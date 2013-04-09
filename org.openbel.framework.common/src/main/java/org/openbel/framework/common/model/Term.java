@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ import org.openbel.framework.common.enums.FunctionEnum;
  * <p>
  * They contain a number of {@link Term terms} and {@link Parameter parameters}.
  * Terms are parameter-iterable:
- * 
+ *
  * <pre>
  * <code>
  * for (final Parameter parameter : term) {
@@ -60,9 +60,9 @@ import org.openbel.framework.common.enums.FunctionEnum;
  * }
  * </code>
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Term implements BELObject, Iterable<Parameter> {
@@ -76,7 +76,7 @@ public class Term implements BELObject, Iterable<Parameter> {
     /**
      * Creates a term with the required function and optional arguments
      * property.
-     * 
+     *
      * @param f {@link FunctionEnum}
      * @param functionArgs List of BEL object function arguments
      * @throws InvalidArgument Thrown if {@code f} is null
@@ -89,7 +89,7 @@ public class Term implements BELObject, Iterable<Parameter> {
 
     /**
      * Creates a term with the required function.
-     * 
+     *
      * @param f {@link FunctionEnum}
      * @throws InvalidArgument Thrown if {@code f} is null
      */
@@ -100,7 +100,7 @@ public class Term implements BELObject, Iterable<Parameter> {
 
     /**
      * Returns the term's function.
-     * 
+     *
      * @return {@link FunctionEnum}, the function type
      */
     public FunctionEnum getFunctionEnum() {
@@ -109,7 +109,7 @@ public class Term implements BELObject, Iterable<Parameter> {
 
     /**
      * Returns the term's list of parameters.
-     * 
+     *
      * @return List of parameters, which may be null
      */
     public List<Parameter> getParameters() {
@@ -118,7 +118,7 @@ public class Term implements BELObject, Iterable<Parameter> {
 
     /**
      * Returns the term's nested list of terms.
-     * 
+     *
      * @return List of terms, which may be null
      */
     public List<Term> getTerms() {
@@ -132,15 +132,15 @@ public class Term implements BELObject, Iterable<Parameter> {
      * parameter} or another {@link Term term} (considered an <i>inner</i>
      * term). This means the {@code number_of_arguments} is equal to the
      * {@code (number_of_parameters + number_of_terms)}. I.e.,
-     * 
+     *
      * <pre>
      * <code>
      * getNumberOfArguments() == (getNumberOfParameters() + getNumberOfTerms())
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return int
      * @see #getNumberOfParameters()
      * @see #getNumberOfTerms()
@@ -157,15 +157,15 @@ public class Term implements BELObject, Iterable<Parameter> {
      * parameter} or another {@link Term term} (considered an <i>inner</i>
      * term). This means the {@code number_of_parameters} is equal to the
      * {@code (number_of_arguments - number_of_terms)}. I.e.,
-     * 
+     *
      * <pre>
      * <code>
      * getNumberOfParameters() == (getNumberOfArguments() - getNumberOfTerms())
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return int
      * @see #getNumberOfArguments()
      * @see #getNumberOfTerms()
@@ -181,15 +181,15 @@ public class Term implements BELObject, Iterable<Parameter> {
      * parameter} or another {@link Term term} (considered an <i>inner</i>
      * term). This means the {@code number_of_terms} is equal to the
      * {@code (number_of_arguments - number_of_parameters)}. I.e.,
-     * 
+     *
      * <pre>
      * <code>
      * getNumberOfTerms() == (getNumberOfArguments() - getNumberOfParameters())
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return int
      * @see #getNumberOfArguments()
      * @see #getNumberOfParameters()
@@ -207,7 +207,7 @@ public class Term implements BELObject, Iterable<Parameter> {
      * method encapsulates the ordering of these arguments for the term's
      * function.
      * </p>
-     * 
+     *
      * @return List of {@link BELObject BEL objects}, which may be null, in
      * order for its associated {@link #getFunctionEnum() function}
      */
@@ -221,7 +221,7 @@ public class Term implements BELObject, Iterable<Parameter> {
      * The argument will be additionally added to the terms or parameters,
      * depending on its type.
      * </p>
-     * 
+     *
      * @param arg BEL object function argument
      * @throws InvalidArgument Thrown if {@code arg} is null
      * @throws UnsupportedOperationException Thrown if {@code arg} is not a
@@ -252,7 +252,7 @@ public class Term implements BELObject, Iterable<Parameter> {
     /**
      * Sets the term's arguments. This list backs the term's ordered function
      * argument, term, and parameter lists.
-     * 
+     *
      * @param args List of BEL objects
      * @see #getFunctionArguments()
      */
@@ -263,7 +263,7 @@ public class Term implements BELObject, Iterable<Parameter> {
     /**
      * Returns a list of all parameters contained by both this term and any
      * nested terms.
-     * 
+     *
      * @return Non-null list of parameters
      */
     public List<Parameter> getAllParameters() {
@@ -287,16 +287,16 @@ public class Term implements BELObject, Iterable<Parameter> {
      * <p>
      * The following code is guaranteed to be safe (no
      * {@link NullPointerException null pointer exceptions} will be thrown):
-     * 
+     *
      * <pre>
      * <code>
      * for (final Parameter parameter : term) {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return {@link Iterator} of {@link Parameter parameters}
      */
     @Override
@@ -306,7 +306,7 @@ public class Term implements BELObject, Iterable<Parameter> {
 
     /**
      * Returns a list of all terms contained by and within this term.
-     * 
+     *
      * @return Non-null list of terms
      */
     public List<Term> getAllTerms() {
@@ -329,7 +329,7 @@ public class Term implements BELObject, Iterable<Parameter> {
      * Parameters are found in a recursive depth-first search using the
      * implementation in {@link #findParameters(List, Term)}.
      * </p>
-     * 
+     *
      * @return {@link List} of all {@link Parameter} objects for this term,
      * which can be empty but will not be null
      */
@@ -342,7 +342,7 @@ public class Term implements BELObject, Iterable<Parameter> {
     /**
      * Returns {@code true} if this term is parameterized, e.g., has parameters;
      * {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isParameterized() {
@@ -509,7 +509,7 @@ public class Term implements BELObject, Iterable<Parameter> {
      * <p>
      * The results are captured in the <tt>params</tt> {@link List}.
      * </p>
-     * 
+     *
      * @param params {@link List} of {@link Parameter}, the list of parameters
      * found from the top-level term so far
      */
@@ -536,7 +536,7 @@ public class Term implements BELObject, Iterable<Parameter> {
     /**
      * Sets the function arguments, terms, and parameters. A null argument will
      * result in null function arguments, terms, and parameters.
-     * 
+     *
      * @param args List of BEL objects, or null
      * @throws UnsupportedOperationException Thrown if a {@link BELObject}
      * within {@code args} is not a {@link Term} or {@link Parameter}

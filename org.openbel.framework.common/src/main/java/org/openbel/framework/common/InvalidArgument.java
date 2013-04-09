@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -55,7 +55,7 @@ public class InvalidArgument extends BELUncheckedException {
      * {@link #InvalidArgument(String, Throwable)} are favored in preference to
      * using the default message.
      * </p>
-     * 
+     *
      * @deprecated You should be explaining {@link #InvalidArgument(String) why}
      * the argument is invalid.
      */
@@ -67,7 +67,7 @@ public class InvalidArgument extends BELUncheckedException {
     /**
      * Creates an invalid argument exception with the specified cause and
      * {@value #DEFAULT_MSG} as its detail message.
-     * 
+     *
      * @param cause The cause of the exception
      */
     public InvalidArgument(Throwable cause) {
@@ -78,7 +78,7 @@ public class InvalidArgument extends BELUncheckedException {
      * Creates an invalid argument exception with the specified detail message.
      * The cause is not initialized, and may subsequently be initialized by a
      * call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param message The detailed exception message
      */
     public InvalidArgument(String message) {
@@ -93,7 +93,7 @@ public class InvalidArgument extends BELUncheckedException {
      * <dt>If {@code argument} is non-null:</dt>
      * <dd>{@code invalid <argumentName>}</dd>
      * </dl>
-     * 
+     *
      * @param argumentName The invalid argument's name
      * @param argument The invalid argument (may be null)
      */
@@ -104,7 +104,7 @@ public class InvalidArgument extends BELUncheckedException {
     /**
      * Creates an invalid argument exception with the specified cause and detail
      * message.
-     * 
+     *
      * @param message The detailed exception message
      * @param cause The cause of the exception
      */

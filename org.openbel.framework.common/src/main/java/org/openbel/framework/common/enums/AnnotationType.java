@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -84,7 +84,7 @@ public enum AnnotationType {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      */
@@ -103,7 +103,7 @@ public enum AnnotationType {
 
     /**
      * Returns the annotation type's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -113,7 +113,7 @@ public enum AnnotationType {
 
     /**
      * Returns the annotation type's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -123,7 +123,7 @@ public enum AnnotationType {
     /**
      * Returns the annotation type by its string representation, which may be
      * null.
-     * 
+     *
      * @param s Annotation type string representation
      * @return AnnotationType - null if the provided string has no annotation
      * type representation
@@ -135,7 +135,7 @@ public enum AnnotationType {
 
     /**
      * Returns the annotation type for the <tt>value</tt>.
-     * 
+     *
      * @param value {@link Integer}, the value for the annotation type
      * @return {@link AnnotationType}, the annotation type, or null if:
      * <ul>
@@ -158,7 +158,7 @@ public enum AnnotationType {
      * This method is favored in place of {@link #fromString(String)} as it
      * provides disambiguation with other enums when used as a static import.
      * </p>
-     * 
+     *
      * @param s Annotation type string representation
      * @return AnnotationType - null if the provided string has no annotation
      * type representation

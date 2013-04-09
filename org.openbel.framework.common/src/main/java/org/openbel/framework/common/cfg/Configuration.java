@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -102,7 +102,7 @@ public abstract class Configuration {
      * Creates a configuration instance derived from the supplied file. If the
      * file is not {@link BELUtilities#readable(File) readable},
      * {@link #initializeDefaults()} will be called on {@link #init()}.
-     * 
+     *
      * @param file File to use as configuration; may be null in which case
      * {@link #defaults} are used
      * @throws IOException Thrown if an I/O error occurs
@@ -122,7 +122,7 @@ public abstract class Configuration {
      * Creates a configuration instance derived from the supplied map. If the
      * map is null, {@link #initializeDefaults()} will be called on
      * {@link #init()}.
-     * 
+     *
      * @param map Map to use as configuration; may be null in which case
      * {@link #defaults} are used
      */
@@ -168,7 +168,7 @@ public abstract class Configuration {
 
     /**
      * Process a name-value setting during reading {@link #configurationFile} by
-     * 
+     *
      * @param name Non-null name
      * @param value Non-null value
      */
@@ -186,14 +186,14 @@ public abstract class Configuration {
 
     /**
      * Returns the name-value default settings.
-     * 
+     *
      * @return Name-value mappings
      */
     protected abstract Map<String, String> defaults();
 
     /**
      * Returns the default configuration provided by {@link #defaults()}.
-     * 
+     *
      * @return Non-null string
      */
     protected String defaultConfiguration() {
@@ -215,7 +215,7 @@ public abstract class Configuration {
 
     /*
      * Reads a file populating a map for a call to read(Map) below.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     private void read(final File f) throws IOException {
@@ -265,7 +265,7 @@ public abstract class Configuration {
      * Performs substitution against the configuration {@code value} for the
      * system's temporary directory, user's home directory, user's name, or
      * user's current working directory.
-     * 
+     *
      * @param value Non-null string
      * @return String resulting from value replacement
      */

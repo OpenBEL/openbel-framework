@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ import org.openbel.framework.common.cfg.RuntimeConfiguration;
  * This is a {@link #phaseTwoOptions() singleton object} that sets its
  * properties based on the presence and contents of a file.
  * </p>
- * 
+ *
  * @see org.openbel.framework.common.PathConstants BEL framework path
  * constants
  */
@@ -68,7 +68,7 @@ public class PhaseTwoOptions extends RuntimeConfiguration {
 
     /**
      * Default private constructor.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     private PhaseTwoOptions() throws IOException {
@@ -77,7 +77,7 @@ public class PhaseTwoOptions extends RuntimeConfiguration {
 
     /**
      * Returns the phase two compiler options.
-     * 
+     *
      * @return PhaseTwoOptions
      */
     public static PhaseTwoOptions phaseTwoOptions() {
@@ -86,7 +86,7 @@ public class PhaseTwoOptions extends RuntimeConfiguration {
 
     /**
      * Prints the default configuration for phase two.
-     * 
+     *
      * @param args Ignored command-line arguments
      */
     public static void main(String... args) {

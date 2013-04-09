@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -38,7 +38,7 @@ package org.openbel.framework.common.model;
 /**
  * Interface for defining a converter between two reference types, where
  * {@code T1} is a {@link BELObject}.
- * 
+ *
  * @param <T1> Generic type suitable for conversion to {@code <T2>}
  * @param <T2> Generic type suitable for conversion to {@code <T1>}
  */
@@ -46,7 +46,7 @@ public interface CommonConverter<T1 extends BELObject, T2> {
 
     /**
      * Converts {@code T2} to its {@link BELObject} representation.
-     * 
+     *
      * @param src {@code T2}
      * @return {@code T1}
      */
@@ -55,7 +55,7 @@ public interface CommonConverter<T1 extends BELObject, T2> {
     /**
      * Converts the {@code T1} {@link BELObject} to its {@code T2}
      * representation.
-     * 
+     *
      * @param src {@code T1} {@link BELObject}
      * @return {@code T2}
      */

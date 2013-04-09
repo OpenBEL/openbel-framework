@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -58,7 +58,7 @@ import org.openbel.framework.common.InvalidArgument;
  * <p>
  * BEL documents contain a number of {@link Statement statements} organized into
  * {@link StatementGroup statement groups}. Documents are statement-iterable:
- * 
+ *
  * <pre>
  * <code>
  * for (final Statement statement : document) {
@@ -66,9 +66,9 @@ import org.openbel.framework.common.InvalidArgument;
  * }
  * </code>
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Document implements BELModelObject, Iterable<Statement> {
@@ -83,7 +83,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Creates a document with the provided header, initially containing the
      * supplied statement group.
-     * 
+     *
      * @param header Non-null header
      * @param group Non-null statement group
      * @throws InvalidArgument Thrown if {@code header} or {@code group} is null
@@ -104,7 +104,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Creates a document with the provided header, containing the supplied
      * statement groups.
-     * 
+     *
      * @param header Non-null header
      * @param groups Non-null, nonempty list of statement groups
      * @throws InvalidArgument Thrown if {@code header} is null or
@@ -125,7 +125,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Creates a document with the provided header, containing the supplied
      * statement groups and optional properties.
-     * 
+     *
      * @param header Non-null header
      * @param groups Non-null, nonempty list of statement groups
      * @param nsGroup Namespace group
@@ -145,7 +145,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the document's header.
-     * 
+     *
      * @return Header
      */
     public Header getHeader() {
@@ -154,7 +154,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the document's namespace group.
-     * 
+     *
      * @return NamespaceGroup, which may be null
      */
     public NamespaceGroup getNamespaceGroup() {
@@ -163,7 +163,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns all annotations contained within the document.
-     * 
+     *
      * @return List of annotations, which may be empty
      */
     public List<Annotation> getAllAnnotations() {
@@ -176,7 +176,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the set of all namespaces contained within the document.
-     * 
+     *
      * @return Set of namespaces, which may be empty
      */
     public Set<Namespace> getAllNamespaces() {
@@ -188,7 +188,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the set of all terms contained within the document.
-     * 
+     *
      * @return Set of terms, which may be empty
      */
     public Set<Term> getAllTerms() {
@@ -203,7 +203,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the set of all parameters contained within the document.
-     * 
+     *
      * @return Set of parameters, which may be empty
      */
     public Set<Parameter> getAllParameters() {
@@ -220,7 +220,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns a list of all statement groups contained within the document.
-     * 
+     *
      * @return List of statement groups
      */
     public List<StatementGroup> getAllStatementGroups() {
@@ -234,7 +234,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns a list of all statements contained within the document.
-     * 
+     *
      * @return List of statements, which may be empty
      */
     public List<Statement> getAllStatements() {
@@ -247,7 +247,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the number of statements contained within the document.
-     * 
+     *
      * @return int
      */
     public int getNumberOfStatements() {
@@ -256,7 +256,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Sets the document's namespace group.
-     * 
+     *
      * @param namespaceGroup Document's namespace group
      */
     public void setNamespaceGroup(NamespaceGroup namespaceGroup) {
@@ -266,7 +266,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Returns the document's namespaces as a mapped keyed by namespace
      * {@link Namespace#getPrefix() namespace prefix}.
-     * 
+     *
      * @return Map of namespaces to instances
      */
     public Map<String, Namespace> getNamespaceMap() {
@@ -292,7 +292,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the count of statements contained within the document.
-     * 
+     *
      * @return int
      */
     public int getStatementCount() {
@@ -309,7 +309,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
      * This method simply returns {@link Map#size()} on
      * {@link #getNamespaceMap()}.
      * </p>
-     * 
+     *
      * @return int
      * @see #getNamespaceMap()
      */
@@ -319,7 +319,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the document's definitions.
-     * 
+     *
      * @return List of annotation definitions, which may be null
      */
     public List<AnnotationDefinition> getDefinitions() {
@@ -328,7 +328,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Sets the document's definitions.
-     * 
+     *
      * @param definitions Document's definitions
      */
     public void setDefinitions(List<AnnotationDefinition> definitions) {
@@ -338,7 +338,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Returns the document's annotation definitions as a mapped keyed by
      * annotation definition {@link AnnotationDefinition#getId() identifier}.
-     * 
+     *
      * @return Non-null map of annotation definition identifiers to instances,
      * which may be empty
      */
@@ -356,7 +356,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Returns the document's statement groups.
-     * 
+     *
      * @return Non-null, nonempty list of statement groups
      */
     public List<StatementGroup> getStatementGroups() {
@@ -365,7 +365,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
 
     /**
      * Adds a statement group to the document's statement groups.
-     * 
+     *
      * @param group Statement group
      */
     public void addStatementGroup(StatementGroup group) {
@@ -375,7 +375,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
     /**
      * Returns the document's name, contained in its {@link Header#getName()
      * header}.
-     * 
+     *
      * @return String
      */
     public String getName() {
@@ -459,7 +459,7 @@ public class Document implements BELModelObject, Iterable<Statement> {
      * modified in any way, the returned map may no longer reflect a correct
      * mapping of statement group to statement set.
      * </p>
-     * 
+     *
      * @return {@link Map} of {@link StatementGroup} to {@link Set} of
      * {@link Statement Statements}
      */
@@ -493,16 +493,16 @@ public class Document implements BELModelObject, Iterable<Statement> {
      * <p>
      * The following code is guaranteed to be safe (no
      * {@link NullPointerException null pointer exceptions} will be thrown):
-     * 
+     *
      * <pre>
      * <code>
      * for (final Statement statement : document) {
      * }
      * </code>
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return {@link Iterator} of {@link Statement statements}
      */
     @Override

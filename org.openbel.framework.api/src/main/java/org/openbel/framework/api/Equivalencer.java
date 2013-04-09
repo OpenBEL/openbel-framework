@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import org.openbel.framework.core.equivalence.ParameterEquivalencer;
 
 /**
  * Equivalencer defines a utility to equivalencing namespace values.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Equivalencer {
@@ -66,7 +66,7 @@ public class Equivalencer {
      * engine loads the BEL equivalence files associated with the framework and
      * uses them do perform equivalencing.
      * </p>
-     * 
+     *
      * @param sourceNamespace {@link Namespace}, the namespace of the source
      *            parameter
      * @param sourceValue {@link String}, the source parameter value
@@ -122,7 +122,7 @@ public class Equivalencer {
      * engine loads the BEL equivalence files associated with the framework and
      * uses them do perform equivalencing.
      * </p>
-     * 
+     *
      * @param sourceNamespace {@link Namespace}, the namespace of the source
      *            parameter
      * @param sourceValue {@link String}, the source parameter value
@@ -176,7 +176,7 @@ public class Equivalencer {
      * engine loads the BEL equivalence files associated with the framework and
      * uses them do perform equivalencing.
      * </p>
-     * 
+     *
      * @param sourceUUID
      * @param targetNamespace
      * @return the equivalent parameters or an empty map if no equivalent
@@ -218,7 +218,7 @@ public class Equivalencer {
      * engine loads the BEL equivalence files associated with the framework and
      * uses them do perform equivalencing.
      * </p>
-     * 
+     *
      * @param sourceUUID
      * @return the equivalent parameters or an empty map if no equivalent
      *         parameter is found
@@ -285,7 +285,7 @@ public class Equivalencer {
     /**
      * Loads the {@link ParameterEquivalencer} if it has not already been
      * loaded.
-     * 
+     *
      * @throws EquivalencerException Thrown if an error occurred loading the
      *             equivalencing engine.
      */

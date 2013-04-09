@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,14 +53,14 @@ import java.io.ObjectOutput;
  * {@link WriteCache} objects used by the interface is no longer really
  * suitable.
  * </p>
- * 
+ *
  * @since 1.3
  */
 public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified file.
-     * 
+     *
      * @param f {@link File}; may not be null
      * @throws IOException XXX WUTM
      * @throws ClassNotFoundException XXX WUTM
@@ -70,7 +70,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified file using an optional cache.
-     * 
+     *
      * @param f {@link File}; may not be null
      * @param cache {@link ReadCache}; null indicates no caching is desired
      * (equivalent to {@link #from(File)})
@@ -83,7 +83,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified input.
-     * 
+     *
      * @param in {@link ObjectInput}; may not be null
      * @throws IOException XXX WUTM
      * @throws ClassNotFoundException XXX WUTM
@@ -93,7 +93,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified input using an optional cache.
-     * 
+     *
      * @param in {@link ObjectInput}; may not be null
      * @param cache {@link ReadCache}; null indicates no caching is desired
      * (equivalent to {@link #from(ObjectInput)})
@@ -106,7 +106,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified path.
-     * 
+     *
      * @param path {@link String}; may not be null
      * @throws IOException XXX WUTM
      * @throws ClassNotFoundException XXX WUTM
@@ -116,7 +116,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Reads itself from the specified path using an optional cache.
-     * 
+     *
      * @param path {@link String}; may not be null
      * @param cache {@link ReadCache}; null indicates no caching is desired
      * (equivalent to {@link #from(String)})
@@ -129,7 +129,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified file.
-     * 
+     *
      * @param f {@link File}; may not be null
      * @throws IOException XXX WUTM
      * @throws NullPointerException Thrown if either argument is null
@@ -138,7 +138,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified file and using an optional cache.
-     * 
+     *
      * @param f {@link File}; may not be null
      * @param cache {@link WriteCache}; null indicates no caching is desired
      * (equivalent to {@link #to(Object, File)})
@@ -149,7 +149,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified output.
-     * 
+     *
      * @param out {@link ObjectOutput}; may not be null
      * @throws IOException XXX WUTM
      * @throws NullPointerException Thrown if {@code out} is null
@@ -158,7 +158,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified output using an optional cache.
-     * 
+     *
      * @param out {@link ObjectOutput}; may not be null
      * @param cache {@link WriteCache}; null indicates no caching is desired
      * (equivalent to {@link #to(Object, ObjectOutput)})
@@ -169,7 +169,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified path.
-     * 
+     *
      * @param path {@link String}; may not be null
      * @throws IOException XXX WUTM
      * @throws NullPointerException Thrown if {@code path} is null
@@ -178,7 +178,7 @@ public interface CachingExternalizable extends Externalizable {
 
     /**
      * Writes this to the specified path using an optional cache.
-     * 
+     *
      * @param path {@link String}; may not be null
      * @param cache {@link WriteCache}; null indicates no caching is desired
      * (equivalent to {@link #to(Object, String)})

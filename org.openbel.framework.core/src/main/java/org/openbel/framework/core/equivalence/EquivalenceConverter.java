@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -62,7 +62,7 @@ public class EquivalenceConverter {
     /**
      * Create an equivalence converter with the associated
      * {@link EquivalenceResource}.
-     * 
+     *
      * @param lookup {@link EquivalenceResource}; may not be null
      * @throws InvalidArgument Thrown if {@code lookup} is null
      */
@@ -78,7 +78,7 @@ public class EquivalenceConverter {
     /**
      * Returns an {@link EquivalentTerm} converted from the supplied
      * {@link Term}.
-     * 
+     *
      * @param t {@link Term}; may be null
      * @return {@link EquivalentTerm}; null if {@code t} was null
      */
@@ -131,7 +131,7 @@ public class EquivalenceConverter {
     /**
      * Returns an {@link EquivalentParameter} converted from the supplied
      * {@link Parameter}.
-     * 
+     *
      * @param t {@link Parameter}; may be null
      * @return {@link EquivalentParameter}; null if {@code p} was null
      */

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes the abundance of a gene.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * geneAbundance(E:geneAbundance)geneAbundance
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class GeneAbundance extends Function {
@@ -80,7 +80,7 @@ public class GeneAbundance extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

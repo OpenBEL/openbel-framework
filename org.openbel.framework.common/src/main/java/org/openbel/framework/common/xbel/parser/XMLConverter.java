@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import javax.xml.transform.Source;
 
 /**
  * Defines an XML converter to convert between XML and JAXB objects.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @param <T>
  *            The generic JAXB object type
@@ -53,7 +53,7 @@ public interface XMLConverter<T> {
 
     /**
      * Marshals the generic JAXB object into XML.
-     * 
+     *
      * @param t
      *            JAXB object
      * @return XML string
@@ -68,7 +68,7 @@ public interface XMLConverter<T> {
     /**
      * Marshals the generic JAXB object into XML and writes it to the given
      * stream.
-     * 
+     *
      * @param t
      *            JAXB object
      * @param out
@@ -84,7 +84,7 @@ public interface XMLConverter<T> {
 
     /**
      * Unmarshals the XML string into JAXB objects.
-     * 
+     *
      * @param s
      *            XML string
      * @return JAXB object
@@ -98,7 +98,7 @@ public interface XMLConverter<T> {
 
     /**
      * Unmarshals the XML file into JAXB objects.
-     * 
+     *
      * @param f
      *            XML file
      * @throws JAXBException
@@ -111,7 +111,7 @@ public interface XMLConverter<T> {
 
     /**
      * Unmarshals the XML source into JAXB objects.
-     * 
+     *
      * @param s
      *            XML source
      * @return JAXB object

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,9 +46,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -66,8 +66,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -93,11 +93,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -105,11 +105,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -121,11 +121,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Gets the value of the usage property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUsage() {
         return usage;
@@ -133,11 +133,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Sets the value of the usage property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUsage(String value) {
         this.usage = value;
@@ -149,11 +149,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Gets the value of the listAnnotation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELListAnnotation }
-     *     
+     *
      */
     public XBELListAnnotation getListAnnotation() {
         return listAnnotation;
@@ -161,11 +161,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Sets the value of the listAnnotation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELListAnnotation }
-     *     
+     *
      */
     public void setListAnnotation(XBELListAnnotation value) {
         this.listAnnotation = value;
@@ -177,11 +177,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Gets the value of the patternAnnotation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPatternAnnotation() {
         return patternAnnotation;
@@ -189,11 +189,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Sets the value of the patternAnnotation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPatternAnnotation(String value) {
         this.patternAnnotation = value;
@@ -205,11 +205,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -217,11 +217,11 @@ public class XBELInternalAnnotationDefinition
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;

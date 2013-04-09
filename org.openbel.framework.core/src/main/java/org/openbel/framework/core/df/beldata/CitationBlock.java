@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * CitationBlock encapsulates the '[Citation]' block of a BEL namespace
  * document.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class CitationBlock implements Serializable {
@@ -96,7 +96,7 @@ public class CitationBlock implements Serializable {
 
     /**
      * Retrieves the name string; the citation block's {@code NameString} entry.
-     * 
+     *
      * @return the name {@link String string}; will not be null
      */
     public String getNameString() {
@@ -106,7 +106,7 @@ public class CitationBlock implements Serializable {
     /**
      * Retrieves the description string; the citation block's
      * {@code DescriptionString} entry.
-     * 
+     *
      * @return the description {@link String string}; may be null
      */
     public String getDescriptionString() {
@@ -116,7 +116,7 @@ public class CitationBlock implements Serializable {
     /**
      * Retrieves the published version string; the citation block's
      * {@code PublishedVersionString} entry.
-     * 
+     *
      * @return the published version {@link String string}; may be null
      */
     public String getPublishedVersionString() {
@@ -126,7 +126,7 @@ public class CitationBlock implements Serializable {
     /**
      * Retrieves the published date; the citation block's {@code PublishedDate}
      * entry.
-     * 
+     *
      * @return the published {@link Dated date}; may be null
      */
     public Date getPublishedDate() {
@@ -136,7 +136,7 @@ public class CitationBlock implements Serializable {
     /**
      * Retrieves the reference URL; the citation block's {@code ReferenceURL}
      * entry.
-     * 
+     *
      * @return the reference {@link URL URL}; may be null
      */
     public URL getReferenceURL() {

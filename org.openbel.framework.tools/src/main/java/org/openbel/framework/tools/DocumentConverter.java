@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -123,7 +123,7 @@ public final class DocumentConverter extends CommandLineApplication {
         if (extraArgs.size() == 0) {
             // print out the usage if no arguments are given
         	printUsage();
-        	// Another SimpleOutput is used here, and it uses stdout because at this 
+        	// Another SimpleOutput is used here, and it uses stdout because at this
         	// point nothing else will need to be output.
         	SimpleOutput so = new SimpleOutput();
         	so.setErrorStream(System.out);

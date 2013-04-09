@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,12 +42,12 @@ import org.openbel.framework.api.KamElement;
 /**
  * {@link InvalidIdException} represents an invalid id for a
  * {@link KamElement}.
- * 
+ *
  * <p>
  * This exception is useful when decoding and encoding ids and the id format
  * is invalid.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class InvalidIdException extends Exception {
@@ -75,13 +75,13 @@ public class InvalidIdException extends Exception {
     /**
      * Construct the exception with the <tt>id</tt> value that failed to
      * decode.
-     * 
+     *
      * <p>
      * The exception's message if constructed by
      * {@link InvalidIdException#buildMessage(String)} using the
      * {@link InvalidIdException#INVALID_MSG_FMT invalid id message format}.
      * </p>
-     * 
+     *
      * @param id, {@link String} the id
      */
     public InvalidIdException(String id) {
@@ -90,7 +90,7 @@ public class InvalidIdException extends Exception {
 
     /**
      * Build the exception's message using the <tt>id</tt> value.
-     * 
+     *
      * @param id, {@link String} the id
      * @return the exception's message
      */

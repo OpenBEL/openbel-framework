@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import java.io.Serializable;
 
 /**
  * BEL common model base class.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface BELModelObject extends Serializable, Cloneable {
@@ -51,7 +51,7 @@ public interface BELModelObject extends Serializable, Cloneable {
      * <p>
      * This method should be used judiciously.
      * </p>
-     * 
+     *
      * @return {@link BELModelObject} clone, sharing no state with its source
      * object
      */

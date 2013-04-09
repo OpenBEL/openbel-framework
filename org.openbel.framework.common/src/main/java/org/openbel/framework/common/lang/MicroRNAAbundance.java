@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes the abundance of a processed, functional microRNA.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * microRNAAbundance(E:microRNAAbundance)microRNAAbundance
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class MicroRNAAbundance extends Function {
@@ -79,7 +79,7 @@ public class MicroRNAAbundance extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,9 +44,9 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;simpleContent>
@@ -56,8 +56,8 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -74,14 +74,14 @@ public class XBELParameter
     protected String ns;
 
     /**
-     * 
+     *
      *                 Namespace values.
-     *             
-     * 
+     *
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getValue() {
         return value;
@@ -89,11 +89,11 @@ public class XBELParameter
 
     /**
      * Sets the value of the value property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setValue(String value) {
         this.value = value;
@@ -105,11 +105,11 @@ public class XBELParameter
 
     /**
      * Gets the value of the ns property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getNs() {
         return ns;
@@ -117,11 +117,11 @@ public class XBELParameter
 
     /**
      * Sets the value of the ns property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setNs(String value) {
         this.ns = value;

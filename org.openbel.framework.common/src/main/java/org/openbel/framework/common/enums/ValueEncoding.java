@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -65,7 +65,7 @@ public enum ValueEncoding {
     /**
      * Indicates the encoded value can participate in functions requiring
      * biological process arguments.
-     * 
+     *
      * @see #PATHOLOGY
      */
     BIOLOGICAL_PROCESS('B', "biologicalProcess") {
@@ -96,7 +96,7 @@ public enum ValueEncoding {
      * <li>{@link #BIOLOGICAL_PROCESS}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #BIOLOGICAL_PROCESS
      */
     PATHOLOGY('O', "pathology") {
@@ -127,7 +127,7 @@ public enum ValueEncoding {
      * <li>{@link #ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #ABUNDANCE
      * @see #MICRO_RNA_ABUNDANCE
      */
@@ -165,7 +165,7 @@ public enum ValueEncoding {
      * <li>{@link #ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #RNA_ABUNDANCE
      * @see #ABUNDANCE
      */
@@ -198,7 +198,7 @@ public enum ValueEncoding {
      * <li>{@link #ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #ABUNDANCE
      */
     PROTEIN_ABUNDANCE('P', "proteinAbundance") {
@@ -229,7 +229,7 @@ public enum ValueEncoding {
      * <li>{@link #ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #ABUNDANCE
      */
     GENE_ABUNDANCE('G', "geneAbundance") {
@@ -254,7 +254,7 @@ public enum ValueEncoding {
     /**
      * Indicates the encoded value can participate in functions requiring
      * abundance arguments.
-     * 
+     *
      * @see #RNA_ABUNDANCE
      * @see #MICRO_RNA_ABUNDANCE
      * @see #PROTEIN_ABUNDANCE
@@ -292,7 +292,7 @@ public enum ValueEncoding {
      * <li>{@link #ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @see #ABUNDANCE
      */
     COMPLEX_ABUNDANCE('C', "complexAbundance") {
@@ -352,7 +352,7 @@ public enum ValueEncoding {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      */
@@ -371,7 +371,7 @@ public enum ValueEncoding {
 
     /**
      * Returns the value encoding's unique character value.
-     * 
+     *
      * @return char
      */
     public char getValue() {
@@ -380,7 +380,7 @@ public enum ValueEncoding {
 
     /**
      * Returns the value encoding's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -394,7 +394,7 @@ public enum ValueEncoding {
      * In other words, this value encoding can be <i>cast</i> to the provided
      * value encoding; {@code this} <b>is-a</b> {@code v}.
      * </p>
-     * 
+     *
      * @param v ValueEncoding
      * @return boolean
      */
@@ -409,7 +409,7 @@ public enum ValueEncoding {
      * In other words, the provided value encoding can be <i>cast</i> to this
      * encoding; {@code v} <b>is-a</b> {@code this}.
      * </p>
-     * 
+     *
      * @param v
      * @return boolean
      */
@@ -420,7 +420,7 @@ public enum ValueEncoding {
     /**
      * Returns the value encoding by its string or character value
      * representation (case-insensitive).
-     * 
+     *
      * @param s ValueEncoding string representation
      * @return ValueEncoding, may be null if the provided string has no value
      * encoding representation as either {@link #getDisplayValue()} or
@@ -457,7 +457,7 @@ public enum ValueEncoding {
     /**
      * Returns the value encoding by its uppercase {@link Character character}
      * representation.
-     * 
+     *
      * @param c Character; converted to uppercase
      * @return ValueEncoding; may be null if the provided character has no value
      */
@@ -468,7 +468,7 @@ public enum ValueEncoding {
     /**
      * Dumps the value encoding relationships built into the enumeration to
      * standard out.
-     * 
+     *
      * @param args
      */
     public static void main(String... args) {

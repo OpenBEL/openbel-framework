@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -38,7 +38,7 @@ package org.openbel.framework.core.df.beldata;
 /**
  * AbortParsingException represents an exception thrown to stop the parsing of a BEL
  * Data file.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AbortParsingException extends Exception {
@@ -46,7 +46,7 @@ public class AbortParsingException extends Exception {
 
     /**
      * Creates the {@link AbortParsingException} from a {@code message}.
-     * 
+     *
      * @param message {@link String}, the message
      */
     public AbortParsingException(String message) {
@@ -55,7 +55,7 @@ public class AbortParsingException extends Exception {
 
     /**
      * Creates the {@link AbortParsingException} from a {@code message} and the exception's {@code cause}
-     * 
+     *
      * @param message {@link String}, the message
      * @param cause {@link Throwable}, the cause
      */

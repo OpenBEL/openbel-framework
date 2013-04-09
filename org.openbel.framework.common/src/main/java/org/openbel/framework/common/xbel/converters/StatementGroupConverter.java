@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ import org.openbel.framework.common.model.StatementGroup;
 /**
  * Converter class for converting between {@link XBELStatementGroup} and
  * {@link StatementGroup}.
- * 
+ *
  */
 public final class StatementGroupConverter extends
         JAXBConverter<XBELStatementGroup, StatementGroup> {

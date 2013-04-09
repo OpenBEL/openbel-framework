@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.bel.xbel.model.JAXBElement;
 
 /**
  * Base class for JAXBElement-to-BEL object converters.
- * 
+ *
  * @param <T1> Generic type of {@link JAXBElement} suitable for conversion to a
  * BEL model object
  * @param <T2> Generic type of any {@link Object} that can convert to a type of
@@ -59,7 +59,7 @@ public abstract class JAXBConverter<T1 extends JAXBElement, T2> {
     /**
      * Captures all objects of type {@code t} contained in the provided list as
      * a new checked list.
-     * 
+     *
      * @param <T> Captured type for new checked list
      * @param objects List of objects
      * @param t Class type to capture

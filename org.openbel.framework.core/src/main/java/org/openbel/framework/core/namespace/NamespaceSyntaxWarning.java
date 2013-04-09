@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,7 +42,7 @@ import org.openbel.framework.core.compiler.ResourceSyntaxWarning;
 
 /**
  * A BEL warning indicating a value was not found within the associated namespace location.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class NamespaceSyntaxWarning extends ResourceSyntaxWarning {
@@ -56,7 +56,7 @@ public class NamespaceSyntaxWarning extends ResourceSyntaxWarning {
     /**
      * Creates the {@link NamespaceSyntaxWarning} from a {@code resourceLocation} and and
      * {@code value}.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location, which
      * cannot be null
      * @param prefix {@link String}, the prefix, which may be null
@@ -72,7 +72,7 @@ public class NamespaceSyntaxWarning extends ResourceSyntaxWarning {
 
     /**
      * Returns the {@code prefix}.
-     * 
+     *
      * @return {@link String}; may be null
      */
     public String getPrefix() {

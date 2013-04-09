@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import org.openbel.framework.core.df.beldata.ProcessingBlock;
  * <li>Citation block - Describes the citation of this equivalence document</li>
  * <li>Processing block - States how the BEL framework should process this equivalence document</li>
  * <li>NamespaceReference block - States which namespace this equivalence document maps</li></ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class EquivalenceHeader extends BELDataHeader {
@@ -85,7 +85,7 @@ public class EquivalenceHeader extends BELDataHeader {
 
     /**
      * Retrieves the equivalence block.
-     * 
+     *
      * @return {@link EquivalenceBlock}, the equivalence block, which cannot be null
      */
     public EquivalenceBlock getEquivalenceBlock() {
@@ -94,7 +94,7 @@ public class EquivalenceHeader extends BELDataHeader {
 
     /**
      * Retrieves the namespace reference block.
-     * 
+     *
      * @return {@link NamespaceReferenceBlock}, the namespace reference block,
      * which cannot be null
      */

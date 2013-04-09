@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,13 +51,13 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * Implements a basic {@link PathFinder} implementation with a max depth
  * constraint.
- * 
+ *
  * <p>
  * The max search depth constraint default is defined at
  * {@link BasicPathFinder#DEFAULT_MAX_SEARCH_DEPTH}.  To override this
  * constraints create with {@link BasicPathFinder#BasicPathFinder(int)}.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BasicPathFinder implements PathFinder {
@@ -79,7 +79,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Constructs the path finder using the default max search depth defined
      * in {@link BasicPathFinder#DEFAULT_MAX_SEARCH_DEPTH}.
-     * 
+     *
      * @param kam {@link Kam}, the KAM network to path find over, which cannot
      * be null
      */
@@ -92,7 +92,7 @@ public class BasicPathFinder implements PathFinder {
      * Constructs the path finder using the max search depth constraint defined
      * in the value <tt>maxSearchDepth</tt>.  This value must be greater than
      * zero.
-     * 
+     *
      * @param kam {@link Kam}, the KAM network to path find over, which cannot
      * be null
      * @param maxSearchDepth <tt>int</tt> the max search depth constraint to
@@ -248,7 +248,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Initializes and executes the depth-first search from {@link KamNode}
      * source to a {@link Set} of {@link KamNode} targets.
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param source {@link KamNode}, the source kam node
      * @param targets {@link Set} of {@link KamNode}, the target kam nodes
@@ -273,7 +273,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Initializes and executes a depth-first scan from {@link KamNode} source
      * given a max search depth ({@link BasicPathFinder#maxSearchDepth}).
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param source {@link KamNode}, the source kam node
      * @return the resulting paths from this depth-first scan
@@ -304,7 +304,7 @@ public class BasicPathFinder implements PathFinder {
      * This depth-first search exhaustively walks the entire {@link Kam}
      * and finds all paths from <tt>source</tt> to <tt>target</tt>.
      * </p>
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param cnode {@link KamNode} the current node to evaluate
      * @param source {@link KamNode} the source to search from
@@ -360,7 +360,7 @@ public class BasicPathFinder implements PathFinder {
      * max search depth ({@link BasicPathFinder#maxSearchDepth}) is reached.
      * When the max search depth is reached a {@link SimplePath} is added,
      * containing the {@link Stack} of {@link KamEdge}, and the algorithm continues.
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param cnode {@link KamNode}, the current node to evaluate
      * @param source {@link KamNode}, the node to search from
@@ -411,7 +411,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Determines whether the end of a branch was found.  This can indicate
      * that a path should be captures up to the leaf node.
-     * 
+     *
      * @param edgeStack {@link Stack} of {@link KamEdge} that holds the edges
      * on the current path
      * @param edge {@link KamEdge}, the edge to evaluate
@@ -438,7 +438,7 @@ public class BasicPathFinder implements PathFinder {
      * If the edge can be travered it will be placed on the edge {@link Stack},
      * and the edge's unvisited node will be placed on the node {@link Stack}.
      * </p>
-     * 
+     *
      * @param edge {@link KamEdge}, the kam edge to evaluate
      * @param nodeStack {@link Stack} of {@link KamNode}, the nodes on the
      * current scan from the <tt>source</tt>

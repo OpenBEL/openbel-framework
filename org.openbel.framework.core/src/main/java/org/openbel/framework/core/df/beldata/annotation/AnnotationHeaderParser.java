@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,7 +53,7 @@ public class AnnotationHeaderParser extends BELDataHeaderParser {
 
     /**
      * Parses the annotation {@link File} into a {@link AnnotationHeader} object.
-     * 
+     *
      * @param annotationFile {@link File}, the annotation file, which cannot be
      * null, must exist, and must be readable
      * @return {@link annotationHeader}, the parsed annotation header
@@ -61,9 +61,9 @@ public class AnnotationHeaderParser extends BELDataHeaderParser {
      * <tt>annotationFile</tt>
      * @throws BELDataHeaderParseException Thrown if a parsing error occurred
      * when processing the <tt>annotationFile</tt>
-     * @throws BELDataConversionException 
-     * @throws BELDataMissingPropertyException 
-     * @throws BELDataInvalidPropertyException 
+     * @throws BELDataConversionException
+     * @throws BELDataMissingPropertyException
+     * @throws BELDataInvalidPropertyException
      * @throws InvalidArgument Thrown if the <tt>annotationFile</tt> is null,
      * does not exist, or cannot be read
      */

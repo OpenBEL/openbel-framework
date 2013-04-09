@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -55,7 +55,7 @@ import com.jcraft.jsch.UserInfo;
  * implement the
  * <a href="http://tools.ietf.org/html/draft-ietf-secsh-filexfer-13">IETF Version 6 draft</a>
  * since the work was never published.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class SftpProtocolHandler implements ProtocolHandler {
@@ -63,7 +63,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
     /**
      * Creates the sftp protocol handler using a default user info.
-     * 
+     *
      * @see DefaultUserInfo
      */
     public SftpProtocolHandler() {
@@ -72,7 +72,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
     /**
      * Sets the user info for the jsch ssh client connection.
-     * 
+     *
      * @param ui {@link UserInfo}, the user info object to request password
      * authentication
      */
@@ -146,7 +146,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
     /**
      * DefaultUserInfo defines a jsch {@link UserInfo} object that requests
      * the user's password from {@link System#in}.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      */
     public class DefaultUserInfo implements UserInfo {
@@ -157,7 +157,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Return a {@code null} passphrase.
-         * 
+         *
          * @return null
          */
         @Override
@@ -167,7 +167,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Return the captured password.
-         * 
+         *
          * @return {@link String}, the captured password
          */
         @Override
@@ -177,7 +177,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Prompt a {@code message} to the user that solicits their password.
-         * 
+         *
          * @return {@link String}, the message to solicit the user's password
          */
         @Override
@@ -196,7 +196,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Return false.
-         * 
+         *
          * @param message {@link String}, the message to solicit the user's
          * passphrase
          * @return false
@@ -208,7 +208,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Return false.
-         * 
+         *
          * @param message {@link String}, the message to solicit if the user
          * wants to continue authentication
          * @return false
@@ -220,7 +220,7 @@ public class SftpProtocolHandler implements ProtocolHandler {
 
         /**
          * Outputs an authentication message to {@link System#out}.
-         * 
+         *
          * @param message {@link String}, the authentication message to output
          */
         @Override

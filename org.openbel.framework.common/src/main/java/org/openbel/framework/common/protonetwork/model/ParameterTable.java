@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -59,7 +59,7 @@ import org.openbel.framework.common.protonetwork.model.StatementTable.TableState
  * ParameterTable holds the parameter values for terms. This class manages the
  * insertion index and occurrence count state through the
  * {@link #addTableParameter(TableParameter)} operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -116,7 +116,7 @@ public class ParameterTable extends ExternalType {
      * <p>
      * If no parameter exists for the specified index, this method is a no-op.
      * </p>
-     * 
+     *
      * @param pid Table parameter index
      */
     public void removeTableParameter(final int pid) {
@@ -138,7 +138,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns the table parameter by index.
-     * 
+     *
      * @param pid Table parameter index
      * @return TableParameter
      */
@@ -148,7 +148,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns an unmodifiable set view of the table parameters.
-     * 
+     *
      * @return Read-only {@link Set set}
      */
     public Set<TableParameter> getTableParameters() {
@@ -157,7 +157,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns {@link #getTableParameters()} as an array.
-     * 
+     *
      * @return {@code TableParameter[]}
      */
     public TableParameter[] getTableParameterArray() {
@@ -358,7 +358,7 @@ public class ParameterTable extends ExternalType {
 
         /**
          * Compute the hashCode of {@link TableStatement this table statement}.
-         * 
+         *
          * @return the hashCode
          */
         private int computeHash() {

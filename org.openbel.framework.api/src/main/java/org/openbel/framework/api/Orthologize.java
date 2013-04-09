@@ -12,8 +12,8 @@ public interface Orthologize {
 
     /**
      * Retrieve a mapping of orthologous {@link KamNode kam nodes} to the
-     * target species {@link KamNode kam nodes}.  
-     * 
+     * target species {@link KamNode kam nodes}.
+     *
      * @param kam {@link Kam}; may not be {@code null}
      * @param kAMStore {@link KAMStore}; may not be {@code null}
      * @param dialect {@link SpeciesDialect}; may not be {@code null}
@@ -24,11 +24,11 @@ public interface Orthologize {
      */
     public Map<KamNode, KamNode> orthologousNodes(Kam kam, KAMStore kAMStore,
             SpeciesDialect dialect);
-    
+
     /**
      * Collapses orthologous relationships in a {@link Kam kam} and returns an
      * {@link OrthologizedKam orthologized kam}.
-     * 
+     *
      * @param kam {@link Kam}; may not be {@code null}
      * @param kAMStore {@link KAMStore}; may not be {@code null}
      * @param dialect {@link SpeciesDialect}; may not be {@code null}

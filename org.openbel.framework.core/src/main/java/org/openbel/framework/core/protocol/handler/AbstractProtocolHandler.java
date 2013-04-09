@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
 /**
  * AbstractProtocolHandler provides boiler-plate IO to read from a
  * {@link InputStream} and write to a {@link File}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public abstract class AbstractProtocolHandler implements ProtocolHandler {
@@ -57,7 +57,7 @@ public abstract class AbstractProtocolHandler implements ProtocolHandler {
     /**
      * Retrieves a resource from the {@code urlc} and save it to
      * {@code downloadLocation}.
-     * 
+     *
      * @param urlc {@link URLConnection}, the url connection
      * @param downloadLocation {@link String}, the location to save the
      * resource content to

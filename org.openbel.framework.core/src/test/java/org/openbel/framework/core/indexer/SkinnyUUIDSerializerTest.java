@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,7 +61,7 @@ import org.openbel.framework.core.indexer.SkinnyUUIDSerializer;
 /**
  * Tests the {@link SkinnyUUIDSerializer} to ensure proper storage and retrieval of
  * {@link SkinnyUUID}s
- * 
+ *
  * @author Steve Ungerer
  */
 public class SkinnyUUIDSerializerTest {

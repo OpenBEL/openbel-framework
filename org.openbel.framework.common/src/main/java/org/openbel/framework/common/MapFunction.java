@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,7 +45,7 @@ public interface MapFunction<K, V> {
 
     /**
      * Applies the function to the provided key/value pair.
-     * 
+     *
      * @param key Map entry {@link Entry#getKey() key}
      * @param value Map entry {@link Entry#getValue() value}
      */

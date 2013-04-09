@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -80,7 +80,7 @@ public abstract class SimpleApplication {
 
     /**
      * Constructs the simple application with the command-line arguments.
-     * 
+     *
      * @param args Command-line arguments
      */
     public SimpleApplication(final String[] args) {
@@ -114,14 +114,14 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the non-null application name.
-     * 
+     *
      * @return Non-null string
      */
     public abstract String getApplicationName();
 
     /**
      * Returns the non-null application description.
-     * 
+     *
      * @return Non-null string
      */
     public abstract String getApplicationDescription();
@@ -133,14 +133,14 @@ public abstract class SimpleApplication {
      * {@code [-o somearg]}. Arguments that can occur more than once should be
      * followed with ellipses ({@code ...}), for example: {@code [-f FILE...]}.
      * </p>
-     * 
+     *
      * @return Non-null string
      */
     public abstract String getUsage();
 
     /**
      * Returns the command-line arguments.
-     * 
+     *
      * @return Command-line arguments
      */
     protected final String[] getCommandLineArguments() {
@@ -150,7 +150,7 @@ public abstract class SimpleApplication {
     /**
      * Returns the number of command-line arguments, or {@code 0} if none are
      * available.
-     * 
+     *
      * @return int
      */
     public final int getNumberOfCommandLineArgs() {
@@ -166,7 +166,7 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the extraneous command-line arguments.
-     * 
+     *
      * @return Non-null list of strings, may be empty
      */
     protected final List<String> getExtraneousArguments() {
@@ -183,7 +183,7 @@ public abstract class SimpleApplication {
     /**
      * Returns {@code true} if extraneous arguments are present, {@code false}
      * otherwise.
-     * 
+     *
      * @return boolean
      */
     protected final boolean hasExtraneousArguments() {
@@ -193,7 +193,7 @@ public abstract class SimpleApplication {
     /**
      * Returns {@code true} if the option specified by {@code name} has been
      * set, {@code false} otherwise.
-     * 
+     *
      * @param name Single character option name
      * @return boolean
      */
@@ -204,7 +204,7 @@ public abstract class SimpleApplication {
     /**
      * Returns {@code true} if the option specified by {@code name} has been
      * set, {@code false} otherwise.
-     * 
+     *
      * @param name string name
      * @return boolean
      */
@@ -214,7 +214,7 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the option value for the option specified by {@code name}.
-     * 
+     *
      * @param name Single character option name
      * @return String, which may be null
      */
@@ -224,7 +224,7 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the option values for the option specified by {@code name}.
-     * 
+     *
      * @param name Option name
      * @return String[]
      */
@@ -234,7 +234,7 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the option value for the option specified by {@code name}.
-     * 
+     *
      * @param name Option string name
      * @return String, which may be null
      */
@@ -244,7 +244,7 @@ public abstract class SimpleApplication {
 
     /**
      * Returns the ordered, parsed command-line options.
-     * 
+     *
      * @return {@link Option}[] the ordered options array
      */
     protected final Option[] getOptions() {
@@ -253,7 +253,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option.
-     * 
+     *
      * @param shortOpt Short, one character option (e.g., {@code -t})
      * @param longOpt Long, one or two word option (e.g., {@code --long-option})
      * @param desc Option description (e.g., {@code does something great})
@@ -264,7 +264,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option.
-     * 
+     *
      * @param shortOpt Short, one character option (e.g., {@code -t})
      * @param desc Option description (e.g., {@code does something great})
      */
@@ -274,7 +274,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option.
-     * 
+     *
      * @param shortOpt Short, one character option (e.g., {@code -t})
      * @param desc Option description (e.g., {@code does something great})
      * @param hasArg boolean {@code true} if the option requires an argument,
@@ -286,7 +286,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option.
-     * 
+     *
      * @param shortOpt Short, one character option (e.g., {@code -t})
      * @param longOpt Long, one or two word option (e.g., {@code --long-option})
      * @param desc Option description (e.g., {@code does something great})
@@ -300,7 +300,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option.
-     * 
+     *
      * @param o Option
      */
     public final void addOption(final Option o) {
@@ -309,7 +309,7 @@ public abstract class SimpleApplication {
 
     /**
      * Adds a command-line option group.
-     * 
+     *
      * @param o Option group
      */
     public final void addOptionGroup(final OptionGroup o) {
@@ -322,7 +322,7 @@ public abstract class SimpleApplication {
      * Options specifies by subclasses should adhere to the convention of a
      * single-character short option with an optional long option.
      * </p>
-     * 
+     *
      * @return List of options, may be null or empty
      * @see #addOption(String, String, String, boolean)
      */
@@ -337,7 +337,7 @@ public abstract class SimpleApplication {
 
     /**
      * Prints usage information to the provided output stream.
-     * 
+     *
      * @param os Non-null output stream
      */
     public void printUsage(final OutputStream os) {
@@ -354,7 +354,7 @@ public abstract class SimpleApplication {
     /**
      * Write command-line help to standard out and invokes
      * {@link #printHelp(Options, boolean)}.
-     * 
+     *
      * @param exit Exit flag
      */
     protected void printHelp(boolean exit) {
@@ -363,7 +363,7 @@ public abstract class SimpleApplication {
 
     /**
      * Write command-line help to {@code stdout}.
-     * 
+     *
      * @param o Options
      * @param exit Exit flag
      */
@@ -374,7 +374,7 @@ public abstract class SimpleApplication {
     /**
      * Write command-line help to the provided stream. If {@code exit} is
      * {@code true}, exit with status code {@link #EXIT_FAILURE}.
-     * 
+     *
      * @param o Options
      * @param exit Exit flag
      */
@@ -402,7 +402,7 @@ public abstract class SimpleApplication {
     /**
      * Prints the provided message to {@code stderr}, and invokes
      * {@link #bail(ExitCode)} with {@link ExitCode#GENERAL_FAILURE}.
-     * 
+     *
      * @param msg Message
      */
     protected final void fatal(final String msg) {
@@ -413,7 +413,7 @@ public abstract class SimpleApplication {
     /**
      * Stops the application's context and invokes {@link #exit(ExitCode) exit}
      * with the provided status code.
-     * 
+     *
      * @param e Exit code
      */
     protected final void bail(final ExitCode e) {
@@ -422,7 +422,7 @@ public abstract class SimpleApplication {
 
     /**
      * The <b>ONLY</b> call to {@link System#exit(int)}!
-     * 
+     *
      * @param e Exit code
      */
     protected final static void systemExit(final ExitCode e) {

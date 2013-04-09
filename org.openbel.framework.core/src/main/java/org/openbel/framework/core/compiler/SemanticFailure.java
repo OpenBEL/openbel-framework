@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ public class SemanticFailure extends BELWarningException {
 
     /**
      * Creates a semantic failure with the supplied name, message, and causes.
-     * 
+     *
      * @param name
      *            Resource name failing validation
      * @param msg
@@ -72,7 +72,7 @@ public class SemanticFailure extends BELWarningException {
 
     /**
      * Creates a semantic failure with the supplied name, message, and cause.
-     * 
+     *
      * @param name
      *            Resource name failing validation
      * @param msg
@@ -88,7 +88,7 @@ public class SemanticFailure extends BELWarningException {
     /**
      * Obtain all {@link SemanticWarning}s that caused the
      * {@link SemanticFailure}
-     * 
+     *
      * @return the {@link List} of {@link SemanticWarning}s
      */
     public List<SemanticWarning> getCauses() {

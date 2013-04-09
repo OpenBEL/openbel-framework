@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -56,7 +56,7 @@ import org.openbel.framework.common.enums.AnnotationType;
  * </p>
  * TODO This class should be broken into AnnotationDefinition w/
  * InternalAnnotation/ExternalAnnotation as subclasses
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AnnotationDefinition implements BELModelObject {
@@ -76,7 +76,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Creates an annotation definition with the required identifier.
-     * 
+     *
      * @param id Identifier
      * @throws InvalidArgument Thrown if {@code id} is null
      */
@@ -90,7 +90,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Creates an annotation definition with the required identifier, type,
      * description, usage, and URL properties.
-     * 
+     *
      * @param id Identifier
      * @param t Type of annotation
      * @param desc Description of annotation definition
@@ -113,7 +113,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Creates an annotation definition with the required identifier, type,
      * description, usage, and URL properties.
-     * 
+     *
      * @param id Identifier
      * @param t Type of annotation
      * @param desc Description of annotation definition
@@ -135,7 +135,7 @@ public class AnnotationDefinition implements BELModelObject {
      * Creates an annotation definition of type
      * {@link AnnotationType#ENUMERATION ENUMERATION} with the required
      * identifier, optional description and usage, and enumeration values.
-     * 
+     *
      * @param id Identifier
      * @param desc Description of annotation definition
      * @param usage Usage of annotation definition
@@ -161,7 +161,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's description.
-     * 
+     *
      * @return String, which may be null
      */
     public String getDescription() {
@@ -170,7 +170,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's description.
-     * 
+     *
      * @param desc {@link String}
      */
     public void setDescription(String desc) {
@@ -179,7 +179,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's usage.
-     * 
+     *
      * @return String, which may be null
      */
     public String getUsage() {
@@ -188,7 +188,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's usage.
-     * 
+     *
      * @param usage {@link String}
      */
     public void setUsage(String usage) {
@@ -198,7 +198,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Returns the annotation definition's identifier uniquely identifying it
      * within a document.
-     * 
+     *
      * @return Non-null string
      */
     public String getId() {
@@ -207,7 +207,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's type.
-     * 
+     *
      * @return {@link AnnotationType}; which may be null
      */
     public AnnotationType getType() {
@@ -216,7 +216,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's type.
-     * 
+     *
      * @param t {@link AnnotationType}
      */
     public void setType(AnnotationType t) {
@@ -225,7 +225,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's value.
-     * 
+     *
      * @return String, may be null, in which case, enums is non-null
      */
     public String getValue() {
@@ -234,7 +234,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's value.
-     * 
+     *
      * @param value Annotation definition's value
      */
     public void setValue(String value) {
@@ -243,7 +243,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's enums.
-     * 
+     *
      * @return List of strings, may be null, in which case, value is non-null
      */
     public List<String> getEnums() {
@@ -252,7 +252,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's enums.
-     * 
+     *
      * @param enums Annotation definition's enums
      */
     public void setEnums(List<String> enums) {
@@ -261,7 +261,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's URL.
-     * 
+     *
      * @return URL {@link String string}, which may be null
      */
     public String getURL() {
@@ -270,7 +270,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's URL.
-     * 
+     *
      * @param url {@link String}
      */
     public void setURL(String url) {

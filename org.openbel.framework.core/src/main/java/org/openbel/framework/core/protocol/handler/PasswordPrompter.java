@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,7 +46,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * PasswordPrompter provides a utility to retrieve a password from
  * an input stream.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class PasswordPrompter {
@@ -54,7 +54,7 @@ class PasswordPrompter {
     /**
      * Retrieve a password in the {@link InputStream} with an optional
      * {@code prompt} message if reading from {@link System#in}.
-     * 
+     *
      * @param in {@link InputStream}, the input stream to retrieve the
      * password from, which cannot be null
      * @param prompt {@link String}, the message to prompt, which will

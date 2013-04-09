@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -969,7 +969,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
 
         // establish cache to skinny uuids to avoid superfluous jdbm lookups
         final Map<Parameter, SkinnyUUID> paramcache = sizedHashMap(total * 2);
-        
+
         // iterate all statements in the orthology document
         ORTHO_STATEMENT: for (final Statement orthoStmt : orthoStmts) {
 
@@ -980,7 +980,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                 final FunctionEnum subf = sub.getFunctionEnum();
                 final List<Parameter> subp = sub.getParameters();
                 final Parameter subjectParam = subp.get(0);
-                
+
                 // break down object
                 final Term obj = orthoStmt.getObject().getTerm();
                 final FunctionEnum objf = obj.getFunctionEnum();
@@ -990,7 +990,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                 // lookup exact match of subject term
                 if (pnterms.contains(sub)) {
                     pnterms.add(obj);
-                    
+
                     continue;
                 }
 
@@ -1019,7 +1019,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                                 pnterms.add(sub);
                                 pnterms.add(t);
                                 pnterms.add(obj);
-                                
+
                                 continue ORTHO_STATEMENT;
                             }
                         }
@@ -1057,7 +1057,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
                                 pnterms.add(obj);
                                 pnterms.add(t);
                                 pnterms.add(sub);
-                                
+
                                 continue ORTHO_STATEMENT;
                             }
                         }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
 /**
  * CacheableResourceService defines a service to handle cacheable BELFramework
  * resource locations.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface CacheableResourceService extends ResourceService {
@@ -48,7 +48,7 @@ public interface CacheableResourceService extends ResourceService {
     /**
      * Resolves the BELFramework resource with a specific <tt>type</tt> and
      * located at <tt>location</tt>.
-     * 
+     *
      * @param type {@link ResourceType}, the resource type
      * @param location {@link String}, the resource location
      * @return {@link ResolvedResource}, the resource resolved in the cache

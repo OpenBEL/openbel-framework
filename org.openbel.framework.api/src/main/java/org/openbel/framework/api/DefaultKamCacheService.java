@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -84,7 +84,7 @@ import org.openbel.framework.common.InvalidArgument;
  * <h1>Concurrent Loading</h1> The number of KAMs that can be loaded
  * concurrently is controlled by the {@code CONCURRENT_LOAD} constant.
  * </p>
- * 
+ *
  * @author julianray
  */
 public class DefaultKamCacheService implements KamCacheService {
@@ -112,7 +112,7 @@ public class DefaultKamCacheService implements KamCacheService {
 
     /**
      * Creates a default KAM cache service with a supplied {@link KAMStore}.
-     * 
+     *
      * @param kAMStore {@link KAMStore}
      * @throws InvalidArgument Thrown if {@code kamStore} is null
      */
@@ -325,7 +325,7 @@ public class DefaultKamCacheService implements KamCacheService {
      * <p>
      * This method will block obtaining a write lock on the cache.
      * </p>
-     * 
+     *
      * @param handle String
      */
     private void purgeHandle(String handle) {
@@ -357,7 +357,7 @@ public class DefaultKamCacheService implements KamCacheService {
 
     /**
      * Generates a random string to be used as a cache key.
-     * 
+     *
      * @return {@link String}
      */
     protected final static String generateCacheKey() {
@@ -370,7 +370,7 @@ public class DefaultKamCacheService implements KamCacheService {
 
         /**
          * Callable task that loads a KAM and returns its handle.
-         * 
+         *
          * @param ki {@link KamInfo}; must be non-null
          * @param kf {@link KamFilter}; may be null
          */
@@ -461,7 +461,7 @@ public class DefaultKamCacheService implements KamCacheService {
 
         /**
          * Filtered KAM key.
-         * 
+         *
          * @param info {@link KamInfo} assumed non-null
          * @param fltr {@link KamFilter} assumed non-null
          */

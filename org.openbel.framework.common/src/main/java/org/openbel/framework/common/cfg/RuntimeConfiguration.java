@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -94,7 +94,7 @@ public abstract class RuntimeConfiguration extends Configuration {
      * each {@link PathConstants#RC_PATHS} / {@link PathConstants#RC_FILENAMES}
      * combination. If no runtime configuration file is found, it will be null.
      * </p>
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     public RuntimeConfiguration() throws IOException {
@@ -149,7 +149,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Returns {@code true} if debug is set, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public final boolean isDebug() {
@@ -158,7 +158,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Sets the debug flag.
-     * 
+     *
      * @param debug boolean
      */
     public final void setDebug(boolean debug) {
@@ -167,7 +167,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Returns {@code true} if time is set, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public final boolean isTime() {
@@ -176,7 +176,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Sets the time flag.
-     * 
+     *
      * @param time boolean
      */
     public final void setTime(boolean time) {
@@ -185,7 +185,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Returns {@code true} if verbose is set, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public final boolean isVerbose() {
@@ -194,7 +194,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Sets the verbose flag.
-     * 
+     *
      * @param verbose boolean
      */
     public final void setVerbose(boolean verbose) {
@@ -204,7 +204,7 @@ public abstract class RuntimeConfiguration extends Configuration {
     /**
      * Returns {@code true} if warnings-as-errors is set, {@code false}
      * otherwise.
-     * 
+     *
      * @return boolean
      */
     public final boolean isWarningsAsErrors() {
@@ -213,7 +213,7 @@ public abstract class RuntimeConfiguration extends Configuration {
 
     /**
      * Sets the warnings-as-errors flag.
-     * 
+     *
      * @param warningsAsErrors boolean
      */
     public final void setWarningsAsErrors(boolean warningsAsErrors) {

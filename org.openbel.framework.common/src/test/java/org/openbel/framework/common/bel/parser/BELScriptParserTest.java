@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -58,7 +58,7 @@ public class BELScriptParserTest {
     /**
      * Test BEL Script lexer/parser handling of annotation patterns with escape
      * sequences.
-     * 
+     *
      * @see https://github.com/OpenBEL/openbel-framework/issues/14
      */
     @Test
@@ -147,7 +147,7 @@ public class BELScriptParserTest {
     /**
      * Test BEL Script lexer/parser handling of annotations with escape
      * sequences.
-     * 
+     *
      * @see https://github.com/OpenBEL/openbel-framework/issues/14
      */
     @Test
@@ -228,13 +228,13 @@ public class BELScriptParserTest {
         assertTrue(stmts.size() == 1);
 
         BELStatement stmt = stmts.get(0);
-        
+
         BELEvidence evidence = stmt.getEvidence();
         assertNotNull(evidence);
-        
+
         BELCitation citation = stmt.getCitation();
         assertNotNull(citation);
-        
+
         assertEquals("Evidence\nneeded", evidence.getEvidenceLine());
         assertEquals("PubMed", citation.getType());
         assertEquals("X", citation.getName());

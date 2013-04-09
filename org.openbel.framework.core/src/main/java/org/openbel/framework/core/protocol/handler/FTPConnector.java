@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * <li>authenticating with the ftp server</li>
  * <li>retrieves a file from the connected ftp server</li>
  * </ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class FTPConnector {
@@ -68,7 +68,7 @@ public class FTPConnector {
 
     /**
      * Defines the default port, <strong>{@value}</strong>, to use when
-     * connecting to the ftp server. 
+     * connecting to the ftp server.
      */
     private static final int DEFAULT_FTP_PORT = 21;
 
@@ -80,7 +80,7 @@ public class FTPConnector {
 
     /**
      * Defines the password {@link InputStream} to read the password from.
-     * 
+     *
      */
     private InputStream pwdInputStream;
 
@@ -94,7 +94,7 @@ public class FTPConnector {
 
     /**
      * Creates the ftp connector with the {@code pwdInputStream}.
-     * 
+     *
      * @param pwdInputStream {@link InputStream}, the password input stream
      */
     public FTPConnector(InputStream pwdInputStream) {
@@ -103,7 +103,7 @@ public class FTPConnector {
 
     /**
      * Sets the password input stream to read the password from.
-     * 
+     *
      * @param pwdInputStream {@link InputStream}, the password input stream
      * to read the password from
      */
@@ -114,7 +114,7 @@ public class FTPConnector {
     /**
      * Connects and authenticates with the ftp server specified by the
      * {@code ftpUrl}.
-     * 
+     *
      * @param ftpUrl {@link URL}, the ftp server url
      * @throws ResourceDownloadError - Thrown if there was an ftp error
      * connecting or authenticating with the ftp server.
@@ -201,11 +201,11 @@ public class FTPConnector {
     /**
      * Retrieves a file, specified by {@code remotePath}, from the ftp server
      * and saves it locally to {@code localPath}.
-     * 
+     *
      * @param remotePath {@link String}, the remote path
      * @param localPath {@link String}, the local path
      * @throws FileNotFoundException - Thrown if the file exists but is a directory
-     * rather than a regular file, does not exist but cannot be created, 
+     * rather than a regular file, does not exist but cannot be created,
      * or cannot be opened for any other reason.
      * @throws IOException - Thrown if an io error occurred saving the
      * {@code remotePath} to {@code localPath}.

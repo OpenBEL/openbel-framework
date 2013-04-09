@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ public class DatabaseError extends BELErrorException {
      * Creates a database error for the provided database resource {@code name},
      * with the supplied {@code message}, and underlying {@link SQLException
      * cause}.
-     * 
+     *
      * @param name Database resource name
      * @param msg Message indicative of error
      * @param cause {@link SQLException SQL exception} causing error

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,7 +45,7 @@ import org.openbel.framework.common.lock.LockAdviser.Lock;
  * writing.  The user of this {@link Lockable lockable} must obtain the
  * {@link Lock} before processing and release the {@link Lock} after
  * processing.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface Lockable {
@@ -53,7 +53,7 @@ public interface Lockable {
     /**
      * Attempts to obtain a {@link Lock read lock} from the target
      * {@link Lockable lockable}.
-     * 
+     *
      * @return the {@link Lock read lock}, or <tt>null</tt> if it could not be
      * obtained
      */
@@ -62,7 +62,7 @@ public interface Lockable {
     /**
      * Attempts to obtain a {@link Lock write lock} from the target
      * {@link Lockable lockable}.
-     * 
+     *
      * @return the {@link Lock write lock}, or <tt>null</tt> if it could not be
      * obtained
      */
@@ -71,7 +71,7 @@ public interface Lockable {
     /**
      * Attempts to release a {@link Lock read lock} from the target
      * {@link Lockable lockable}.
-     * 
+     *
      * @param lock the {@link Lock read lock} to release from the target
      * {@link Lockable lockable}, which cannot be null or have an invalid lock
      * name

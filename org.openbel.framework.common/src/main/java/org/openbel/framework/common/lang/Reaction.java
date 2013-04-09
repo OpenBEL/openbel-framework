@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes the frequency or abundance of events in a reaction.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * reaction(F:reactants,F:products)abundance
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class Reaction extends Function {
@@ -79,7 +79,7 @@ public class Reaction extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

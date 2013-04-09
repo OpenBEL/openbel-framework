@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import java.util.Date;
 
 /**
  * KamDbObject represents the kam table in the KAM catalog schema.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class KamDbObject extends KamCatalogDbObject {
@@ -74,7 +74,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Returns the kam name.
-     * 
+     *
      * @return {@link String}, the kam name
      */
     public String getName() {
@@ -83,7 +83,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Sets the kam name.
-     * 
+     *
      * @param name {@link String}, the kam name
      */
     public void setName(String name) {
@@ -92,7 +92,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Returns the kam description.
-     * 
+     *
      * @return {@link String}, the kam description
      */
     public String getDescription() {
@@ -101,7 +101,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Sets the kam description.
-     * 
+     *
      * @param description {@link String}, the kam description
      */
     public void setDescription(String description) {
@@ -110,7 +110,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Returns the kam last compiled date.
-     * 
+     *
      * @return {@link Date}, the kam last compiled date
      */
     public Date getLastCompiled() {
@@ -119,7 +119,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Sets the kam last compiled time.
-     * 
+     *
      * @param lastCompiled {@link Date}, the kam last compiled time
      */
     public void setLastCompiled(Date lastCompiled) {
@@ -128,7 +128,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Returns the kam schema name.
-     * 
+     *
      * @return {@link String}, the kam schema name
      */
     public String getSchemaName() {
@@ -137,7 +137,7 @@ public class KamDbObject extends KamCatalogDbObject {
 
     /**
      * Sets the kam schema name.
-     * 
+     *
      * @param schemaName {@link String}, the kam schema name
      */
     public void setSchemaName(String schemaName) {

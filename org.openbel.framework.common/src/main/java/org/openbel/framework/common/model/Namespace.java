@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import org.openbel.framework.common.InvalidArgument;
 
 /**
  * Defines a namespace whose values may be used in statements.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Namespace implements BELObject {
@@ -53,7 +53,7 @@ public class Namespace implements BELObject {
 
     /**
      * Creates a namespace with the required properties.
-     * 
+     *
      * @param prefix Non-null prefix
      * @param resourceLocation Non-null resource location
      * @throws InvalidArgument Thrown if {@code prefix} or
@@ -71,7 +71,7 @@ public class Namespace implements BELObject {
 
     /**
      * Returns the prefix uniquely identifying a namespace within a document.
-     * 
+     *
      * @return Non-null string
      */
     public String getPrefix() {
@@ -80,7 +80,7 @@ public class Namespace implements BELObject {
 
     /**
      * Returns the URI of the resource location defining this namespace.
-     * 
+     *
      * @return Non-null string
      */
     public String getResourceLocation() {
@@ -89,7 +89,7 @@ public class Namespace implements BELObject {
 
     /**
      * Returns a string of the format {@code <prefix>/<resourceLocation>}.
-     * 
+     *
      * @return String
      */
     public String getDescription() {

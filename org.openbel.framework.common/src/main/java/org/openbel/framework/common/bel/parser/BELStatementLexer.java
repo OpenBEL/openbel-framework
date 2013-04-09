@@ -122,15 +122,15 @@ public class BELStatementLexer extends Lexer {
     public static final int WS=15;
 
         private final List<BELParseErrorException> errors = new ArrayList<BELParseErrorException>();
-        
+
         public List<BELParseErrorException> getSyntaxErrors() {
             return errors;
         }
-        
+
         @Override
         public void emitErrorMessage(String msg) {
         }
-        
+
         @Override
         public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
             String context = "";
@@ -144,7 +144,7 @@ public class BELStatementLexer extends Lexer {
         return new Lexer[] {};
     }
 
-    public BELStatementLexer() {} 
+    public BELStatementLexer() {}
     public BELStatementLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
@@ -161,7 +161,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:28:7: ( ',' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:28:9: ','
             {
-            match(','); 
+            match(',');
 
             }
 
@@ -182,7 +182,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:29:7: ( '--' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:29:9: '--'
             {
-            match("--"); 
+            match("--");
 
 
 
@@ -205,7 +205,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:30:7: ( '->' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:30:9: '->'
             {
-            match("->"); 
+            match("->");
 
 
 
@@ -228,7 +228,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:31:7: ( '-|' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:31:9: '-|'
             {
-            match("-|"); 
+            match("-|");
 
 
 
@@ -251,7 +251,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:32:7: ( ':>' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:32:9: ':>'
             {
-            match(":>"); 
+            match(":>");
 
 
 
@@ -274,7 +274,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:33:7: ( '=>' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:33:9: '=>'
             {
-            match("=>"); 
+            match("=>");
 
 
 
@@ -297,7 +297,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:34:7: ( '=|' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:34:9: '=|'
             {
-            match("=|"); 
+            match("=|");
 
 
 
@@ -320,7 +320,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:35:7: ( '>>' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:35:9: '>>'
             {
-            match(">>"); 
+            match(">>");
 
 
 
@@ -343,7 +343,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:36:7: ( 'a' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:36:9: 'a'
             {
-            match('a'); 
+            match('a');
 
             }
 
@@ -364,7 +364,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:37:7: ( 'abundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:37:9: 'abundance'
             {
-            match("abundance"); 
+            match("abundance");
 
 
 
@@ -387,7 +387,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:38:7: ( 'act' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:38:9: 'act'
             {
-            match("act"); 
+            match("act");
 
 
 
@@ -410,7 +410,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:39:7: ( 'analogous' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:39:9: 'analogous'
             {
-            match("analogous"); 
+            match("analogous");
 
 
 
@@ -433,7 +433,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:40:7: ( 'association' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:40:9: 'association'
             {
-            match("association"); 
+            match("association");
 
 
 
@@ -456,7 +456,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:41:7: ( 'biologicalProcess' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:41:9: 'biologicalProcess'
             {
-            match("biologicalProcess"); 
+            match("biologicalProcess");
 
 
 
@@ -479,7 +479,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:42:7: ( 'biomarkerFor' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:42:9: 'biomarkerFor'
             {
-            match("biomarkerFor"); 
+            match("biomarkerFor");
 
 
 
@@ -502,7 +502,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:43:7: ( 'bp' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:43:9: 'bp'
             {
-            match("bp"); 
+            match("bp");
 
 
 
@@ -525,7 +525,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:44:7: ( 'cat' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:44:9: 'cat'
             {
-            match("cat"); 
+            match("cat");
 
 
 
@@ -548,7 +548,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:45:7: ( 'catalyticActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:45:9: 'catalyticActivity'
             {
-            match("catalyticActivity"); 
+            match("catalyticActivity");
 
 
 
@@ -571,7 +571,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:46:7: ( 'causesNoChange' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:46:9: 'causesNoChange'
             {
-            match("causesNoChange"); 
+            match("causesNoChange");
 
 
 
@@ -594,7 +594,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:47:7: ( 'cellSecretion' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:47:9: 'cellSecretion'
             {
-            match("cellSecretion"); 
+            match("cellSecretion");
 
 
 
@@ -617,7 +617,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:48:7: ( 'cellSurfaceExpression' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:48:9: 'cellSurfaceExpression'
             {
-            match("cellSurfaceExpression"); 
+            match("cellSurfaceExpression");
 
 
 
@@ -640,7 +640,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:49:7: ( 'chap' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:49:9: 'chap'
             {
-            match("chap"); 
+            match("chap");
 
 
 
@@ -663,7 +663,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:50:7: ( 'chaperoneActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:50:9: 'chaperoneActivity'
             {
-            match("chaperoneActivity"); 
+            match("chaperoneActivity");
 
 
 
@@ -686,7 +686,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:51:7: ( 'complex' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:51:9: 'complex'
             {
-            match("complex"); 
+            match("complex");
 
 
 
@@ -709,7 +709,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:52:7: ( 'complexAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:52:9: 'complexAbundance'
             {
-            match("complexAbundance"); 
+            match("complexAbundance");
 
 
 
@@ -732,7 +732,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:53:7: ( 'composite' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:53:9: 'composite'
             {
-            match("composite"); 
+            match("composite");
 
 
 
@@ -755,7 +755,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:54:7: ( 'compositeAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:54:9: 'compositeAbundance'
             {
-            match("compositeAbundance"); 
+            match("compositeAbundance");
 
 
 
@@ -778,7 +778,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:55:7: ( 'decreases' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:55:9: 'decreases'
             {
-            match("decreases"); 
+            match("decreases");
 
 
 
@@ -801,7 +801,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:56:7: ( 'deg' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:56:9: 'deg'
             {
-            match("deg"); 
+            match("deg");
 
 
 
@@ -824,7 +824,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:57:7: ( 'degradation' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:57:9: 'degradation'
             {
-            match("degradation"); 
+            match("degradation");
 
 
 
@@ -847,7 +847,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:58:7: ( 'directlyDecreases' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:58:9: 'directlyDecreases'
             {
-            match("directlyDecreases"); 
+            match("directlyDecreases");
 
 
 
@@ -870,7 +870,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:59:7: ( 'directlyIncreases' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:59:9: 'directlyIncreases'
             {
-            match("directlyIncreases"); 
+            match("directlyIncreases");
 
 
 
@@ -893,7 +893,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:60:7: ( 'fus' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:60:9: 'fus'
             {
-            match("fus"); 
+            match("fus");
 
 
 
@@ -916,7 +916,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:61:7: ( 'fusion' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:61:9: 'fusion'
             {
-            match("fusion"); 
+            match("fusion");
 
 
 
@@ -939,7 +939,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:62:7: ( 'g' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:62:9: 'g'
             {
-            match('g'); 
+            match('g');
 
             }
 
@@ -960,7 +960,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:63:7: ( 'geneAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:63:9: 'geneAbundance'
             {
-            match("geneAbundance"); 
+            match("geneAbundance");
 
 
 
@@ -983,7 +983,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:64:7: ( 'gtp' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:64:9: 'gtp'
             {
-            match("gtp"); 
+            match("gtp");
 
 
 
@@ -1006,7 +1006,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:65:7: ( 'gtpBoundActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:65:9: 'gtpBoundActivity'
             {
-            match("gtpBoundActivity"); 
+            match("gtpBoundActivity");
 
 
 
@@ -1029,7 +1029,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:66:7: ( 'hasComponent' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:66:9: 'hasComponent'
             {
-            match("hasComponent"); 
+            match("hasComponent");
 
 
 
@@ -1052,7 +1052,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:67:7: ( 'hasComponents' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:67:9: 'hasComponents'
             {
-            match("hasComponents"); 
+            match("hasComponents");
 
 
 
@@ -1075,7 +1075,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:68:7: ( 'hasMember' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:68:9: 'hasMember'
             {
-            match("hasMember"); 
+            match("hasMember");
 
 
 
@@ -1098,7 +1098,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:69:7: ( 'hasMembers' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:69:9: 'hasMembers'
             {
-            match("hasMembers"); 
+            match("hasMembers");
 
 
 
@@ -1121,7 +1121,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:70:7: ( 'increases' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:70:9: 'increases'
             {
-            match("increases"); 
+            match("increases");
 
 
 
@@ -1144,7 +1144,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:71:7: ( 'isA' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:71:9: 'isA'
             {
-            match("isA"); 
+            match("isA");
 
 
 
@@ -1167,7 +1167,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:72:7: ( 'kin' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:72:9: 'kin'
             {
-            match("kin"); 
+            match("kin");
 
 
 
@@ -1190,7 +1190,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:73:7: ( 'kinaseActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:73:9: 'kinaseActivity'
             {
-            match("kinaseActivity"); 
+            match("kinaseActivity");
 
 
 
@@ -1213,7 +1213,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:74:7: ( 'list' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:74:9: 'list'
             {
-            match("list"); 
+            match("list");
 
 
 
@@ -1236,7 +1236,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:75:7: ( 'm' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:75:9: 'm'
             {
-            match('m'); 
+            match('m');
 
             }
 
@@ -1257,7 +1257,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:76:7: ( 'microRNAAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:76:9: 'microRNAAbundance'
             {
-            match("microRNAAbundance"); 
+            match("microRNAAbundance");
 
 
 
@@ -1280,7 +1280,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:77:7: ( 'molecularActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:77:9: 'molecularActivity'
             {
-            match("molecularActivity"); 
+            match("molecularActivity");
 
 
 
@@ -1303,7 +1303,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:78:7: ( 'negativeCorrelation' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:78:9: 'negativeCorrelation'
             {
-            match("negativeCorrelation"); 
+            match("negativeCorrelation");
 
 
 
@@ -1326,7 +1326,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:79:7: ( 'orthologous' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:79:9: 'orthologous'
             {
-            match("orthologous"); 
+            match("orthologous");
 
 
 
@@ -1349,7 +1349,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:80:7: ( 'p' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:80:9: 'p'
             {
-            match('p'); 
+            match('p');
 
             }
 
@@ -1370,7 +1370,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:81:7: ( 'path' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:81:9: 'path'
             {
-            match("path"); 
+            match("path");
 
 
 
@@ -1393,7 +1393,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:82:7: ( 'pathology' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:82:9: 'pathology'
             {
-            match("pathology"); 
+            match("pathology");
 
 
 
@@ -1416,7 +1416,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:83:7: ( 'pep' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:83:9: 'pep'
             {
-            match("pep"); 
+            match("pep");
 
 
 
@@ -1439,7 +1439,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:84:7: ( 'peptidaseActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:84:9: 'peptidaseActivity'
             {
-            match("peptidaseActivity"); 
+            match("peptidaseActivity");
 
 
 
@@ -1462,7 +1462,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:85:7: ( 'phos' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:85:9: 'phos'
             {
-            match("phos"); 
+            match("phos");
 
 
 
@@ -1485,7 +1485,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:86:7: ( 'phosphataseActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:86:9: 'phosphataseActivity'
             {
-            match("phosphataseActivity"); 
+            match("phosphataseActivity");
 
 
 
@@ -1508,7 +1508,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:87:7: ( 'pmod' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:87:9: 'pmod'
             {
-            match("pmod"); 
+            match("pmod");
 
 
 
@@ -1531,7 +1531,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:88:7: ( 'positiveCorrelation' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:88:9: 'positiveCorrelation'
             {
-            match("positiveCorrelation"); 
+            match("positiveCorrelation");
 
 
 
@@ -1554,7 +1554,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:89:7: ( 'products' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:89:9: 'products'
             {
-            match("products"); 
+            match("products");
 
 
 
@@ -1577,7 +1577,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:90:7: ( 'prognosticBiomarkerFor' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:90:9: 'prognosticBiomarkerFor'
             {
-            match("prognosticBiomarkerFor"); 
+            match("prognosticBiomarkerFor");
 
 
 
@@ -1600,7 +1600,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:91:7: ( 'proteinAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:91:9: 'proteinAbundance'
             {
-            match("proteinAbundance"); 
+            match("proteinAbundance");
 
 
 
@@ -1623,7 +1623,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:92:7: ( 'proteinModification' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:92:9: 'proteinModification'
             {
-            match("proteinModification"); 
+            match("proteinModification");
 
 
 
@@ -1646,7 +1646,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:93:7: ( 'r' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:93:9: 'r'
             {
-            match('r'); 
+            match('r');
 
             }
 
@@ -1667,7 +1667,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:94:7: ( 'rateLimitingStepOf' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:94:9: 'rateLimitingStepOf'
             {
-            match("rateLimitingStepOf"); 
+            match("rateLimitingStepOf");
 
 
 
@@ -1690,7 +1690,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:95:7: ( 'reactants' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:95:9: 'reactants'
             {
-            match("reactants"); 
+            match("reactants");
 
 
 
@@ -1713,7 +1713,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:96:7: ( 'reaction' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:96:9: 'reaction'
             {
-            match("reaction"); 
+            match("reaction");
 
 
 
@@ -1736,7 +1736,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:97:7: ( 'ribo' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:97:9: 'ribo'
             {
-            match("ribo"); 
+            match("ribo");
 
 
 
@@ -1759,7 +1759,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:98:7: ( 'ribosylationActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:98:9: 'ribosylationActivity'
             {
-            match("ribosylationActivity"); 
+            match("ribosylationActivity");
 
 
 
@@ -1782,7 +1782,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:99:7: ( 'rnaAbundance' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:99:9: 'rnaAbundance'
             {
-            match("rnaAbundance"); 
+            match("rnaAbundance");
 
 
 
@@ -1805,7 +1805,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:100:7: ( 'rxn' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:100:9: 'rxn'
             {
-            match("rxn"); 
+            match("rxn");
 
 
 
@@ -1828,7 +1828,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:101:7: ( 'sec' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:101:9: 'sec'
             {
-            match("sec"); 
+            match("sec");
 
 
 
@@ -1851,7 +1851,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:102:7: ( 'sub' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:102:9: 'sub'
             {
-            match("sub"); 
+            match("sub");
 
 
 
@@ -1874,7 +1874,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:103:7: ( 'subProcessOf' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:103:9: 'subProcessOf'
             {
-            match("subProcessOf"); 
+            match("subProcessOf");
 
 
 
@@ -1897,7 +1897,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:104:7: ( 'substitution' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:104:9: 'substitution'
             {
-            match("substitution"); 
+            match("substitution");
 
 
 
@@ -1920,7 +1920,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:105:7: ( 'surf' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:105:9: 'surf'
             {
-            match("surf"); 
+            match("surf");
 
 
 
@@ -1943,7 +1943,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:106:7: ( 'tloc' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:106:9: 'tloc'
             {
-            match("tloc"); 
+            match("tloc");
 
 
 
@@ -1966,7 +1966,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:107:7: ( 'tport' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:107:9: 'tport'
             {
-            match("tport"); 
+            match("tport");
 
 
 
@@ -1989,7 +1989,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:108:7: ( 'transcribedTo' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:108:9: 'transcribedTo'
             {
-            match("transcribedTo"); 
+            match("transcribedTo");
 
 
 
@@ -2012,7 +2012,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:109:7: ( 'transcriptionalActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:109:9: 'transcriptionalActivity'
             {
-            match("transcriptionalActivity"); 
+            match("transcriptionalActivity");
 
 
 
@@ -2035,7 +2035,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:110:7: ( 'translatedTo' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:110:9: 'translatedTo'
             {
-            match("translatedTo"); 
+            match("translatedTo");
 
 
 
@@ -2058,7 +2058,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:111:7: ( 'translocation' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:111:9: 'translocation'
             {
-            match("translocation"); 
+            match("translocation");
 
 
 
@@ -2081,7 +2081,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:112:8: ( 'transportActivity' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:112:10: 'transportActivity'
             {
-            match("transportActivity"); 
+            match("transportActivity");
 
 
 
@@ -2104,7 +2104,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:113:8: ( 'trunc' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:113:10: 'trunc'
             {
-            match("trunc"); 
+            match("trunc");
 
 
 
@@ -2127,7 +2127,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:114:8: ( 'truncation' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:114:10: 'truncation'
             {
-            match("truncation"); 
+            match("truncation");
 
 
 
@@ -2150,7 +2150,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:115:8: ( 'tscript' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:115:10: 'tscript'
             {
-            match("tscript"); 
+            match("tscript");
 
 
 
@@ -2225,7 +2225,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:265:11: ( '(' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:266:5: '('
             {
-            match('('); 
+            match('(');
 
             }
 
@@ -2246,7 +2246,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:269:12: ( ')' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:270:5: ')'
             {
-            match(')'); 
+            match(')');
 
             }
 
@@ -2267,7 +2267,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:273:10: ( LETTER ( LETTER | DIGIT )* ':' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:274:5: LETTER ( LETTER | DIGIT )* ':'
             {
-            mLETTER(); 
+            mLETTER();
 
 
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:274:12: ( LETTER | DIGIT )*
@@ -2304,7 +2304,7 @@ public class BELStatementLexer extends Lexer {
             } while (true);
 
 
-            match(':'); 
+            match(':');
 
             }
 
@@ -2383,7 +2383,7 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:281:13: ( '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"' )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:282:5: '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"'
             {
-            match('\"'); 
+            match('\"');
 
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:282:9: ( EscapeSequence |~ ( '\\\\' | '\"' ) )*
             loop3:
@@ -2403,7 +2403,7 @@ public class BELStatementLexer extends Lexer {
             	case 1 :
             	    // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:282:11: EscapeSequence
             	    {
-            	    mEscapeSequence(); 
+            	    mEscapeSequence();
 
 
             	    }
@@ -2430,7 +2430,7 @@ public class BELStatementLexer extends Lexer {
             } while (true);
 
 
-            match('\"'); 
+            match('\"');
 
             }
 
@@ -2501,7 +2501,7 @@ public class BELStatementLexer extends Lexer {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:286:5: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
-                    match('\\'); 
+                    match('\\');
 
                     if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
                         input.consume();
@@ -2518,7 +2518,7 @@ public class BELStatementLexer extends Lexer {
                 case 2 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:287:7: UnicodeEscape
                     {
-                    mUnicodeEscape(); 
+                    mUnicodeEscape();
 
 
                     }
@@ -2526,7 +2526,7 @@ public class BELStatementLexer extends Lexer {
                 case 3 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:288:7: OctalEscape
                     {
-                    mOctalEscape(); 
+                    mOctalEscape();
 
 
                     }
@@ -2597,7 +2597,7 @@ public class BELStatementLexer extends Lexer {
                 case 1 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:292:5: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
-                    match('\\'); 
+                    match('\\');
 
                     if ( (input.LA(1) >= '0' && input.LA(1) <= '3') ) {
                         input.consume();
@@ -2634,7 +2634,7 @@ public class BELStatementLexer extends Lexer {
                 case 2 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:293:7: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
-                    match('\\'); 
+                    match('\\');
 
                     if ( (input.LA(1) >= '0' && input.LA(1) <= '7') ) {
                         input.consume();
@@ -2661,7 +2661,7 @@ public class BELStatementLexer extends Lexer {
                 case 3 :
                     // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:294:7: '\\\\' ( '0' .. '7' )
                     {
-                    match('\\'); 
+                    match('\\');
 
                     if ( (input.LA(1) >= '0' && input.LA(1) <= '7') ) {
                         input.consume();
@@ -2691,20 +2691,20 @@ public class BELStatementLexer extends Lexer {
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:297:23: ( '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit )
             // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:298:5: '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit
             {
-            match('\\'); 
+            match('\\');
 
-            match('u'); 
+            match('u');
 
-            mHexDigit(); 
-
-
-            mHexDigit(); 
+            mHexDigit();
 
 
-            mHexDigit(); 
+            mHexDigit();
 
 
-            mHexDigit(); 
+            mHexDigit();
+
+
+            mHexDigit();
 
 
             }
@@ -2811,7 +2811,7 @@ public class BELStatementLexer extends Lexer {
             case 1 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:10: T__16
                 {
-                mT__16(); 
+                mT__16();
 
 
                 }
@@ -2819,7 +2819,7 @@ public class BELStatementLexer extends Lexer {
             case 2 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:16: T__17
                 {
-                mT__17(); 
+                mT__17();
 
 
                 }
@@ -2827,7 +2827,7 @@ public class BELStatementLexer extends Lexer {
             case 3 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:22: T__18
                 {
-                mT__18(); 
+                mT__18();
 
 
                 }
@@ -2835,7 +2835,7 @@ public class BELStatementLexer extends Lexer {
             case 4 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:28: T__19
                 {
-                mT__19(); 
+                mT__19();
 
 
                 }
@@ -2843,7 +2843,7 @@ public class BELStatementLexer extends Lexer {
             case 5 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:34: T__20
                 {
-                mT__20(); 
+                mT__20();
 
 
                 }
@@ -2851,7 +2851,7 @@ public class BELStatementLexer extends Lexer {
             case 6 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:40: T__21
                 {
-                mT__21(); 
+                mT__21();
 
 
                 }
@@ -2859,7 +2859,7 @@ public class BELStatementLexer extends Lexer {
             case 7 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:46: T__22
                 {
-                mT__22(); 
+                mT__22();
 
 
                 }
@@ -2867,7 +2867,7 @@ public class BELStatementLexer extends Lexer {
             case 8 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:52: T__23
                 {
-                mT__23(); 
+                mT__23();
 
 
                 }
@@ -2875,7 +2875,7 @@ public class BELStatementLexer extends Lexer {
             case 9 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:58: T__24
                 {
-                mT__24(); 
+                mT__24();
 
 
                 }
@@ -2883,7 +2883,7 @@ public class BELStatementLexer extends Lexer {
             case 10 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:64: T__25
                 {
-                mT__25(); 
+                mT__25();
 
 
                 }
@@ -2891,7 +2891,7 @@ public class BELStatementLexer extends Lexer {
             case 11 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:70: T__26
                 {
-                mT__26(); 
+                mT__26();
 
 
                 }
@@ -2899,7 +2899,7 @@ public class BELStatementLexer extends Lexer {
             case 12 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:76: T__27
                 {
-                mT__27(); 
+                mT__27();
 
 
                 }
@@ -2907,7 +2907,7 @@ public class BELStatementLexer extends Lexer {
             case 13 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:82: T__28
                 {
-                mT__28(); 
+                mT__28();
 
 
                 }
@@ -2915,7 +2915,7 @@ public class BELStatementLexer extends Lexer {
             case 14 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:88: T__29
                 {
-                mT__29(); 
+                mT__29();
 
 
                 }
@@ -2923,7 +2923,7 @@ public class BELStatementLexer extends Lexer {
             case 15 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:94: T__30
                 {
-                mT__30(); 
+                mT__30();
 
 
                 }
@@ -2931,7 +2931,7 @@ public class BELStatementLexer extends Lexer {
             case 16 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:100: T__31
                 {
-                mT__31(); 
+                mT__31();
 
 
                 }
@@ -2939,7 +2939,7 @@ public class BELStatementLexer extends Lexer {
             case 17 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:106: T__32
                 {
-                mT__32(); 
+                mT__32();
 
 
                 }
@@ -2947,7 +2947,7 @@ public class BELStatementLexer extends Lexer {
             case 18 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:112: T__33
                 {
-                mT__33(); 
+                mT__33();
 
 
                 }
@@ -2955,7 +2955,7 @@ public class BELStatementLexer extends Lexer {
             case 19 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:118: T__34
                 {
-                mT__34(); 
+                mT__34();
 
 
                 }
@@ -2963,7 +2963,7 @@ public class BELStatementLexer extends Lexer {
             case 20 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:124: T__35
                 {
-                mT__35(); 
+                mT__35();
 
 
                 }
@@ -2971,7 +2971,7 @@ public class BELStatementLexer extends Lexer {
             case 21 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:130: T__36
                 {
-                mT__36(); 
+                mT__36();
 
 
                 }
@@ -2979,7 +2979,7 @@ public class BELStatementLexer extends Lexer {
             case 22 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:136: T__37
                 {
-                mT__37(); 
+                mT__37();
 
 
                 }
@@ -2987,7 +2987,7 @@ public class BELStatementLexer extends Lexer {
             case 23 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:142: T__38
                 {
-                mT__38(); 
+                mT__38();
 
 
                 }
@@ -2995,7 +2995,7 @@ public class BELStatementLexer extends Lexer {
             case 24 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:148: T__39
                 {
-                mT__39(); 
+                mT__39();
 
 
                 }
@@ -3003,7 +3003,7 @@ public class BELStatementLexer extends Lexer {
             case 25 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:154: T__40
                 {
-                mT__40(); 
+                mT__40();
 
 
                 }
@@ -3011,7 +3011,7 @@ public class BELStatementLexer extends Lexer {
             case 26 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:160: T__41
                 {
-                mT__41(); 
+                mT__41();
 
 
                 }
@@ -3019,7 +3019,7 @@ public class BELStatementLexer extends Lexer {
             case 27 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:166: T__42
                 {
-                mT__42(); 
+                mT__42();
 
 
                 }
@@ -3027,7 +3027,7 @@ public class BELStatementLexer extends Lexer {
             case 28 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:172: T__43
                 {
-                mT__43(); 
+                mT__43();
 
 
                 }
@@ -3035,7 +3035,7 @@ public class BELStatementLexer extends Lexer {
             case 29 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:178: T__44
                 {
-                mT__44(); 
+                mT__44();
 
 
                 }
@@ -3043,7 +3043,7 @@ public class BELStatementLexer extends Lexer {
             case 30 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:184: T__45
                 {
-                mT__45(); 
+                mT__45();
 
 
                 }
@@ -3051,7 +3051,7 @@ public class BELStatementLexer extends Lexer {
             case 31 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:190: T__46
                 {
-                mT__46(); 
+                mT__46();
 
 
                 }
@@ -3059,7 +3059,7 @@ public class BELStatementLexer extends Lexer {
             case 32 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:196: T__47
                 {
-                mT__47(); 
+                mT__47();
 
 
                 }
@@ -3067,7 +3067,7 @@ public class BELStatementLexer extends Lexer {
             case 33 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:202: T__48
                 {
-                mT__48(); 
+                mT__48();
 
 
                 }
@@ -3075,7 +3075,7 @@ public class BELStatementLexer extends Lexer {
             case 34 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:208: T__49
                 {
-                mT__49(); 
+                mT__49();
 
 
                 }
@@ -3083,7 +3083,7 @@ public class BELStatementLexer extends Lexer {
             case 35 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:214: T__50
                 {
-                mT__50(); 
+                mT__50();
 
 
                 }
@@ -3091,7 +3091,7 @@ public class BELStatementLexer extends Lexer {
             case 36 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:220: T__51
                 {
-                mT__51(); 
+                mT__51();
 
 
                 }
@@ -3099,7 +3099,7 @@ public class BELStatementLexer extends Lexer {
             case 37 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:226: T__52
                 {
-                mT__52(); 
+                mT__52();
 
 
                 }
@@ -3107,7 +3107,7 @@ public class BELStatementLexer extends Lexer {
             case 38 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:232: T__53
                 {
-                mT__53(); 
+                mT__53();
 
 
                 }
@@ -3115,7 +3115,7 @@ public class BELStatementLexer extends Lexer {
             case 39 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:238: T__54
                 {
-                mT__54(); 
+                mT__54();
 
 
                 }
@@ -3123,7 +3123,7 @@ public class BELStatementLexer extends Lexer {
             case 40 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:244: T__55
                 {
-                mT__55(); 
+                mT__55();
 
 
                 }
@@ -3131,7 +3131,7 @@ public class BELStatementLexer extends Lexer {
             case 41 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:250: T__56
                 {
-                mT__56(); 
+                mT__56();
 
 
                 }
@@ -3139,7 +3139,7 @@ public class BELStatementLexer extends Lexer {
             case 42 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:256: T__57
                 {
-                mT__57(); 
+                mT__57();
 
 
                 }
@@ -3147,7 +3147,7 @@ public class BELStatementLexer extends Lexer {
             case 43 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:262: T__58
                 {
-                mT__58(); 
+                mT__58();
 
 
                 }
@@ -3155,7 +3155,7 @@ public class BELStatementLexer extends Lexer {
             case 44 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:268: T__59
                 {
-                mT__59(); 
+                mT__59();
 
 
                 }
@@ -3163,7 +3163,7 @@ public class BELStatementLexer extends Lexer {
             case 45 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:274: T__60
                 {
-                mT__60(); 
+                mT__60();
 
 
                 }
@@ -3171,7 +3171,7 @@ public class BELStatementLexer extends Lexer {
             case 46 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:280: T__61
                 {
-                mT__61(); 
+                mT__61();
 
 
                 }
@@ -3179,7 +3179,7 @@ public class BELStatementLexer extends Lexer {
             case 47 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:286: T__62
                 {
-                mT__62(); 
+                mT__62();
 
 
                 }
@@ -3187,7 +3187,7 @@ public class BELStatementLexer extends Lexer {
             case 48 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:292: T__63
                 {
-                mT__63(); 
+                mT__63();
 
 
                 }
@@ -3195,7 +3195,7 @@ public class BELStatementLexer extends Lexer {
             case 49 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:298: T__64
                 {
-                mT__64(); 
+                mT__64();
 
 
                 }
@@ -3203,7 +3203,7 @@ public class BELStatementLexer extends Lexer {
             case 50 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:304: T__65
                 {
-                mT__65(); 
+                mT__65();
 
 
                 }
@@ -3211,7 +3211,7 @@ public class BELStatementLexer extends Lexer {
             case 51 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:310: T__66
                 {
-                mT__66(); 
+                mT__66();
 
 
                 }
@@ -3219,7 +3219,7 @@ public class BELStatementLexer extends Lexer {
             case 52 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:316: T__67
                 {
-                mT__67(); 
+                mT__67();
 
 
                 }
@@ -3227,7 +3227,7 @@ public class BELStatementLexer extends Lexer {
             case 53 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:322: T__68
                 {
-                mT__68(); 
+                mT__68();
 
 
                 }
@@ -3235,7 +3235,7 @@ public class BELStatementLexer extends Lexer {
             case 54 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:328: T__69
                 {
-                mT__69(); 
+                mT__69();
 
 
                 }
@@ -3243,7 +3243,7 @@ public class BELStatementLexer extends Lexer {
             case 55 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:334: T__70
                 {
-                mT__70(); 
+                mT__70();
 
 
                 }
@@ -3251,7 +3251,7 @@ public class BELStatementLexer extends Lexer {
             case 56 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:340: T__71
                 {
-                mT__71(); 
+                mT__71();
 
 
                 }
@@ -3259,7 +3259,7 @@ public class BELStatementLexer extends Lexer {
             case 57 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:346: T__72
                 {
-                mT__72(); 
+                mT__72();
 
 
                 }
@@ -3267,7 +3267,7 @@ public class BELStatementLexer extends Lexer {
             case 58 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:352: T__73
                 {
-                mT__73(); 
+                mT__73();
 
 
                 }
@@ -3275,7 +3275,7 @@ public class BELStatementLexer extends Lexer {
             case 59 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:358: T__74
                 {
-                mT__74(); 
+                mT__74();
 
 
                 }
@@ -3283,7 +3283,7 @@ public class BELStatementLexer extends Lexer {
             case 60 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:364: T__75
                 {
-                mT__75(); 
+                mT__75();
 
 
                 }
@@ -3291,7 +3291,7 @@ public class BELStatementLexer extends Lexer {
             case 61 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:370: T__76
                 {
-                mT__76(); 
+                mT__76();
 
 
                 }
@@ -3299,7 +3299,7 @@ public class BELStatementLexer extends Lexer {
             case 62 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:376: T__77
                 {
-                mT__77(); 
+                mT__77();
 
 
                 }
@@ -3307,7 +3307,7 @@ public class BELStatementLexer extends Lexer {
             case 63 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:382: T__78
                 {
-                mT__78(); 
+                mT__78();
 
 
                 }
@@ -3315,7 +3315,7 @@ public class BELStatementLexer extends Lexer {
             case 64 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:388: T__79
                 {
-                mT__79(); 
+                mT__79();
 
 
                 }
@@ -3323,7 +3323,7 @@ public class BELStatementLexer extends Lexer {
             case 65 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:394: T__80
                 {
-                mT__80(); 
+                mT__80();
 
 
                 }
@@ -3331,7 +3331,7 @@ public class BELStatementLexer extends Lexer {
             case 66 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:400: T__81
                 {
-                mT__81(); 
+                mT__81();
 
 
                 }
@@ -3339,7 +3339,7 @@ public class BELStatementLexer extends Lexer {
             case 67 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:406: T__82
                 {
-                mT__82(); 
+                mT__82();
 
 
                 }
@@ -3347,7 +3347,7 @@ public class BELStatementLexer extends Lexer {
             case 68 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:412: T__83
                 {
-                mT__83(); 
+                mT__83();
 
 
                 }
@@ -3355,7 +3355,7 @@ public class BELStatementLexer extends Lexer {
             case 69 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:418: T__84
                 {
-                mT__84(); 
+                mT__84();
 
 
                 }
@@ -3363,7 +3363,7 @@ public class BELStatementLexer extends Lexer {
             case 70 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:424: T__85
                 {
-                mT__85(); 
+                mT__85();
 
 
                 }
@@ -3371,7 +3371,7 @@ public class BELStatementLexer extends Lexer {
             case 71 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:430: T__86
                 {
-                mT__86(); 
+                mT__86();
 
 
                 }
@@ -3379,7 +3379,7 @@ public class BELStatementLexer extends Lexer {
             case 72 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:436: T__87
                 {
-                mT__87(); 
+                mT__87();
 
 
                 }
@@ -3387,7 +3387,7 @@ public class BELStatementLexer extends Lexer {
             case 73 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:442: T__88
                 {
-                mT__88(); 
+                mT__88();
 
 
                 }
@@ -3395,7 +3395,7 @@ public class BELStatementLexer extends Lexer {
             case 74 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:448: T__89
                 {
-                mT__89(); 
+                mT__89();
 
 
                 }
@@ -3403,7 +3403,7 @@ public class BELStatementLexer extends Lexer {
             case 75 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:454: T__90
                 {
-                mT__90(); 
+                mT__90();
 
 
                 }
@@ -3411,7 +3411,7 @@ public class BELStatementLexer extends Lexer {
             case 76 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:460: T__91
                 {
-                mT__91(); 
+                mT__91();
 
 
                 }
@@ -3419,7 +3419,7 @@ public class BELStatementLexer extends Lexer {
             case 77 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:466: T__92
                 {
-                mT__92(); 
+                mT__92();
 
 
                 }
@@ -3427,7 +3427,7 @@ public class BELStatementLexer extends Lexer {
             case 78 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:472: T__93
                 {
-                mT__93(); 
+                mT__93();
 
 
                 }
@@ -3435,7 +3435,7 @@ public class BELStatementLexer extends Lexer {
             case 79 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:478: T__94
                 {
-                mT__94(); 
+                mT__94();
 
 
                 }
@@ -3443,7 +3443,7 @@ public class BELStatementLexer extends Lexer {
             case 80 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:484: T__95
                 {
-                mT__95(); 
+                mT__95();
 
 
                 }
@@ -3451,7 +3451,7 @@ public class BELStatementLexer extends Lexer {
             case 81 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:490: T__96
                 {
-                mT__96(); 
+                mT__96();
 
 
                 }
@@ -3459,7 +3459,7 @@ public class BELStatementLexer extends Lexer {
             case 82 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:496: T__97
                 {
-                mT__97(); 
+                mT__97();
 
 
                 }
@@ -3467,7 +3467,7 @@ public class BELStatementLexer extends Lexer {
             case 83 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:502: T__98
                 {
-                mT__98(); 
+                mT__98();
 
 
                 }
@@ -3475,7 +3475,7 @@ public class BELStatementLexer extends Lexer {
             case 84 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:508: T__99
                 {
-                mT__99(); 
+                mT__99();
 
 
                 }
@@ -3483,7 +3483,7 @@ public class BELStatementLexer extends Lexer {
             case 85 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:514: T__100
                 {
-                mT__100(); 
+                mT__100();
 
 
                 }
@@ -3491,7 +3491,7 @@ public class BELStatementLexer extends Lexer {
             case 86 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:521: T__101
                 {
-                mT__101(); 
+                mT__101();
 
 
                 }
@@ -3499,7 +3499,7 @@ public class BELStatementLexer extends Lexer {
             case 87 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:528: T__102
                 {
-                mT__102(); 
+                mT__102();
 
 
                 }
@@ -3507,7 +3507,7 @@ public class BELStatementLexer extends Lexer {
             case 88 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:535: T__103
                 {
-                mT__103(); 
+                mT__103();
 
 
                 }
@@ -3515,7 +3515,7 @@ public class BELStatementLexer extends Lexer {
             case 89 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:542: OPEN_PAREN
                 {
-                mOPEN_PAREN(); 
+                mOPEN_PAREN();
 
 
                 }
@@ -3523,7 +3523,7 @@ public class BELStatementLexer extends Lexer {
             case 90 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:553: CLOSE_PAREN
                 {
-                mCLOSE_PAREN(); 
+                mCLOSE_PAREN();
 
 
                 }
@@ -3531,7 +3531,7 @@ public class BELStatementLexer extends Lexer {
             case 91 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:565: NS_PREFIX
                 {
-                mNS_PREFIX(); 
+                mNS_PREFIX();
 
 
                 }
@@ -3539,7 +3539,7 @@ public class BELStatementLexer extends Lexer {
             case 92 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:575: NS_VALUE
                 {
-                mNS_VALUE(); 
+                mNS_VALUE();
 
 
                 }
@@ -3547,7 +3547,7 @@ public class BELStatementLexer extends Lexer {
             case 93 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:584: QUOTED_VALUE
                 {
-                mQUOTED_VALUE(); 
+                mQUOTED_VALUE();
 
 
                 }
@@ -3555,7 +3555,7 @@ public class BELStatementLexer extends Lexer {
             case 94 :
                 // /home/tony/work/git/openbel-framework/docs/belscript/grammar/BELStatement.g:1:597: WS
                 {
-                mWS(); 
+                mWS();
 
 
                 }
@@ -4443,6 +4443,6 @@ public class BELStatementLexer extends Lexer {
             return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | OPEN_PAREN | CLOSE_PAREN | NS_PREFIX | NS_VALUE | QUOTED_VALUE | WS );";
         }
     }
- 
+
 
 }

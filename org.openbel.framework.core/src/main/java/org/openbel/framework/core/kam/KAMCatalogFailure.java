@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.common.BELErrorException;
 /**
  * KAMCatalogFailure defines an error with creating or updating
  * the kam catalog schema.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class KAMCatalogFailure extends BELErrorException {
@@ -49,7 +49,7 @@ public class KAMCatalogFailure extends BELErrorException {
 
     /**
      * Create the KAMCatalogFailure with a <tt>name</tt> and a <tt>msg</tt>.
-     * 
+     *
      * @param name {@link String}, the kam name
      * @param msg {@link String}, the failure message
      */

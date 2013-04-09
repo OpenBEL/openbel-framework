@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.common.protonetwork.model.ParameterTable.TableParam
 
 /**
  * ProtoNetwork encapsulates {@code *Table} objects.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3
  */
@@ -59,7 +59,7 @@ public class ProtoNetwork extends ExternalType {
     /**
      * Constant defining the position of the term index in the raw term index
      * data.
-     * 
+     *
      * @see #getTermIndices()
      */
     public static final int TERM_INDEX = 0;
@@ -67,7 +67,7 @@ public class ProtoNetwork extends ExternalType {
     /**
      * Constant defining the position of the parameter index in the raw term
      * index data.
-     * 
+     *
      * @see #getTermIndices()
      */
     public static final int PARAM_INDEX = 1;
@@ -75,7 +75,7 @@ public class ProtoNetwork extends ExternalType {
     /**
      * Constant defining the position of the namespace index in the raw term
      * index data.
-     * 
+     *
      * @see #getTermIndices()
      * @see #NO_NAMESPACE
      */
@@ -154,7 +154,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the document table.
-     * 
+     *
      * @return {@link DocumentTable}, the document table, which cannot be null
      */
     public DocumentTable getDocumentTable() {
@@ -163,7 +163,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the namespace table.
-     * 
+     *
      * @return {@link NamespaceTable}, the namespace table, which cannot be null
      */
     public NamespaceTable getNamespaceTable() {
@@ -172,7 +172,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the parameter table.
-     * 
+     *
      * @return {@link ParameterTable}, the parameter table, which cannot be null
      */
     public ParameterTable getParameterTable() {
@@ -181,7 +181,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the term table.
-     * 
+     *
      * @return {@link TermTable}, the term table, which cannot be null
      */
     public TermTable getTermTable() {
@@ -190,7 +190,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the term parameter map table.
-     * 
+     *
      * @return {@link TermParameterMapTable}, the term parameter map table,
      * which cannot be null
      */
@@ -200,7 +200,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the statement table.
-     * 
+     *
      * @return {@link StatementTable}, the statement table, which cannot be null
      */
     public StatementTable getStatementTable() {
@@ -209,7 +209,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the annotation definition table.
-     * 
+     *
      * @return {@link AnnotationDefinitionTable}, the annotation definition
      * table, which cannot be null
      */
@@ -219,7 +219,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the annotation value table.
-     * 
+     *
      * @return {@link AnnotationValueTable}, the annotation value table, which
      * cannot be null
      */
@@ -229,7 +229,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the statement annotation map table.
-     * 
+     *
      * @return {@link StatementAnnotationMapTable}, the statement annotation map
      * table, which cannot be null
      */
@@ -239,7 +239,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the {@link ProtoNodeTable proto node table}.
-     * 
+     *
      * @return the {@link ProtoNodeTable proto node table}
      */
     public ProtoNodeTable getProtoNodeTable() {
@@ -248,7 +248,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the {@link ProtoNodeTable proto edge table}.
-     * 
+     *
      * @return the {@link ProtoNodeTable proto edge table}
      */
     public ProtoEdgeTable getProtoEdgeTable() {
@@ -257,7 +257,7 @@ public class ProtoNetwork extends ExternalType {
 
     /**
      * Returns the number of statements in this proto-network.
-     * 
+     *
      * @return int The number of statements
      */
     public int getNumberOfStatements() {
@@ -274,7 +274,7 @@ public class ProtoNetwork extends ExternalType {
      * </p>
      * <p>
      * For example: <br>
-     * 
+     *
      * <pre>
      * int[][] termIndices = getTermIndices();
      * int termParameterEntry = termIndices[0];
@@ -282,9 +282,9 @@ public class ProtoNetwork extends ExternalType {
      * int paramIndex = termIndices[0][1];
      * int nsIndex = termIndices[0][2];
      * </pre>
-     * 
+     *
      * </p>
-     * 
+     *
      * @return term data as a two-dimensional array ({@code int[][]})
      * @see #TERM_INDEX
      * @see #PARAM_INDEX

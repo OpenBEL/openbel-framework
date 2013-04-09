@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -57,7 +57,7 @@ import org.openbel.framework.common.external.WriteCache;
 /**
  * TermParameterMapTable holds the index mapping between term values and
  * parameter index values.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -76,7 +76,7 @@ public class TermParameterMapTable extends ExternalType {
      * Adds a mapping of {@code termIndex} to {@code parameterValues} in the
      * {@code termParameterIndex} map. A {@code termIndex} will not be indexed
      * if the {@code parameterValues} collection is empty.
-     * 
+     *
      * @param termIndex {@link Integer}, the term index as the key, must not be
      * null
      * @param parameterValues {@link List} of {@link Integer}, the parameter
@@ -111,7 +111,7 @@ public class TermParameterMapTable extends ExternalType {
 
     /**
      * Returns the parameter indices for the provided term index.
-     * 
+     *
      * @param tid Term index
      * @return The list of parameter indices, which may be empty
      */
@@ -125,7 +125,7 @@ public class TermParameterMapTable extends ExternalType {
 
     /**
      * Returns the number of term mappings.
-     * 
+     *
      * @return int
      */
     public int getNumberOfMappings() {
@@ -134,7 +134,7 @@ public class TermParameterMapTable extends ExternalType {
 
     /**
      * Returns the number of term-parameter mappings
-     * 
+     *
      * @return int
      */
     public int getNumberOfTermParameterMappings() {
@@ -147,7 +147,7 @@ public class TermParameterMapTable extends ExternalType {
     /**
      * Removes the mapping of the provided term index, {@code tid}, from the
      * backing map.
-     * 
+     *
      * @param tid Term index
      */
     public void removeTermParameterMapping(final int tid) {
@@ -156,7 +156,7 @@ public class TermParameterMapTable extends ExternalType {
 
     /**
      * Returns a read-only view into the term-parameter entry set.
-     * 
+     *
      * @return {@link Set} of map {@link Entry entries}
      */
     public Set<Entry<Integer, List<Integer>>> entrySet() {
@@ -166,7 +166,7 @@ public class TermParameterMapTable extends ExternalType {
     /**
      * Returns the term parameter map table's term index to an ordered list of
      * parameter index values.
-     * 
+     *
      * @return {@link Map}, which cannot be null
      */
     public Map<Integer, List<Integer>> getTermParameterIndex() {

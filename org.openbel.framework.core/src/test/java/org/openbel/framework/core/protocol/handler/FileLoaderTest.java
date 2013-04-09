@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.framework.core.protocol.handler.FileProtocolHandler;
 
 /**
  * {@link FileLoaderTest} tests the {@link FileProtocolHandler}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class FileLoaderTest extends AbstractProtocolTest {

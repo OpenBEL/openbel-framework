@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for function.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
@@ -81,287 +81,287 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
+ *
  */
 @XmlType(name = "function")
 @XmlEnum
 public enum Function {
 
     /**
-     * 
+     *
      *                         The protein abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("proteinAbundance")
     PROTEIN_ABUNDANCE("proteinAbundance"),
 
     /**
-     * 
+     *
      *                         The protein modification BEL function for a protein abundance.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("proteinModification")
     PROTEIN_MODIFICATION("proteinModification"),
 
     /**
-     * 
+     *
      *                         The substitution BEL function for a protein abundance.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("substitution")
     SUBSTITUTION("substitution"),
 
     /**
-     * 
+     *
      *                         The truncation BEL function for a protein abundance.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("truncation")
     TRUNCATION("truncation"),
 
     /**
-     * 
+     *
      *                         The rna abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("rnaAbundance")
     RNA_ABUNDANCE("rnaAbundance"),
 
     /**
-     * 
+     *
      *                         The abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("abundance")
     ABUNDANCE("abundance"),
 
     /**
-     * 
+     *
      *                         The micro rna abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("microRNAAbundance")
     MICRO_RNA_ABUNDANCE("microRNAAbundance"),
 
     /**
-     * 
+     *
      *                         The gene abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("geneAbundance")
     GENE_ABUNDANCE("geneAbundance"),
 
     /**
-     * 
+     *
      *                         The biological process BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("biologicalProcess")
     BIOLOGICAL_PROCESS("biologicalProcess"),
 
     /**
-     * 
+     *
      *                         The pathology BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("pathology")
     PATHOLOGY("pathology"),
 
     /**
-     * 
+     *
      *                         The complex abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("complexAbundance")
     COMPLEX_ABUNDANCE("complexAbundance"),
 
     /**
-     * 
+     *
      *                         The translocation BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("translocation")
     TRANSLOCATION("translocation"),
 
     /**
-     * 
+     *
      *                         The cell secretion BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("cellSecretion")
     CELL_SECRETION("cellSecretion"),
 
     /**
-     * 
+     *
      *                         The cell surface expression BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("cellSurfaceExpression")
     CELL_SURFACE_EXPRESSION("cellSurfaceExpression"),
 
     /**
-     * 
+     *
      *                         The reaction BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("reaction")
     REACTION("reaction"),
 
     /**
-     * 
+     *
      *                         The composite abundance BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("compositeAbundance")
     COMPOSITE_ABUNDANCE("compositeAbundance"),
 
     /**
-     * 
+     *
      *                         The fusion BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("fusion")
     FUSION("fusion"),
 
     /**
-     * 
+     *
      *                         The reactants BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("reactants")
     REACTANTS("reactants"),
 
     /**
-     * 
+     *
      *                         The products BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("products")
     PRODUCTS("products"),
 
     /**
-     * 
+     *
      *                         The degradation BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("degradation")
     DEGRADATION("degradation"),
 
     /**
-     * 
+     *
      *                         The molecular activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("molecularActivity")
     MOLECULAR_ACTIVITY("molecularActivity"),
 
     /**
-     * 
+     *
      *                         The catalytic activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("catalyticActivity")
     CATALYTIC_ACTIVITY("catalyticActivity"),
 
     /**
-     * 
+     *
      *                         The kinase activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("kinaseActivity")
     KINASE_ACTIVITY("kinaseActivity"),
 
     /**
-     * 
+     *
      *                         The phosphatase activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("phosphataseActivity")
     PHOSPHATASE_ACTIVITY("phosphataseActivity"),
 
     /**
-     * 
+     *
      *                         The peptidase activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("peptidaseActivity")
     PEPTIDASE_ACTIVITY("peptidaseActivity"),
 
     /**
-     * 
+     *
      *                         The ribosylation activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("ribosylationActivity")
     RIBOSYLATION_ACTIVITY("ribosylationActivity"),
 
     /**
-     * 
+     *
      *                         The transcriptional activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("transcriptionalActivity")
     TRANSCRIPTIONAL_ACTIVITY("transcriptionalActivity"),
 
     /**
-     * 
+     *
      *                         The transport activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("transportActivity")
     TRANSPORT_ACTIVITY("transportActivity"),
 
     /**
-     * 
+     *
      *                         The gtp-bound activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("gtpBoundActivity")
     GTP_BOUND_ACTIVITY("gtpBoundActivity"),
 
     /**
-     * 
+     *
      *                         The chaperone activity BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("chaperoneActivity")
     CHAPERONE_ACTIVITY("chaperoneActivity"),
 
     /**
-     * 
+     *
      *                         The list BEL function.
-     *                     
-     * 
+     *
+     *
      */
     @XmlEnumValue("list")
     LIST("list");

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -971,7 +971,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
         markTime(bldr, t1, t2);
         markEndStage(bldr);
         stageOutput(bldr.toString());
-        
+
         return pn;
     }
 
@@ -1388,7 +1388,7 @@ public final class PhaseThreeApplication extends PhaseApplication {
 
         help = NO_ORTHOLOGY_HELP;
         ret.add(new Option(null, PHASE3_NO_ORTHOLOGY_LONG_OPTION, false, help));
-        
+
         help = NO_PHASE_THREE;
         ret.add(new Option(null, NO_P3_LONG_OPT, false, help));
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -56,7 +56,7 @@ public abstract class BELUncheckedException extends RuntimeException {
      * Creates a user-facing unchecked exception with the provided detail
      * message. The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param msg The detailed exception message
      * @see #initCause(Throwable)
      */
@@ -67,7 +67,7 @@ public abstract class BELUncheckedException extends RuntimeException {
     /**
      * Creates a user-facing unchecked exception with the provided detail
      * message and cause.
-     * 
+     *
      * @param msg The detailed exception message
      * @param cause The cause of the exception
      * @see Throwable#getMessage() getMessage

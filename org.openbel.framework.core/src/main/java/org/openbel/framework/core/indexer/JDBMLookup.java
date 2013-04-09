@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -67,7 +67,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Constructs a JDBM lookup for the associated index path.
-     * 
+     *
      * @param indexPath Index path
      * @throws InvalidArgument Thrown if {@code indexPath} is null or empty
      */
@@ -93,7 +93,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Returns the index path associated with this JDBM lookup.
-     * 
+     *
      * @return String
      */
     public String getIndexPath() {
@@ -131,7 +131,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
      * files are left open because the JVM is tardy in executing finalizers, a
      * program may fail because it can no longer open files. </blockquote>
      * </p>
-     * 
+     *
      * @see {@link #close()}
      */
     @Override
@@ -155,7 +155,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Opens the index, for subsequent lookups.
-     * 
+     *
      * @throws IOException Thrown if an I/O related exception occurs while
      * creating or opening the record manager
      */
@@ -178,7 +178,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Returns the number of records.
-     * 
+     *
      * @return int
      */
     public int getRecordCount() {
@@ -187,7 +187,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Closes the index.
-     * 
+     *
      * @throws IOException Thrown when one of the underlying I/O operations fail
      * @throws IllegalStateException Thrown if {@link #open()} has not been
      * invoked
@@ -203,7 +203,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
 
     /**
      * Performs a lookup for the given {@code key}.
-     * 
+     *
      * @param key Key
      * @return String; may be null for the given key
      */
@@ -218,7 +218,7 @@ abstract class JDBMLookup<K extends Comparable<K>, V> {
      * Performs a reverse lookup for the given {@code value}.
      * If multiple keys resolve to the same value, this method
      * will return the first key match as per the JDBM impl.
-     * 
+     *
      * @param value
      * @return
      * @see InverseHashView#findKeyForValue(Object)

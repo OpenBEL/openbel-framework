@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Test proper successful and unsuccessful validation of XBEL test files.
- * 
+ *
  * @author abargnesi
  */
 public class XBELValidationTest {

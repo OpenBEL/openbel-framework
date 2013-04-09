@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -50,7 +50,7 @@ public interface XBELValidatorService {
     /**
      * Returns {@code true} if the provided string is a valid XBEL document,
      * {@code false} otherwise.
-     * 
+     *
      * @param s XBEL XML string
      * @return boolean
      */
@@ -59,7 +59,7 @@ public interface XBELValidatorService {
     /**
      * Returns {@code true} if the provided file is a valid XBEL document,
      * {@code false} otherwise.
-     * 
+     *
      * @param f XBEL XML file
      * @return boolean
      */
@@ -67,7 +67,7 @@ public interface XBELValidatorService {
 
     /**
      * Validates the provided string as a XBEL document.
-     * 
+     *
      * @param s XBEL XML string
      * @throws ValidationError Thrown to indicate the provided string fails
      * validation. If the string contains one or more errors, only the first
@@ -79,7 +79,7 @@ public interface XBELValidatorService {
     /**
      * Validates the provided string as a XBEL document, returning any and all
      * validation errors.
-     * 
+     *
      * @param s XBEL XML string
      * @return A non-null list of validation errors for the XML string
      */
@@ -87,7 +87,7 @@ public interface XBELValidatorService {
 
     /**
      * Validates the provided file as a XBEL document.
-     * 
+     *
      * @param f XBEL XML file
      * @throws ValidationError Thrown to indicate the provided file fails
      * validation. If the file contains one or more errors, only the first error
@@ -98,7 +98,7 @@ public interface XBELValidatorService {
     /**
      * Validates the provided file as a XBEL document, returning any and all
      * validation errors.
-     * 
+     *
      * @param f XBEL XML file
      * @return A non-null list of validation errors for the XML file
      */

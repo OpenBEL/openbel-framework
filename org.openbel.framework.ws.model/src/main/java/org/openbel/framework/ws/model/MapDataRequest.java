@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -46,9 +46,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -64,8 +64,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -89,11 +89,11 @@ public class MapDataRequest {
 
     /**
      * Gets the value of the handle property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public KamHandle getHandle() {
         return handle;
@@ -101,11 +101,11 @@ public class MapDataRequest {
 
     /**
      * Sets the value of the handle property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamHandle }
-     *     
+     *
      */
     public void setHandle(KamHandle value) {
         this.handle = value;
@@ -113,11 +113,11 @@ public class MapDataRequest {
 
     /**
      * Gets the value of the namespace property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Namespace }
-     *     
+     *
      */
     public Namespace getNamespace() {
         return namespace;
@@ -125,11 +125,11 @@ public class MapDataRequest {
 
     /**
      * Sets the value of the namespace property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Namespace }
-     *     
+     *
      */
     public void setNamespace(Namespace value) {
         this.namespace = value;
@@ -137,25 +137,25 @@ public class MapDataRequest {
 
     /**
      * Gets the value of the values property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the values property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getValues().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getValues() {
         if (values == null) {
@@ -166,11 +166,11 @@ public class MapDataRequest {
 
     /**
      * Gets the value of the nodeFilter property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link NodeFilter }
-     *     
+     *
      */
     public NodeFilter getNodeFilter() {
         return nodeFilter;
@@ -178,11 +178,11 @@ public class MapDataRequest {
 
     /**
      * Sets the value of the nodeFilter property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link NodeFilter }
-     *     
+     *
      */
     public void setNodeFilter(NodeFilter value) {
         this.nodeFilter = value;
@@ -190,11 +190,11 @@ public class MapDataRequest {
 
     /**
      * Gets the value of the dialect property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link DialectHandle }
-     *     
+     *
      */
     public DialectHandle getDialect() {
         return dialect;
@@ -202,11 +202,11 @@ public class MapDataRequest {
 
     /**
      * Sets the value of the dialect property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link DialectHandle }
-     *     
+     *
      */
     public void setDialect(DialectHandle value) {
         this.dialect = value;

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,7 +51,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 /**
  * RelationshipTypeProperty defines the RDF {@link Property} values based on the BEL
  * {@link RelationshipType}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 final class RelationshipTypeProperty {
@@ -75,7 +75,7 @@ final class RelationshipTypeProperty {
 
     /**
      * Retrieve the RDF {@link Property} for the BEL {@link RelationshipType}.
-     * 
+     *
      * @param rtype {@link RelationshipType}, the relationship type, which
      * cannot be null
      * @return {@link Property} the property for the {@link RelationshipType}

@@ -289,7 +289,7 @@ public final class PhaseFourApplication extends PhaseApplication {
                 true, help);
         o.setArgName("description");
         options.add(o);
-        
+
         help = KAM_NAME_HELP;
         o = new Option(SHORT_OPT_KAM_NAME, LONG_OPT_KAM_NAME, true, help);
         o.setArgName("kam");

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * An annotation applied to a BEL statement, referencing an annotation
  * definition.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Annotation implements BELModelObject {
@@ -51,7 +51,7 @@ public class Annotation implements BELModelObject {
 
     /**
      * Creates an annotation with the required value property.
-     * 
+     *
      * @param value Value
      * @throws InvalidArgument Thrown if {@code value} is null
      */
@@ -62,7 +62,7 @@ public class Annotation implements BELModelObject {
 
     /**
      * Creates an annotation with the required value and optional properties.
-     * 
+     *
      * @param value Value
      * @param ad Annotation definition
      * @throws InvalidArgument Thrown if {@code value} is null
@@ -75,7 +75,7 @@ public class Annotation implements BELModelObject {
 
     /**
      * Returns the annotation's annotation definition.
-     * 
+     *
      * @return Annotation definition, which may be null
      */
     public AnnotationDefinition getDefinition() {
@@ -84,7 +84,7 @@ public class Annotation implements BELModelObject {
 
     /**
      * Sets the annotation's annotation definition.
-     * 
+     *
      * @param definition Annotation definition
      */
     public void setDefinition(AnnotationDefinition definition) {
@@ -93,7 +93,7 @@ public class Annotation implements BELModelObject {
 
     /**
      * Returns the annotation's value.
-     * 
+     *
      * @return Non-null string
      */
     public String getValue() {

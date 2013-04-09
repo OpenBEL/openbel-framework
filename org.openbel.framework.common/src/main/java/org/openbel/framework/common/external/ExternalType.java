@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,14 +52,14 @@ import java.io.OptionalDataException;
  * This class provides a skeletal implementation of the
  * {@link CachingExternalizable} interface to minize the effort needed to
  * externalize a type.
- * 
+ *
  * @since 1.3
  */
 public abstract class ExternalType implements CachingExternalizable {
 
     /**
      * Reads a {@link String} from the input.
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @return {@link String}
      * @throws IOException Thrown if an I/O error occurred
@@ -93,7 +93,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * read-variant} store {@code i} in a more efficient way than serializing
      * the {@link Integer} class.
      * </p>
-     * 
+     *
      * @param out Non-null {@link ObjectOutput}
      * @param i {@link Integer}; may be null
      * @throws IOException Thrown if an I/O error occurred
@@ -120,7 +120,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * nulls. It exists as an analogue to the other methods here and as a point
      * for documenting how nulls are handled.
      * </p>
-     * 
+     *
      * @param out Non-null {@link ObjectOutput}
      * @param o Object being written
      * @throws IOException Thrown if an I/O error occurs
@@ -143,7 +143,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * exists as an analogue to the other methods here and as a point for
      * documenting how nulls are handled.
      * </p>
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @return {@link Object}
      * @throws IOException Thrown if an I/O error occurs
@@ -166,7 +166,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * read-variant} store {@code l} in a more efficient way than serializing
      * the {@link Long} class.
      * </p>
-     * 
+     *
      * @param out Non-null {@link ObjectOutput}
      * @param l {@link Long}; may be null
      * @throws IOException Thrown if an I/O error occurred
@@ -207,7 +207,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * {@code i} in a more efficient way than serializing the {@link Integer}
      * class.
      * </p>
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @return {@link Integer}
      * @throws IOException Thrown if an I/O error occurred
@@ -225,7 +225,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * write-variant} store {@code l} in a more efficient way than serializing
      * the {@link Long} class.
      * </p>
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @return {@link Long}
      * @throws IOException Thrown if an I/O error occurred
@@ -417,7 +417,7 @@ public abstract class ExternalType implements CachingExternalizable {
 
     /**
      * Reads itself from the input.
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @throws IOException XXX WUTM
      * @throws ClassNotFoundException XXX WUTM
@@ -436,7 +436,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * {@link #_to(ObjectOutput, WriteCache)}. Put differently, the cache use
      * should be identical in both methods.
      * </p>
-     * 
+     *
      * @param in Non-null {@link ObjectInput}
      * @param cache Non-null Object {@link ReadCache}
      * @throws IOException XXX WUTM
@@ -447,7 +447,7 @@ public abstract class ExternalType implements CachingExternalizable {
 
     /**
      * Writes this to the output.
-     * 
+     *
      * @param out {@link ObjectOutput}
      * @throws IOException XXX WUTM
      */
@@ -465,7 +465,7 @@ public abstract class ExternalType implements CachingExternalizable {
      * {@link #from(ObjectInput, ReadCache)}. Put differently, the cache use
      * should be identical in both methods.
      * </p>
-     * 
+     *
      * @param out Non-null {@link ObjectOutput}
      * @param cache Non-null Object {@link WriteCache}
      * @throws IOException XXX WUTM

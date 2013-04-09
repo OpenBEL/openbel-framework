@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -74,22 +74,22 @@ public class OrthologizedKam implements Kam {
      * Copy of the provided {@link Kam kam}.
      */
     private final Kam kam;
-    
+
     /**
      * Dialect that determines which {@link KamNode kam nodes} to collapse.
      */
     private final SpeciesDialect dialect;
-    
+
     /**
      * A map of kam node id to the species namespace parameter.
      */
     private final Map<Integer, TermParameter> ntp;
-    
+
     /**
-     * A map of kam edge id to the species namespace parameter. 
+     * A map of kam edge id to the species namespace parameter.
      */
     private final Map<Integer, TermParameter> etp;
-    
+
     /**
      * A map of kam node that collapsed to species node.
      */
@@ -122,13 +122,13 @@ public class OrthologizedKam implements Kam {
     /**
      * Returns the {@link Map} of orthologous {@link KamNode kam nodes} that
      * were collapsed to species target {@link KamNode kam nodes}.
-     * 
+     *
      * @return {@link Map} of K: {@link KamNode}, V: {@link KamNode}
      */
     public Map<KamNode, KamNode> getCollapsedNodes() {
         return collapsed;
     }
-    
+
     /**
      * {@inheritDoc}
      */

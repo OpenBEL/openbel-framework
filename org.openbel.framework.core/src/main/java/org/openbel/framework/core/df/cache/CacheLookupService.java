@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.common.cfg.SystemConfiguration;
 /**
  * CacheLookupService defines service-level lookup operations to the
  * BELFramework cache defined at {@link SystemConfiguration#getCacheDirectory()}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface CacheLookupService {
@@ -55,7 +55,7 @@ public interface CacheLookupService {
 
     /**
      * Retrieves the cached resource for the location.
-     * 
+     *
      * @param resourceType {@link ResourceType}, the resource type of the
      * <tt>location</tt> provided, which cannot be null
      * @param location {@link String}, the remote resource location, which
@@ -70,7 +70,7 @@ public interface CacheLookupService {
 
     /**
      * Retrieves all resources that are present in the cache.
-     * 
+     *
      * @return {@link List} of {@link CachedResource}, the list of resources
      * present in the cache, which might be empty
      */

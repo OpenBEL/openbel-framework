@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,11 +47,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for Citation complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="Citation">
  *   &lt;complexContent>
@@ -68,8 +68,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Citation", propOrder = {
@@ -95,11 +95,11 @@ public class Citation {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -107,11 +107,11 @@ public class Citation {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -119,11 +119,11 @@ public class Citation {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -131,11 +131,11 @@ public class Citation {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -143,11 +143,11 @@ public class Citation {
 
     /**
      * Gets the value of the citationType property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link CitationType }
-     *     
+     *
      */
     public CitationType getCitationType() {
         return citationType;
@@ -155,11 +155,11 @@ public class Citation {
 
     /**
      * Sets the value of the citationType property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link CitationType }
-     *     
+     *
      */
     public void setCitationType(CitationType value) {
         this.citationType = value;
@@ -167,11 +167,11 @@ public class Citation {
 
     /**
      * Gets the value of the comment property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getComment() {
         return comment;
@@ -179,11 +179,11 @@ public class Citation {
 
     /**
      * Sets the value of the comment property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setComment(String value) {
         this.comment = value;
@@ -191,11 +191,11 @@ public class Citation {
 
     /**
      * Gets the value of the publicationDate property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public XMLGregorianCalendar getPublicationDate() {
         return publicationDate;
@@ -203,11 +203,11 @@ public class Citation {
 
     /**
      * Sets the value of the publicationDate property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XMLGregorianCalendar }
-     *     
+     *
      */
     public void setPublicationDate(XMLGregorianCalendar value) {
         this.publicationDate = value;
@@ -215,25 +215,25 @@ public class Citation {
 
     /**
      * Gets the value of the authors property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the authors property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAuthors().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getAuthors() {
         if (authors == null) {

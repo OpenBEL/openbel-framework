@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -65,7 +65,7 @@ public abstract class BELDataHeader implements Serializable {
      * This describes the author of the namespace, and defines the namespace's
      * second block.
      * </p>
-     * 
+     *
      * @return {@link AuthorBlock}, the author block, which cannot be null
      */
     public AuthorBlock getAuthorBlock() {
@@ -78,7 +78,7 @@ public abstract class BELDataHeader implements Serializable {
      * This describes the original location of the namespace, and defines the
      * namespace's third block.
      * </p>
-     * 
+     *
      * @return {@link CitationBlock}, the citation block, which cannot be null
      */
     public CitationBlock getCitationBlock() {
@@ -91,7 +91,7 @@ public abstract class BELDataHeader implements Serializable {
      * This describes how the namespace should be processed by the framework,
      * and defines the namespace's fourth block.
      * </p>
-     * 
+     *
      * @return {@link ProcessingBlock}, the processing block, which cannot be
      * null
      */

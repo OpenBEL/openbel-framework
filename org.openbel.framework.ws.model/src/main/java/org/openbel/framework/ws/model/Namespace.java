@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,11 +42,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for Namespace complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="Namespace">
  *   &lt;complexContent>
@@ -60,8 +60,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Namespace", propOrder = {
@@ -80,11 +80,11 @@ public class Namespace {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -92,11 +92,11 @@ public class Namespace {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -104,11 +104,11 @@ public class Namespace {
 
     /**
      * Gets the value of the prefix property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPrefix() {
         return prefix;
@@ -116,11 +116,11 @@ public class Namespace {
 
     /**
      * Sets the value of the prefix property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPrefix(String value) {
         this.prefix = value;
@@ -128,11 +128,11 @@ public class Namespace {
 
     /**
      * Gets the value of the resourceLocation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getResourceLocation() {
         return resourceLocation;
@@ -140,11 +140,11 @@ public class Namespace {
 
     /**
      * Sets the value of the resourceLocation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setResourceLocation(String value) {
         this.resourceLocation = value;

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ package org.openbel.framework.core.df.beldata;
  * BELDataHeaderHandler defines a parser handler to interpret header blocks and
  * block properties coming from the {@link BELDataHeaderParser}.  It is intended for
  * the class implementation of {@link BELDataHeaderHandler} to interpret the values.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface BELDataHeaderHandler {
@@ -48,7 +48,7 @@ public interface BELDataHeaderHandler {
      * Process a {@code headerBlock} coming from the {@link BELDataHeaderParser}.  This
      * operation is called when a BELData file header block has been read.  To abort processing
      * of the file after this point throw {@link AbortParsingException}.
-     * 
+     *
      * @param headerBlock {@link String}, the header block just parsed from {@link BELDataHeaderParser}
      * @param tokenStartOffset {@code long}, the offset in the file to the start of the header block token
      * @throws AbortParsingException, can be thrown by the class implementation to stop parsing
@@ -60,7 +60,7 @@ public interface BELDataHeaderHandler {
      * Process a {@code propertyKey} and {@code propertyValue} coming from the {@link BELDataHeaderParser}.
      * This operation is called when a BELDData file header property has been read.  To abort processing
      * of the file after this point throw {@link AbortParsingException}.
-     * 
+     *
      * @param propertyKey {@link String}, the property key just parsed from {@link BELDataHeaderParser}
      * @param propertyValue {@link String}, the property value just parsed from {@link BELDataHeaderParser}
      * @param tokenStartOffset {@code long}, the offset in the file to the start of the block property

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ import org.openbel.framework.core.protocol.handler.SupportedProtocol;
 /**
  * ResourceResolver delegates the handling of a resource location
  * to a {@link ProtocolHandler} based on the url scheme.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ResourceResolver {
@@ -56,7 +56,7 @@ public class ResourceResolver {
     /**
      * Retrieves a resource from the {@code resourceLocation} and saves
      * it to {@code downloadLocation}.
-     * 
+     *
      * @param resourceLocation {@link String}, the resource location url
      * @param downloadLocation {@link String}, the download location path
      * @return {@link File}, the local downloaded resource file

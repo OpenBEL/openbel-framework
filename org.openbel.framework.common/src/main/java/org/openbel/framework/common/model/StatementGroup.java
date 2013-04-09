@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import java.util.List;
 
 /**
  * A group of BEL statements.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class StatementGroup implements BELModelObject {
@@ -58,7 +58,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Creates a statement group with the optional properties.
-     * 
+     *
      * @param name {@link String}, the statement group name
      * @param comment Comment
      * @param ag Annotation group
@@ -82,7 +82,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Returns the statement group's name.
-     * 
+     *
      * @return {@link String} the statement group name, which may be null
      */
     public String getName() {
@@ -91,7 +91,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Sets the statement group's name.
-     * 
+     *
      * @param name {@link String}, the statement group's name
      */
     public void setName(String name) {
@@ -100,7 +100,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Returns the statement group's comment.
-     * 
+     *
      * @return String, which may be null
      */
     public String getComment() {
@@ -109,7 +109,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Sets the statement group's comment.
-     * 
+     *
      * @param comment Statement group's comment
      */
     public void setComment(String comment) {
@@ -118,7 +118,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Returns the statement's annotation group.
-     * 
+     *
      * @return AnnotationGroup, which may be null
      */
     public AnnotationGroup getAnnotationGroup() {
@@ -127,7 +127,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Sets the statement group's annotation group.
-     * 
+     *
      * @param annotationGroup Annotation group
      */
     public void setAnnotationGroup(AnnotationGroup annotationGroup) {
@@ -137,7 +137,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns the {@link StatementGroup statement groups's}
      * {@link Statement statements}.
-     * 
+     *
      * @return List of {@link Statement statements}, which may be empty
      */
     public List<Statement> getStatements() {
@@ -146,7 +146,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Sets the statement group's statements.
-     * 
+     *
      * @param statements List of statements
      */
     public void setStatements(List<Statement> statements) {
@@ -156,7 +156,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns the nested {@link StatementGroup statement groups}
      * for this {@link StatementGroup statement group}.
-     * 
+     *
      * @return List of {@link StatementGroup statement groups}, which may be
      * empty
      */
@@ -166,7 +166,7 @@ public class StatementGroup implements BELModelObject {
 
     /**
      * Sets statement group's statement groups.
-     * 
+     *
      * @param statementGroups List of statement groups
      */
     public void setStatementGroups(List<StatementGroup> statementGroups) {
@@ -176,7 +176,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns a list of all annotations contained by this statement group, its
      * statements, and nested statement groups.
-     * 
+     *
      * @return List of annotations
      */
     public List<Annotation> getAllAnnotations() {
@@ -208,7 +208,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns a list of all parameters contained by this statement group's
      * statements, and nested statement groups.
-     * 
+     *
      * @return List of parameters
      */
     public List<Parameter> getAllParameters() {
@@ -232,7 +232,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns a list of all statement groups contained by this statement group
      * and nested statement groups.
-     * 
+     *
      * @return List of statement groups
      */
     public List<StatementGroup> getAllStatementGroups() {
@@ -251,7 +251,7 @@ public class StatementGroup implements BELModelObject {
     /**
      * Returns a list of all statements contained by this statement group's
      * statements, and nested statement groups.
-     * 
+     *
      * @return List of statements
      */
     public List<Statement> getAllStatements() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import org.openbel.framework.common.model.AnnotationDefinition;
 /**
  * AnnotationDefinitionService defines a service to populate
  * an {@link AnnotationDefinition} from an external resource location.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface AnnotationDefinitionService {
@@ -49,9 +49,9 @@ public interface AnnotationDefinitionService {
     /**
      * Builds an {@link AnnotationDefinition} object resolved from an external
      * resource location defines in <tt>resourceLocation</tt>.
-     * 
+     *
      * @param resourceLocation {@link String}, the external resource location
-     * of the annotation definition file, which cannot be null 
+     * of the annotation definition file, which cannot be null
      * @return {@link AnnotationDefinition} the annotation definition object
      * built from the external resource location
      * @throws AnnotationDefinitionResolutionException Thrown if an error

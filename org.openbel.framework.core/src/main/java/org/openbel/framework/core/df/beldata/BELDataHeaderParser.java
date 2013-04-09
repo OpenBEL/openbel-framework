@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,17 +47,17 @@ import java.util.regex.Pattern;
 /**
  * BELDataHeaderParser represents a BEL data document parser for the header
  * section. This parser understands header blocks and block properties like
- * 
+ *
  * <pre>
  *    [SomeValue]
  *    PropertyKey1=PropertyValue1
  *    PropertyKey2=PropertyValue2
  * </pre>
- * 
+ *
  * Block header values, property key, and property values are all trimmed of
  * leading/trailing whitespace using {@link String#trim()}. Additionally, lines
  * that are blank or start with the comment character '#' are ignored.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public abstract class BELDataHeaderParser {
@@ -73,7 +73,7 @@ public abstract class BELDataHeaderParser {
 
     /**
      * Retrieves the next character offset of the file parsed.
-     * 
+     *
      * @return long, the character stop offset, some positive number indicating
      *         the offset of the next character to read, which could be -1 if
      *         the file was fully read
@@ -85,8 +85,8 @@ public abstract class BELDataHeaderParser {
     /**
      * Parse the BEL Data header {@link File} to a {@link Map} of block name
      * to block properties held in a {@link Properties} object.
-     * 
-     * @param belDataFile {@link File}, the BEL data document file to parse 
+     *
+     * @param belDataFile {@link File}, the BEL data document file to parse
      * @return {@link Map} of {@link String} to {@link Properties} the
      * properties indexed in a block name
      * @throws IOException, if there was an error reading from {@code belDataFile}

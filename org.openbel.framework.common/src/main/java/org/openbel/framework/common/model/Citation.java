@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.common.enums.CitationType;
 
 /**
  * A citation indicates some knowledge source is cited to support a statement.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @author James McMahon
  */
@@ -62,7 +62,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Creates a citation with the required name property.
-     * 
+     *
      * @param name Name
      * @throws InvalidArgument Thrown if {@code name} is null
      */
@@ -73,7 +73,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Creates a citation with the required name and optional properties.
-     * 
+     *
      * @param name Name
      * @param reference Reference
      * @param comment Comment
@@ -95,7 +95,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Returns the citation's identifier.
-     * 
+     *
      * @return String, which may be null
      */
     public String getReference() {
@@ -104,7 +104,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Sets the citation's identifier.
-     * 
+     *
      * @param id Citation's identifier
      */
     public void setReference(String id) {
@@ -113,7 +113,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Returns the citation's comment.
-     * 
+     *
      * @return String, which may be null
      */
     public String getComment() {
@@ -122,7 +122,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Sets the citation's comment.
-     * 
+     *
      * @param comment Citation's comment
      */
     public void setComment(String comment) {
@@ -131,7 +131,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Returns the citation's date.
-     * 
+     *
      * @return Calendar, which may be null
      */
     public Calendar getDate() {
@@ -140,7 +140,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Sets the citation's date.
-     * 
+     *
      * @param date Citation's date
      */
     public void setDate(Calendar date) {
@@ -149,7 +149,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Get the citation's authors.
-     * 
+     *
      * @return authors, which may be null
      */
     public List<String> getAuthors() {
@@ -158,7 +158,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Set the citation's authors.
-     * 
+     *
      * @param authors List of strings
      */
     public void setAuthors(List<String> authors) {
@@ -167,7 +167,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Returns the citation's type.
-     * 
+     *
      * @return CitationType, which may be null
      */
     public CitationType getType() {
@@ -176,7 +176,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Sets the citation's type.
-     * 
+     *
      * @param type Citation's type
      */
     public void setType(CitationType type) {
@@ -185,7 +185,7 @@ public class Citation implements BELModelObject {
 
     /**
      * Returns the citation's name.
-     * 
+     *
      * @return Non-null string
      */
     public String getName() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,7 +53,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * <li>Compiling namespace resource locations into operational form</li>
  * <li>Managing the lifecycle of namespace's jdbm btree index</li>
  * <li>Performing value lookups for a namespace resource location</li></ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface NamespaceService {
@@ -61,7 +61,7 @@ public interface NamespaceService {
     /**
      * Determines if a {@link Namespace} resource location is open and
      * available for lookups.
-     * 
+     *
      * @param resourceLocation {@link String}, the namespace resource location
      * to check its open status, which cannot be null
      * @return <tt>boolean</tt>, the resource location's open status,
@@ -75,7 +75,7 @@ public interface NamespaceService {
      * possible.  This entails the following:<ol>
      * <li>Resolve the namespace resource location to the cache.</li>
      * <li>Build a jdbm btree index for the cached namespace resource.</li></ol>
-     * 
+     *
      * @param resourceLocation {@link String}, the namespace resource location
      * to compile which cannot be null
      * @throws ResourceDownloadError Thrown if the namespace resource could
@@ -93,7 +93,7 @@ public interface NamespaceService {
      * associated {@link Namespace}.  The jdbm btree index uses the namespace
      * value as the entry key and the namespace value encoding as the entry
      * value.
-     * 
+     *
      * @param p {@link Parameter}, the parameter to lookup the namespace
      * value for which cannot be null
      * @return {@link String} the namespace value encoding for the namespace
@@ -113,7 +113,7 @@ public interface NamespaceService {
     /**
      * Perform a search on the values in namespace specified by the resource
      * location, namespace does not have to be open prior to calling this.
-     * 
+     *
      * @param resourceLocation
      *            resource location, e.g.,
      *            "http://resource.belframework.org/belframework/1.0/ns/chebi-ids.belns"
@@ -134,14 +134,14 @@ public interface NamespaceService {
     /**
      * Verify that the {@link Parameter}'s value exists in its defined
      * namespace index.
-     * 
+     *
      * <p>
      * This call will automatically open the namespace index if needed.  If the
      * namespace index cannot be opened for lookups then it is assumed that it
      * does not exist.  In this case the namespace resource is downloaded,
      * cached, compiled into an index, and opened for use by this call.
      * </p>
-     * 
+     *
      * @param p {@link Parameter}, the parameter to verify that its value is
      * defined in its namespace index
      * @throws NamespaceSyntaxWarning Thrown if the {@link Parameter#getValue()} is not
@@ -160,15 +160,15 @@ public interface NamespaceService {
     /**
      * Verify all parameters of {@link Statement} <tt>s</tt>.  If at least one
      * parameter could not be found in its namespace index then a
-     * {@link SymbolWarning} is thrown to capture which parameters failed. 
-     * 
+     * {@link SymbolWarning} is thrown to capture which parameters failed.
+     *
      * <p>
      * This call will automatically open the namespace index if needed.  If the
      * namespace index cannot be opened for lookups then it is assumed that it
      * does not exist.  In this case the namespace resource is downloaded,
      * cached, compiled into an index, and opened for use by this call.
      * </p>
-     * 
+     *
      * @param s {@link Statement}, the statement containing the parameters to
      * verify, which cannot be null
      * @throws SymbolWarning Thrown if at least one parameter could not be
@@ -186,15 +186,15 @@ public interface NamespaceService {
     /**
      * Verify all parameters of {@link Document} <tt>d</tt>.  If at least one
      * parameter could not be found in its namespace index then a
-     * {@link SymbolWarning} is thrown to capture which parameters failed. 
-     * 
+     * {@link SymbolWarning} is thrown to capture which parameters failed.
+     *
      * <p>
      * This call will automatically open the namespace index if needed.  If the
      * namespace index cannot be opened for lookups then it is assumed that it
      * does not exist.  In this case the namespace resource is downloaded,
      * cached, compiled into an index, and opened for use by this call.
      * </p>
-     * 
+     *
      * @param d {@link Document}, the document containing the parameters to
      * verify, which cannot be null
      * @throws SymbolWarning Thrown if at least one parameter could not be

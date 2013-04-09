@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -62,7 +62,7 @@ public class BELDocument extends BELObject {
 
     /**
      * Returns the document header.
-     * 
+     *
      * @return the {@link BELDocumentHeader}, will not be null
      */
     public BELDocumentHeader getDocumentHeader() {
@@ -71,7 +71,7 @@ public class BELDocument extends BELObject {
 
     /**
      * Returns the {@link Set} of {@link BELAnnotationDefinition} objects.
-     * 
+     *
      * @return the {@link Set} of {@link BELAnnotationDefinition} objects,
      * may be null
      */
@@ -81,7 +81,7 @@ public class BELDocument extends BELObject {
 
     /**
      * Returns the {@link Set} of {@link BELNamespaceDefinition} objects.
-     * 
+     *
      * @return the {@link Set} of {@link BELNamespaceDefinition} objects,
      * may be null
      */
@@ -91,7 +91,7 @@ public class BELDocument extends BELObject {
 
     /**
      * Returns the {@link List} of {@link BELStatementGroup} objects.
-     * 
+     *
      * @return the {@link List} of {@link BELStatementGroup} objects,
      * may be null
      */

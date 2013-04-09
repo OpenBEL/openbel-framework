@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -40,7 +40,7 @@ import static org.openbel.framework.common.enums.AnnotationType.REGULAR_EXPRESSI
 /**
  * This is a specialization of annotation definitions specific to the
  * identification of a citation.
- * 
+ *
  * @author James McMahon
  */
 public class CitationAuthorsAnnotationDefinition extends AnnotationDefinition {

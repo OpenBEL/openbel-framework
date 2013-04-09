@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,11 +44,11 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * <p>
  * Java class for anonymous complex type.
- * 
+ *
  * <p>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -63,8 +63,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "kamNode", "direction", "filter", "dialect" })
@@ -79,9 +79,9 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Gets the value of the kamNode property.
-     * 
+     *
      * @return possible object is {@link KamNode }
-     * 
+     *
      */
     public KamNode getKamNode() {
         return kamNode;
@@ -89,10 +89,10 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Sets the value of the kamNode property.
-     * 
+     *
      * @param value
      *            allowed object is {@link KamNode }
-     * 
+     *
      */
     public void setKamNode(KamNode value) {
         this.kamNode = value;
@@ -100,9 +100,9 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Gets the value of the direction property.
-     * 
+     *
      * @return possible object is {@link EdgeDirectionType }
-     * 
+     *
      */
     public EdgeDirectionType getDirection() {
         return direction;
@@ -110,10 +110,10 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Sets the value of the direction property.
-     * 
+     *
      * @param value
      *            allowed object is {@link EdgeDirectionType }
-     * 
+     *
      */
     public void setDirection(EdgeDirectionType value) {
         this.direction = value;
@@ -121,9 +121,9 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Gets the value of the filter property.
-     * 
+     *
      * @return possible object is {@link EdgeFilter }
-     * 
+     *
      */
     public EdgeFilter getFilter() {
         return filter;
@@ -131,10 +131,10 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Sets the value of the filter property.
-     * 
+     *
      * @param value
      *            allowed object is {@link EdgeFilter }
-     * 
+     *
      */
     public void setFilter(EdgeFilter value) {
         this.filter = value;
@@ -142,9 +142,9 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Gets the value of the dialect property.
-     * 
+     *
      * @return possible object is {@link DialectHandle }
-     * 
+     *
      */
     public DialectHandle getDialect() {
         return dialect;
@@ -152,10 +152,10 @@ public class GetAdjacentKamEdgesRequest {
 
     /**
      * Sets the value of the dialect property.
-     * 
+     *
      * @param value
      *            allowed object is {@link DialectHandle }
-     * 
+     *
      */
     public void setDialect(DialectHandle value) {
         this.dialect = value;

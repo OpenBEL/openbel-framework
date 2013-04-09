@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,7 +61,7 @@ public class BELParser {
 
     /**
      * Parse BEL Script contents and return a {@link BELParseResults} object.
-     * 
+     *
      * @param belScriptSyntax
      * @return {@link BELParseResults}
      */
@@ -105,8 +105,8 @@ public class BELParser {
     /**
      * Parses a {@link Term} from a BEL term {@link String}.  Returns the
      * {@link Term} if parse succeeded, {@code null} if parse failed.
-     * 
-     * @param belTermSyntax {@link String} 
+     *
+     * @param belTermSyntax {@link String}
      * @return {@link Term} if parse succeeded; {@code null} if parse failed
      * or {@code belTermSyntax} was empty
      */
@@ -127,8 +127,8 @@ public class BELParser {
     /**
      * Parses a {@link Statement} from a BEL statement {@link String}.  Returns
      * the {@link Statement} if parse succeeded, {@code null} if parse failed.
-     * 
-     * @param belStatementSyntax {@link String} 
+     *
+     * @param belStatementSyntax {@link String}
      * @return {@link Statement} if parse succeeded; {@code null} if parse
      * failed or {@code belTermSyntax} was empty
      */
@@ -146,7 +146,7 @@ public class BELParser {
             return null;
         }
     }
-    
+
     /**
      * Prevent instantiation.  All methods must be statically accessed.
      */

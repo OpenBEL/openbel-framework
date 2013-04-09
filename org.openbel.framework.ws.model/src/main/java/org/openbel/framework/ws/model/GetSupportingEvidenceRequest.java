@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,9 +43,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -58,8 +58,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -75,11 +75,11 @@ public class GetSupportingEvidenceRequest {
 
     /**
      * Gets the value of the kamEdge property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamEdge }
-     *     
+     *
      */
     public KamEdge getKamEdge() {
         return kamEdge;
@@ -87,11 +87,11 @@ public class GetSupportingEvidenceRequest {
 
     /**
      * Sets the value of the kamEdge property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamEdge }
-     *     
+     *
      */
     public void setKamEdge(KamEdge value) {
         this.kamEdge = value;
@@ -99,11 +99,11 @@ public class GetSupportingEvidenceRequest {
 
     /**
      * Gets the value of the filter property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link KamFilter }
-     *     
+     *
      */
     public KamFilter getFilter() {
         return filter;
@@ -111,11 +111,11 @@ public class GetSupportingEvidenceRequest {
 
     /**
      * Sets the value of the filter property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link KamFilter }
-     *     
+     *
      */
     public void setFilter(KamFilter value) {
         this.filter = value;

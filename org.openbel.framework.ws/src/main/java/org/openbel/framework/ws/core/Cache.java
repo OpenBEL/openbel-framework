@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A Cache object is a hashmap with values wrapped around in soft references. Objects held by the hashmap will
  * be cleared when garbage collector has determined it needs to reclaim the memory.
- * 
+ *
  * @author tchu
  *
  */
@@ -77,7 +77,7 @@ public class Cache<T extends Cacheable> {
     /**
      * Adds an object to cache. Key for this cache entry is determined by Cacheable.getCacheKey()
      * There is no guarantee that this object will be there by the time the next get(key) is called.
-     * 
+     *
      * @param value
      */
     public synchronized void put(T value) {
@@ -85,12 +85,12 @@ public class Cache<T extends Cacheable> {
     }
 
     /**
-     * Adds an object to cache. There is no guarantee that this object will be there by the time 
+     * Adds an object to cache. There is no guarantee that this object will be there by the time
      * the next get(key) is called. If no other references are pointing to the cached object,
      * the supplied value are guaranteed to be removed from cache after timeToClearMins + 1 minutes.
-     * 
+     *
      * @param value
-     * @param timeToClearMins	
+     * @param timeToClearMins
      */
     public synchronized void put(T value, long timeToClearMins) {
         this.put(value);
@@ -102,9 +102,9 @@ public class Cache<T extends Cacheable> {
     }
 
     /**
-     * Retrieves an object from cache. If the object was cleared due to memory demand, null will 
+     * Retrieves an object from cache. If the object was cleared due to memory demand, null will
      * be returned.
-     * 
+     *
      * @param key
      * @return value
      */
@@ -130,7 +130,7 @@ public class Cache<T extends Cacheable> {
 
     /**
      * Returns true if cache contains this key. Note: Even if this cache contains the key, it
-     * doesn't mean the value object is still in the cache. 
+     * doesn't mean the value object is still in the cache.
      * @param key
      * @return true/false
      */
@@ -181,7 +181,7 @@ public class Cache<T extends Cacheable> {
 * A MaintenanceThread is created when a  Cache object is instantiated. The role of this
 * thread is to monitor the time limited cache entries and remove them from the cache when
 * they expire
-* 
+*
 * @author tchu
 */
 class MaintenanceThread extends Thread {
@@ -231,7 +231,7 @@ class MaintenanceThread extends Thread {
     }
 
     /**
-     * 
+     *
      * @return Set of entries to remove
      */
     private Set<String> findEntriesToRemove() {

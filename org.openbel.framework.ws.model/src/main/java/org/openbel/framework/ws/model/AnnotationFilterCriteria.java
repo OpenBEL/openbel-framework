@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,11 +45,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for AnnotationFilterCriteria complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="AnnotationFilterCriteria">
  *   &lt;complexContent>
@@ -62,8 +62,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AnnotationFilterCriteria", propOrder = {
@@ -81,11 +81,11 @@ public class AnnotationFilterCriteria
 
     /**
      * Gets the value of the annotationType property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AnnotationType }
-     *     
+     *
      */
     public AnnotationType getAnnotationType() {
         return annotationType;
@@ -93,11 +93,11 @@ public class AnnotationFilterCriteria
 
     /**
      * Sets the value of the annotationType property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AnnotationType }
-     *     
+     *
      */
     public void setAnnotationType(AnnotationType value) {
         this.annotationType = value;
@@ -105,25 +105,25 @@ public class AnnotationFilterCriteria
 
     /**
      * Gets the value of the valueSet property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the valueSet property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getValueSet().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link String }
-     * 
-     * 
+     *
+     *
      */
     public List<String> getValueSet() {
         if (valueSet == null) {

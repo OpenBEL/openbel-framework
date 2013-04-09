@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -168,7 +168,7 @@ public enum CovalentModification {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      * @param oneLetter One-letter value
@@ -190,7 +190,7 @@ public enum CovalentModification {
 
     /**
      * Returns the covalent modification's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -200,7 +200,7 @@ public enum CovalentModification {
 
     /**
      * Returns the covalent modification's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -209,7 +209,7 @@ public enum CovalentModification {
 
     /**
      * Returns the covalent modification by its string representation.
-     * 
+     *
      * @param s CovalentModification string representation
      * @return CovalentModification, may be null if the provided string has no
      * CovalentModification representation
@@ -228,7 +228,7 @@ public enum CovalentModification {
 
     /**
      * Returns the one-letter abbreviation of this covalent modification.
-     * 
+     *
      * @return {@link String}
      */
     public String getOneLetter() {
@@ -237,7 +237,7 @@ public enum CovalentModification {
 
     /**
      * Returns the one-letter abbreviation of a covalent modification.
-     * 
+     *
      * @param c {@link CovalentModification}
      * @return {@link String}
      */
@@ -247,7 +247,7 @@ public enum CovalentModification {
 
     /**
      * Returns a set of all the one-letter covalent modification abbreviations.
-     * 
+     *
      * @return {@link Set}
      */
     public static Set<String> getOneLetters() {
@@ -267,7 +267,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#LYSINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #ACETYLATION
@@ -289,7 +289,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#CYSTEINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #FARNESYLATION
@@ -317,7 +317,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#SERINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #GLYCOSYLATION
@@ -347,7 +347,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#PROLINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #HYDROXYLATION
@@ -376,7 +376,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#ASPARTIC_ACID}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #METHYLATION
@@ -407,7 +407,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#HISTIDINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #PHOSPHORYLATION
@@ -436,7 +436,7 @@ public enum CovalentModification {
      * <li>{@link AminoAcid#LYSINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #RIBOSYLATION
@@ -462,7 +462,7 @@ public enum CovalentModification {
      * <li>{@link #LYSINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #SUMOYLATION
@@ -485,7 +485,7 @@ public enum CovalentModification {
      * <li>{@link #LYSINE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @param acid {@link AminoAcid}
      * @return boolean
      * @see #UBIQUITINATION

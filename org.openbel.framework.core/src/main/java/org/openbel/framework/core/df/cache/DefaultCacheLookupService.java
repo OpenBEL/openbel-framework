@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ import org.openbel.framework.common.util.Hasher;
 /**
  * CacheLookupService implements service-level lookup operations to the
  * BELFramework cache defined at {@link SystemConfiguration#getCacheDirectory()}.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class DefaultCacheLookupService implements CacheLookupService {
@@ -124,8 +124,8 @@ public class DefaultCacheLookupService implements CacheLookupService {
 
     /**
      * Find resources under a particular cache sub-directory identified by the
-     * {@link ResourceType} <tt>resourceType</tt>. 
-     * 
+     * {@link ResourceType} <tt>resourceType</tt>.
+     *
      * @param cacheSubDirectory {@link File}, the cache sub-directory
      * @param resourceType {@link ResourceType}, the resource type
      * @param cachedResource {@link List} of {@link CachedResource}, the list

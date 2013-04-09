@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -53,7 +53,7 @@ public abstract class ExpansionRule<T extends BELObject> {
 
     /**
      * Returns the name of this expansion rule.
-     * 
+     *
      * @return {@link String}
      */
     public abstract String getName();
@@ -61,7 +61,7 @@ public abstract class ExpansionRule<T extends BELObject> {
     /**
      * Returns {@code true} if the {@link BELObject} {@code T} matches this
      * expansion rule, {@code false} otherwise.
-     * 
+     *
      * @param t {@link BELObject} {@code <T>}
      * @return boolean
      */
@@ -69,7 +69,7 @@ public abstract class ExpansionRule<T extends BELObject> {
 
     /**
      * Expands the {@link Statement statement's} knowledge.
-     * 
+     *
      * @param t The {@link BELObject} {@code <T>} matching this expansion rule
      * @return {@link List} of the {@link Statement statements} produced as a
      * result of expanding the supplied {@code <T>}
@@ -78,7 +78,7 @@ public abstract class ExpansionRule<T extends BELObject> {
 
     /**
      * Attach citation for expansion rule
-     * 
+     *
      * @param statement {@link Statement}
      */
     protected void attachExpansionRuleCitation(Statement statement) {

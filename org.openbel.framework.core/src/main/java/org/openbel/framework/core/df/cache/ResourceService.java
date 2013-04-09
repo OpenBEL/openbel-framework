@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ import org.openbel.framework.core.protocol.ResourceResolver;
 /**
  * Defines a resource resolver for downloading any OpenBEL Framework resource.
  * This is a common service to resolve any OpenBEL Framework resource files.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface ResourceService {
@@ -53,14 +53,14 @@ public interface ResourceService {
      * Resolves a OpenBEL Framework resource by determining how to resolve the
      * <tt>resourceLocation</tt> using
      * {@link ResourceResolver#resolveResource(String, String)}.
-     * 
+     *
      * <p>
      * The file is resolved locally to:
      * <code>
      * localRoot + {@link File#separator} + {@link System#currentTimeMillis()} + localExtension
      * </code>
      * </p>
-     * 
+     *
      * @param resourceLocation {@link String}, the location of the resource,
      * which cannot be null
      * @param localPath {@link String}, the local folder path where the resource
@@ -68,7 +68,7 @@ public interface ResourceService {
      * @param localFileName {@link String}, the local file name
      * @throws ResourceDownloadError Thrown if there was an I/O error resolving
      * the resource location.
-     * @throws InvalidArgument Thrown if any of the arguments are null. 
+     * @throws InvalidArgument Thrown if any of the arguments are null.
      */
     public File resolveResource(String resourceLocation, String localPath,
             String localFileName)

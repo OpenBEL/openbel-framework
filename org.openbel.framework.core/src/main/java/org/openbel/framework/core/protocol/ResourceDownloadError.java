@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import org.openbel.framework.common.BELErrorException;
 
 /**
  * A BEL error indicating download of a resource resulted in an error.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ResourceDownloadError extends BELErrorException {
@@ -48,7 +48,7 @@ public class ResourceDownloadError extends BELErrorException {
     /**
      * Creates a resource download error for the provided resource
      * {@code resourceLocation}, with the supplied message.
-     * 
+     *
      * @param resourceLocation Failed resource
      * @param msg Message indicative of failure
      */
@@ -59,7 +59,7 @@ public class ResourceDownloadError extends BELErrorException {
     /**
      * Creates a resource download error for the provided resource
      * {@code resourceLocation}, the supplied message, and cause.
-     * 
+     *
      * @param resourceLocation Failed resource
      * @param msg Message indicative of failure
      * @param cause The cause of the exception

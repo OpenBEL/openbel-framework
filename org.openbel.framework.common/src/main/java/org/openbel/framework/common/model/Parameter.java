@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import static org.openbel.framework.common.BELUtilities.quoteParameter;
 
 /**
  * BEL term function parameter.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Parameter implements BELObject {
@@ -50,7 +50,7 @@ public class Parameter implements BELObject {
 
     /**
      * Creates a parameter with the optional properties.
-     * 
+     *
      * @param ns Namespace
      * @param value Value
      */
@@ -67,7 +67,7 @@ public class Parameter implements BELObject {
 
     /**
      * Returns the parameter's namespace.
-     * 
+     *
      * @return Namespace, which may be null
      */
     public Namespace getNamespace() {
@@ -76,7 +76,7 @@ public class Parameter implements BELObject {
 
     /**
      * Sets the parameter's namespace.
-     * 
+     *
      * @param namespace Parameter's namespace
      */
     public void setNamespace(Namespace namespace) {
@@ -85,7 +85,7 @@ public class Parameter implements BELObject {
 
     /**
      * Returns the parameter's value.
-     * 
+     *
      * @return String, which may be null
      */
     public String getValue() {
@@ -94,7 +94,7 @@ public class Parameter implements BELObject {
 
     /**
      * Sets the parameter's value.
-     * 
+     *
      * @param value Parameter's value
      */
     public void setValue(String value) {

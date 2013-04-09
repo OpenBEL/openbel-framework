@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,7 +45,7 @@ public abstract class BELException extends Exception {
      * Creates a BEL exception with {@code null} as its detail message. The
      * cause is not initialized, and may subsequently be initialized by a call
      * to {@link #initCause(Throwable)}.
-     * 
+     *
      * @see Throwable#initCause(Throwable) initCause
      */
     public BELException() {
@@ -55,7 +55,7 @@ public abstract class BELException extends Exception {
      * Creates a BEL exception with the specified detail message. The cause is
      * not initialized, and may subsequently be initialized by a call to
      * {@link #initCause(Throwable)}.
-     * 
+     *
      * @param message The detailed exception message
      * @see Throwable#getMessage() getMessage
      * @see Throwable#initCause(Throwable) initCause
@@ -67,7 +67,7 @@ public abstract class BELException extends Exception {
     /**
      * Creates a BEL exception with the specified cause and {@code null} as its
      * detail message.
-     * 
+     *
      * @param cause The cause of the exception
      * @see Throwable#getCause() getCause
      */
@@ -77,7 +77,7 @@ public abstract class BELException extends Exception {
 
     /**
      * Creates a BEL exception with the specified cause and detail message.
-     * 
+     *
      * @param message The detailed exception message
      * @param cause The cause of the exception
      * @see Throwable#getMessage() getMessage

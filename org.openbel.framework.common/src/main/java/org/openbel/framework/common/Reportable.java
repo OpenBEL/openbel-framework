@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,41 +42,41 @@ import java.io.PrintStream;
  * <p>
  * TODO improve class name
  * </p>
- * 
+ *
  */
 public interface Reportable {
 
     /**
      * Gets the error stream.
-     *  
+     *
      * @return {@link PrintStream}
      */
     public PrintStream errorStream();
 
     /**
      * Gets the output stream.
-     * 
+     *
      * @return {@link PrintStream}
      */
     public PrintStream outputStream();
 
     /**
      * Prints the errors to the error stream.
-     * 
+     *
      * @param errors Error messages
      */
     public void error(String... errors);
 
     /**
      * Prints the warnings to the error stream.
-     * 
+     *
      * @param warnings Warning messages
      */
     public void warning(String... warnings);
 
     /**
      *  Prints the messages to the output stream.
-     *   
+     *
      * @param outputs Messages
      */
     public void output(String... outputs);

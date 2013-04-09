@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,13 +41,13 @@ import org.openbel.framework.common.Strings;
  * Denotes a disease or pathology process.
  * <p>
  * Function {@link Signature signature(s)}:
- * 
+ *
  * <pre>
  * pathology(E:pathology)pathology
  * </pre>
- * 
+ *
  * </p>
- * 
+ *
  * @see Signature
  */
 public class Pathology extends Function {
@@ -79,7 +79,7 @@ public class Pathology extends Function {
     }
 
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public boolean validArgumentCount(int count) {

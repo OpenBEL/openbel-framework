@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -44,7 +44,7 @@ public interface AnnotationService {
 
     /**
      * Verify that the given annotation is valid.
-     * 
+     *
      * @param annotation
      * @throws AnnotationSyntaxWarning
      *             if the annotation is invalid
@@ -53,7 +53,7 @@ public interface AnnotationService {
 
     /**
      * Verify that all statements in the given statement are valid.
-     * 
+     *
      * @param statement
      * @throws SymbolWarning
      *             if any of the annotations in the statement are invalid.
@@ -62,7 +62,7 @@ public interface AnnotationService {
 
     /**
      * Verify that all annotations in the given document are valid.
-     * 
+     *
      * @param document
      * @throws SymbolWarning
      *             if any of the annotations in the document are invalid.

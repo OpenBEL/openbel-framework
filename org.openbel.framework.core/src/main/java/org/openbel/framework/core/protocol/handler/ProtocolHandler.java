@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -48,7 +48,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * <li>ftp</li>
  * <li>sftp</li>
  * </ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface ProtocolHandler {
@@ -56,7 +56,7 @@ public interface ProtocolHandler {
     /**
      * Retrieves a resource, identified by {@code name},
      * from the {@code url}.
-     * 
+     *
      * @param url {@link String}, the resource name
      * @param path {@link String}, the output path
      * @return {@link File}, the downloaded resource file

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.common.enums.ExitCode;
  * These exceptions require user-facing messages and exit codes to aid in
  * problem reporting.
  * </p>
- * 
+ *
  * @see UserFacingUncheckedException
  * @see BELUncheckedException
  */
@@ -55,7 +55,7 @@ public class BELRuntimeException extends UserFacingUncheckedException {
      * Creates a BEL runtime exception with the specified detail message and
      * exit code. The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause(Throwable)}.
-     * 
+     *
      * @param msg The detailed exception message
      * @param exitCode Exit code
      * @throws InvalidArgument Thrown if {@code exitCode} is null
@@ -71,7 +71,7 @@ public class BELRuntimeException extends UserFacingUncheckedException {
     /**
      * Creates a BEL runtime exception with the specified detail message, exit
      * code, and cause.
-     * 
+     *
      * @param msg The detailed exception message
      * @param cause The {@link Throwable cause} of the exception
      * @see Throwable#getMessage() getMessage
@@ -88,7 +88,7 @@ public class BELRuntimeException extends UserFacingUncheckedException {
 
     /**
      * Returns the BEL runtime exception's exit code.
-     * 
+     *
      * @return {@link ExitCode}
      */
     public final ExitCode getExitCode() {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ import org.openbel.framework.common.external.WriteCache;
 /**
  * StatementAnnotationMapTable holds the index mapping from statement id to
  * annotation definition / value index pairs.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -73,7 +73,7 @@ public class StatementAnnotationMapTable extends ExternalType {
      * {@code statementAnnotationIndex} map. A {@code statementIndex} will not
      * be indexed if the {@code annotationValueDefinitionPairs} collection is
      * empty.
-     * 
+     *
      * @param statementIndex {@link Integer}, the statement index as the key,
      * must not be null
      * @param annotationPairs {@link List} of {@code Integer[]}, the annotation
@@ -111,7 +111,7 @@ public class StatementAnnotationMapTable extends ExternalType {
      * Returns the statement annotation map table's statement index to
      * annotation pairs map. This map is mutable to allow reindexing during
      * phase II proto network merging.
-     * 
+     *
      * @return {@link Map}, which cannot be null
      */
     public Map<Integer, Set<AnnotationPair>> getStatementAnnotationPairsIndex() {
@@ -216,7 +216,7 @@ public class StatementAnnotationMapTable extends ExternalType {
      * AnnotationPair represents an integer pair of annotation definition id and
      * an annotation value id. An {@code Integer[]} array would not work since a
      * {@link Set} cannot perform equality between them.
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -241,7 +241,7 @@ public class StatementAnnotationMapTable extends ExternalType {
         /**
          * Creates an annotation pair from a {@code annotationDefinitionId} and
          * an {@code annotationValueId}.
-         * 
+         *
          * @param annotationDefinitionId {@code int}, the annotation definition
          * id
          * @param annotationValueId {@code int}, the annotation value id
@@ -262,7 +262,7 @@ public class StatementAnnotationMapTable extends ExternalType {
 
         /**
          * Returns the annotation definition id.
-         * 
+         *
          * @return {@code int}, the annotation definition id
          */
         public int getAnnotationDefinitionId() {
@@ -271,7 +271,7 @@ public class StatementAnnotationMapTable extends ExternalType {
 
         /**
          * Returns the annotation value id.
-         * 
+         *
          * @return {@code int}, the annotation value id
          */
         public int getAnnotationValueId() {
@@ -280,7 +280,7 @@ public class StatementAnnotationMapTable extends ExternalType {
 
         /**
          * Computes the hash for {@link AnnotationPair this annotation pair}.
-         * 
+         *
          * @return the computed hash
          */
         private int computeHash() {

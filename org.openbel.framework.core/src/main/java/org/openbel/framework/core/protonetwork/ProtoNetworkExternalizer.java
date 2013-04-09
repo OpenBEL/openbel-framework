@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,14 +45,14 @@ import org.openbel.framework.common.protonetwork.model.ProtoNetworkError;
  * approach was necessary because the {@link Externalizable} and readObject/writeObject
  * methods only supports a single output stream and the {@link TextProtoNetworkExternalizer}
  * requires writing a {@link ProtoNetwork} to multiple table files.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public interface ProtoNetworkExternalizer {
 
     /**
      * Reads a proto network from a descriptor.
-     * 
+     *
      * @param protoNetworkDescriptor {@link ProtoNetworkDescriptor}, the proto network descriptor
      * @return {@link ProtoNetwork}, the read proto network, which cannot be null
      * @throws ProtoNetworkError, if there was an error reading from the {@link ProtoNetworkDescriptor}
@@ -63,7 +63,7 @@ public interface ProtoNetworkExternalizer {
 
     /**
      * Writes a proto network and produces a descriptor.
-     * 
+     *
      * @param protoNetwork {@link ProtoNetwork}, the proto network, which cannot be null
      * @param protoNetworkRootPath {@link String}, the root path where proto network files should be created
      * @return {@link ProtoNetworkDescriptor}, the proto network descriptor

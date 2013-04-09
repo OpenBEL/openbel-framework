@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,12 +42,12 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * CachedResource represents a resource that is available in the cache and
  * has its contents hashed.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public final class CachedResource {
     /**
-     * Defines the local location of the resource. 
+     * Defines the local location of the resource.
      */
     private File localFile;
 
@@ -69,7 +69,7 @@ public final class CachedResource {
     /**
      * Constructs the CachedResource with the local and remote locations
      * as well as the content hash for the local file.
-     * 
+     *
      * @param localFile {@link File}, the local resource file, which cannot be
      * null
      * @param remoteLocation {@link String}, the remote location of the
@@ -103,7 +103,7 @@ public final class CachedResource {
 
     /**
      * Returns the local resource file.
-     * 
+     *
      * @return {@link String}, the local resource file, which will not be null
      */
     public File getLocalFile() {
@@ -112,7 +112,7 @@ public final class CachedResource {
 
     /**
      * Returns the remote location.
-     * 
+     *
      * @return {@link String}, the remote location, which will not be null
      */
     public String getRemoteLocation() {
@@ -121,7 +121,7 @@ public final class CachedResource {
 
     /**
      * Returns the type of this resource.
-     * 
+     *
      * @return {@link ResourceType}, the type of this resource, which will not
      * be null
      */
@@ -131,7 +131,7 @@ public final class CachedResource {
 
     /**
      * Returns the local file's content hash.
-     * 
+     *
      * @return {@link String}, the local file's content hash, which may be
      * null
      */

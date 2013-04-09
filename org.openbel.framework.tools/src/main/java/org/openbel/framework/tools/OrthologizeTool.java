@@ -39,35 +39,35 @@ import org.openbel.framework.core.df.DatabaseServiceImpl;
  * KAM and an NCBI Taxonomy Id.
  */
 public class OrthologizeTool extends CommandLineApplication {
-    
+
     // command line app metadata
     private static final String NAME = "";
     private static final String SHORT = "";
     private static final String DESCRIPTION = "";
-    
+
     // command line options
     private static final String USAGE = "-t <taxonomy id> " +
     		"[-k <new kam name>] " +
     		"[-d <new kam description>] " +
     		"[--no-preserve] " +
-    		"<kam name>"; 
+    		"<kam name>";
     private static final String TAX_ID = "tax-id";
     private static final String TAX_ID_SHORT = "t";
     private static final String TAX_ID_DESCRIPTION = "a ncbi taxonomy id to orthologize to";
 
     /**
      * Constructs and execute this tool.
-     * 
+     *
      * @param args {@code String[]} main arguments
      */
     public OrthologizeTool(String[] args) {
         super(args);
-        
+
         // setup
         reportable();
         printApplicationInfo();
         initializeSystemConfiguration();
-        
+
         // set cli fields then validate
         String taxIdValue = getOptionValue(TAX_ID);
         List<String> extra = getExtraneousArguments();
@@ -102,7 +102,7 @@ public class OrthologizeTool extends CommandLineApplication {
             String fmt = "Orthologizing kam \"%s\".";
             reportable.output(format(fmt, kamName));
         }
-        
+
         // run orthologize
         Kam kam = kam(kamName);
         KamInfo info = kam.getKamInfo();
@@ -110,7 +110,7 @@ public class OrthologizeTool extends CommandLineApplication {
         Orthologize ortho = new DefaultOrthologize();
         SpeciesDialect dialect = dialect(taxId, info, kamstore);
         OrthologizedKam orthokam = ortho.orthologize(kam, kamstore, dialect);
-        
+
         // remap collapsing nodes
         kam = kam(kamName);
         info = kam.getKamInfo();
@@ -119,18 +119,18 @@ public class OrthologizeTool extends CommandLineApplication {
         for (Entry<KamNode, KamNode> e : set) {
             KamNode collapsing = e.getKey();
             KamNode collapseTo = e.getValue();
-            
+
             collapsing = kam.findNode(collapsing.getId());
             collapseTo = kam.findNode(collapseTo.getId());
             kamstore.collapseKamNode(info, collapsing, collapseTo);
         }
-        
+
         // remove orthologous edges/statements
         kamstore.removeKamEdges(info, ORTHOLOGOUS);
-        
+
         // coalesce duplicate edges
         kamstore.coalesceKamEdges(info);
-        
+
         // clean up
         kamstore.teardown();
     }
@@ -176,7 +176,7 @@ public class OrthologizeTool extends CommandLineApplication {
         options.add(new Option(TAX_ID_SHORT, TAX_ID, true, TAX_ID_DESCRIPTION));
         return options;
     }
-    
+
     /**
      * Sets the reportable implementation for {@link System#out} and
      * {@link System#err}.
@@ -187,7 +187,7 @@ public class OrthologizeTool extends CommandLineApplication {
         reportable.setOutputStream(System.out);
         setReportable(reportable);
     }
-    
+
     private static boolean kamExists(String kam) {
         DatabaseService db = new DatabaseServiceImpl();
         SystemConfiguration sc = getSystemConfiguration();
@@ -206,7 +206,7 @@ public class OrthologizeTool extends CommandLineApplication {
             }
         }
     }
-    
+
     private static Kam kam(String kam) {
         DatabaseService db = new DatabaseServiceImpl();
         SystemConfiguration sc = getSystemConfiguration();
@@ -225,7 +225,7 @@ public class OrthologizeTool extends CommandLineApplication {
             }
         }
     }
-    
+
     private static KAMStore kamstore() {
         DatabaseService db = new DatabaseServiceImpl();
         SystemConfiguration sc = getSystemConfiguration();
@@ -239,15 +239,15 @@ public class OrthologizeTool extends CommandLineApplication {
             return null;
         }
     }
-    
+
     private static SpeciesDialect dialect(int taxId, KamInfo kam,
             KAMStore kamStore) {
         return new DefaultSpeciesDialect(kam, kamStore, taxId, true);
     }
-    
+
     /**
      * Main entry point for this tool.
-     * 
+     *
      * @param args {@code String[]} main arguments
      */
     public static void main(String[] args) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -61,7 +61,7 @@ public class SemanticWarning extends BELWarningException {
 
     /**
      * Creates a semantic warning with the supplied name and message.
-     * 
+     *
      * @param name Resource name failing validation
      * @param msg Message indicative of semantic failure
      */
@@ -73,7 +73,7 @@ public class SemanticWarning extends BELWarningException {
 
     /**
      * Creates a semantic warning with the supplied name, message, and cause.
-     * 
+     *
      * @param name Resource name failing validation
      * @param msg Message indicative of semantic failure
      * @param cause The cause of the exception
@@ -90,7 +90,7 @@ public class SemanticWarning extends BELWarningException {
      * The supplied {@code map} contains the semantic status of the failing
      * signature against all signatures of a function. provided signature-status
      * map and supplied signature.
-     * 
+     *
      * @param name Resource name failing validation
      * @param msg Message indicative of semantic failure
      * @param suppliedSignature Signature failing semantic verification

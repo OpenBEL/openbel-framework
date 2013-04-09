@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,9 +45,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -58,8 +58,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -76,11 +76,11 @@ public class XBELNamespace
 
     /**
      * Gets the value of the prefix property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPrefix() {
         return prefix;
@@ -88,11 +88,11 @@ public class XBELNamespace
 
     /**
      * Sets the value of the prefix property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPrefix(String value) {
         this.prefix = value;
@@ -104,11 +104,11 @@ public class XBELNamespace
 
     /**
      * Gets the value of the resourceLocation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getResourceLocation() {
         return resourceLocation;
@@ -116,11 +116,11 @@ public class XBELNamespace
 
     /**
      * Sets the value of the resourceLocation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setResourceLocation(String value) {
         this.resourceLocation = value;

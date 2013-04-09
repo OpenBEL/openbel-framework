@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -158,7 +158,7 @@ public enum SemanticStatus {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      */
@@ -177,7 +177,7 @@ public enum SemanticStatus {
 
     /**
      * Returns the semantic status's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -187,7 +187,7 @@ public enum SemanticStatus {
 
     /**
      * Returns the semantic status's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -197,7 +197,7 @@ public enum SemanticStatus {
     /**
      * Returns the semantic status by its string representation
      * (case-insensitive).
-     * 
+     *
      * @param s Semantic status string representation
      * @return SemanticStatus, may be null if the provided string has no
      * semantic status representation

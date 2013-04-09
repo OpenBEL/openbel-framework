@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -45,11 +45,11 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * TODO - Document
- * 
+ *
  * <p>Java class for BelStatement complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType name="BelStatement">
  *   &lt;complexContent>
@@ -68,8 +68,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "BelStatement", propOrder = {
@@ -98,11 +98,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getId() {
         return id;
@@ -110,11 +110,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setId(String value) {
         this.id = value;
@@ -122,11 +122,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the subjectTerm property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelTerm }
-     *     
+     *
      */
     public BelTerm getSubjectTerm() {
         return subjectTerm;
@@ -134,11 +134,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the subjectTerm property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelTerm }
-     *     
+     *
      */
     public void setSubjectTerm(BelTerm value) {
         this.subjectTerm = value;
@@ -146,11 +146,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the relationship property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link RelationshipType }
-     *     
+     *
      */
     public RelationshipType getRelationship() {
         return relationship;
@@ -158,11 +158,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the relationship property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link RelationshipType }
-     *     
+     *
      */
     public void setRelationship(RelationshipType value) {
         this.relationship = value;
@@ -170,11 +170,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the objectTerm property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelTerm }
-     *     
+     *
      */
     public BelTerm getObjectTerm() {
         return objectTerm;
@@ -182,11 +182,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the objectTerm property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelTerm }
-     *     
+     *
      */
     public void setObjectTerm(BelTerm value) {
         this.objectTerm = value;
@@ -194,11 +194,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the objectStatement property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelStatement }
-     *     
+     *
      */
     public BelStatement getObjectStatement() {
         return objectStatement;
@@ -206,11 +206,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the objectStatement property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelStatement }
-     *     
+     *
      */
     public void setObjectStatement(BelStatement value) {
         this.objectStatement = value;
@@ -218,25 +218,25 @@ public class BelStatement {
 
     /**
      * Gets the value of the annotations property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the annotations property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAnnotations().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Annotation }
-     * 
-     * 
+     *
+     *
      */
     public List<Annotation> getAnnotations() {
         if (annotations == null) {
@@ -247,11 +247,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the citation property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Citation }
-     *     
+     *
      */
     public Citation getCitation() {
         return citation;
@@ -259,11 +259,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the citation property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Citation }
-     *     
+     *
      */
     public void setCitation(Citation value) {
         this.citation = value;
@@ -271,11 +271,11 @@ public class BelStatement {
 
     /**
      * Gets the value of the document property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link BelDocument }
-     *     
+     *
      */
     public BelDocument getDocument() {
         return document;
@@ -283,11 +283,11 @@ public class BelStatement {
 
     /**
      * Sets the value of the document property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link BelDocument }
-     *     
+     *
      */
     public void setDocument(BelDocument value) {
         this.document = value;

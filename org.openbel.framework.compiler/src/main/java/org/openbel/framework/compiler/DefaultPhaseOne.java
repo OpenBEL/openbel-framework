@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -193,7 +193,7 @@ public interface DefaultPhaseOne {
      * <li>Expansion of statements</li>
      * <li>Expansion of terms</li>
      * </ol>
-     * 
+     *
      * <p>
      * This stage modifies the {@link ProtoNetwork proto network} by adding
      * additional proto nodes and proto edges.

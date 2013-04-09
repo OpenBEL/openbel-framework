@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -54,7 +54,7 @@ public abstract class Equivalencer {
     /**
      * Constructs an equivalencer with the associated {@link ProtoNetwork
      * proto-network}.
-     * 
+     *
      * @param network {@link ProtoNetwork Proto-network}
      * @throws InvalidArgument Thrown if {@code network} is null
      */
@@ -68,7 +68,7 @@ public abstract class Equivalencer {
     /**
      * Executes equivalencing, returning the number of items that were
      * equivalenced.
-     * 
+     *
      * @return int
      * @throws IOException Thrown if an I/O error occurred during equivalencing
      */

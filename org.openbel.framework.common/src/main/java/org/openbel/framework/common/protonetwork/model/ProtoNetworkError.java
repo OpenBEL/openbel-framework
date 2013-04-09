@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -39,7 +39,7 @@ import org.openbel.framework.common.BELErrorException;
 
 /**
  * A BEL error indicating a processing error occurred for a proto-network.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ProtoNetworkError extends BELErrorException {
@@ -48,7 +48,7 @@ public class ProtoNetworkError extends BELErrorException {
     /**
      * Creates a proto-network error for the provided resource {@code name},
      * with the supplied message.
-     * 
+     *
      * @param name Resource name on which the failure occurred
      * @param msg {@link String}, the message
      */
@@ -59,7 +59,7 @@ public class ProtoNetworkError extends BELErrorException {
     /**
      * Creates a proto-network error for the provided resource {@code name}, the
      * supplied message, and cause.
-     * 
+     *
      * @param name Resource name on which the failure occurred
      * @param msg {@link String}, the message
      * @param cause {@link Throwable}, the cause

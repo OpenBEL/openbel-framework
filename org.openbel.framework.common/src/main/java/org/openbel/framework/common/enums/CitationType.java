@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -102,7 +102,7 @@ public enum CitationType {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param value Enum value
      * @param displayValue Display value
      */
@@ -121,7 +121,7 @@ public enum CitationType {
 
     /**
      * Returns the citation type's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -131,7 +131,7 @@ public enum CitationType {
 
     /**
      * Returns the citation type's display value.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -140,7 +140,7 @@ public enum CitationType {
 
     /**
      * Returns the citation type by its string representation.
-     * 
+     *
      * @param s Citation type string representation
      * @return CitationType - null if the provided string has no citation type
      * representation
@@ -157,7 +157,7 @@ public enum CitationType {
      * This method is favored in place of {@link #fromString(String)} as it
      * provides disambiguation with other enums when used as a static import.
      * </p>
-     * 
+     *
      * @param s Citation type string representation
      * @return CitationType - null if the provided string has no citation type
      * representation

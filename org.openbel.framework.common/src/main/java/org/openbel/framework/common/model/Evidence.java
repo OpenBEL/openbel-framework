@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -37,7 +37,7 @@ package org.openbel.framework.common.model;
 
 /**
  * Evidence in support of a statement.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Evidence implements BELModelObject {
@@ -47,7 +47,7 @@ public class Evidence implements BELModelObject {
 
     /**
      * Creates evidence with the optional value property.
-     * 
+     *
      * @param value Value
      */
     public Evidence(String value) {
@@ -62,7 +62,7 @@ public class Evidence implements BELModelObject {
 
     /**
      * Returns the evidence's value.
-     * 
+     *
      * @return String, which may be null
      */
     public String getValue() {
@@ -71,7 +71,7 @@ public class Evidence implements BELModelObject {
 
     /**
      * Sets the evidence's value.
-     * 
+     *
      * @param value Evidence's value
      */
     public void setValue(String value) {

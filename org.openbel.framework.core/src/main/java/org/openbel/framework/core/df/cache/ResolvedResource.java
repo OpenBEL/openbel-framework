@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import org.openbel.framework.common.InvalidArgument;
 
 /**
  * ResolvedResource represents the result of resolving a resource to the cache.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class ResolvedResource {
@@ -52,17 +52,17 @@ public class ResolvedResource {
 
     /**
      * Defines whether or not this resource needed to be downloaded and cached
-     * because a new copy existed at its remote location. 
+     * because a new copy existed at its remote location.
      */
     private final boolean cacheUpdated;
 
     /**
      * Constructs the ResolvedResource with the <tt>cachedResource</tt> and
      * the <tt>cacheUpdated</tt> flag.
-     * 
+     *
      * @param cachedResource {@link CachedResource}, the cached resource which
      * cannot be null
-     * @param cacheUpdated <tt>boolean</tt>, <tt>true</tt> indicating a new 
+     * @param cacheUpdated <tt>boolean</tt>, <tt>true</tt> indicating a new
      * resource has been cached, <tt>false</tt> if the cached copy is
      * up-to-date
      * @throws InvalidArgument Thrown if <tt>cachedResource</tt> is null
@@ -79,7 +79,7 @@ public class ResolvedResource {
 
     /**
      * Returns the cached resource copy read for processing.
-     * 
+     *
      * @return {@link File}, the cache resource copy which cannot be null
      */
     public File getCacheResourceCopy() {
@@ -88,7 +88,7 @@ public class ResolvedResource {
 
     /**
      * Returns the cache updated flag.
-     * 
+     *
      * @return <tt>boolean</tt>, the cache updated flag, <tt>true</tt>
      * indicating a new resource has been cached, <tt>false</tt> if the cached
      * copy is up-to-date

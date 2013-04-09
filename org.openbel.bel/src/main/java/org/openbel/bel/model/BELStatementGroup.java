@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -41,7 +41,7 @@ import java.util.List;
 /**
  * BELStatementGroup represents a grouping {@link BELStatement} objects
  * captured in BEL Script.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BELStatementGroup extends BELObject {
@@ -61,7 +61,7 @@ public class BELStatementGroup extends BELObject {
 
     /**
      * Returns the statement group's name.
-     * 
+     *
      * @return {@link String} the statement group name, which may be null
      */
     public String getName() {
@@ -70,7 +70,7 @@ public class BELStatementGroup extends BELObject {
 
     /**
      * Returns the statement group's statements.
-     * 
+     *
      * @return {@link List} of {@link BELStatement}s, which may be null
      */
     public List<BELStatement> getStatements() {
@@ -79,7 +79,7 @@ public class BELStatementGroup extends BELObject {
 
     /**
      * Returns the statement group's child statement groups.
-     * 
+     *
      * @return {@link List} of {@link BELStatementGroup}, which may be null
      */
     public List<BELStatementGroup> getChildStatementGroups() {
@@ -88,7 +88,7 @@ public class BELStatementGroup extends BELObject {
 
     /**
      * Sets the statement group's child statement groups.
-     * 
+     *
      * @param childStatementGroups {@link List} of {@link BELStatementGroup} the
      * child statement groups, which can be null
      */

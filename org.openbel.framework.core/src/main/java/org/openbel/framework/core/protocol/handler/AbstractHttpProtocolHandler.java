@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,7 +49,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * from an {@link HttpURLConnection} and write to a {@link File}.  This
  * implementation is applicable to both an <em><strong>http</strong></em>
  * and <em><strong>https</strong></em> resource.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public abstract class AbstractHttpProtocolHandler extends

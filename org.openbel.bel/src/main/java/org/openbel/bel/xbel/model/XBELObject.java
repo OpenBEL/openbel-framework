@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -42,9 +42,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -57,8 +57,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -75,11 +75,11 @@ public class XBELObject
 
     /**
      * Gets the value of the term property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELTerm }
-     *     
+     *
      */
     public XBELTerm getTerm() {
         return term;
@@ -87,11 +87,11 @@ public class XBELObject
 
     /**
      * Sets the value of the term property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELTerm }
-     *     
+     *
      */
     public void setTerm(XBELTerm value) {
         this.term = value;
@@ -103,11 +103,11 @@ public class XBELObject
 
     /**
      * Gets the value of the statement property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELStatement }
-     *     
+     *
      */
     public XBELStatement getStatement() {
         return statement;
@@ -115,11 +115,11 @@ public class XBELObject
 
     /**
      * Sets the value of the statement property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELStatement }
-     *     
+     *
      */
     public void setStatement(XBELStatement value) {
         this.statement = value;

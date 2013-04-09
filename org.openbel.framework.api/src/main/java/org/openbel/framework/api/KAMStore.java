@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -60,14 +60,14 @@ import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
 /**
  * Provides access to knowledge assembly models, or KAMs.
- * 
+ *
  * @version 3.0.0 API improvements to mitigate a poor design
  */
 public interface KAMStore {
 
     /**
      * Returns {@code true} if the KAM exists, {@code false} otherwise.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @return boolean
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -77,7 +77,7 @@ public interface KAMStore {
     /**
      * Returns {@code true} if the KAM identified by the {@link KamInfo} exists,
      * {@code false} otherwise.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @return boolean
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -87,7 +87,7 @@ public interface KAMStore {
     /**
      * Returns {@code true} if the KAM identified by name exists, {@code false}
      * otherwise.
-     * 
+     *
      * @param name Non-null KAM name
      * @return boolean
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -97,7 +97,7 @@ public interface KAMStore {
     /**
      * Closes the connection to a KAM and performs any necessary cleanup of
      * resources. If the KAM has not been retrieved, this operation is a no-op.
-     * 
+     *
      * @param k {@link Kam}
      * @throws InvalidArgument Thrown if KAM argument is null
      */
@@ -113,7 +113,7 @@ public interface KAMStore {
      * Gets the KAM catalog, returning a {@link List list} of {@link KamInfo}
      * objects representing what is in the KAM catalog. This list will be empty
      * if the catalog has no KAMs.
-     * 
+     *
      * @return List of {@KamInfo}
      * @since 3.0.0
      */
@@ -121,7 +121,7 @@ public interface KAMStore {
 
     /**
      * Gets the {@link KamInfo} for a KAM name.
-     * 
+     *
      * @param name Non-null KAM name
      * @return {@link KamInfo}; null if not found
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -132,7 +132,7 @@ public interface KAMStore {
     /**
      * Gets a KAM, optionally filtering the {@link KamEdge edges} and
      * {@link KamNode nodes} before loading.
-     * 
+     *
      * @param info Non-null {@KamInfo}
      * @param fltr {@KamFilter}; may be null
      * @return {@link Kam}; null if not found
@@ -143,7 +143,7 @@ public interface KAMStore {
 
     /**
      * Gets a KAM by KAM name.
-     * 
+     *
      * @param name Non-null KAM name
      * @return {@link Kam}; null if not found
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -153,7 +153,7 @@ public interface KAMStore {
 
     /**
      * Gets a KAM by {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @return {@link Kam}; null if not found
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -163,7 +163,7 @@ public interface KAMStore {
 
     /**
      * Get the list of annotation types for the provided KAM.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @return {@link List} of {@link AnnotationType annotation types}; null if
      * the KAM is not found
@@ -174,7 +174,7 @@ public interface KAMStore {
 
     /**
      * Get the list of annotation types for the provided KAM.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @return {@link List} of {@link AnnotationType annotation types}; null if
      * the KAM is not found
@@ -186,7 +186,7 @@ public interface KAMStore {
     /**
      * Get the list of domain values for the annotation type in the KAM
      * identified by the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param type Non-null {@link AnnotationType}
      * @return {@link List} of {@link String} annotation type domain values
@@ -198,7 +198,7 @@ public interface KAMStore {
 
     /**
      * Get the list of {@link BelDocumentInfo} for the provided KAM.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @return {@link List} of {@link BelDocumentInfo}; null if the KAM is not
      * found
@@ -210,7 +210,7 @@ public interface KAMStore {
     /**
      * Get the list of {@link BelDocumentInfo} in the KAM identified by the
      * {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @return {@link List} of {@link BelDocumentInfo}; null if the KAM is not
      * found
@@ -222,7 +222,7 @@ public interface KAMStore {
     /**
      * Get the {@link Namespace} for the provided KAM with a resource
      * location defined by {@code resourceLocation}.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @param resourceLocation Non-null {@link String} the namespace resource
      * location that represents the namespace
@@ -235,7 +235,7 @@ public interface KAMStore {
 
     /**
      * Get the list of {@link Namespace namespaces} for the provided KAM.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @return {@link List} of {@link Namespace namespaces}; null if the KAM is
      * not found
@@ -247,7 +247,7 @@ public interface KAMStore {
     /**
      * Get the list of {@link Namespace namespaces} for the KAM identified by
      * the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @return {@link List} of {@link Namespace namespaces}; null if the KAM is
      * not found
@@ -259,7 +259,7 @@ public interface KAMStore {
     /**
      * Get the list of {@link BelStatement} supporting an {@link KamEdge edge}
      * with an optional {@link AnnotationFilter annotation filter}.
-     * 
+     *
      * @param edge {@link KamEdge}
      * @param annotationFilter {@link AnnotationFilter}; may be null
      * @return {@link List} of {@link BelStatement BEL statements}; null if the
@@ -272,7 +272,7 @@ public interface KAMStore {
 
     /**
      * Get the list of {@link BelStatement} supporting an {@link KamEdge edge}.
-     * 
+     *
      * @param edge {@link KamEdge}
      * @return {@link List} of {@link BelStatement BEL statements}; null if the
      * KAM is not found
@@ -283,7 +283,7 @@ public interface KAMStore {
 
     /**
      * Get the list of {@link BelTerm} for a {@link KamNode node}.
-     * 
+     *
      * @param node {@link KamNode}
      * @return {@link List} of {@link BelTerm}; null if the KAM is not found
      * @throws InvalidArgument Thrown if a null argument is provided
@@ -293,7 +293,7 @@ public interface KAMStore {
 
     /**
      * Get the list of {@link BelTerm} for a {@link KamNode node}.
-     * 
+     *
      * @param node Non-null {@KamNode}
      * @param removeDups {@code true} if duplicate terms should be removed,
      * {@code false} otherwise
@@ -309,7 +309,7 @@ public interface KAMStore {
      * returned is reduced to the list of unique terms based on namespace
      * identifiers. If {@code fltr} is set, the list of terms
      * reported is initially filtered with respect to the filter criteria.
-     * 
+     *
      * @param node {@link KamNode}
      * @param fltr Optional {@link NamespaceFilter}
      * @param removeDups {@code true} if duplicate terms should be removed,
@@ -324,7 +324,7 @@ public interface KAMStore {
     /**
      * Retrieves the term parameters for a {@link BelTerm} in the KAM identified
      * by the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param term Non-null The {@link BelTerm BEL term} to find parameters for
      * @return {@link List} of {@link TermParameter}; null if the KAM is not
@@ -337,7 +337,7 @@ public interface KAMStore {
     /**
      * Retrieves a {@link KamNode} for a term string within the
      * specified KAM.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @param termString Non-null term string;
      * @return {@link KamNode KAM node}; null if the KAM or {@link KamNode} is
@@ -350,7 +350,7 @@ public interface KAMStore {
     /**
      * Retrieves a {@link KamNode} for a {@link BelTerm} within the specified
      * KAM.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @param term Non-null {@link BelTerm}
      * @return {@link KamNode KAM node}; null if the KAM or {@link KamNode} is
@@ -368,7 +368,7 @@ public interface KAMStore {
      * equivalents of the given namespace and parameter value. Use
      * {@link #getKamNodes(Kam, FunctionEnum, SkinnyUUID)} to search all
      * equivalents.
-     * 
+     *
      * @param k Non-null {@link Kam KAM}
      * @param function Non-null {@link FunctionEnum}
      * @param ns Non-null {@link Namespace}
@@ -388,7 +388,7 @@ public interface KAMStore {
      * This method will <em>not</em> return nodes that were compiled with
      * equivalents of the given namespace and parameter value. Use
      * {@link #getKamNodes(Kam, SkinnyUUID)} to search all equivalents.
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @param ns Non-null {@link Namespace}
      * @param paramValue Non-null parameter value
@@ -404,7 +404,7 @@ public interface KAMStore {
      * identified by the given {@link SkinnyUUID skinny UUID}. This method finds
      * nodes where the parameter occurs at any position. All
      * {@link FunctionEnum functions} will be returned.
-     * 
+     *
      * @param k Non-null {@link Kam kam}
      * @param function Non-null {@link FunctionEnum function}
      * @param uuid Non-null {@link SkinnyUUID}
@@ -420,7 +420,7 @@ public interface KAMStore {
      * identified by the given {@link SkinnyUUID skinny UUIDs}. This method
      * finds nodes where the parameter occurs at any position. All
      * {@link FunctionEnum functions} will be returned.
-     * 
+     *
      * @param k Non-null {@link Kam kam}
      * @param uuid Non-null {@link SkinnyUUID}
      * @return {@link List} of {@link KamNode}; null if the KAM is not found
@@ -450,7 +450,7 @@ public interface KAMStore {
      * <li><tt>act(r(2))</tt></li>
      * </ul>
      * </p>
-     * 
+     *
      * @param k Non-null {@link Kam}
      * @param node Non-null example {@link KamNode node}
      * @return {@link List} of {@link KamNode}; null if the KAM is not found
@@ -463,7 +463,7 @@ public interface KAMStore {
      * Returns the {@link KamNode KAM Node} given a BEL term signature and one
      * or more {@link SkinnyUUID uuids}.  Returns {@code null} if a
      * {@link KamNode KAM Node} could not be found.
-     * 
+     *
      * @param kam {@link Kam}; may not be {@code null}
      * @param term {@link String}, the term signature; may not be {@code null}
      * @param fx {@link FunctionEnum}; the term functionmay not be {@code null}
@@ -477,11 +477,11 @@ public interface KAMStore {
      */
     public KamNode getKamNodeForTerm(Kam kam, String term, FunctionEnum fx,
             SkinnyUUID[] uuids);
-    
+
     /**
      * Returns all citations associated with the {@link BelDocumentInfo} in the
      * KAM identified by the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param docInfo Non-null {@link BelDocumentInfo}
      * @return {@link List} of {@link Citation}; null if the KAM is not found
@@ -494,7 +494,7 @@ public interface KAMStore {
      * Returns all {@link Citation citations} associated with the
      * {@link BelDocumentInfo} object in the KAM identified by the
      * {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param docInfo Non-null {@link BelDocumentInfo}
      * @param citation Non-null {@link CitationType}
@@ -508,7 +508,7 @@ public interface KAMStore {
     /**
      * Returns all {@link Citation citations} associated with the KAM identified
      * by the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param citation Non-null {@link CitationType}
      * @return {@link List} of {@link Citation}; null if the KAM is not found
@@ -521,7 +521,7 @@ public interface KAMStore {
      * Returns all {@link Citation citations} matching the specified
      * {@link CitationType citation types} and reference identifiers in the KAM
      * identified by the {@link KamInfo}.
-     * 
+     *
      * @param info Non-null {@link KamInfo}
      * @param types Non-null {@link CitationType}
      * @param refIDs Non-null reference identifiers
@@ -531,10 +531,10 @@ public interface KAMStore {
      */
     public List<Citation> getCitations(KamInfo info, CitationType types,
             String... refIDs);
-    
+
     /**
      * Collapse a {@link KamNode kam node} to another {@link KamNode kam node}.
-     * 
+     *
      * @param info {@link KamInfo}; may not be {@code null}
      * @param collapsing {@link KamNode} node to collapse; may not be
      * {@code null}
@@ -545,33 +545,33 @@ public interface KAMStore {
      */
     public boolean collapseKamNode(KamInfo info, KamNode collapsing,
             KamNode collapseTo);
-    
+
     /**
      * Remove all {@link KamEdge kam edges} from the {@link Set}.
-     * 
+     *
      * @param edgeIds {@code int[]} array of edge ids
      * @return {@code int} kam edges deleted
      * @throws SQLException when a SQL error occurred deleting records
      * @throws InvalidArgument when {@code edges} is {@code null}
      */
     public int removeKamEdges(KamInfo info, int[] edgeIds);
-    
+
     /**
      * Remove {@link KamEdge kam edges} for a specific
      * {@link RelationshipType relationship}.
-     * 
+     *
      * @param info {@link KamInfo}; may not be {@code null}
      * @param relationship {@link RelationshipType}; may not be {@code null}
      * @return {@code int} records deleted (kam edges + statements)
      */
     public int removeKamEdges(KamInfo info, RelationshipType relationship);
-    
+
     /**
      * Coalesce duplicate {@link KamEdge kam edges} to one
      * {@link KamEdge kam edge}.  The statements for each duplicate
      * {@link KamEdge kam edge} will be remapped and then that
      * {@link KamEdge kam edge} will be removed.
-     * 
+     *
      * @param info {@link KamInfo}; may not be {@code null}
      * @return {@code int} kam edges coalesced/removed
      */

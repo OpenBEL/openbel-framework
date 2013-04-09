@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -43,7 +43,7 @@ import org.openbel.framework.ws.model.NamespaceDescriptor;
 /**
  * Service for providing access to Namespaces defined in the resource index of
  * the system configuration.
- * 
+ *
  * @author Steve Ungerer
  */
 public interface NamespaceResourceService {
@@ -51,7 +51,7 @@ public interface NamespaceResourceService {
     /**
      * Retrieve all namespaces as {@link NamespaceDescriptor}s that are
      * configured in the resource file of the BELFramework system configuration.
-     * 
+     *
      * @return {@link List} of {@link NamespaceDescriptor}s. The prefix given
      *         for each namespace contained within the descriptor will be the
      *         suggested prefix defined in the 'keyword' field of the namespace
@@ -64,7 +64,7 @@ public interface NamespaceResourceService {
      * Retrieve the {@link NamespaceHeader} for a given namespace resource
      * location. If no configured namespaces match the given resource location,
      * null will be returned.
-     * 
+     *
      * @param resourceLocation
      * @return {@link NamespaceHeader} or <code>null</code> if no namespace with
      *         the given resource location is configured.

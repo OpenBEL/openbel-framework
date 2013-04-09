@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -47,7 +47,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * {@link HttpsProtocolHandler} implements an
  * {@link AbstractHttpProtocolHandler} to download a resource from an
  * {@code https://} secure url.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class HttpsProtocolHandler extends AbstractHttpProtocolHandler {

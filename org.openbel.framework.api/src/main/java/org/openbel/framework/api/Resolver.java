@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -64,14 +64,14 @@ import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
  * BelTerm expressions can be resolved to {@link KamNode} elements within a
  * specific {@link Kam}.
  * </p>
- * 
+ *
  * <p>
  * Edges in the form (subject BelTerm, Relationship, object BelTerm) can also
  * be resolved to {@link KamEdge} elements within a specific {@link Kam}.  This
  * implementation relies on resolving both the subject and object BelTerm to
  * {@link KamNode} elements.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class Resolver {
@@ -79,7 +79,7 @@ public class Resolver {
     /**
      * Resolves a BelTerm, as a {@link String}, to an equivalent
      * {@link KamNode} in the {@link Kam}.
-     * 
+     *
      * @param kam {@link Kam}, the KAM to resolve against
      * @param kAMStore {@link KAMStore}, the KAM store to use in resolving the
      * bel term expression
@@ -107,7 +107,7 @@ public class Resolver {
             //   - get uuid for each parameter; ordered by sequence (l to r)
             //   - (x) if no match, attempt non-equivalence query
             //   - find kam node by term signature / uuids
-            
+
             // parse the bel term
             Term term = null;
             try {
@@ -117,14 +117,14 @@ public class Resolver {
                 // unrecognized BEL structure
                 return null;
             }
-            
+
             // get all parameters; remap to kam namespace by prefix
             List<Parameter> params = extractParameters(term);
             remapNamespace(params, nsmap);
-            
+
             // convert bel term to signature
             String termSignature = termSignature(term);
-            
+
             // find uuids for all parameters; bucket both the mapped and
             // unmapped namespace values
             SkinnyUUID[] uuids = new SkinnyUUID[params.size()];
@@ -137,16 +137,16 @@ public class Resolver {
                     missing = true;
                     break;
                 }
-                
+
                 String value = clean(param.getValue());
-                
+
                 SkinnyUUID uuid = null;
                 try {
                     uuid = equivalencer.getUUID(ns, value);
                 } catch (EquivalencerException e) {
                     throw new ResolverException(e);
                 }
-                
+
                 if (uuid != null && !kAMStore.getKamNodes(kam, uuid).isEmpty()) {
                     uuids[i] = uuid;
                 } else {
@@ -154,7 +154,7 @@ public class Resolver {
                     break;
                 }
             }
-            
+
             // TODO Handle terms that may not have UUID parameters!
             if (missing) {
                 KamNode kamNode = kAMStore.getKamNode(kam, belTerm);
@@ -171,7 +171,7 @@ public class Resolver {
 
     /**
      * Resolves a BelTerm to an equivalent {@link KamNode} in the {@link Kam}.
-     * 
+     *
      * @param kam {@link Kam}, the KAM to resolve against
      * @param kAMStore {@link KAMStore}, the KAM store to use in resolving the
      * bel term expression
@@ -215,7 +215,7 @@ public class Resolver {
      * <tt>objectBelTerm</tt> to a {@link KamNode} in order to find a
      * {@link KamEdge}.
      * </p>
-     * 
+     *
      * @param kam {@link Kam}, the kam to resolve into, which cannot be null
      * @param kAMStore {@link KAMStore}, the KAM store to use in resolving
      * the BelTerms and Edge, which cannot be null
@@ -247,7 +247,7 @@ public class Resolver {
         // resolve object bel term to kam node.
         final KamNode objectKamNode = resolve(kam, kAMStore, object, nsmap, eq);
         if (objectKamNode == null) return null;
-        
+
         // only resolve edge if kam nodes resolved
         return resolveEdge(kam, subjectKamNode, r, objectKamNode);
     }
@@ -261,7 +261,7 @@ public class Resolver {
      * <tt>objectBelTerm</tt> to a {@link KamNode} in order to find a
      * {@link KamEdge}.
      * </p>
-     * 
+     *
      * @param kam {@link Kam}, the kam to resolve into, which cannot be null
      * @param kAMStore {@link KAMStore}, the KAM store to use in resolving
      * the BelTerms and Edge, which cannot be null
@@ -300,7 +300,7 @@ public class Resolver {
     /**
      * Resolve edge based on a subject {@link KamNode},
      * {@link RelationshipType}, and an object {@link KamNode}.
-     * 
+     *
      * @param kam {@link Kam}, the kam to resolve into
      * @param subjectKamNode {@link KamNode}, the subject kam node
      * @param rtype {@link RelationshipType}, the relationship type
@@ -320,10 +320,10 @@ public class Resolver {
         replaceParameters(t, b);
         return b.toString();
     }
-    
+
     private static List<Parameter> extractParameters(Term t) {
         List<Parameter> ret = new ArrayList<Parameter>();
-        
+
         List<Parameter> p = t.getParameters();
         if (p != null)
             ret.addAll(p);
@@ -341,7 +341,7 @@ public class Resolver {
 
         return ret;
     }
-    
+
     private static void replaceParameters(Term t, StringBuilder b) {
         String fx = t.getFunctionEnum().getDisplayValue();
         b.append(fx).append("(");
@@ -349,7 +349,7 @@ public class Resolver {
             for (BELObject bo : t.getFunctionArguments()) {
                 if (Term.class.isAssignableFrom(bo.getClass())) {
                     Term inner = (Term) bo;
-                    if (inner.getFunctionEnum() == PROTEIN_MODIFICATION || 
+                    if (inner.getFunctionEnum() == PROTEIN_MODIFICATION ||
                         inner.getFunctionEnum() == SUBSTITUTION ||
                         inner.getFunctionEnum() == TRUNCATION) {
                         b.append(inner.toBELLongForm());
@@ -365,7 +365,7 @@ public class Resolver {
             b.append(")");
         }
     }
-    
+
     private static void remapNamespace(List<Parameter> params,
             Map<String, String> nsmap) {
         for (Parameter p : params) {
@@ -376,7 +376,7 @@ public class Resolver {
             }
         }
     }
-    
+
     private static String clean(String value) {
         value = value.trim();
         int len = value.length();

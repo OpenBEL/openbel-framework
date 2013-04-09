@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -51,21 +51,21 @@ import org.openbel.framework.core.df.beldata.ProcessingBlock;
 /**
  * NamespaceHeaderParser parses a namespace file into a
  * {@link NamespaceHeader} object.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class NamespaceHeaderParser extends BELDataHeaderParser {
 
     /**
      * Parses the namespace {@link File} into a {@link NamespaceHeader} object.
-     * 
+     *
      * @param namespaceFile {@link File}, the namespace file, which cannot be
      * null, must exist, and must be readable
      * @return {@link NamespaceHeader}, the parsed namespace header
      * @throws IOException Thrown if an IO error occurred reading the
      * <tt>namespaceFile</tt>
-     * @throws BELDataConversionException 
-     * @throws BELDataMissingPropertyException 
+     * @throws BELDataConversionException
+     * @throws BELDataMissingPropertyException
      * @throws InvalidArgument Thrown if the <tt>namespaceFile</tt> is null,
      * does not exist, or cannot be read
      */

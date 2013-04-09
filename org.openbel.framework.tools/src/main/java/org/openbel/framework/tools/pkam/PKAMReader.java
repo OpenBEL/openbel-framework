@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -49,14 +49,14 @@ import java.util.zip.GZIPInputStream;
  * <li>{@link FileInputStream} to read file data</li>
  * <li>{@link GZIPInputStream} to uncompress data</li>
  * <li>{@link BufferedReader}, <tt>this</tt>, to read data line-by-line.</li></ol>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 class PKAMReader extends BufferedReader {
 
     /**
      * Construct a PKAMReader from a PKAM stored in <tt>fileName</tt>.
-     * 
+     *
      * @param fileName {@link String}, the PKAM file name
      * @throws IOException Thrown if an IO error occurred establishing the
      * sequential {@link InputStream}s

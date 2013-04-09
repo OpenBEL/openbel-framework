@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -38,7 +38,7 @@ package org.openbel.framework.api.internal;
 /**
  * KamCatalogObject represents a database object for tables in the
  * KAM catalog schema.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public abstract class KamCatalogDbObject {
@@ -50,7 +50,7 @@ public abstract class KamCatalogDbObject {
 
     /**
      * Constructs the kam catalog object with the <tt>id</tt>.
-     * 
+     *
      * @param id {@link Integer}, the kam catalog object id
      */
     public KamCatalogDbObject(Integer id) {
@@ -59,7 +59,7 @@ public abstract class KamCatalogDbObject {
 
     /**
      * Returns the id of the database object.
-     * 
+     *
      * @param id {@link Integer}, the id of the database object
      */
     public Integer getId() {
@@ -68,7 +68,7 @@ public abstract class KamCatalogDbObject {
 
     /**
      * Sets the id of the database object.
-     * 
+     *
      * @param id {@link Integer}, the id of the database object
      */
     public void setId(Integer id) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ public interface KamCacheService {
      * Retrieves a {@link Kam} by its handle (in the case of a
      * {@link #cacheKam(String, Kam) cached KAM}). If no Kam is found by handle,
      * this method attempts to find a Kam by name.
-     * 
+     *
      * @param handleOrName {@link String} handle or {@link Kam} name
      * @return {@link Kam}; may be null
      */
@@ -61,7 +61,7 @@ public interface KamCacheService {
     /**
      * Loads a {@link Kam} by {@link KamInfo}, returning a handle to it. This
      * method blocks while the {@link Kam} is loaded.
-     * 
+     *
      * @param ki {@link KamInfo}
      * @param kf {@link KamFilter} used to filter the {@link KamEdge edges} and
      * {@link KamNode} nodes before loading
@@ -76,7 +76,7 @@ public interface KamCacheService {
      * Loads a {@link Kam} by {@link KamInfo}, returning a handle to it. This
      * method will not block and can be used to poll the service until the
      * {@link Kam} is available.
-     * 
+     *
      * @param kamInfo {@link KamInfo}
      * @param kamFilter {@link KamFilter} used to filter the {@link KamEdge
      * edges} and {@link KamNode} nodes before loading
@@ -90,7 +90,7 @@ public interface KamCacheService {
      * Cache the {@link Kam} returning a handle associated with the provided
      * {@code name}. If {@code name} is null, the {@link Kam} will be cached by
      * the {@link Kam#getKamInfo() KamInfo} {@link KamInfo#getName()}.
-     * 
+     *
      * @param name {@link String} to cache the {@link Kam} by; may be null
      * @param kam {@link Kam}, the kam to cache
      * @return {@link String} The {@link Kam} handle
@@ -129,7 +129,7 @@ public interface KamCacheService {
         /**
          * Creates a LoadKAMResult for a KAM handle with a specific
          * {@link LoadStatus}.
-         * 
+         *
          * @param handle {@link String} KAM handle
          * @param status {@link LoadStatus}
          * @throws InvalidArgument Thrown if {@code handle} is null with a
@@ -153,7 +153,7 @@ public interface KamCacheService {
         /**
          * Returns the KAM handle which may be null if {@link #getStatus()} is
          * {@link LoadStatus#LOADING}.
-         * 
+         *
          * @return {@link String}; may be null
          */
         public String getHandle() {
@@ -162,7 +162,7 @@ public interface KamCacheService {
 
         /**
          * Returns the {@link LoadStatus}.
-         * 
+         *
          * @return {@link LoadStatus}
          */
         public LoadStatus getStatus() {

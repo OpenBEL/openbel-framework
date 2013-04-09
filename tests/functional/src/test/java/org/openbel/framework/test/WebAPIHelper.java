@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -52,7 +52,7 @@ import org.openbel.framework.ws.model.WebAPIService;
 /**
  * WebAPIHelper provides initialization of the {@link WebAPI web api} for
  * testing purposes.
- * 
+ *
  * @see Constants#ENDPOINT_FORMAT
  * @see Constants#TOMCAT_HTTP_PORT_ENV_VAR
  */
@@ -61,7 +61,7 @@ class WebAPIHelper {
     /**
      * Create the {@link WebAPI web api} using the
      * {@link Constants#TOMCAT_HTTP_PORT_ENV_VAR port environment variable}.
-     * 
+     *
      * @return {@link WebAPI web api}
      */
     public static WebAPI createWebAPI() {

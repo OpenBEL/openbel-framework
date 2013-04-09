@@ -33,7 +33,7 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             "select kam_edge_id, kam_source_node_id, relationship_type_id, " +
             "kam_target_node_id from @.kam_edge order by kam_source_node_id, " +
             "relationship_type_id, kam_target_node_id";
-    private static final String UPDATE_KAM_EDGE_STATEMENT = 
+    private static final String UPDATE_KAM_EDGE_STATEMENT =
             "update @.kam_edge_statement_map set kam_edge_id = ? " +
             "where kam_edge_id = ?";
     private static final String DELETE_KAM_NODE_PARAMETER =
@@ -46,10 +46,10 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             "delete from @.kam_edge where relationship_type_id = ?";
     private static final String DELETE_ORTHOLOGOUS_STATEMENTS =
             "delete from @.statement where relationship_type_id = ?";
-    
+
     /**
      * Constructs the dao.
-     * 
+     *
      * @param c {@link DBConnection}; may not be {@code null}
      * @param schema {@link String}; may not be {@code null}
      * @throws SQLException when an error occurs checking if {@code c} is open
@@ -76,16 +76,16 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             throw new InvalidArgument("nodes reference invalid kams");
         if (collapsing.getId() == null || collapseTo.getId() == null)
             throw new InvalidArgument("node id is null");
-        
+
         Kam kam = collapsing.getKam();
-        
+
         PreparedStatement esps = getPreparedStatement(UPDATE_KAM_EDGES_SOURCE);
         PreparedStatement etps = getPreparedStatement(UPDATE_KAM_EDGES_TARGET);
         remapEdges(collapsing, collapseTo, kam, esps, etps);
-        
+
         PreparedStatement utps = getPreparedStatement(UPDATE_TERM);
         remapTerms(collapsing, collapseTo, utps);
-        
+
         PreparedStatement knps = getPreparedStatement(DELETE_KAM_NODE);
         PreparedStatement knpps = getPreparedStatement(DELETE_KAM_NODE_PARAMETER);
         removeKamNode(collapsing, knps, knpps);
@@ -102,34 +102,34 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             throw new InvalidArgument("edgeIds is null");
         if (edgeIds.length == 0)
             return 0;
-        
+
         int batch = 0;
         int deletes = 0;
         PreparedStatement keps = getPreparedStatement(DELETE_KAM_EDGES);
-        
+
         // add delete command; submit batches per MAX_BATCH_COUNT
         for (int e : edgeIds) {
             keps.setInt(1, e);
             keps.addBatch();
             batch++;
-            
+
             if (batch == MAX_BATCH_COUNT) {
                 int[] rowsAffected = keps.executeBatch();
                 for (int d : rowsAffected)
                     deletes += d;
             }
         }
-        
+
         // submit batch for anything left over
         if (batch > 0) {
             int[] rowsAffected = keps.executeBatch();
             for (int d : rowsAffected)
                 deletes += d;
         }
-        
+
         return deletes;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -138,17 +138,17 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             throws SQLException {
         if (relationship == null || relationship.getValue() == null)
             throw new InvalidArgument("relationship is null");
-        
+
         int updates = 0;
         int rvalue = relationship.getValue();
         PreparedStatement keps = getPreparedStatement(DELETE_ORTHOLOGOUS_KAM_EDGES);
         keps.setInt(1, rvalue);
         updates += keps.executeUpdate();
-        
+
         PreparedStatement sps = getPreparedStatement(DELETE_ORTHOLOGOUS_STATEMENTS);
         sps.setInt(1, rvalue);
         updates += sps.executeUpdate();
-        
+
         return updates;
     }
 
@@ -176,16 +176,16 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
                     int rel = rset.getInt(3);
                     int target = rset.getInt(4);
                     int[] triple = new int[] {source, rel, target};
-                    
+
                     if (Arrays.equals(triple, xTriple)) {
                         // duplicate triple, move over statements
                         kesps.setInt(1, xEdgeId);
                         kesps.setInt(2, edgeId);
                         kesps.executeUpdate();
-                        
+
                         // remove duplicate
                         removeKamEdges(new int[] {edgeId});
-                        
+
                         coalesced++;
                     } else {
                         // move to next unseen triple
@@ -208,7 +208,7 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
 
     /**
      * Remaps outgoing and incoming edges to {@code collapseTo}.
-     * 
+     *
      * @param collapsing {@link KamNode} being collapsed
      * @param collapseTo {@link KamNode} collapsing to
      * @param kam {@link Kam} to retrieve adjacent edges
@@ -236,10 +236,10 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
         }
         return updates;
     }
-    
+
     /**
      * Remaps terms to {@code collapseTo}.
-     * 
+     *
      * @param collapsing {@link KamNode} being collapsed
      * @param collapseTo {@link KamNode} collapsing to
      * @param utps {@link PreparedStatement} for updating term
@@ -250,15 +250,15 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             PreparedStatement utps) throws SQLException {
         int collapsingId = collapsing.getId();
         int collapseToId = collapseTo.getId();
-        
+
         utps.setInt(1, collapseToId);
         utps.setInt(2, collapsingId);
         return utps.executeUpdate();
     }
-    
+
     /**
      * Removes {@code collapsing} node.
-     * 
+     *
      * @param collapsing {@link KamNode} being collapsed
      * @param knps {@link PreparedStatement} for updating kam_node
      * @param knpps {@link PreparedStatement} for updating kam_node_parameter
@@ -269,7 +269,7 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             PreparedStatement knps, PreparedStatement knpps)
             throws SQLException {
         int collapsingId = collapsing.getId();
-        
+
         int updates = 0;
         knpps.setInt(1, collapsingId);
         updates += knpps.executeUpdate();

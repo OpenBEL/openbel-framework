@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ * Copyright (C) 2012-2013 Selventa, Inc.
  *
  * This file is part of the OpenBEL Framework.
  *
@@ -341,17 +341,17 @@ public interface KAMStoreDao extends KAMDao {
      * Returns a {@link Map} of kam node id to the {@link Set} of
      * {@link SkinnyUUID uuids} representing global parameters that this node
      * contains.
-     * 
+     *
      * @return {@link Map}; will not be {@code null}
      * @throws SQLException when a SQL error occurs
      */
     public Map<Integer, Set<SkinnyUUID>> getKamNodeUUIDs() throws SQLException;
-    
+
     /**
      * Returns a {@link Integer KAM node id} given a BEL term signature and one
      * or more {@link SkinnyUUID uuids} or {@code null} if one could not be
      * found.
-     * 
+     *
      * @param term {@link String}; may not be {@code null}
      * @param fx {@link FunctionEnum}, the term function; may not be
      * {@code null}
@@ -364,7 +364,7 @@ public interface KAMStoreDao extends KAMDao {
      */
     public Integer getKamNodeForTerm(String term, FunctionEnum fx,
             SkinnyUUID[] uuids) throws SQLException;
-    
+
     /**
      * TODO Document
      *
