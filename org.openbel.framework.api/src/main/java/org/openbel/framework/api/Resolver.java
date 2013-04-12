@@ -343,7 +343,7 @@ public class Resolver {
     }
 
     private static void replaceParameters(Term t, StringBuilder b) {
-        String fx = t.getFunctionEnum().getDisplayValue();
+        String fx = t.getFunctionEnum().getAbbreviation();
         b.append(fx).append("(");
         if (hasItems(t.getFunctionArguments())) {
             for (BELObject bo : t.getFunctionArguments()) {
