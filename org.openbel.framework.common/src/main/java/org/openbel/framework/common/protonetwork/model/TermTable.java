@@ -36,7 +36,6 @@
 package org.openbel.framework.common.protonetwork.model;
 
 import static org.openbel.framework.common.BELUtilities.entries;
-import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.index;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 
@@ -55,8 +54,6 @@ import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.external.ExternalType;
 import org.openbel.framework.common.external.ReadCache;
 import org.openbel.framework.common.external.WriteCache;
-import org.openbel.framework.common.model.BELObject;
-import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Term;
 
 /**
@@ -75,14 +72,14 @@ public class TermTable extends ExternalType {
      * Defines a list to hold term values. Note: This collection is backed by
      * {@link ArrayList} which is not thread-safe.
      */
-    private List<String> termValues = new ArrayList<String>();
+    private final List<String> termValues = new ArrayList<String>();
 
     /**
      * Defines a map that contains term strings to avoid holding duplicate
      * instances of the same {@link String}. Note: This collection is backed by
      * {@link HashMap} which is not thread-safe.
      */
-    private Map<String, String> termStrings = new HashMap<String, String>();
+    private final Map<String, String> termStrings = new HashMap<String, String>();
 
     /**
      * Defines a map to hold term index (key) to global term index (value).
@@ -96,7 +93,7 @@ public class TermTable extends ExternalType {
      * Defines a {@link Term} map, of term to index, that prevents adding
      * another {@link Term} to <tt>termValues</tt>.
      */
-    private Map<Term, Integer> visitedTerms = BELUtilities
+    private final Map<Term, Integer> visitedTerms = BELUtilities
             .sizedHashMap(512);
 
     /**
@@ -125,22 +122,17 @@ public class TermTable extends ExternalType {
             return visitedIndex;
         }
 
-        // replace term parameters with placeholders and convert to a string
-        StringBuilder sb = new StringBuilder();
-        replaceParameters(sb, term, term.getAllParametersLeftToRight());
-        String termExpression = sb.toString();
-
-        // if term expression was already created, use that reference
-        final String sharedTermExpression = termStrings.get(termExpression);
-        if (sharedTermExpression != null) {
-            termExpression = sharedTermExpression;
+        String termSignature = term.toTermSignature();
+        final String shared = termStrings.get(termSignature);
+        if (shared != null) {
+            termSignature = shared;
         } else {
-            termStrings.put(termExpression, termExpression);
+            termStrings.put(termSignature, termSignature);
         }
 
         // add this new term
         int termIndex = termValues.size();
-        termValues.add(termExpression);
+        termValues.add(termSignature);
 
         // index the new term
         visitedTerms.put(term, termIndex);
@@ -148,37 +140,6 @@ public class TermTable extends ExternalType {
         globalTermIndex.put(termIndex, globalTermIndex.size());
 
         return termIndex;
-    }
-
-    /**
-     * Constructs the BEL syntax for a {@link Term} replacing a
-     * {@link Parameter} if it exists in {@code psub}.
-     *
-     * @param sb {@link StringBuilder}, the container for the BEL syntax
-     * @param t {@link Term}, the term to convert to BEL syntax
-     * @param psub {@link List} of {@link Parameter}, the parameters to replace
-     * in the BEL syntax
-     */
-    private static void replaceParameters(StringBuilder sb, Term t,
-            List<Parameter> psub) {
-        sb.append(t.getFunctionEnum().getDisplayValue()).append("(");
-        if (hasItems(t.getFunctionArguments())) {
-            for (BELObject bo : t.getFunctionArguments()) {
-                if (Term.class.isAssignableFrom(bo.getClass())) {
-                    replaceParameters(sb, (Term) bo, psub);
-                } else {
-                    Parameter ip = (Parameter) bo;
-                    if (psub.contains(ip)) {
-                        sb.append(PARAMETER_SUBSTITUTION);
-                    } else {
-                        sb.append(ip.getValue());
-                    }
-                }
-                sb.append(",");
-            }
-            sb.deleteCharAt(sb.length() - 1);
-            sb.append(")");
-        }
     }
 
     /**

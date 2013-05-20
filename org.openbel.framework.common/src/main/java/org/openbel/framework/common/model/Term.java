@@ -38,6 +38,9 @@ package org.openbel.framework.common.model;
 import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.sizedArrayList;
 import static org.openbel.framework.common.enums.FunctionEnum.FUSION;
+import static org.openbel.framework.common.enums.FunctionEnum.PROTEIN_MODIFICATION;
+import static org.openbel.framework.common.enums.FunctionEnum.SUBSTITUTION;
+import static org.openbel.framework.common.enums.FunctionEnum.TRUNCATION;
 import static org.openbel.framework.common.enums.FunctionEnum.isProteinDecorator;
 
 import java.util.ArrayList;
@@ -440,7 +443,18 @@ public class Term implements BELObject, Iterable<Parameter> {
      */
     @Override
     public String toBELLongForm() {
-        return toBEL(false);
+        StringBuilder belBuilder = new StringBuilder();
+        String fs = function.getDisplayValue();
+        belBuilder.append(fs).append("(");
+        if (hasItems(functionArgs)) {
+            for (BELObject functionArg : functionArgs) {
+                belBuilder.append(functionArg.toBELLongForm());
+                belBuilder.append(",");
+            }
+            belBuilder.deleteCharAt(belBuilder.length() - 1);
+        }
+        belBuilder.append(")");
+        return belBuilder.toString();
     }
 
     /**
@@ -448,32 +462,36 @@ public class Term implements BELObject, Iterable<Parameter> {
      */
     @Override
     public String toBELShortForm() {
-        return toBEL(true);
-    }
-
-    private String toBEL(boolean shortForm) {
         StringBuilder belBuilder = new StringBuilder();
-        String fs = shortForm
-                ? (function.getAbbreviation() != null
-                        // some functions have no short form
-                        ? function.getAbbreviation()
-                        : function.getDisplayValue()
-                )
-                : function.getDisplayValue();
+        String fs = function.getShortestForm();
         belBuilder.append(fs).append("(");
         if (hasItems(functionArgs)) {
             for (BELObject functionArg : functionArgs) {
-                if (shortForm) {
-                    belBuilder.append(functionArg.toBELShortForm());
-                } else {
-                    belBuilder.append(functionArg.toBELLongForm());
-                }
+                belBuilder.append(functionArg.toBELShortForm());
                 belBuilder.append(",");
             }
             belBuilder.deleteCharAt(belBuilder.length() - 1);
         }
         belBuilder.append(")");
         return belBuilder.toString();
+    }
+
+    /**
+     * Return a {@link String} with {@link Parameter parameters} replaced
+     * with {@code #}.  This is useful to search for terms in the KAMStore.
+     *
+     * <p>
+     * Example:
+     * <br>
+     * {@code tloc(p(HGNC:AKT1), GOACC:"GO:1", GOACC:"GO:2")} converts to
+     * {@code tloc(p(#),#,#)}
+     *
+     * @return {@link String}
+     */
+    public String toTermSignature() {
+        final StringBuilder b = new StringBuilder();
+        replaceParameters(this, b);
+        return b.toString();
     }
 
     /**
@@ -561,6 +579,38 @@ public class Term implements BELObject, Iterable<Parameter> {
             this.functionArgs = null;
             this.terms = null;
             this.parameters = null;
+        }
+    }
+
+    /**
+     * Builds a {@link String term string} where {@link Parameter parameters}
+     * are replaced with {@code #} characters.
+     *
+     * @param t {@link Term}
+     * @param b {@link StringBuilder}
+     */
+    private static void replaceParameters(Term t, StringBuilder b) {
+        FunctionEnum f = t.getFunctionEnum();
+        String fx = f.getShortestForm();
+        b.append(fx).append("(");
+        if (hasItems(t.getFunctionArguments())) {
+            for (BELObject bo : t.getFunctionArguments()) {
+                if (Term.class.isAssignableFrom(bo.getClass())) {
+                    Term inner = (Term) bo;
+                    if (inner.getFunctionEnum() == PROTEIN_MODIFICATION ||
+                        inner.getFunctionEnum() == SUBSTITUTION ||
+                        inner.getFunctionEnum() == TRUNCATION) {
+                        b.append(inner.toBELShortForm());
+                    } else {
+                        replaceParameters((Term) bo, b);
+                    }
+                } else {
+                    b.append("#");
+                }
+                b.append(",");
+            }
+            b.deleteCharAt(b.length() - 1);
+            b.append(")");
         }
     }
 }

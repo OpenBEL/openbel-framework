@@ -35,13 +35,8 @@
  */
 package org.openbel.framework.api;
 
-import static org.openbel.framework.common.BELUtilities.hasItems;
 import static org.openbel.framework.common.BELUtilities.nulls;
-import static org.openbel.framework.common.enums.FunctionEnum.PROTEIN_MODIFICATION;
-import static org.openbel.framework.common.enums.FunctionEnum.SUBSTITUTION;
-import static org.openbel.framework.common.enums.FunctionEnum.TRUNCATION;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +46,6 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelTerm;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.bel.parser.BELParser;
 import org.openbel.framework.common.enums.RelationshipType;
-import org.openbel.framework.common.model.BELObject;
 import org.openbel.framework.common.model.Namespace;
 import org.openbel.framework.common.model.Parameter;
 import org.openbel.framework.common.model.Term;
@@ -119,11 +113,11 @@ public class Resolver {
             }
 
             // get all parameters; remap to kam namespace by prefix
-            List<Parameter> params = extractParameters(term);
+            List<Parameter> params = term.getAllParametersLeftToRight();
             remapNamespace(params, nsmap);
 
             // convert bel term to signature
-            String termSignature = termSignature(term);
+            String termSignature = term.toTermSignature();
 
             // find uuids for all parameters; bucket both the mapped and
             // unmapped namespace values
@@ -313,57 +307,6 @@ public class Resolver {
         final KamEdge resolvedEdge = kam.findEdge(subjectKamNode, rtype,
                 objectKamNode);
         return resolvedEdge;
-    }
-
-    private static String termSignature(Term t) {
-        StringBuilder b = new StringBuilder();
-        replaceParameters(t, b);
-        return b.toString();
-    }
-
-    private static List<Parameter> extractParameters(Term t) {
-        List<Parameter> ret = new ArrayList<Parameter>();
-
-        List<Parameter> p = t.getParameters();
-        if (p != null)
-            ret.addAll(p);
-
-        List<Term> tl = t.getTerms();
-        if (tl != null) {
-            for (final Term inner : tl) {
-                if (inner.getFunctionEnum() != PROTEIN_MODIFICATION &&
-                        inner.getFunctionEnum() != SUBSTITUTION &&
-                        inner.getFunctionEnum() != TRUNCATION) {
-                    ret.addAll(extractParameters(inner));
-                }
-            }
-        }
-
-        return ret;
-    }
-
-    private static void replaceParameters(Term t, StringBuilder b) {
-        String fx = t.getFunctionEnum().getAbbreviation();
-        b.append(fx).append("(");
-        if (hasItems(t.getFunctionArguments())) {
-            for (BELObject bo : t.getFunctionArguments()) {
-                if (Term.class.isAssignableFrom(bo.getClass())) {
-                    Term inner = (Term) bo;
-                    if (inner.getFunctionEnum() == PROTEIN_MODIFICATION ||
-                        inner.getFunctionEnum() == SUBSTITUTION ||
-                        inner.getFunctionEnum() == TRUNCATION) {
-                        b.append(inner.toBELLongForm());
-                    } else {
-                        replaceParameters((Term) bo, b);
-                    }
-                } else {
-                    b.append("#");
-                }
-                b.append(",");
-            }
-            b.deleteCharAt(b.length() - 1);
-            b.append(")");
-        }
     }
 
     private static void remapNamespace(List<Parameter> params,

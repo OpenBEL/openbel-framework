@@ -43,7 +43,38 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openbel.framework.common.Strings;
-import org.openbel.framework.common.lang.*;
+import org.openbel.framework.common.lang.Abundance;
+import org.openbel.framework.common.lang.BiologicalProcess;
+import org.openbel.framework.common.lang.CatalyticActivity;
+import org.openbel.framework.common.lang.CellSecretion;
+import org.openbel.framework.common.lang.CellSurfaceExpression;
+import org.openbel.framework.common.lang.ChaperoneActivity;
+import org.openbel.framework.common.lang.ComplexAbundance;
+import org.openbel.framework.common.lang.CompositeAbundance;
+import org.openbel.framework.common.lang.Degradation;
+import org.openbel.framework.common.lang.Function;
+import org.openbel.framework.common.lang.Fusion;
+import org.openbel.framework.common.lang.GTPBoundActivity;
+import org.openbel.framework.common.lang.GeneAbundance;
+import org.openbel.framework.common.lang.KinaseActivity;
+import org.openbel.framework.common.lang.MicroRNAAbundance;
+import org.openbel.framework.common.lang.MolecularActivity;
+import org.openbel.framework.common.lang.Pathology;
+import org.openbel.framework.common.lang.PeptidaseActivity;
+import org.openbel.framework.common.lang.PhosphataseActivity;
+import org.openbel.framework.common.lang.Products;
+import org.openbel.framework.common.lang.ProteinAbundance;
+import org.openbel.framework.common.lang.ProteinModification;
+import org.openbel.framework.common.lang.RNAAbundance;
+import org.openbel.framework.common.lang.Reactants;
+import org.openbel.framework.common.lang.Reaction;
+import org.openbel.framework.common.lang.RibosylationActivity;
+import org.openbel.framework.common.lang.Substitution;
+import org.openbel.framework.common.lang.TermList;
+import org.openbel.framework.common.lang.TranscriptionalActivity;
+import org.openbel.framework.common.lang.Translocation;
+import org.openbel.framework.common.lang.TransportActivity;
+import org.openbel.framework.common.lang.Truncation;
 
 /**
  * Enumerated representation of function.
@@ -748,6 +779,18 @@ public enum FunctionEnum {
      */
     public String getDisplayValue() {
         return displayValue;
+    }
+
+    /**
+     * Returns the shortest form of the function.  This will generally be the
+     * value of {@link FunctionEnum#getAbbreviation()}, but will be
+     * {@link FunctionEnum#getDisplayValue()} if the abbreviated value is
+     * {@code null}.
+     *
+     * @return {@link String}
+     */
+    public String getShortestForm() {
+        return abbreviation != null ? abbreviation : displayValue;
     }
 
     /**
