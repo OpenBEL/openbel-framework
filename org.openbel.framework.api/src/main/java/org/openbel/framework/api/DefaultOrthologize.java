@@ -63,6 +63,11 @@ public class DefaultOrthologize implements Orthologize {
                 final KamNode edgeSource = e.getSourceNode();
                 final KamNode edgeTarget = e.getTargetNode();
 
+                // invalid; skip orthologous self edges
+                if (edgeSource == edgeTarget) {
+                    continue;
+                }
+
                 TermParameter speciesParam = findParameter(kam, kAMStore,
                         edgeSource, rlocs);
                 if (speciesParam != null) {
