@@ -6,7 +6,9 @@ import static org.openbel.framework.api.EdgeDirectionType.REVERSE;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 import org.openbel.framework.api.Kam;
@@ -33,6 +35,9 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             "select kam_edge_id, kam_source_node_id, relationship_type_id, " +
             "kam_target_node_id from @.kam_edge order by kam_source_node_id, " +
             "relationship_type_id, kam_target_node_id";
+    private static final String SELECT_KAM_EDGE_BY_RELATIONSHIP =
+            "select kam_edge_id from @.kam_edge " +
+            "where relationship_type_id = ?";
     private static final String UPDATE_KAM_EDGE_STATEMENT =
             "update @.kam_edge_statement_map set kam_edge_id = ? " +
             "where kam_edge_id = ?";
@@ -40,12 +45,12 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
             "delete from @.kam_node_parameter where kam_node_id = ?";
     private static final String DELETE_KAM_NODE =
             "delete from @.kam_node where kam_node_id = ?";
+    private static final String DELETE_EDGE_STATEMENT =
+            "delete from @.kam_edge_statement_map where kam_edge_id = ?";
     private static final String DELETE_KAM_EDGES =
             "delete from @.kam_edge where kam_edge_id = ?";
-    private static final String DELETE_ORTHOLOGOUS_KAM_EDGES =
-            "delete from @.kam_edge where relationship_type_id = ?";
-    private static final String DELETE_ORTHOLOGOUS_STATEMENTS =
-            "delete from @.statement where relationship_type_id = ?";
+//    private static final String DELETE_ORTHOLOGOUS_STATEMENTS =
+//            "delete from @.statement where relationship_type_id = ?";
 
     /**
      * Constructs the dao.
@@ -105,28 +110,36 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
 
         int batch = 0;
         int deletes = 0;
+        PreparedStatement kesps = getPreparedStatement(DELETE_EDGE_STATEMENT);
         PreparedStatement keps = getPreparedStatement(DELETE_KAM_EDGES);
 
         // add delete command; submit batches per MAX_BATCH_COUNT
         for (int e : edgeIds) {
+            kesps.setInt(1, e);
+            kesps.addBatch();
             keps.setInt(1, e);
             keps.addBatch();
             batch++;
 
             if (batch == MAX_BATCH_COUNT) {
+                // remove from kam_edge_statement_map
+                kesps.executeBatch();
+
+                // remove from kam_edge
                 int[] rowsAffected = keps.executeBatch();
-                for (int d : rowsAffected)
-                    deletes += d;
+                for (int d : rowsAffected) deletes += d;
             }
         }
 
         // submit batch for anything left over
         if (batch > 0) {
-            int[] rowsAffected = keps.executeBatch();
-            for (int d : rowsAffected)
-                deletes += d;
-        }
+            // remove from kam_edge_statement_map
+            kesps.executeBatch();
 
+            // remove from kam_edge
+            int[] rowsAffected = keps.executeBatch();
+            for (int d : rowsAffected) deletes += d;
+        }
         return deletes;
     }
 
@@ -139,17 +152,38 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
         if (relationship == null || relationship.getValue() == null)
             throw new InvalidArgument("relationship is null");
 
-        int updates = 0;
-        int rvalue = relationship.getValue();
-        PreparedStatement keps = getPreparedStatement(DELETE_ORTHOLOGOUS_KAM_EDGES);
-        keps.setInt(1, rvalue);
-        updates += keps.executeUpdate();
+        PreparedStatement ps = getPreparedStatement(SELECT_KAM_EDGE_BY_RELATIONSHIP);
+        ResultSet rset = null;
 
-        PreparedStatement sps = getPreparedStatement(DELETE_ORTHOLOGOUS_STATEMENTS);
-        sps.setInt(1, rvalue);
-        updates += sps.executeUpdate();
+        try {
+            // set relationships to remove
+            int rvalue = relationship.getValue();
+            ps.setInt(1, rvalue);
 
-        return updates;
+            // cursor all edge ids
+            List<Integer> ids = new ArrayList<Integer>();
+            rset = ps.executeQuery();
+            while (rset.next()) {
+                int edgeId = rset.getInt(1);
+                ids.add(edgeId);
+            }
+
+            // convert to int[]
+            int sz = ids.size();
+            int[] edgeIds = new int[sz];
+            for (int i = 0; i < sz; i++) edgeIds[i] = ids.get(i);
+
+            // remove edges for edge id int[]
+            return removeKamEdges(edgeIds);
+        } finally {
+            if (rset != null) {
+                try {
+                    rset.close();
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+        }
     }
 
     /**
@@ -163,7 +197,7 @@ public class KAMUpdateDaoImpl extends AbstractJdbcDAO implements KAMUpdateDao {
         int coalesced = 0;
         try {
             rset = eps.executeQuery();
-            if (rset.first()) {
+            if (rset.next()) {
                 int xSource = rset.getInt(2);
                 int xRel = rset.getInt(3);
                 int xTarget = rset.getInt(4);
