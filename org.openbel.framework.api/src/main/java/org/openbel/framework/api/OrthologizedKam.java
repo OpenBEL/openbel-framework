@@ -53,11 +53,10 @@ import org.openbel.framework.common.enums.RelationshipType;
  * {@link OrthologizedKam} defines a {@link Kam kam} that provides a
  * orthologized view using a {@link SpeciesDialect species dialect}.
  *
- * The {@link OrthologizedKam} orthologization occurs on construction in
- * {@link OrthologizedKam#OrthologizedKam(Kam, SpeciesDialect, KAMStore)}.
+ * The {@link OrthologizedKam} orthologization occurs on construction.
  * The existing {@link Kam} is cloned to preserve the original {@link Kam}.
  *
- * The process of {@link Kam} orthologization involves:
+ * Orthologization consists of:
  * <ol>
  * <li>Removing orthologous edges.</li>
  * <li>Reconnect orthologous {@link KamEdge kam edges} to the collapsed
