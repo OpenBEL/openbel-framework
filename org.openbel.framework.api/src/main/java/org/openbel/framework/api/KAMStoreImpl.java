@@ -121,8 +121,7 @@ public final class KAMStoreImpl implements KAMStore {
     @Override
     public boolean exists(final KamInfo info) {
         if (info == null) throw new InvalidArgument(DEFAULT_MSG);
-        if (exists(info.getName())) return true;
-        return false;
+        return exists(info.getName());
     }
 
     /**
@@ -135,12 +134,10 @@ public final class KAMStoreImpl implements KAMStore {
 
             @Override
             public boolean match(KamInfo t) {
-                if (name.equals(t.getName())) return true;
-                return false;
+                return name.equals(t.getName());
             }
         });
-        if (ki != null) return true;
-        return false;
+        return ki != null;
     }
 
     /**
@@ -456,7 +453,7 @@ public final class KAMStoreImpl implements KAMStore {
         }
 
         // Check for duplicates
-        if (removeDuplicates == true) {
+        if (removeDuplicates) {
             HashMap<String, BelTerm> map = new HashMap<String, BelTerm>();
             // FIXME: this is inefficient
             for (BelTerm belTerm : terms) {
@@ -497,7 +494,7 @@ public final class KAMStoreImpl implements KAMStore {
             throw new InvalidArgument("belTermString", belTermString);
         KamInfo ki = kam.getKamInfo();
         if (!exists(ki)) return null;
-        KamNode kamNode = null;
+        KamNode kamNode;
         Integer nodeID;
         try {
             nodeID = kamStoreDao(ki).getKamNodeId(belTermString);
