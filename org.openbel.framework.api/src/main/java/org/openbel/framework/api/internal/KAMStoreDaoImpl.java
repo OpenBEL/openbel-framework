@@ -163,7 +163,6 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "SELECT knp.kam_node_id, knp.kam_global_parameter_id FROM @.kam_node_parameter knp";
     private static final String SELECT_KAM_NODE_PARAMETERS_ORDER_SQL =
             " ORDER BY knp.kam_node_id, knp.ordinal";
-
     private static final String SELECT_NAMESPACES_BY_DOCUMENT_ID_SQL =
             "SELECT namespace_id FROM @.document_namespace_map WHERE document_id = ?";
     private static final String SELECT_NAMESPACE_BY_PREFIX_SQL =
@@ -571,26 +570,29 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
     @SuppressWarnings("unchecked")
     @Override
-    public Integer getKamNodeId(String belTermString) throws SQLException {
+    public Integer getKamNodeId(String belTerm) throws SQLException {
+        if (belTerm == null) throw new NullPointerException();
+
         // See if the bel term is already mapped
-        if (supportingTermLabelReverseCache.containsKey(belTermString)) {
-            return supportingTermLabelReverseCache.get(belTermString);
+        if (supportingTermLabelReverseCache.containsKey(belTerm)) {
+            return supportingTermLabelReverseCache.get(belTerm);
         }
 
         // parse the BelTerm
-        Term term;
+        Term t;
         try {
-            term = BELParser.parseTerm(belTermString);
+            t = BELParser.parseTerm(belTerm);
         } catch (Exception e) {
             // invalid BEL
             return null;
         }
 
-        String termLongForm = term.toBELLongForm();
+        // convert to short form
+        String shortForm = t.toBELShortForm();
 
         Collection<Integer> possibleTermIds = null;
         int ordinal = 0;
-        for (Parameter param : term.getAllParametersLeftToRight()) {
+        for (Parameter param : t.getAllParametersLeftToRight()) {
             Integer namespaceId = null;
             if (param.getNamespace() != null
                     && StringUtils.isNotBlank(param.getNamespace().getPrefix())) {
@@ -660,16 +662,16 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         // iterate over all possible terms and check for label matches
         if (possibleTermIds != null) {
             for (Integer termId : possibleTermIds) {
-                BelTerm belTerm = getBelTermById(termId);
-                if (belTerm.getLabel().equals(termLongForm)) {
-                    kamNodeId = getKamNodeId(belTerm);
+                BelTerm term = getBelTermById(termId);
+                if (term.getLabel().equals(shortForm)) {
+                    kamNodeId = getKamNodeId(term);
                     break;
                 }
             }
         }
 
         if (kamNodeId != null) {
-            supportingTermLabelReverseCache.put(belTermString, kamNodeId);
+            supportingTermLabelReverseCache.put(belTerm, kamNodeId);
         }
         return kamNodeId;
     }
@@ -1119,7 +1121,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
     /**
      *
-     * @param belTermId
+     * @param belDocumentId
      * @return
      * @throws SQLException
      */
@@ -1222,7 +1224,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
     /**
      *
-     * @param belTermId
+     * @param belDocumentId
      * @return
      * @throws SQLException
      */
@@ -2512,7 +2514,7 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
 
     /**
      *
-     * @param belTermId
+     * @param rset
      * @return
      * @throws SQLException
      */

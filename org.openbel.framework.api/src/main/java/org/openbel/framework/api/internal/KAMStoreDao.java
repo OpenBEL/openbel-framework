@@ -215,7 +215,15 @@ public interface KAMStoreDao extends KAMDao {
     public List<BelTerm> getSupportingTerms(KamNode kamNode)
             throws SQLException;
 
-    public Integer getKamNodeId(String belTermString) throws SQLException;
+    /**
+     * Retrieve {@code int} kam node id for {@link String bel term string}.
+     *
+     * @param belTerm {@link String}; may not be {@code null}
+     * @return {@link Integer} kam node id or {@code null} if not found
+     * @throws NullPointerException when {@code belTerm} is {@code null}
+     * @throws SQLException when a sql error occurs
+     */
+    public Integer getKamNodeId(String belTerm) throws SQLException;
 
     public Integer getKamNodeId(BelTerm belTerm) throws SQLException;
 
