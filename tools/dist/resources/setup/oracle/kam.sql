@@ -237,7 +237,8 @@ CREATE TABLE statement (
     object_term_id              NUMBER(11,0) NULL,
     nested_subject_id           NUMBER(11,0) NULL,
     nested_relationship_type_id NUMBER(11,0) NULL,
-    nested_object_id            NUMBER(11,0) NULL
+    nested_object_id            NUMBER(11,0) NULL,
+    bel_statement               VARCHAR(4000) NOT NULL
 );
 
 

@@ -57,6 +57,7 @@ import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.AnnotationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable;
 import org.openbel.framework.common.protonetwork.model.AnnotationDefinitionTable.TableAnnotationDefinition;
 import org.openbel.framework.common.protonetwork.model.AnnotationValueTable;
@@ -150,13 +151,11 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
             "insert into @.kam_parameter_uuid(kam_global_parameter_id,most_significant_bits,"
                     + "least_significant_bits) values(?,?,?)";
     private static final String STATEMENT_SQL =
-            "insert into @.statement(statement_id,document_id,"
-                    +
-                    "subject_term_id,relationship_type_id,object_term_id,"
-                    +
-                    "nested_subject_id,nested_relationship_type_id,nested_object_id) "
-                    +
-                    "values(?,?,?,?,?,?,?,?)";
+            "insert into @.statement(" +
+                    "statement_id,document_id,subject_term_id," +
+                    "relationship_type_id,object_term_id,nested_subject_id," +
+                    "nested_relationship_type_id,nested_object_id," +
+                    "bel_statement) values(?,?,?,?,?,?,?,?,?)";
     private static final String KAM_EDGE_STATEMENT_SQL =
             "insert into @.kam_edge_statement_map(kam_edge_id,statement_id) values(?,?)";
     private static final String ANNOTATION_DEFINITION_SQL =
@@ -624,6 +623,7 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
         // load statements
         final List<StatementTable.TableStatement> ts = st.getStatements();
         final Map<Integer, Integer> sdm = st.getStatementDocument();
+        final Map<Integer, Statement> _stmts = st.getIndexedStatements();
 
         PreparedStatement sps = getPreparedStatement(STATEMENT_SQL);
         for (int i = 0, n = ts.size(); i < n; i++) {
@@ -674,6 +674,11 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
                 // XXX offset
                 sps.setInt(8, stmt.getNestedObject() + 1);
             }
+
+            // set bel statement text
+            Statement s = _stmts.get(i);
+            sps.setString(9, s.toBELShortForm());
+
             sps.addBatch();
         }
 

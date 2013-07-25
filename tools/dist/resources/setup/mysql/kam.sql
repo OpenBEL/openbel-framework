@@ -108,6 +108,7 @@ CREATE TABLE statement (
     nested_subject_id           int(15) NULL,
     nested_relationship_type_id int(15) NULL,
     nested_object_id            int(15) NULL,
+    bel_statement               varchar(4000) NOT NULL,
     PRIMARY KEY(statement_id)
 );
 CREATE TABLE kam_edge_statement_map (

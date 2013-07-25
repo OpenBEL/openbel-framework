@@ -169,6 +169,7 @@ CREATE TABLE @.statement (
     nested_subject_id           integer NULL,
     nested_relationship_type_id integer NULL,
     nested_object_id            integer NULL,
+    bel_statement               varchar(4000) NOT NULL,
     PRIMARY KEY(statement_id)
 )
 ##

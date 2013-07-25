@@ -133,6 +133,7 @@ CREATE TABLE statement (
     nested_subject_id           INTEGER,
     nested_relationship_type_id INTEGER,
     nested_object_id            INTEGER,
+    bel_statement               VARCHAR(4000) NOT NULL,
     CONSTRAINT statement_id_pk PRIMARY KEY(statement_id)
 );
 
