@@ -361,13 +361,9 @@ public final class PhaseTwoApplication extends PhaseApplication {
      * @param pct the parameter equivalencing count to control output
      */
     private void stage3Term(final ProtoNetwork network, int pct) {
-        if (pct > 0) {
-            stageOutput("Equivalencing terms");
-            int tct = p2.stage3EquivalenceTerms(network);
-            stageOutput("(" + tct + " equivalences)");
-        } else {
-            stageOutput("Skipping term equivalencing");
-        }
+        stageOutput("Equivalencing terms");
+        int tct = p2.stage3EquivalenceTerms(network);
+        stageOutput("(" + tct + " equivalences)");
     }
 
     /**
@@ -377,13 +373,9 @@ public final class PhaseTwoApplication extends PhaseApplication {
      * @param pct the parameter equivalencing count to control output
      */
     private void stage3Statement(final ProtoNetwork network, int pct) {
-        if (pct > 0) {
-            stageOutput("Equivalencing statements");
-            int sct = p2.stage3EquivalenceStatements(network);
-            stageOutput("(" + sct + " equivalences)");
-        } else {
-            stageOutput("Skipping statement equivalencing");
-        }
+        stageOutput("Equivalencing statements");
+        int sct = p2.stage3EquivalenceStatements(network);
+        stageOutput("(" + sct + " equivalences)");
     }
 
     /**
