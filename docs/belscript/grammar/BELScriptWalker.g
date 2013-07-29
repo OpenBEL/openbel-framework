@@ -286,8 +286,16 @@ unset:
     'UNSET' (an=OBJECT_IDENT | list=IDENT_LIST) {
         if (an != null) {
             String annotationName = an.getText();
-            if (definedAnnotations.containsKey(annotationName)) {
-                annotationContext.remove(annotationName);
+            if ("ALL".equals(annotationName)) {
+                if (activeStatementGroup == null)
+                    annotationContext.clear();
+                else
+                    sgAnnotationContext.clear();
+            } else if (definedAnnotations.containsKey(annotationName)) {
+                if (activeStatementGroup == null)
+                    annotationContext.remove(annotationName);
+                else
+                    sgAnnotationContext.remove(annotationName);
             } else if (docprop.containsKey(BELDocumentProperty.getDocumentProperty(annotationName))) {
                 addError(new UnsetDocumentPropertiesException(an.getLine(), an.getCharPositionInLine()));
             } else {

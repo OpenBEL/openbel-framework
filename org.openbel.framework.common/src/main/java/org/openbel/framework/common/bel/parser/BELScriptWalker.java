@@ -1620,18 +1620,22 @@ public class BELScriptWalker extends TreeParser {
 
                 if (an != null) {
                     String annotationName = an.getText();
-                    if (definedAnnotations.containsKey(annotationName)) {
-                        annotationContext.remove(annotationName);
-                    } else if (docprop.containsKey(BELDocumentProperty
-                            .getDocumentProperty(annotationName))) {
-                        addError(new UnsetDocumentPropertiesException(
-                                an.getLine(), an.getCharPositionInLine()));
+                    if ("ALL".equals(annotationName)) {
+                        if (activeStatementGroup == null)
+                            annotationContext.clear();
+                        else
+                            sgAnnotationContext.clear();
+                    } else if (definedAnnotations.containsKey(annotationName)) {
+                        if (activeStatementGroup == null)
+                            annotationContext.remove(annotationName);
+                        else
+                            sgAnnotationContext.remove(annotationName);
+                    } else if (docprop.containsKey(BELDocumentProperty.getDocumentProperty(annotationName))) {
+                        addError(new UnsetDocumentPropertiesException(an.getLine(), an.getCharPositionInLine()));
                     } else {
-                        addWarning(new UnsetUndefinedAnnotationException(
-                                an.getLine(), an.getCharPositionInLine()));
+                        addWarning(new UnsetUndefinedAnnotationException(an.getLine(), an.getCharPositionInLine()));
                     }
                 }
-
             }
 
             retval.tree = (CommonTree) adaptor.rulePostProcessing(root_0);
