@@ -36,6 +36,7 @@
 package org.openbel.framework.core.kam;
 
 import static org.openbel.framework.common.BELUtilities.hasItems;
+import static org.openbel.framework.common.BELUtilities.quoteParameter;
 import static org.openbel.framework.common.BELUtilities.sizedHashSet;
 
 import java.io.StringReader;
@@ -406,13 +407,10 @@ public class JdbcKAMLoaderImpl extends AbstractJdbcDAO implements KAMLoader {
             List<Integer> pids = tpmtidx.get(tid);
             for (Integer pid : pids) {
                 TableParameter param = pt.getTableParameter(pid);
-                String paramString = "";
                 TableNamespace ns = param.getNamespace();
-                if (ns != null) {
-                    paramString = ns.getPrefix() + ":";
-                }
-                paramString += param.getValue();
-                nl = nl.replaceFirst("#", paramString);
+                nl = nl.replaceFirst("#", ns == null ?
+                    quoteParameter(param.getValue()) :
+                    ns.getPrefix() + ":" + quoteParameter(param.getValue()));
             }
 
             Integer knl = valueIndexMap.get(nl);
