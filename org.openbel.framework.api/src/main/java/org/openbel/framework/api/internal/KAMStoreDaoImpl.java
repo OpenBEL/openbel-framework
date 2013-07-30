@@ -202,6 +202,10 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
             "WHERE kn.kam_node_id = knp.kam_node_id AND " +
             "knp.kam_global_parameter_id = kpu.kam_global_parameter_id " +
             "ORDER BY kn.kam_node_id";
+    private static final String SELECT_KAM_NODE_BY_LABEL_SQL =
+            "SELECT kn.kam_node_id " +
+            "FROM @.kam_node kn, @.objects o " +
+            "WHERE kn.node_label_oid = o.objects_id and o.varchar_value = ?";
     private static final String $TERM_PARAMETER_TABLE = "@.term_parameter tp%d";
     private static final String $KAM_PARAMETER_UUID_TABLE = "@.kam_parameter_uuid kpu%d";
     private static final String $TERM_ID_JOIN = "tp%d.term_id = t.term_id ";
@@ -590,6 +594,22 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
         // convert to short form
         String shortForm = t.toBELShortForm();
 
+        // 1: short circuit; try by kam node label
+        PreparedStatement ps = getPreparedStatement(SELECT_KAM_NODE_BY_LABEL_SQL);
+        ResultSet rset = null;
+        try {
+            ps.setString(1, shortForm);
+            rset = ps.executeQuery();
+            if (rset.next()) {
+                int kamNodeId = rset.getInt(1);
+                supportingTermLabelReverseCache.put(belTerm, kamNodeId);
+                return kamNodeId;
+            }
+        } finally {
+            close(rset);
+        }
+
+        // 2: try by bel terms
         Collection<Integer> possibleTermIds = null;
         int ordinal = 0;
         for (Parameter param : t.getAllParametersLeftToRight()) {
@@ -616,10 +636,9 @@ public final class KAMStoreDaoImpl extends AbstractJdbcDAO implements
                 break;
             }
 
-            ResultSet rset = null;
+            rset = null;
             try {
-                PreparedStatement ps =
-                        getPreparedStatement(SELECT_TERM_ID_BY_PARAMETERS_SQL);
+                ps = getPreparedStatement(SELECT_TERM_ID_BY_PARAMETERS_SQL);
                 // set twice to handle is null, see http://stackoverflow.com/questions/4215135/
                 if (namespaceId == null) {
                     ps.setNull(1, Types.INTEGER);
