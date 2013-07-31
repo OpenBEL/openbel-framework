@@ -11,14 +11,17 @@
 
 	<context:component-scan base-package="org.openbel.framework.ws.endpoint"/>
 
-	<!-- dynamically generated wsdl -->
+    <sws:static-wsdl id="belframework" location="/WEB-INF/wsdl/belframework.wsdl"/>
+
+    <!-- Exception resolver used for customizing soap fault messages -->
+    <bean id="exceptionResolver" class="org.openbel.framework.ws.core.CustomizeSoapFaultExceptionResolver" />
+
+	<!-- DEVELOPMENT ONLY: dynamically generated wsdl -->
+    <!--
 	<sws:dynamic-wsdl id="belframework"
 	    portTypeName="WebAPI"
 	    locationUri="/belframework/">
 		<sws:xsd location="/WEB-INF/xsd/belframework-web-api.xsd"/>
 	</sws:dynamic-wsdl>
-
-    <!-- Exception resolver used for customizing soap fault messages -->
-    <bean id="exceptionResolver" class="org.openbel.framework.ws.core.CustomizeSoapFaultExceptionResolver" />
-
+    -->
 </beans>
