@@ -15,7 +15,7 @@
         </init-param>
         <init-param>
       		<param-name>transformWsdlLocations</param-name>
-      		<param-value>true</param-value>
+            <param-value>false</param-value>
     	</init-param>
     </servlet>
 
