@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.cfg;
 
@@ -89,7 +69,7 @@ public abstract class Configuration {
 
     /**
      * Creates a configuration instance associated with the supplied file.
-     * 
+     *
      * @param file File to use as configuration; may be null
      */
     protected Configuration(final File file) {
@@ -101,7 +81,7 @@ public abstract class Configuration {
      * {@link #processSetting(String, String) processSetting} callbacks. If the
      * {@link #configurationFile configuration file} cannot be read,
      * {@link #initializeDefaults() initializeDefaults} will be called.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      */
     protected void init() throws IOException {
@@ -114,7 +94,7 @@ public abstract class Configuration {
 
     /**
      * Process a name-value setting during reading {@link #configurationFile} by
-     * 
+     *
      * @param name Non-null name
      * @param value Non-null value
      */
@@ -132,14 +112,14 @@ public abstract class Configuration {
 
     /**
      * Returns the name-value default settings.
-     * 
+     *
      * @return Name-value mappings
      */
     protected abstract Map<String, String> defaults();
 
     /**
      * Returns the default configuration provided by {@link #defaults()}.
-     * 
+     *
      * @return Non-null string
      */
     protected String defaultConfiguration() {
@@ -163,7 +143,7 @@ public abstract class Configuration {
      * Reads {@link #configurationFile}, invoking
      * {@link #processSetting(String, String)} as name-value pairs are
      * encountered.
-     * 
+     *
      * @throws IOException Thrown if an I/O error occurs
      * @throws IllegalStateException If {@code read()} has been called with a
      * null configuration file
@@ -204,7 +184,7 @@ public abstract class Configuration {
      * Performs substitution against the configuration {@code value} for the
      * system's temporary directory, user's home directory, user's name, or
      * user's current working directory.
-     * 
+     *
      * @param value Non-null string
      * @return String resulting from value replacement
      */

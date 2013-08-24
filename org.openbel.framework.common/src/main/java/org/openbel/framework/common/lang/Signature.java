@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.lang;
 
@@ -56,11 +36,11 @@ import org.openbel.framework.common.enums.ValueEncoding;
  * Represents a BEL function signature.
  * <p>
  * A BEL function signature has the following format:
- * 
+ *
  * <pre>
  * <i>A</i>([<i>arg1</i>,<i>arg2</i>,...,<i>argN</i>{@code [...]}])<i>B</i>
  * </pre>
- * 
+ *
  * where <i>A</i> is a BEL function enum and <i>B</i> is a BEL return type. The
  * following rules concerning arguments are:
  * <ol>
@@ -70,21 +50,21 @@ import org.openbel.framework.common.enums.ValueEncoding;
  * </ol>
  * The <i>arg</i> values refer to BEL function parameters and are represented in
  * one of two ways:
- * 
+ *
  * <pre>
  * F:<i>A</i>
  * </pre>
- * 
+ *
  * where <i>A</i> is a return type. Or in the second format:
- * 
+ *
  * <pre>
  * E:<i>B</i>
  * </pre>
- * 
+ *
  * where <i>B</i> is a value encoding. In both cases, what comes after the colon
  * defines what is a valid parameter at that position in the function.
  * </p>
- * 
+ *
  * @see FunctionEnum BEL function definitions
  * @see ReturnType BEL function return types
  * @see ValueEncoding BEL function parameter encodings
@@ -113,7 +93,7 @@ public final class Signature implements Serializable {
 
     /**
      * Creates a signature with the provided value.
-     * 
+     *
      * @param value Signature value
      * @throws InvalidArgument Thrown if the signature is not in the correct
      * format
@@ -131,7 +111,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns the number of arguments for this signature.
-     * 
+     *
      * @return {@link String}
      */
     public String getNumberOfArguments() {
@@ -140,7 +120,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns this signature's return type.
-     * 
+     *
      * @return {@link ReturnType}
      */
     public ReturnType getReturnType() {
@@ -149,7 +129,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns this signature's function enum.
-     * 
+     *
      * @return {@link FunctionEnum}
      */
     public FunctionEnum getFunction() {
@@ -158,7 +138,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns this signature's value.
-     * 
+     *
      * @return {@link String}
      */
     public String getValue() {
@@ -168,7 +148,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if the string {@code s} adheres to the signature
      * format, {@code false} otherwise.
-     * 
+     *
      * @param s String
      * @return boolean
      */
@@ -202,7 +182,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if the string {@code s} adheres to the signature
      * parameter format, {@code false} otherwise.
-     * 
+     *
      * @param s String
      * @return boolean
      */
@@ -248,7 +228,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if the string {@code s} is a valid function,
      * {@code false} otherwise.
-     * 
+     *
      * @param s String
      * @return boolean
      */
@@ -261,7 +241,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if the string {@code s} is a valid return type,
      * {@code false} otherwise.
-     * 
+     *
      * @param s String
      * @return boolean
      */
@@ -282,7 +262,7 @@ public final class Signature implements Serializable {
     /**
      * Returns the {@link SemanticStatus semantic status} of the supplied
      * signature against this one.
-     * 
+     *
      * @param other {@link Signature}
      * @return SemanticStatus, which may be null
      */
@@ -303,7 +283,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if the object {@code o} is this object,
      * {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     @Override
@@ -329,7 +309,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns the argument tokens, split by {@code ,}.
-     * 
+     *
      * @return {@link String} array
      */
     private String[] getArguments() {
@@ -340,7 +320,7 @@ public final class Signature implements Serializable {
     /**
      * Returns the {@link SemanticStatus semantic status} of the supplied
      * argument lists.
-     * 
+     *
      * @param args1 Argument list
      * @param args2 Argument list
      * @return SemanticStatus, which may be null
@@ -383,7 +363,7 @@ public final class Signature implements Serializable {
     /**
      * Returns the {@link SemanticStatus semantic status} of the supplied
      * arguments.
-     * 
+     *
      * @param arg1 Argument list
      * @param arg2 Argument list
      * @return SemanticStatus, which may be null
@@ -458,11 +438,11 @@ public final class Signature implements Serializable {
 
     /**
      * Encodes the supplied value encoding as
-     * 
+     *
      * <pre>
      * E:<i>encoding</i>
      * </pre>
-     * 
+     *
      * @param encoding String encoding
      * @return {@link String}
      */
@@ -472,11 +452,11 @@ public final class Signature implements Serializable {
 
     /**
      * Encodes the supplied return type encoding as
-     * 
+     *
      * <pre>
      * F:{@link ReturnType#getDisplayValue() DISPLAY_VALUE}
      * </pre>
-     * 
+     *
      * @param rt {@link ReturnType}
      * @return {@link String}
      */
@@ -486,7 +466,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns the function enum for the provided string.
-     * 
+     *
      * @param s String
      * @return {@link FunctionEnum}
      */
@@ -497,7 +477,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns the return type for the provided string.
-     * 
+     *
      * @param s String
      * @return {@link ReturnType}
      */
@@ -512,7 +492,7 @@ public final class Signature implements Serializable {
      * For example, for the string {@code F:myFunction...}, this method returns
      * {@code F:myFunction}.
      * </p>
-     * 
+     *
      * @param s {@link String}
      * @return {@link String}
      */
@@ -522,7 +502,7 @@ public final class Signature implements Serializable {
 
     /**
      * Returns the number of arguments for the provided string.
-     * 
+     *
      * @param s {@link String}
      * @return {@link String}
      */
@@ -539,7 +519,7 @@ public final class Signature implements Serializable {
     /**
      * Returns {@code true} if {@code s} is the wildcard encoding, {@code false}
      * otherwise.
-     * 
+     *
      * @param s {@link String}
      * @return boolean
      */

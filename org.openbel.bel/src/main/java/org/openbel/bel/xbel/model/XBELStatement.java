@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.bel.xbel.model;
 
@@ -44,9 +24,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -62,8 +42,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -87,11 +67,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the comment property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getComment() {
         return comment;
@@ -99,11 +79,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the comment property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setComment(String value) {
         this.comment = value;
@@ -115,11 +95,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the annotationGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public XBELAnnotationGroup getAnnotationGroup() {
         return annotationGroup;
@@ -127,11 +107,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the annotationGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAnnotationGroup }
-     *     
+     *
      */
     public void setAnnotationGroup(XBELAnnotationGroup value) {
         this.annotationGroup = value;
@@ -143,11 +123,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the subject property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELSubject }
-     *     
+     *
      */
     public XBELSubject getSubject() {
         return subject;
@@ -155,11 +135,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the subject property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELSubject }
-     *     
+     *
      */
     public void setSubject(XBELSubject value) {
         this.subject = value;
@@ -171,11 +151,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the object property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELObject }
-     *     
+     *
      */
     public XBELObject getObject() {
         return object;
@@ -183,11 +163,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the object property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELObject }
-     *     
+     *
      */
     public void setObject(XBELObject value) {
         this.object = value;
@@ -199,11 +179,11 @@ public class XBELStatement
 
     /**
      * Gets the value of the relationship property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Relationship }
-     *     
+     *
      */
     public Relationship getRelationship() {
         return relationship;
@@ -211,11 +191,11 @@ public class XBELStatement
 
     /**
      * Sets the value of the relationship property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Relationship }
-     *     
+     *
      */
     public void setRelationship(Relationship value) {
         this.relationship = value;

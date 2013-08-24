@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.protonetwork.model;
 
@@ -55,7 +35,7 @@ import org.openbel.framework.common.model.Header;
  * DocumentTable holds the document header information. This class manages the
  * document headers through the {@link #addDocumentHeader(DocumentHeader)}
  * operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -71,7 +51,7 @@ public class DocumentTable extends ExternalType {
     /**
      * Adds a document to the {@code headers} set. The insertion index is
      * maintained in the {@code headers} list.
-     * 
+     *
      * @param header {@link DocumentHeader}, the header to add, which cannot be
      * null
      * @return {@code int}, the index of the added document header, which will
@@ -90,7 +70,7 @@ public class DocumentTable extends ExternalType {
     /**
      * Returns the document table's {@code headers} list. This list is
      * unmodifiable to preserve the state of the document table.
-     * 
+     *
      * @return {@link List}, the document {@code headers} list, which cannot be
      * null or modified
      */
@@ -180,7 +160,7 @@ public class DocumentTable extends ExternalType {
 
     /**
      * DocumentHeader holds the document header properties
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -238,7 +218,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Creates a DocumentHeader from a bel {@link Header}.
-         * 
+         *
          * @param belHeader {@link Header}, the bel header, which cannot be null
          * @throws InvalidArgument - Thrown if {@code belHeader} is null
          */
@@ -289,7 +269,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's name.
-         * 
+         *
          * @return {@link String}, the document's name, which cannot be null
          */
         public String getName() {
@@ -298,7 +278,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's description.
-         * 
+         *
          * @return {@link String}, the document's description, which can be null
          */
         public String getDescription() {
@@ -307,7 +287,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's version.
-         * 
+         *
          * @return {@link String}, the document's version, which can be null
          */
         public String getVersion() {
@@ -316,7 +296,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's copyright.
-         * 
+         *
          * @return {@link String}, the document's copyright, which can be null
          */
         public String getCopyright() {
@@ -325,7 +305,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's disclaimer.
-         * 
+         *
          * @return {@link String}, the document's disclaimer, which can be null
          */
         public String getDisclaimer() {
@@ -334,7 +314,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Returns the document's contact info.
-         * 
+         *
          * @return {@link String}, the document's contact info, which can be
          * null
          */
@@ -346,7 +326,7 @@ public class DocumentTable extends ExternalType {
          * Returns the document's authors as a packed {@link String} where the
          * author names are separated by a {@value ProtoNetwork#VALUE_SEPARATOR}
          * .
-         * 
+         *
          * @return {@link String}, the document's authors, which can be null
          */
         public String getAuthors() {
@@ -357,7 +337,7 @@ public class DocumentTable extends ExternalType {
          * Returns the document's licenses as a packed {@link String} where the
          * license values are separated by a
          * {@value ProtoNetwork#VALUE_SEPARATOR}.
-         * 
+         *
          * @return {@link String}, the document's licenses, which can be null
          */
         public String getLicenses() {
@@ -366,7 +346,7 @@ public class DocumentTable extends ExternalType {
 
         /**
          * Compute the hash for {@link DocumentHeader this document header}.
-         * 
+         *
          * @return the hash
          */
         private int computeHash() {

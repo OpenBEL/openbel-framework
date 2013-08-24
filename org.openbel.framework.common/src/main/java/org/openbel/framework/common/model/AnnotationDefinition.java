@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.model;
 
@@ -56,7 +36,7 @@ import org.openbel.framework.common.enums.AnnotationType;
  * </p>
  * TODO This class should be broken into AnnotationDefinition w/
  * InternalAnnotation/ExternalAnnotation as subclasses
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class AnnotationDefinition implements BELModelObject {
@@ -76,7 +56,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Creates an annotation definition with the required identifier.
-     * 
+     *
      * @param id Identifier
      * @throws InvalidArgument Thrown if {@code id} is null
      */
@@ -90,7 +70,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Creates an annotation definition with the required identifier, type,
      * description, usage, and URL properties.
-     * 
+     *
      * @param id Identifier
      * @param t Type of annotation
      * @param desc Description of annotation definition
@@ -113,7 +93,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Creates an annotation definition with the required identifier, type,
      * description, usage, and URL properties.
-     * 
+     *
      * @param id Identifier
      * @param t Type of annotation
      * @param desc Description of annotation definition
@@ -135,7 +115,7 @@ public class AnnotationDefinition implements BELModelObject {
      * Creates an annotation definition of type
      * {@link AnnotationType#ENUMERATION ENUMERATION} with the required
      * identifier, optional description and usage, and enumeration values.
-     * 
+     *
      * @param id Identifier
      * @param desc Description of annotation definition
      * @param usage Usage of annotation definition
@@ -161,7 +141,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's description.
-     * 
+     *
      * @return String, which may be null
      */
     public String getDescription() {
@@ -170,7 +150,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's description.
-     * 
+     *
      * @param desc {@link String}
      */
     public void setDescription(String desc) {
@@ -179,7 +159,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's usage.
-     * 
+     *
      * @return String, which may be null
      */
     public String getUsage() {
@@ -188,7 +168,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's usage.
-     * 
+     *
      * @param usage {@link String}
      */
     public void setUsage(String usage) {
@@ -198,7 +178,7 @@ public class AnnotationDefinition implements BELModelObject {
     /**
      * Returns the annotation definition's identifier uniquely identifying it
      * within a document.
-     * 
+     *
      * @return Non-null string
      */
     public String getId() {
@@ -207,7 +187,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's type.
-     * 
+     *
      * @return {@link AnnotationType}; which may be null
      */
     public AnnotationType getType() {
@@ -216,7 +196,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's type.
-     * 
+     *
      * @param t {@link AnnotationType}
      */
     public void setType(AnnotationType t) {
@@ -225,7 +205,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's value.
-     * 
+     *
      * @return String, may be null, in which case, enums is non-null
      */
     public String getValue() {
@@ -234,7 +214,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's value.
-     * 
+     *
      * @param value Annotation definition's value
      */
     public void setValue(String value) {
@@ -243,7 +223,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's enums.
-     * 
+     *
      * @return List of strings, may be null, in which case, value is non-null
      */
     public List<String> getEnums() {
@@ -252,7 +232,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's enums.
-     * 
+     *
      * @param enums Annotation definition's enums
      */
     public void setEnums(List<String> enums) {
@@ -261,7 +241,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Returns the annotation definition's URL.
-     * 
+     *
      * @return URL {@link String string}, which may be null
      */
     public String getURL() {
@@ -270,7 +250,7 @@ public class AnnotationDefinition implements BELModelObject {
 
     /**
      * Sets the annotation definition's URL.
-     * 
+     *
      * @param url {@link String}
      */
     public void setURL(String url) {

@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.protonetwork.model;
 
@@ -50,7 +30,7 @@ import org.openbel.framework.common.InvalidArgument;
  * Storing a 40char {@link String} for the UUID would require 120 bytes. (see
  * http://www.javamex.com/tutorials/memory/string_memory_usage.shtml)
  * </p>
- * 
+ *
  * @author Steve Ungerer
  */
 public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
@@ -63,7 +43,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
 
     /**
      * Construct a SkinnyUUID with the most and least significant bits.
-     * 
+     *
      * @param mostSigBits
      * @param leastSigBits
      */
@@ -74,7 +54,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
 
     /**
      * Construct a SkinnyUUID from a source {@link UUID}
-     * 
+     *
      * @param uuid
      *            The {@link UUID}, must not be <code>null</code>
      * @throws InvalidArgument
@@ -91,7 +71,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
     /**
      * Creates a <tt>SkinnyUUID</tt> from the string standard representation as
      * described in the {@link #toString} method.
-     * 
+     *
      * @param name
      *            a string that specifies a <tt>UUID</tt>.
      * @return a <tt>UUID</tt> with the specified value.
@@ -142,10 +122,10 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
     /**
      * Returns a <code>String</code> object representing this
      * <code>SkinnyUUID</code>.
-     * 
+     *
      * <p>
      * The UUID string representation is as described by this BNF : <blockquote>
-     * 
+     *
      * <pre>
      * {@code
      * UUID                   = <time_low> "-" <time_mid> "-"
@@ -164,9 +144,9 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
      *       | "A" | "B" | "C" | "D" | "E" | "F"
      * }
      * </pre>
-     * 
+     *
      * </blockquote>
-     * 
+     *
      * @return a string representation of this <tt>SkinnyUUID</tt>.
      * @see UUID#toString()
      */
@@ -180,7 +160,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
 
     /**
      * Returns val represented by the specified number of hex digits.
-     * 
+     *
      * @see UUID#digits()
      */
     private static String digits(long val, int digits) {
@@ -190,7 +170,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
 
     /**
      * Returns a hash code for this <code>SkinnyUUID</code>.
-     * 
+     *
      * @return a hash code value for this <tt>SkinnyUUID</tt>.
      */
     @Override
@@ -207,7 +187,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
      * if and only if the argument is not <tt>null</tt>, is a
      * <tt>SkinnyUUID</tt> object, has the same variant, and contains the same
      * value, bit for bit, as this <tt>SkinnyUUID</tt>.
-     * 
+     *
      * @param obj
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code>
@@ -225,12 +205,12 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
 
     /**
      * Compares this SkinnyUUID with the specified SkinnyUUID.
-     * 
+     *
      * <p>
      * The first of two SkinnyUUIDs follows the second if the most significant
      * field in which the SkinnyUUIDs differ is greater for the first
      * SkinnyUUID.
-     * 
+     *
      * @param val
      *            <tt>SkinnyUUID</tt> to which this <tt>SkinnyUUID</tt> is to be
      *            compared.
@@ -252,7 +232,7 @@ public class SkinnyUUID implements Serializable, Comparable<SkinnyUUID> {
      * Reconstitute the <tt>SkinnyUUID</tt> instance from a stream (that is,
      * deserialize it). This is necessary to set the transient fields to their
      * correct uninitialized value so they will be recomputed on demand.
-     * 
+     *
      * @see UUID#readObject()
      */
     private void readObject(java.io.ObjectInputStream in)

@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.protonetwork.model;
 
@@ -59,7 +39,7 @@ import org.openbel.framework.common.protonetwork.model.StatementTable.TableState
  * ParameterTable holds the parameter values for terms. This class manages the
  * insertion index and occurrence count state through the
  * {@link #addTableParameter(TableParameter)} operation.
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -116,7 +96,7 @@ public class ParameterTable extends ExternalType {
      * <p>
      * If no parameter exists for the specified index, this method is a no-op.
      * </p>
-     * 
+     *
      * @param pid Table parameter index
      */
     public void removeTableParameter(final int pid) {
@@ -138,7 +118,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns the table parameter by index.
-     * 
+     *
      * @param pid Table parameter index
      * @return TableParameter
      */
@@ -148,7 +128,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns an unmodifiable set view of the table parameters.
-     * 
+     *
      * @return Read-only {@link Set set}
      */
     public Set<TableParameter> getTableParameters() {
@@ -157,7 +137,7 @@ public class ParameterTable extends ExternalType {
 
     /**
      * Returns {@link #getTableParameters()} as an array.
-     * 
+     *
      * @return {@code TableParameter[]}
      */
     public TableParameter[] getTableParameterArray() {
@@ -358,7 +338,7 @@ public class ParameterTable extends ExternalType {
 
         /**
          * Compute the hashCode of {@link TableStatement this table statement}.
-         * 
+         *
          * @return the hashCode
          */
         private int computeHash() {

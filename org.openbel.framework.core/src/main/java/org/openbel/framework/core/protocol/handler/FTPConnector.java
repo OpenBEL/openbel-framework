@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.core.protocol.handler;
 
@@ -51,7 +31,7 @@ import org.openbel.framework.core.protocol.ResourceDownloadError;
  * <li>authenticating with the ftp server</li>
  * <li>retrieves a file from the connected ftp server</li>
  * </ul>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class FTPConnector {
@@ -68,7 +48,7 @@ public class FTPConnector {
 
     /**
      * Defines the default port, <strong>{@value}</strong>, to use when
-     * connecting to the ftp server. 
+     * connecting to the ftp server.
      */
     private static final int DEFAULT_FTP_PORT = 21;
 
@@ -80,7 +60,7 @@ public class FTPConnector {
 
     /**
      * Defines the password {@link InputStream} to read the password from.
-     * 
+     *
      */
     private InputStream pwdInputStream;
 
@@ -94,7 +74,7 @@ public class FTPConnector {
 
     /**
      * Creates the ftp connector with the {@code pwdInputStream}.
-     * 
+     *
      * @param pwdInputStream {@link InputStream}, the password input stream
      */
     public FTPConnector(InputStream pwdInputStream) {
@@ -103,7 +83,7 @@ public class FTPConnector {
 
     /**
      * Sets the password input stream to read the password from.
-     * 
+     *
      * @param pwdInputStream {@link InputStream}, the password input stream
      * to read the password from
      */
@@ -114,7 +94,7 @@ public class FTPConnector {
     /**
      * Connects and authenticates with the ftp server specified by the
      * {@code ftpUrl}.
-     * 
+     *
      * @param ftpUrl {@link URL}, the ftp server url
      * @throws ResourceDownloadError - Thrown if there was an ftp error
      * connecting or authenticating with the ftp server.
@@ -201,11 +181,11 @@ public class FTPConnector {
     /**
      * Retrieves a file, specified by {@code remotePath}, from the ftp server
      * and saves it locally to {@code localPath}.
-     * 
+     *
      * @param remotePath {@link String}, the remote path
      * @param localPath {@link String}, the local path
      * @throws FileNotFoundException - Thrown if the file exists but is a directory
-     * rather than a regular file, does not exist but cannot be created, 
+     * rather than a regular file, does not exist but cannot be created,
      * or cannot be opened for any other reason.
      * @throws IOException - Thrown if an io error occurred saving the
      * {@code remotePath} to {@code localPath}.

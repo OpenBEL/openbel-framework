@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.protonetwork.model;
 
@@ -59,14 +39,14 @@ import org.openbel.framework.common.protonetwork.model.StatementTable.TableState
 /**
  * {@link ProtoEdgeTable} defines a symbol table to hold proto edges for the
  * {@link ProtoNetwork proto network}. The proto edge is composed of the triple:
- * 
+ *
  * <pre>
  * source node, relationship, target node
  * </pre>
  * <p>
  * This symbol table holds the association
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
  */
@@ -116,7 +96,7 @@ public class ProtoEdgeTable extends ExternalType {
      * There must be at least one {@link TableProtoEdge proto edge} to
      * associate to a statement otherwise an exception is thrown.
      * </p>
-     * 
+     *
      * @param stmt the {@link TableStatement statement} index to associate the
      * {@link TableProtoEdge proto edges} to, which cannot be null
      * @param newEdges the {@link TableProtoEdge proto edges} array to add to
@@ -161,7 +141,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link List proto edges list}. This list is modifiable to
      * allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link List proto edges list}
      */
     public List<TableProtoEdge> getProtoEdges() {
@@ -171,7 +151,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map statement to edges associations map}. This map is
      * modifiable to allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map statement to edges associations map}
      */
     public Map<Integer, Set<Integer>> getStatementEdges() {
@@ -181,7 +161,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map edge to statements associations map}. This map is
      * modifiable to allow the edge equivalencing process to filter duplicates.
-     * 
+     *
      * @return the {@link Map edge to statements associations map}
      */
     public Map<Integer, Set<Integer>> getEdgeStatements() {
@@ -191,7 +171,7 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * Return the {@link Map proto edges to index map}. This map is unmodifiable
      * to prevent the visited state from being changed.
-     * 
+     *
      * @return the {@link Map edge to statements associations map}
      */
     public Map<TableProtoEdge, Integer> getVisitedEdges() {
@@ -343,11 +323,11 @@ public class ProtoEdgeTable extends ExternalType {
     /**
      * {@link TableProtoEdge} defines the container object for a proto network
      * edge. The {@link TableProtoEdge proto network edge} is made up of:
-     * 
+     *
      * <pre>
      * source (int), rel (RelationshipType), target (int)
      * </pre>
-     * 
+     *
      * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
      * @version 1.3 Derives from {@link ExternalType}
      */
@@ -376,11 +356,11 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Create the {@link TableProtoEdge proto edge} with the triple:
-         * 
+         *
          * <pre>
          * source, rel, target
          * </pre>
-         * 
+         *
          * @param source the {@code int} source index
          * @param relName the {@link String relationship name}
          * @param target the {@code int} target index
@@ -404,7 +384,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the source.
-         * 
+         *
          * @return the source
          */
         public int getSource() {
@@ -413,7 +393,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the {@link String relationship name}.
-         * 
+         *
          * @return the {@link String relationship name}
          */
         public String getRel() {
@@ -422,7 +402,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Return the target.
-         * 
+         *
          * @return the target
          */
         public int getTarget() {
@@ -431,7 +411,7 @@ public class ProtoEdgeTable extends ExternalType {
 
         /**
          * Compute the hash since {@link TableProtoEdge this} is immutable.
-         * 
+         *
          * @return the computed hash {@code int}
          */
         private int computeHash() {

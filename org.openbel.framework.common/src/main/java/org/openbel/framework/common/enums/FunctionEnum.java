@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.common.enums;
 
@@ -710,7 +690,7 @@ public enum FunctionEnum {
 
     /**
      * Constructor for setting enum, display value, and abbreviation.
-     * 
+     *
      * @param val Enum value
      * @param dispVal Display value
      * @param abbr Abbreviation
@@ -723,7 +703,7 @@ public enum FunctionEnum {
 
     /**
      * Constructor for setting enum and display value.
-     * 
+     *
      * @param val Enum value
      * @param dispVal Display value
      */
@@ -734,7 +714,7 @@ public enum FunctionEnum {
 
     /**
      * Returns the function enum's abbreviation.
-     * 
+     *
      * @return abbreviation; may be null
      */
     public String getAbbreviation() {
@@ -743,7 +723,7 @@ public enum FunctionEnum {
 
     /**
      * Returns the long form of the function name.
-     * 
+     *
      * @return display value
      */
     public String getDisplayValue() {
@@ -752,7 +732,7 @@ public enum FunctionEnum {
 
     /**
      * Returns this function enum's {@link ReturnType return type}.
-     * 
+     *
      * @return ReturnType
      */
     public ReturnType getReturnType() {
@@ -761,7 +741,7 @@ public enum FunctionEnum {
 
     /**
      * Returns the function enum's value.
-     * 
+     *
      * @return value
      * @see java.lang.Enum#ordinal() Contrast with {@code ordinal}
      */
@@ -779,7 +759,7 @@ public enum FunctionEnum {
 
     /**
      * Returns this function enum's language function.
-     * 
+     *
      * @return {@link Function}
      */
     public Function getFunction() {
@@ -789,7 +769,7 @@ public enum FunctionEnum {
     /**
      * Returns the function enum by its string representation, which may be
      * null.
-     * 
+     *
      * @param s Function enum string representation
      * @return FunctionEnum- null if the provided string has no function
      * representation
@@ -801,7 +781,7 @@ public enum FunctionEnum {
 
     /**
      * Returns the function enum for the <tt>value</tt> representation.
-     * 
+     *
      * @param value {@link Integer}, the value for the function enum
      * @return {@link FunctionEnum}, the function enum, or null if:
      * <ul>
@@ -819,7 +799,7 @@ public enum FunctionEnum {
 
     /**
      * Returns the function enum's language function.
-     * 
+     *
      * @param e Function enum
      * @return {@link Function}
      */
@@ -898,7 +878,7 @@ public enum FunctionEnum {
      * <p>
      * This method simply delegates to {@link Function#validArgumentCount(int)}.
      * </p>
-     * 
+     *
      * @param e Function enum
      * @param count Argument count
      * @return boolean
@@ -913,7 +893,7 @@ public enum FunctionEnum {
      * <p>
      * This method simply delegates to {@link Function#validArgumentCount(int)}.
      * </p>
-     * 
+     *
      * @param count Argument count
      * @return boolean
      */
@@ -928,7 +908,7 @@ public enum FunctionEnum {
      * This method is favored in place of {@link #fromString(String)} as it
      * provides disambiguation with other enums when used as a static import.
      * </p>
-     * 
+     *
      * @param s Function enum string representation
      * @return FunctionEnum - null if the provided string has no function
      * representation
@@ -965,7 +945,7 @@ public enum FunctionEnum {
      * <li>{@link #TRUNCATION}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @return an unmodifiable {@link Set} of protein decoration
      * {@link FunctionEnum functions}
      */
@@ -988,7 +968,7 @@ public enum FunctionEnum {
      * <li>{@link #RNA_ABUNDANCE}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @return an unmodifiable {@link Set} of abundance {@link FunctionEnum
      * functions}
      */
@@ -1014,7 +994,7 @@ public enum FunctionEnum {
      * <li>{@link #TRANSPORT_ACTIVITY}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @return an unmodifiable {@link Set} of activity {@link FunctionEnum
      * functions}
      */
@@ -1033,7 +1013,7 @@ public enum FunctionEnum {
      * <li>{@link #FUSION}</li>
      * </ul>
      * </p>
-     * 
+     *
      * @return an unmodifiable {@link Set} of mutation {@link FunctionEnum
      * functions}
      */
@@ -1044,7 +1024,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if this {@link FunctionEnum function} is considered
      * a protein <i>decorator</i>, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isProteinDecorator() {
@@ -1054,7 +1034,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if the {@link FunctionEnum function} is considered a
      * protein <i>decorator</i>, {@code false} otherwise.
-     * 
+     *
      * @param f {@link FunctionEnum}, the function, which may be null
      * @return boolean
      */
@@ -1076,7 +1056,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if this {@link FunctionEnum function} is considered
      * a mutation, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isMutation() {
@@ -1086,7 +1066,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if the {@link FunctionEnum function} is considered a
      * mutation, {@code false} otherwise.
-     * 
+     *
      * @param f {@link FunctionEnum}, the function, which may be null
      * @return boolean
      */
@@ -1107,7 +1087,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if this function's arguments follow a logical order,
      * {@code false} if order is not important.
-     * 
+     *
      * @return boolean
      */
     public boolean isSequential() {
@@ -1117,7 +1097,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if the {@link FunctionEnum function's} argument
      * follow a logical order, {@code false} if order is not important.
-     * 
+     *
      * @param f {@link FunctionEnum}, the function, which may be null
      * @return boolean
      */
@@ -1140,7 +1120,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if this function is considered a translocating
      * function, {@code false} otherwise.
-     * 
+     *
      * @return boolean
      */
     public boolean isTranslocating() {
@@ -1150,7 +1130,7 @@ public enum FunctionEnum {
     /**
      * Returns {@code true} if the {@link FunctionEnum function} is considered a
      * translocating function, {@code false} otherwise.
-     * 
+     *
      * @param f {@link FunctionEnum}, the function, which may be null
      * @return boolean
      */

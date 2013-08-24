@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.bel.xbel.model;
 
@@ -43,9 +23,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -64,8 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -90,11 +70,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -102,11 +82,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -118,11 +98,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -130,11 +110,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -146,11 +126,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the version property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getVersion() {
         return version;
@@ -158,11 +138,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the version property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setVersion(String value) {
         this.version = value;
@@ -174,11 +154,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the copyright property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCopyright() {
         return copyright;
@@ -186,11 +166,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the copyright property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCopyright(String value) {
         this.copyright = value;
@@ -202,11 +182,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the disclaimer property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDisclaimer() {
         return disclaimer;
@@ -214,11 +194,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the disclaimer property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDisclaimer(String value) {
         this.disclaimer = value;
@@ -230,11 +210,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the contactInfo property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getContactInfo() {
         return contactInfo;
@@ -242,11 +222,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the contactInfo property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setContactInfo(String value) {
         this.contactInfo = value;
@@ -258,11 +238,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the authorGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELAuthorGroup }
-     *     
+     *
      */
     public XBELAuthorGroup getAuthorGroup() {
         return authorGroup;
@@ -270,11 +250,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the authorGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELAuthorGroup }
-     *     
+     *
      */
     public void setAuthorGroup(XBELAuthorGroup value) {
         this.authorGroup = value;
@@ -286,11 +266,11 @@ public class XBELHeader
 
     /**
      * Gets the value of the licenseGroup property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link XBELLicenseGroup }
-     *     
+     *
      */
     public XBELLicenseGroup getLicenseGroup() {
         return licenseGroup;
@@ -298,11 +278,11 @@ public class XBELHeader
 
     /**
      * Sets the value of the licenseGroup property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link XBELLicenseGroup }
-     *     
+     *
      */
     public void setLicenseGroup(XBELLicenseGroup value) {
         this.licenseGroup = value;

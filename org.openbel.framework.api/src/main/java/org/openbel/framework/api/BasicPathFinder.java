@@ -1,37 +1,17 @@
 /**
- * Copyright (C) 2012 Selventa, Inc.
+ *  Copyright 2013 OpenBEL Consortium
  *
- * This file is part of the OpenBEL Framework.
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
- * The OpenBEL Framework is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the OpenBEL Framework. If not, see <http://www.gnu.org/licenses/>.
- *
- * Additional Terms under LGPL v3:
- *
- * This license does not authorize you and you are prohibited from using the
- * name, trademarks, service marks, logos or similar indicia of Selventa, Inc.,
- * or, in the discretion of other licensors or authors of the program, the
- * name, trademarks, service marks, logos or similar indicia of such authors or
- * licensors, in any marketing or advertising materials relating to your
- * distribution of the program or any covered product. This restriction does
- * not waive or limit your obligation to keep intact all copyright notices set
- * forth in the program as delivered to you.
- *
- * If you distribute the program in whole or in part, or any modified version
- * of the program, and you assume contractual liability to the recipient with
- * respect to the program or modified version, then you will indemnify the
- * authors and licensors of the program for any liabilities that these
- * contractual assumptions directly impose on those licensors and authors.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
  */
 package org.openbel.framework.api;
 
@@ -51,13 +31,13 @@ import org.openbel.framework.common.InvalidArgument;
 /**
  * Implements a basic {@link PathFinder} implementation with a max depth
  * constraint.
- * 
+ *
  * <p>
  * The max search depth constraint default is defined at
  * {@link BasicPathFinder#DEFAULT_MAX_SEARCH_DEPTH}.  To override this
  * constraints create with {@link BasicPathFinder#BasicPathFinder(int)}.
  * </p>
- * 
+ *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  */
 public class BasicPathFinder implements PathFinder {
@@ -79,7 +59,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Constructs the path finder using the default max search depth defined
      * in {@link BasicPathFinder#DEFAULT_MAX_SEARCH_DEPTH}.
-     * 
+     *
      * @param kam {@link Kam}, the KAM network to path find over, which cannot
      * be null
      */
@@ -92,7 +72,7 @@ public class BasicPathFinder implements PathFinder {
      * Constructs the path finder using the max search depth constraint defined
      * in the value <tt>maxSearchDepth</tt>.  This value must be greater than
      * zero.
-     * 
+     *
      * @param kam {@link Kam}, the KAM network to path find over, which cannot
      * be null
      * @param maxSearchDepth <tt>int</tt> the max search depth constraint to
@@ -248,7 +228,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Initializes and executes the depth-first search from {@link KamNode}
      * source to a {@link Set} of {@link KamNode} targets.
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param source {@link KamNode}, the source kam node
      * @param targets {@link Set} of {@link KamNode}, the target kam nodes
@@ -273,7 +253,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Initializes and executes a depth-first scan from {@link KamNode} source
      * given a max search depth ({@link BasicPathFinder#maxSearchDepth}).
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param source {@link KamNode}, the source kam node
      * @return the resulting paths from this depth-first scan
@@ -304,7 +284,7 @@ public class BasicPathFinder implements PathFinder {
      * This depth-first search exhaustively walks the entire {@link Kam}
      * and finds all paths from <tt>source</tt> to <tt>target</tt>.
      * </p>
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param cnode {@link KamNode} the current node to evaluate
      * @param source {@link KamNode} the source to search from
@@ -360,7 +340,7 @@ public class BasicPathFinder implements PathFinder {
      * max search depth ({@link BasicPathFinder#maxSearchDepth}) is reached.
      * When the max search depth is reached a {@link SimplePath} is added,
      * containing the {@link Stack} of {@link KamEdge}, and the algorithm continues.
-     * 
+     *
      * @param kam {@link Kam}, the kam to traverse
      * @param cnode {@link KamNode}, the current node to evaluate
      * @param source {@link KamNode}, the node to search from
@@ -411,7 +391,7 @@ public class BasicPathFinder implements PathFinder {
     /**
      * Determines whether the end of a branch was found.  This can indicate
      * that a path should be captures up to the leaf node.
-     * 
+     *
      * @param edgeStack {@link Stack} of {@link KamEdge} that holds the edges
      * on the current path
      * @param edge {@link KamEdge}, the edge to evaluate
@@ -438,7 +418,7 @@ public class BasicPathFinder implements PathFinder {
      * If the edge can be travered it will be placed on the edge {@link Stack},
      * and the edge's unvisited node will be placed on the node {@link Stack}.
      * </p>
-     * 
+     *
      * @param edge {@link KamEdge}, the kam edge to evaluate
      * @param nodeStack {@link Stack} of {@link KamNode}, the nodes on the
      * current scan from the <tt>source</tt>
