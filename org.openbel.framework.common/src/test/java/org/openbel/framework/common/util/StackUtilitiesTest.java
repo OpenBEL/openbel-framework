@@ -26,12 +26,13 @@ import org.openbel.framework.common.util.StackUtilities;
 public class StackUtilitiesTest {
 
     /**
-     * {@link StackUtilities#myFrame()} test.
+     * {@link StackUtilities#myFrame()} test.  This test asserts a specific
+     * line number of this file so be aware when adding to this class.
      */
     @Test
     public void test() {
         StackTraceElement myFrame = StackUtilities.myFrame();
-        assertEquals(53, myFrame.getLineNumber());
+        assertEquals(34, myFrame.getLineNumber());
         assertEquals(getClass().getName(), myFrame.getClassName());
         assertEquals("StackUtilitiesTest.java", myFrame.getFileName());
         assertEquals("test", myFrame.getMethodName());
