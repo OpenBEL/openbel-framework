@@ -63,7 +63,7 @@ import org.openbel.framework.common.model.Term;
 
 /**
  * StatementTable holds the statement values. This class manages the statements
- * through the {@link #addStatement(TableStatement, int)} operation.
+ * through the {@link #addStatement(TableStatement, Statement, int)} operation.
  *
  * @author Anthony Bargnesi {@code <abargnesi@selventa.com>}
  * @version 1.3 Derives from {@link ExternalType}
@@ -143,6 +143,12 @@ public class StatementTable extends ExternalType {
             int did) {
         if (tblStatement == null) {
             throw new InvalidArgument("statement is null");
+        }
+
+        // duplicate statement check
+        Integer existingIndex = visitedStatements.get(statement);
+        if (existingIndex != null) {
+            return existingIndex;
         }
 
         int nsid = statements.size();
