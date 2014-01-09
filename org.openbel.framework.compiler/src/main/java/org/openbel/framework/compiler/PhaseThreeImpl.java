@@ -90,23 +90,18 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
     private final ProtoNetworkService protoNetworkService;
     private final DefaultPhaseTwo p2;
 
-    private final static String PF_LITERAL;
-    private final static String NC_LITERAL;
-    private final static String[] ACT_LITERALS;
+    private final static String PF_SHORT;
+    private final static String PF_LONG;
+    private final static String NC_SHORT;
+    private final static String NC_LONG;
     static {
         String suffix = "(" + PARAMETER_SUBSTITUTION + ")";
         // proteinAbundance(#) - the p() form w/in the proto-network
-        PF_LITERAL = ProteinAbundance.NAME.concat(suffix);
+        PF_SHORT = ProteinAbundance.ABBREVIATION.concat(suffix);
+        PF_LONG = ProteinAbundance.NAME.concat(suffix);
         // complexAbundance(#) - the complex() form w/in the proto-network
-        NC_LITERAL = ComplexAbundance.NAME.concat(suffix);
-
-        final String ACT_TERM = "(".concat(PF_LITERAL).concat(")");
-        final Set<FunctionEnum> actFunctions = FunctionEnum.getActivities();
-        ACT_LITERALS = new String[actFunctions.size()];
-        int i = 0;
-        for (final FunctionEnum f : actFunctions) {
-            ACT_LITERALS[i++] = f.getDisplayValue().concat(ACT_TERM);
-        }
+        NC_SHORT = ComplexAbundance.ABBREVIATION.concat(suffix);
+        NC_LONG = ComplexAbundance.NAME.concat(suffix);
     }
 
     /**
@@ -133,7 +128,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
         DocumentModificationResult pr = new DocumentModificationResult();
 
         // Search for all p(#) parameters within the network.
-        Set<TableEntry> networkLiterals = search(network, PF_LITERAL);
+        Set<TableEntry> networkLiterals = search(network, PF_SHORT, PF_LONG);
 
         // Load the equivalences
         Set<EquivalenceDataIndex> equivs;
@@ -314,11 +309,13 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
         final List<Statement> isaStmts = new ArrayList<Statement>();
         final Set<FunctionEnum> actFunctions = FunctionEnum.getActivities();
         for (final FunctionEnum f : actFunctions) {
-            final String actLiteral = f.getDisplayValue().concat("(")
-                    .concat(PF_LITERAL).concat(")");
+            final String actShort = f.getShortestForm().concat("(")
+                    .concat(PF_SHORT).concat(")");
+            final String actLong = f.getDisplayValue().concat("(")
+                    .concat(PF_LONG).concat(")");
 
             // find parameters for this activity function in the proto network
-            final Set<TableEntry> entries = search(p, actLiteral);
+            final Set<TableEntry> entries = search(p, actShort, actLong);
 
             // if no results for activity function, continue to next one
             if (entries.isEmpty()) {
@@ -426,7 +423,7 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
         DocumentModificationResult pr = new DocumentModificationResult();
 
         // Search for all complex(#) parameters within the network.
-        Set<TableEntry> networkLiterals = search(network, NC_LITERAL);
+        Set<TableEntry> networkLiterals = search(network, NC_SHORT, NC_LONG);
 
         // Load the equivalences
         Set<EquivalenceDataIndex> equivs;
@@ -726,8 +723,8 @@ public class PhaseThreeImpl implements DefaultPhaseThree {
      *
      * @param network {@link ProtoNetwork}, the proto network containing
      * {@link Parameter parameters} that we'll get {@link String uuids} for
-     * @param lookups {@link Map} of {@link JDBMLookup} keyed by resource
-     * location and assumed to be open / ready for lookups
+     * @param lookups {@link Map} of {@link JDBMEquivalenceLookup} keyed by
+     * resource location and assumed to be open / ready for lookups
      * @param stmts {@link List} of {@link Statement}, the statements
      * that contain object-term {@link Parameter parameters} that we'll get
      * {@link SkinnyUUID}s for
