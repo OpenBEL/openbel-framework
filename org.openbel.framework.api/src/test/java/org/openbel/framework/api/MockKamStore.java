@@ -1,9 +1,12 @@
 package org.openbel.framework.api;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
+import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
@@ -18,6 +21,7 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
 public class MockKamStore implements KAMStore {
@@ -173,6 +177,16 @@ public class MockKamStore implements KAMStore {
 
     @Override
     public List<BelStatement> getSupportingEvidence(KamEdge edge) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges, AnnotationFilter filter) {
         throw new UnsupportedOperationException();
     }
 

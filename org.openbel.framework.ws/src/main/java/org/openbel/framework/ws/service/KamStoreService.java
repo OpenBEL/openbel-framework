@@ -37,19 +37,7 @@ package org.openbel.framework.ws.service;
 
 import java.util.List;
 
-import org.openbel.framework.ws.model.AnnotationType;
-import org.openbel.framework.ws.model.BelDocument;
-import org.openbel.framework.ws.model.BelStatement;
-import org.openbel.framework.ws.model.BelTerm;
-import org.openbel.framework.ws.model.Citation;
-import org.openbel.framework.ws.model.CitationType;
-import org.openbel.framework.ws.model.Kam;
-import org.openbel.framework.ws.model.KamEdge;
-import org.openbel.framework.ws.model.KamFilter;
-import org.openbel.framework.ws.model.KamHandle;
-import org.openbel.framework.ws.model.KamNode;
-import org.openbel.framework.ws.model.Namespace;
-import org.openbel.framework.ws.model.Node;
+import org.openbel.framework.ws.model.*;
 
 /**
  * TODO Provide documentation
@@ -75,6 +63,9 @@ public interface KamStoreService {
             throws KamStoreServiceException;
 
     public List<BelStatement> getSupportingEvidence(final KamEdge kamEdge,
+            final KamFilter kamFilter) throws KamStoreServiceException;
+
+    public List<EdgeStatement> getSupportingEvidenceMultiple(final List<KamEdge> kamEdges,
             final KamFilter kamFilter) throws KamStoreServiceException;
 
     public List<KamNode> getKamNodes(final KamHandle kamHandle,

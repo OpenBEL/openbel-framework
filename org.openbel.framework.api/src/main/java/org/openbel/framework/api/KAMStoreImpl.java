@@ -42,13 +42,8 @@ import static org.openbel.framework.common.InvalidArgument.*;
 import static org.openbel.framework.common.cfg.SystemConfiguration.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamEdge;
 import org.openbel.framework.api.Kam.KamNode;
@@ -72,6 +67,7 @@ import org.openbel.framework.common.SearchFunction;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 import org.openbel.framework.core.df.DBConnection;
 import org.openbel.framework.core.df.external.ExternalResourceException;
@@ -92,6 +88,7 @@ public final class KAMStoreImpl implements KAMStore {
     /* Map populated as KAMs are requested. */
     private Map<KamInfo, KAMStoreDao> daomap;
     private Map<KamInfo, KAMUpdateDao> updatemap;
+    private Map<KamInfo, EvidenceDao> evdaomap;
 
     /**
      * Creates a KAM store associated to the provided database connection.
@@ -103,6 +100,7 @@ public final class KAMStoreImpl implements KAMStore {
         this.catalog = getSystemConfiguration().getKamCatalogSchema();
         this.prefix = getSystemConfiguration().getKamSchemaPrefix();
         daomap = new HashMap<KamInfo, KAMStoreDao>();
+        evdaomap = new HashMap<KamInfo, EvidenceDao>();
         updatemap = new HashMap<KAMCatalogDao.KamInfo, KAMUpdateDao>();
     }
 
@@ -153,6 +151,12 @@ public final class KAMStoreImpl implements KAMStore {
             daomap.remove(ki);
         }
 
+        EvidenceDao evdao = evdaomap.get(ki);
+        if (evdao != null) {
+            evdao.terminate();
+            evdaomap.remove(ki);
+        }
+
         KAMUpdateDao update = updatemap.get(ki);
         if (update != null) {
             update.terminate();
@@ -173,6 +177,14 @@ public final class KAMStoreImpl implements KAMStore {
             Entry<KamInfo, KAMStoreDao> next = iter.next();
             next.getValue().terminate();
             iter.remove();
+        }
+
+        Set<Entry<KamInfo, EvidenceDao>> evEntries = entries(evdaomap);
+        Iterator<Entry<KamInfo, EvidenceDao>> evIter = evEntries.iterator();
+        while (evIter.hasNext()) {
+            Entry<KamInfo, EvidenceDao> next = evIter.next();
+            next.getValue().terminate();
+            evIter.remove();
         }
 
         Set<Entry<KamInfo, KAMUpdateDao>> e = entries(updatemap);
@@ -395,8 +407,10 @@ public final class KAMStoreImpl implements KAMStore {
         Kam kam = kamEdge.getKam();
         if (!exists(kam)) return null;
         try {
-            return kamStoreDao(kam.getKamInfo())
+            List<BelStatement> results = kamStoreDao(kam.getKamInfo())
                     .getSupportingEvidence(kamEdge, annotationFilter);
+            if (results.isEmpty()) return emptyList();
+            return results;
         } catch (SQLException e) {
             final String fmt = "error getting evidence for %s";
             final String msg = format(fmt, kam.getKamInfo().getName());
@@ -412,6 +426,44 @@ public final class KAMStoreImpl implements KAMStore {
         if (kamEdge == null) throw new InvalidArgument("kamEdge", kamEdge);
         if (!exists(kamEdge.getKam())) return null;
         return getSupportingEvidence(kamEdge, null);
+    }
+
+    @Override
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges) {
+        if (edges == null) throw new InvalidArgument("edges", edges);
+        if (edges.isEmpty()) return emptyMap();
+
+        KamEdge first = edges.iterator().next();
+        Kam kam = first.getKam();
+        if (!exists(kam)) return null;
+        try {
+            Map<KamEdge, List<Statement>> results = evidenceDao(kam.getKamInfo()).evidence(edges);
+            if (results.isEmpty()) return emptyMap();
+            return results;
+        } catch (SQLException e) {
+            final String fmt = "error getting evidence for %s";
+            final String msg = format(fmt, kam.getKamInfo().getName());
+            throw new KAMStoreException(msg, e);
+        }
+    }
+
+    @Override
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges, AnnotationFilter filter) {
+        if (edges == null) throw new InvalidArgument("edges", edges);
+        if (edges.isEmpty()) return emptyMap();
+
+        KamEdge first = edges.iterator().next();
+        Kam kam = first.getKam();
+        if (!exists(kam)) return null;
+        try {
+            Map<KamEdge, List<Statement>> results = evidenceDao(kam.getKamInfo()).evidence(edges, filter);
+            if (results.isEmpty()) return emptyMap();
+            return results;
+        } catch (SQLException e) {
+            final String fmt = "error getting evidence for %s";
+            final String msg = format(fmt, kam.getKamInfo().getName());
+            throw new KAMStoreException(msg, e);
+        }
     }
 
     /**
@@ -812,6 +864,7 @@ public final class KAMStoreImpl implements KAMStore {
     private KAMStoreDao kamStoreDao(KamInfo ki) throws SQLException {
         KAMStoreDao dao = daomap.get(ki);
         if (dao != null) return dao;
+
         dao = new KAMStoreDaoImpl(ki.getKamDbObject().getSchemaName(), dbc);
         daomap.put(ki, dao);
         return dao;
@@ -820,14 +873,26 @@ public final class KAMStoreImpl implements KAMStore {
     private KAMUpdateDao kamUpdateDao(KamInfo ki) throws SQLException {
         KAMUpdateDao dao = updatemap.get(ki);
         if (dao != null) return dao;
+
         String schema = ki.getKamDbObject().getSchemaName();
         dao = new KAMUpdateDaoImpl(dbc, schema);
         updatemap.put(ki, dao);
         return dao;
     }
 
+    private EvidenceDao evidenceDao(KamInfo ki) throws SQLException {
+        EvidenceDao dao = evdaomap.get(ki);
+        if (dao != null) return dao;
+
+        String schema = ki.getKamDbObject().getSchemaName();
+        dao = new EvidenceDaoImpl(dbc, schema);
+        evdaomap.put(ki, dao);
+        return dao;
+    }
+
     private KAMCatalogDao kamCatalogDao() throws SQLException {
         if (_dao != null) return _dao;
+
         _dao = new KAMCatalogDao(dbc, catalog, prefix);
         return _dao;
     }

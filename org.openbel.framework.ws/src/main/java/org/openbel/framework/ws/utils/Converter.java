@@ -47,6 +47,7 @@ import static org.openbel.framework.common.enums.CitationType.JOURNAL;
 import static org.openbel.framework.common.enums.CitationType.ONLINE_RESOURCE;
 import static org.openbel.framework.common.enums.CitationType.OTHER;
 import static org.openbel.framework.common.enums.CitationType.PUBMED;
+import static org.openbel.framework.ws.model.CitationType.fromValue;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -80,35 +81,13 @@ import org.openbel.framework.api.internal.KAMStoreDaoImpl.TermParameter;
 import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.ReturnType;
+import org.openbel.framework.common.model.*;
 import org.openbel.framework.ws.dialect.BELSyntax;
-import org.openbel.framework.ws.model.AnnotationDefinitionType;
-import org.openbel.framework.ws.model.AnnotationFilterCriteria;
-import org.openbel.framework.ws.model.AnnotationType;
-import org.openbel.framework.ws.model.BelDocument;
-import org.openbel.framework.ws.model.BelDocumentFilterCriteria;
-import org.openbel.framework.ws.model.BelStatement;
-import org.openbel.framework.ws.model.BelSyntax;
-import org.openbel.framework.ws.model.BelTerm;
+import org.openbel.framework.ws.model.*;
+import org.openbel.framework.ws.model.Annotation;
 import org.openbel.framework.ws.model.Citation;
-import org.openbel.framework.ws.model.CitationFilterCriteria;
-import org.openbel.framework.ws.model.CitationType;
-import org.openbel.framework.ws.model.EdgeDirectionType;
-import org.openbel.framework.ws.model.EdgeFilter;
-import org.openbel.framework.ws.model.FunctionReturnType;
-import org.openbel.framework.ws.model.FunctionReturnTypeFilterCriteria;
-import org.openbel.framework.ws.model.FunctionType;
-import org.openbel.framework.ws.model.FunctionTypeFilterCriteria;
-import org.openbel.framework.ws.model.Kam;
-import org.openbel.framework.ws.model.KamEdge;
-import org.openbel.framework.ws.model.KamFilter;
-import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.Namespace;
-import org.openbel.framework.ws.model.NamespaceFilterCriteria;
-import org.openbel.framework.ws.model.NodeFilter;
-import org.openbel.framework.ws.model.ObjectFactory;
-import org.openbel.framework.ws.model.RelationshipType;
-import org.openbel.framework.ws.model.RelationshipTypeFilterCriteria;
-import org.openbel.framework.ws.model.SimplePath;
+import org.openbel.framework.ws.model.Statement;
 
 /**
  * Provides static converter methods to go from KamStore objects to JAXB
@@ -510,6 +489,75 @@ public class Converter {
 
         return belStatement;
 
+    }
+
+    /**
+     * @param statement
+     * @return
+     */
+    public static Statement
+    convert(org.openbel.framework.common.model.Statement statement) {
+        Statement wsStmt = OBJECT_FACTORY.createStatement();
+        wsStmt.setStatement(statement.toBELShortForm());
+
+        AnnotationGroup group = statement.getAnnotationGroup();
+        if (group != null) {
+            wsStmt.setCitation(convert(group.getCitation()));
+            List<org.openbel.framework.common.model.Annotation> annotations = group.getAnnotations();
+            if (hasItems(annotations)) {
+                for (org.openbel.framework.common.model.Annotation annotation : annotations) {
+                    wsStmt.getAnnotations().add(convert(annotation));
+                }
+            }
+        }
+        return wsStmt;
+    }
+
+    public static Citation convert(org.openbel.framework.common.model.Citation citation) {
+        if (citation == null) return null;
+
+        Citation wsCitation = OBJECT_FACTORY.createCitation();
+        wsCitation.setId(citation.getReference());
+        if (citation.getType() != null) {
+            String value = citation.getType().getDisplayValue().toUpperCase().replace(' ', '_');
+            wsCitation.setCitationType(fromValue(value));
+        }
+        if (citation.getName() != null) {
+            wsCitation.setName(citation.getName());
+        }
+        if (citation.getDate() != null) {
+            try {
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTime(citation.getDate().getTime());
+                wsCitation.setPublicationDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar));
+            } catch (DatatypeConfigurationException e) {
+                // Swallowed
+            }
+        }
+        if (citation.getAuthors() != null) {
+            wsCitation.getAuthors().addAll(citation.getAuthors());
+        }
+        wsCitation.setComment(citation.getComment());
+        return wsCitation;
+    }
+
+    public static Annotation convert(org.openbel.framework.common.model.Annotation annotation) {
+        if (annotation == null) return null;
+
+        Annotation wsAnnotation = OBJECT_FACTORY.createAnnotation();
+        AnnotationType wsAnnotationType = OBJECT_FACTORY.createAnnotationType();
+
+        AnnotationDefinition def = annotation.getDefinition();
+        if (def.getId() != null) wsAnnotationType.setName(def.getId());
+        if (def.getDescription() != null) wsAnnotationType.setDescription(def.getDescription());
+        if (def.getUsage() != null) wsAnnotationType.setUsage(def.getUsage());
+        if (def.getType() != null) {
+            AnnotationDefinitionType ad = AnnotationDefinitionType.fromValue(def.getType().toString());
+            wsAnnotationType.setAnnotationDefinitionType(ad);
+        }
+        wsAnnotation.setAnnotationType(wsAnnotationType);
+        wsAnnotation.setValue(annotation.getValue());
+        return wsAnnotation;
     }
 
     /**

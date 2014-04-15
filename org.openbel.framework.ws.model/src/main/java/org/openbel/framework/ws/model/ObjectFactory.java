@@ -218,6 +218,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetSupportingEvidenceMultipleResponse }
+     *
+     */
+    public GetSupportingEvidenceMultipleResponse
+    createGetSupportingEvidenceMultipleResponse() {
+        return new GetSupportingEvidenceMultipleResponse();
+    }
+
+    /**
      * Create an instance of {@link KamHandle }
      *
      */
@@ -666,6 +675,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetSupportingEvidenceMultipleRequest }
+     *
+     */
+    public GetSupportingEvidenceMultipleRequest
+            createGetSupportingEvidenceMultipleRequest() {
+        return new GetSupportingEvidenceMultipleRequest();
+    }
+
+    /**
      * Create an instance of {@link ResolveEdgesResponse }
      *
      */
@@ -703,6 +721,14 @@ public class ObjectFactory {
      */
     public BelStatement createBelStatement() {
         return new BelStatement();
+    }
+
+    /**
+     * Create an instance of {@link Statement }
+     *
+     */
+    public Statement createStatement() {
+        return new Statement();
     }
 
     /**

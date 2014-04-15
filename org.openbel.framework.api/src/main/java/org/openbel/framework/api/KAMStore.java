@@ -36,7 +36,9 @@
 package org.openbel.framework.api;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.openbel.framework.api.Kam.KamEdge;
@@ -56,6 +58,7 @@ import org.openbel.framework.common.InvalidArgument;
 import org.openbel.framework.common.enums.CitationType;
 import org.openbel.framework.common.enums.FunctionEnum;
 import org.openbel.framework.common.enums.RelationshipType;
+import org.openbel.framework.common.model.Statement;
 import org.openbel.framework.common.protonetwork.model.SkinnyUUID;
 
 /**
@@ -280,6 +283,10 @@ public interface KAMStore {
      * @throws KAMStoreException Thrown if a database error occurred
      */
     public List<BelStatement> getSupportingEvidence(KamEdge edge);
+
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges);
+
+    public Map<KamEdge, List<Statement>> getSupportingEvidence(Collection<KamEdge> edges, AnnotationFilter filter);
 
     /**
      * Get the list of {@link BelTerm} for a {@link KamNode node}.

@@ -234,6 +234,17 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="Statement">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="statement" type="xs:string" minOccurs="0" />
+            <xs:element name="annotations" type="bfapi:Annotation" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="citation" type="bfapi:Citation" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="BelStatement">
         <xs:annotation>
             <xs:documentation>TODO - Document</xs:documentation>
@@ -247,6 +258,16 @@
             <xs:element name="annotations" type="bfapi:Annotation" minOccurs="0" maxOccurs="unbounded" />
             <xs:element name="citation" type="bfapi:Citation" minOccurs="0" />
             <xs:element name="document" type="bfapi:BelDocument" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="EdgeStatement">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+            <xs:element name="statement" type="bfapi:Statement" />
         </xs:sequence>
     </xs:complexType>
 

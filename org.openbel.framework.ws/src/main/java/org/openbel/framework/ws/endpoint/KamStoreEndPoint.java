@@ -41,33 +41,7 @@ import java.util.List;
 
 import org.openbel.framework.ws.core.MissingRequest;
 import org.openbel.framework.ws.core.RequestException;
-import org.openbel.framework.ws.model.AnnotationType;
-import org.openbel.framework.ws.model.BelDocument;
-import org.openbel.framework.ws.model.BelStatement;
-import org.openbel.framework.ws.model.BelTerm;
-import org.openbel.framework.ws.model.Citation;
-import org.openbel.framework.ws.model.CitationType;
-import org.openbel.framework.ws.model.GetAnnotationTypesRequest;
-import org.openbel.framework.ws.model.GetAnnotationTypesResponse;
-import org.openbel.framework.ws.model.GetBelDocumentsRequest;
-import org.openbel.framework.ws.model.GetBelDocumentsResponse;
-import org.openbel.framework.ws.model.GetCatalogRequest;
-import org.openbel.framework.ws.model.GetCatalogResponse;
-import org.openbel.framework.ws.model.GetCitationsRequest;
-import org.openbel.framework.ws.model.GetCitationsResponse;
-import org.openbel.framework.ws.model.GetNamespacesRequest;
-import org.openbel.framework.ws.model.GetNamespacesResponse;
-import org.openbel.framework.ws.model.GetSupportingEvidenceRequest;
-import org.openbel.framework.ws.model.GetSupportingEvidenceResponse;
-import org.openbel.framework.ws.model.GetSupportingTermsRequest;
-import org.openbel.framework.ws.model.GetSupportingTermsResponse;
-import org.openbel.framework.ws.model.Kam;
-import org.openbel.framework.ws.model.KamEdge;
-import org.openbel.framework.ws.model.KamFilter;
-import org.openbel.framework.ws.model.KamHandle;
-import org.openbel.framework.ws.model.KamNode;
-import org.openbel.framework.ws.model.Namespace;
-import org.openbel.framework.ws.model.ObjectFactory;
+import org.openbel.framework.ws.model.*;
 import org.openbel.framework.ws.service.KamStoreService;
 import org.openbel.framework.ws.service.KamStoreServiceException;
 import org.openbel.framework.ws.utils.ObjectFactorySingleton;
@@ -91,6 +65,8 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
     private static final String GET_CATALOG_REQUEST = "GetCatalogRequest";
     private static final String GET_SUPPORTING_EVIDENCE_REQUEST =
             "GetSupportingEvidenceRequest";
+    private static final String GET_SUPPORTING_EVIDENCE_MULTIPLE_REQUEST =
+            "GetSupportingEvidenceMultipleRequest";
     private static final String GET_SUPPORTING_TERMS_REQUEST =
             "GetSupportingTermsRequest";
     private static final ObjectFactory OBJECT_FACTORY = ObjectFactorySingleton
@@ -309,6 +285,45 @@ public class KamStoreEndPoint extends WebServiceEndpoint {
             response.getStatements().add(belStatement);
         }
 
+        return response;
+    }
+
+    /**
+     *
+     * @param supportingEvidenceMultipleRequest
+     * @return
+     * @throws Exception
+     */
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_SUPPORTING_EVIDENCE_MULTIPLE_REQUEST)
+    @ResponsePayload
+    public GetSupportingEvidenceMultipleResponse getSupportingEvidenceMultiple(
+            @RequestPayload GetSupportingEvidenceMultipleRequest request)
+            throws Exception {
+
+        // validate request
+        if (request == null) {
+            throw new MissingRequest(GET_SUPPORTING_EVIDENCE_MULTIPLE_REQUEST);
+        }
+
+        // Make sure a KamEdge was specified in the request
+        List<KamEdge> kamEdges = request.getKamEdges();
+        if (null == kamEdges) {
+            throw new KamStoreServiceException("kamEdges payload is missing");
+        }
+        if (kamEdges.isEmpty()) {
+            throw new KamStoreServiceException("kamEdges payload is empty");
+        }
+
+        // Check for the optional KamFilter
+        KamFilter kamFilter = request.getFilter();
+
+        GetSupportingEvidenceMultipleResponse response =
+                OBJECT_FACTORY.createGetSupportingEvidenceMultipleResponse();
+
+        List<EdgeStatement> edgeStatements =
+                kamStoreService.getSupportingEvidenceMultiple(kamEdges, kamFilter);
+
+        response.getEdgeStatements().addAll(edgeStatements);
         return response;
     }
 

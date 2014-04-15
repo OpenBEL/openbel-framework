@@ -293,6 +293,29 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="GetSupportingEvidenceMultipleRequest">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="kamEdges" type="bfapi:KamEdge" maxOccurs="unbounded"/>
+                <xs:element name="filter" type="bfapi:KamFilter" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetSupportingEvidenceMultipleResponse">
+        <xs:annotation>
+            <xs:documentation>TODO - Document</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="edgeStatements" type="bfapi:EdgeStatement" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="GetSupportingTermsRequest">
         <xs:annotation>
             <xs:documentation>TODO - Document</xs:documentation>

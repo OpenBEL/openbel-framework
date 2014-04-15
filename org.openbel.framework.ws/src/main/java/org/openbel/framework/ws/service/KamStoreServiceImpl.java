@@ -44,28 +44,19 @@ import static org.openbel.framework.ws.utils.Converter.convert;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import org.openbel.framework.api.KamCacheService;
-import org.openbel.framework.api.KAMStore;
-import org.openbel.framework.api.KAMStoreException;
+import org.openbel.framework.api.*;
 import org.openbel.framework.api.internal.KAMCatalogDao;
 import org.openbel.framework.api.internal.KAMCatalogDao.AnnotationFilter;
 import org.openbel.framework.api.internal.KAMCatalogDao.KamInfo;
 import org.openbel.framework.api.internal.KAMStoreDaoImpl.BelDocumentInfo;
+import org.openbel.framework.common.model.Statement;
+import org.openbel.framework.ws.model.*;
 import org.openbel.framework.ws.model.AnnotationFilterCriteria;
-import org.openbel.framework.ws.model.AnnotationType;
-import org.openbel.framework.ws.model.BelDocument;
-import org.openbel.framework.ws.model.BelStatement;
-import org.openbel.framework.ws.model.BelTerm;
 import org.openbel.framework.ws.model.Citation;
-import org.openbel.framework.ws.model.CitationType;
 import org.openbel.framework.ws.model.Kam;
-import org.openbel.framework.ws.model.KamEdge;
-import org.openbel.framework.ws.model.KamFilter;
-import org.openbel.framework.ws.model.KamHandle;
-import org.openbel.framework.ws.model.KamNode;
 import org.openbel.framework.ws.model.Namespace;
-import org.openbel.framework.ws.model.Node;
 import org.openbel.framework.ws.utils.Converter;
 import org.openbel.framework.ws.utils.Converter.KamStoreObjectRef;
 import org.openbel.framework.ws.utils.InvalidIdException;
@@ -275,6 +266,101 @@ public class KamStoreServiceImpl implements KamStoreService {
         }
 
         return list;
+    }
+
+    @Override
+    public List<EdgeStatement> getSupportingEvidenceMultiple(List<KamEdge> kamEdges, KamFilter kamFilter) throws KamStoreServiceException {
+        List<EdgeStatement> list = new ArrayList<EdgeStatement>();
+        if (kamEdges == null || kamEdges.isEmpty()) return null;
+
+        try {
+            // get KAM from first edge
+            final List<org.openbel.framework.api.Kam.KamEdge> edges = new ArrayList<org.openbel.framework.api.Kam.KamEdge>(kamEdges.size());
+            KamEdge first = kamEdges.iterator().next();
+
+            // Get the real Kam from the KamCache
+            org.openbel.framework.api.Kam kam;
+            try {
+                KamStoreObjectRef ref = Converter.decodeEdge(first);
+                final KamInfo info = getKamInfo(ref, "Error processing KAM edge");
+                kam = kamCacheService.getKam(info.getName());
+                if (kam == null) {
+                    throw new KamStoreServiceException(new InvalidIdException(ref.getEncodedString()));
+                }
+            } catch (InvalidIdException e) {
+                throw new KamStoreServiceException("Error processing KAM edge", e);
+            }
+
+            // Convert kam edges
+            for (KamEdge kamEdge : kamEdges) {
+                // Get the real KamEdge from the Kam
+                try {
+                    KamStoreObjectRef ref = Converter.decodeEdge(kamEdge);
+                    edges.add(kam.findEdge(ref.getKamStoreObjectId()));
+                } catch (InvalidIdException e) {
+                    throw new KamStoreServiceException("Error processing KAM edge", e);
+                }
+            }
+
+            // Get the supporting evidence for the edge
+            AnnotationFilter annotationFilter = null;
+            if (kamFilter != null) {
+                // including edge and filter
+                final List<AnnotationFilterCriteria> criteria =
+                        kamFilter.getAnnotationCriteria();
+
+                final List<org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType> al =
+                        new ArrayList<org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType>();
+                for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType a : kAMStore
+                        .getAnnotationTypes(kam)) {
+                    al.add(a);
+                }
+
+                annotationFilter = kam.getKamInfo().createAnnotationFilter();
+
+                for (AnnotationFilterCriteria c : criteria) {
+                    final AnnotationType type = c.getAnnotationType();
+
+                    for (org.openbel.framework.api.internal.KAMStoreDaoImpl.AnnotationType a : al) {
+                        if (type.getName().equals(a.getName())) {
+                            org.openbel.framework.api.AnnotationFilterCriteria afc =
+                                    new org.openbel.framework.api.AnnotationFilterCriteria(
+                                            a);
+                            afc.getValues().addAll(c.getValueSet());
+                            afc.setInclude(c.isIsInclude());
+
+                            annotationFilter.add(afc);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // retrieve evidence (optionally use annotation filter)
+            Map<org.openbel.framework.api.Kam.KamEdge, List<org.openbel.framework.common.model.Statement>> evidence;
+            evidence = (annotationFilter != null) ?
+                    kAMStore.getSupportingEvidence(edges, annotationFilter) :
+                    kAMStore.getSupportingEvidence(edges);
+
+
+            // convert to ws
+            for (Map.Entry<org.openbel.framework.api.Kam.KamEdge, List<Statement>> entry : evidence.entrySet()) {
+                String id = KamStoreObjectRef.encode(kam.getKamInfo(), entry.getKey());
+
+                for (Statement stmt : entry.getValue()) {
+                    org.openbel.framework.ws.model.Statement wsStmt = convert(stmt);
+                    EdgeStatement edgeStatement = new EdgeStatement();
+                    edgeStatement.setId(id);
+                    edgeStatement.setStatement(wsStmt);
+                    list.add(edgeStatement);
+                }
+            }
+
+            return list;
+        } catch (Throwable e) {
+            logger.warn(e.getMessage());
+            throw new KamStoreServiceException(e);
+        }
     }
 
     /**
