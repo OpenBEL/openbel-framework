@@ -16,8 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.util.Arrays.asList;
-import static java.util.Objects.requireNonNull;
-import static org.openbel.framework.common.BELUtilities.noItems;
 import static org.openbel.framework.common.BELUtilities.sizedHashMap;
 import static org.openbel.framework.common.enums.CitationType.fromString;
 
@@ -52,7 +50,7 @@ public class EvidenceDaoImpl extends AbstractJdbcDAO implements EvidenceDao {
      */
     public Map<KamEdge, List<Statement>>
             evidence(Collection<KamEdge> edges) throws SQLException {
-        requireNonNull(edges);
+        if (edges == null) throw new IllegalArgumentException("edges is null");
 
         PreparedStatement ps;
         ResultSet rs = null;
@@ -75,8 +73,10 @@ public class EvidenceDaoImpl extends AbstractJdbcDAO implements EvidenceDao {
                             // iterating a different statement,
                             // save previous
                             if (stmt != null) {
-                                if (citation != null && !citation.isEmpty())
+                                if (!citation.isEmpty()) {
                                     stmt.getAnnotationGroup().setCitation(fromMap(citation));
+                                }
+
                                 evidence.add(stmt);
                                 citation.clear();
                             }
@@ -95,7 +95,7 @@ public class EvidenceDaoImpl extends AbstractJdbcDAO implements EvidenceDao {
 
                 // add set of rows for last statement
                 if (stmt != null) {
-                    if (citation != null && !citation.isEmpty())
+                    if (!citation.isEmpty())
                         stmt.getAnnotationGroup().setCitation(fromMap(citation));
                     evidence.add(stmt);
                     citation.clear();
