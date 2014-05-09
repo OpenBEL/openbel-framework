@@ -96,7 +96,7 @@ public class BELUtilities {
     private static final int MIN_PORT = 0;
     private static final int MAX_PORT = 65535;
     private static final int MIN_EPHEMERAL_PORT = 49152;
-    private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W_]");
+    private static final Pattern NON_WORD_PATTERN = Pattern.compile("[\\W]");
     private static final Set<String> _functions = new HashSet<String>();
     private static final Set<String> _relationships = new HashSet<String>();
     private static final Set<String> _keywords = new HashSet<String>();
