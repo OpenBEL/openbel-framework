@@ -8,11 +8,14 @@ options {
 
 @lexer::header {
     package org.openbel.framework.common.bel.parser;
+
+    import org.openbel.bel.model.BELParseErrorException;
 }
 
 @header {
     package org.openbel.framework.common.bel.parser;
   
+    import org.openbel.bel.model.BELParseErrorException;
     import org.openbel.framework.common.model.BELObject;
     import org.openbel.framework.common.model.Namespace;
     import org.openbel.framework.common.model.Parameter;
@@ -151,8 +154,11 @@ param returns [Parameter r]:
             }
             
             $r = new Parameter();
-            $r.setValue($QUOTED_VALUE.getText());
             $r.setNamespace(ns);
+
+            // Strip quotes
+            String quoted = $QUOTED_VALUE.getText();
+            $r.setValue(quoted.substring(1, quoted.length() - 1));
         }
     )
     ;
