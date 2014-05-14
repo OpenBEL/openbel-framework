@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 BELScriptWalker.g 2014-05-08 11:53:37
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 BELScriptWalker.g 2014-05-14 13:14:52
 
     package org.openbel.framework.common.bel.parser;
 
@@ -2653,9 +2653,7 @@ public class BELScriptWalker extends TreeParser {
                     }
 
                     if (quo != null) {
-                        // Strip quotes
-                        String quoted = quo.getText();
-                        pBuilder.append(quoted.substring(1, quoted.length() - 1));
+                        pBuilder.append(quo.getText());
                     }
 
                     retval.r = pBuilder.toString();
@@ -2683,7 +2681,7 @@ public class BELScriptWalker extends TreeParser {
     };
 
     // $ANTLR start "function"
-    // BELScriptWalker.g:491:1: function returns [String r] : (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' ) ;
+    // BELScriptWalker.g:489:1: function returns [String r] : (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' ) ;
     public final BELScriptWalker.function_return function() throws RecognitionException {
         BELScriptWalker.function_return retval = new BELScriptWalker.function_return();
         retval.start = input.LT(1);
@@ -2698,12 +2696,12 @@ public class BELScriptWalker extends TreeParser {
         CommonTree fv_tree=null;
 
         try {
-            // BELScriptWalker.g:491:28: ( (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' ) )
-            // BELScriptWalker.g:492:5: (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' )
+            // BELScriptWalker.g:489:28: ( (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' ) )
+            // BELScriptWalker.g:490:5: (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' )
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            // BELScriptWalker.g:492:5: (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' )
+            // BELScriptWalker.g:490:5: (fv= 'proteinAbundance' | fv= 'p' | fv= 'rnaAbundance' | fv= 'r' | fv= 'abundance' | fv= 'a' | fv= 'microRNAAbundance' | fv= 'm' | fv= 'geneAbundance' | fv= 'g' | fv= 'biologicalProcess' | fv= 'bp' | fv= 'pathology' | fv= 'path' | fv= 'complexAbundance' | fv= 'complex' | fv= 'translocation' | fv= 'tloc' | fv= 'cellSecretion' | fv= 'sec' | fv= 'cellSurfaceExpression' | fv= 'surf' | fv= 'reaction' | fv= 'rxn' | fv= 'compositeAbundance' | fv= 'composite' | fv= 'fusion' | fv= 'fus' | fv= 'degradation' | fv= 'deg' | fv= 'molecularActivity' | fv= 'act' | fv= 'catalyticActivity' | fv= 'cat' | fv= 'kinaseActivity' | fv= 'kin' | fv= 'phosphataseActivity' | fv= 'phos' | fv= 'peptidaseActivity' | fv= 'pep' | fv= 'ribosylationActivity' | fv= 'ribo' | fv= 'transcriptionalActivity' | fv= 'tscript' | fv= 'transportActivity' | fv= 'tport' | fv= 'gtpBoundActivity' | fv= 'gtp' | fv= 'chaperoneActivity' | fv= 'chap' | fv= 'proteinModification' | fv= 'pmod' | fv= 'substitution' | fv= 'sub' | fv= 'truncation' | fv= 'trunc' | fv= 'reactants' | fv= 'products' | fv= 'list' )
             int alt22=59;
             switch ( input.LA(1) ) {
             case 44:
@@ -3010,7 +3008,7 @@ public class BELScriptWalker extends TreeParser {
 
             switch (alt22) {
                 case 1 :
-                    // BELScriptWalker.g:493:9: fv= 'proteinAbundance'
+                    // BELScriptWalker.g:491:9: fv= 'proteinAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,44,FOLLOW_44_in_function819); 
@@ -3023,7 +3021,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // BELScriptWalker.g:494:9: fv= 'p'
+                    // BELScriptWalker.g:492:9: fv= 'p'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,45,FOLLOW_45_in_function845); 
@@ -3036,7 +3034,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // BELScriptWalker.g:495:9: fv= 'rnaAbundance'
+                    // BELScriptWalker.g:493:9: fv= 'rnaAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,46,FOLLOW_46_in_function886); 
@@ -3049,7 +3047,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // BELScriptWalker.g:496:9: fv= 'r'
+                    // BELScriptWalker.g:494:9: fv= 'r'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,47,FOLLOW_47_in_function916); 
@@ -3062,7 +3060,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // BELScriptWalker.g:497:9: fv= 'abundance'
+                    // BELScriptWalker.g:495:9: fv= 'abundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,48,FOLLOW_48_in_function957); 
@@ -3075,7 +3073,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // BELScriptWalker.g:498:9: fv= 'a'
+                    // BELScriptWalker.g:496:9: fv= 'a'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,49,FOLLOW_49_in_function990); 
@@ -3088,7 +3086,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // BELScriptWalker.g:499:9: fv= 'microRNAAbundance'
+                    // BELScriptWalker.g:497:9: fv= 'microRNAAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,50,FOLLOW_50_in_function1031); 
@@ -3101,7 +3099,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 8 :
-                    // BELScriptWalker.g:500:9: fv= 'm'
+                    // BELScriptWalker.g:498:9: fv= 'm'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,51,FOLLOW_51_in_function1056); 
@@ -3114,7 +3112,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 9 :
-                    // BELScriptWalker.g:501:9: fv= 'geneAbundance'
+                    // BELScriptWalker.g:499:9: fv= 'geneAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,52,FOLLOW_52_in_function1097); 
@@ -3127,7 +3125,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 10 :
-                    // BELScriptWalker.g:502:9: fv= 'g'
+                    // BELScriptWalker.g:500:9: fv= 'g'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,53,FOLLOW_53_in_function1126); 
@@ -3140,7 +3138,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 11 :
-                    // BELScriptWalker.g:503:9: fv= 'biologicalProcess'
+                    // BELScriptWalker.g:501:9: fv= 'biologicalProcess'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,54,FOLLOW_54_in_function1167); 
@@ -3153,7 +3151,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 12 :
-                    // BELScriptWalker.g:504:9: fv= 'bp'
+                    // BELScriptWalker.g:502:9: fv= 'bp'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,55,FOLLOW_55_in_function1192); 
@@ -3166,7 +3164,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 13 :
-                    // BELScriptWalker.g:505:9: fv= 'pathology'
+                    // BELScriptWalker.g:503:9: fv= 'pathology'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,56,FOLLOW_56_in_function1232); 
@@ -3179,7 +3177,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 14 :
-                    // BELScriptWalker.g:506:9: fv= 'path'
+                    // BELScriptWalker.g:504:9: fv= 'path'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,57,FOLLOW_57_in_function1265); 
@@ -3192,7 +3190,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 15 :
-                    // BELScriptWalker.g:507:9: fv= 'complexAbundance'
+                    // BELScriptWalker.g:505:9: fv= 'complexAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,58,FOLLOW_58_in_function1303); 
@@ -3205,7 +3203,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 16 :
-                    // BELScriptWalker.g:508:9: fv= 'complex'
+                    // BELScriptWalker.g:506:9: fv= 'complex'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,59,FOLLOW_59_in_function1329); 
@@ -3218,7 +3216,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 17 :
-                    // BELScriptWalker.g:509:9: fv= 'translocation'
+                    // BELScriptWalker.g:507:9: fv= 'translocation'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,60,FOLLOW_60_in_function1364); 
@@ -3231,7 +3229,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 18 :
-                    // BELScriptWalker.g:510:9: fv= 'tloc'
+                    // BELScriptWalker.g:508:9: fv= 'tloc'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,61,FOLLOW_61_in_function1393); 
@@ -3244,7 +3242,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 19 :
-                    // BELScriptWalker.g:511:9: fv= 'cellSecretion'
+                    // BELScriptWalker.g:509:9: fv= 'cellSecretion'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,62,FOLLOW_62_in_function1431); 
@@ -3257,7 +3255,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 20 :
-                    // BELScriptWalker.g:512:9: fv= 'sec'
+                    // BELScriptWalker.g:510:9: fv= 'sec'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,63,FOLLOW_63_in_function1460); 
@@ -3270,7 +3268,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 21 :
-                    // BELScriptWalker.g:513:9: fv= 'cellSurfaceExpression'
+                    // BELScriptWalker.g:511:9: fv= 'cellSurfaceExpression'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,64,FOLLOW_64_in_function1499); 
@@ -3283,7 +3281,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 22 :
-                    // BELScriptWalker.g:514:9: fv= 'surf'
+                    // BELScriptWalker.g:512:9: fv= 'surf'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,65,FOLLOW_65_in_function1520); 
@@ -3296,7 +3294,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 23 :
-                    // BELScriptWalker.g:515:9: fv= 'reaction'
+                    // BELScriptWalker.g:513:9: fv= 'reaction'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,66,FOLLOW_66_in_function1558); 
@@ -3309,7 +3307,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 24 :
-                    // BELScriptWalker.g:516:9: fv= 'rxn'
+                    // BELScriptWalker.g:514:9: fv= 'rxn'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,67,FOLLOW_67_in_function1592); 
@@ -3322,7 +3320,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 25 :
-                    // BELScriptWalker.g:517:9: fv= 'compositeAbundance'
+                    // BELScriptWalker.g:515:9: fv= 'compositeAbundance'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,68,FOLLOW_68_in_function1631); 
@@ -3335,7 +3333,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 26 :
-                    // BELScriptWalker.g:518:9: fv= 'composite'
+                    // BELScriptWalker.g:516:9: fv= 'composite'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,69,FOLLOW_69_in_function1655); 
@@ -3348,7 +3346,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 27 :
-                    // BELScriptWalker.g:519:9: fv= 'fusion'
+                    // BELScriptWalker.g:517:9: fv= 'fusion'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,70,FOLLOW_70_in_function1688); 
@@ -3361,7 +3359,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 28 :
-                    // BELScriptWalker.g:520:9: fv= 'fus'
+                    // BELScriptWalker.g:518:9: fv= 'fus'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,71,FOLLOW_71_in_function1724); 
@@ -3374,7 +3372,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 29 :
-                    // BELScriptWalker.g:521:9: fv= 'degradation'
+                    // BELScriptWalker.g:519:9: fv= 'degradation'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,72,FOLLOW_72_in_function1763); 
@@ -3387,7 +3385,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 30 :
-                    // BELScriptWalker.g:522:9: fv= 'deg'
+                    // BELScriptWalker.g:520:9: fv= 'deg'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,73,FOLLOW_73_in_function1794); 
@@ -3400,7 +3398,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 31 :
-                    // BELScriptWalker.g:523:9: fv= 'molecularActivity'
+                    // BELScriptWalker.g:521:9: fv= 'molecularActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,74,FOLLOW_74_in_function1833); 
@@ -3413,7 +3411,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 32 :
-                    // BELScriptWalker.g:524:9: fv= 'act'
+                    // BELScriptWalker.g:522:9: fv= 'act'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,75,FOLLOW_75_in_function1858); 
@@ -3426,7 +3424,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 33 :
-                    // BELScriptWalker.g:525:9: fv= 'catalyticActivity'
+                    // BELScriptWalker.g:523:9: fv= 'catalyticActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,76,FOLLOW_76_in_function1897); 
@@ -3439,7 +3437,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 34 :
-                    // BELScriptWalker.g:526:9: fv= 'cat'
+                    // BELScriptWalker.g:524:9: fv= 'cat'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,77,FOLLOW_77_in_function1922); 
@@ -3452,7 +3450,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 35 :
-                    // BELScriptWalker.g:527:9: fv= 'kinaseActivity'
+                    // BELScriptWalker.g:525:9: fv= 'kinaseActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,78,FOLLOW_78_in_function1961); 
@@ -3465,7 +3463,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 36 :
-                    // BELScriptWalker.g:528:9: fv= 'kin'
+                    // BELScriptWalker.g:526:9: fv= 'kin'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,79,FOLLOW_79_in_function1989); 
@@ -3478,7 +3476,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 37 :
-                    // BELScriptWalker.g:529:9: fv= 'phosphataseActivity'
+                    // BELScriptWalker.g:527:9: fv= 'phosphataseActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,80,FOLLOW_80_in_function2028); 
@@ -3491,7 +3489,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 38 :
-                    // BELScriptWalker.g:530:9: fv= 'phos'
+                    // BELScriptWalker.g:528:9: fv= 'phos'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,81,FOLLOW_81_in_function2051); 
@@ -3504,7 +3502,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 39 :
-                    // BELScriptWalker.g:531:9: fv= 'peptidaseActivity'
+                    // BELScriptWalker.g:529:9: fv= 'peptidaseActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,82,FOLLOW_82_in_function2089); 
@@ -3517,7 +3515,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 40 :
-                    // BELScriptWalker.g:532:9: fv= 'pep'
+                    // BELScriptWalker.g:530:9: fv= 'pep'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,83,FOLLOW_83_in_function2114); 
@@ -3530,7 +3528,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 41 :
-                    // BELScriptWalker.g:533:9: fv= 'ribosylationActivity'
+                    // BELScriptWalker.g:531:9: fv= 'ribosylationActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,84,FOLLOW_84_in_function2153); 
@@ -3543,7 +3541,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 42 :
-                    // BELScriptWalker.g:534:9: fv= 'ribo'
+                    // BELScriptWalker.g:532:9: fv= 'ribo'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,85,FOLLOW_85_in_function2175); 
@@ -3556,7 +3554,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 43 :
-                    // BELScriptWalker.g:535:9: fv= 'transcriptionalActivity'
+                    // BELScriptWalker.g:533:9: fv= 'transcriptionalActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,86,FOLLOW_86_in_function2213); 
@@ -3569,7 +3567,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 44 :
-                    // BELScriptWalker.g:536:9: fv= 'tscript'
+                    // BELScriptWalker.g:534:9: fv= 'tscript'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,87,FOLLOW_87_in_function2232); 
@@ -3582,7 +3580,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 45 :
-                    // BELScriptWalker.g:537:9: fv= 'transportActivity'
+                    // BELScriptWalker.g:535:9: fv= 'transportActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,88,FOLLOW_88_in_function2267); 
@@ -3595,7 +3593,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 46 :
-                    // BELScriptWalker.g:538:9: fv= 'tport'
+                    // BELScriptWalker.g:536:9: fv= 'tport'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,89,FOLLOW_89_in_function2292); 
@@ -3608,7 +3606,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 47 :
-                    // BELScriptWalker.g:539:9: fv= 'gtpBoundActivity'
+                    // BELScriptWalker.g:537:9: fv= 'gtpBoundActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,90,FOLLOW_90_in_function2329); 
@@ -3621,7 +3619,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 48 :
-                    // BELScriptWalker.g:540:9: fv= 'gtp'
+                    // BELScriptWalker.g:538:9: fv= 'gtp'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,91,FOLLOW_91_in_function2355); 
@@ -3634,7 +3632,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 49 :
-                    // BELScriptWalker.g:541:9: fv= 'chaperoneActivity'
+                    // BELScriptWalker.g:539:9: fv= 'chaperoneActivity'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,92,FOLLOW_92_in_function2394); 
@@ -3647,7 +3645,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 50 :
-                    // BELScriptWalker.g:542:9: fv= 'chap'
+                    // BELScriptWalker.g:540:9: fv= 'chap'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,93,FOLLOW_93_in_function2419); 
@@ -3660,7 +3658,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 51 :
-                    // BELScriptWalker.g:543:9: fv= 'proteinModification'
+                    // BELScriptWalker.g:541:9: fv= 'proteinModification'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,94,FOLLOW_94_in_function2457); 
@@ -3673,7 +3671,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 52 :
-                    // BELScriptWalker.g:544:9: fv= 'pmod'
+                    // BELScriptWalker.g:542:9: fv= 'pmod'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,95,FOLLOW_95_in_function2480); 
@@ -3686,7 +3684,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 53 :
-                    // BELScriptWalker.g:545:9: fv= 'substitution'
+                    // BELScriptWalker.g:543:9: fv= 'substitution'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,96,FOLLOW_96_in_function2518); 
@@ -3699,7 +3697,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 54 :
-                    // BELScriptWalker.g:546:9: fv= 'sub'
+                    // BELScriptWalker.g:544:9: fv= 'sub'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,97,FOLLOW_97_in_function2548); 
@@ -3712,7 +3710,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 55 :
-                    // BELScriptWalker.g:547:9: fv= 'truncation'
+                    // BELScriptWalker.g:545:9: fv= 'truncation'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,98,FOLLOW_98_in_function2587); 
@@ -3725,7 +3723,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 56 :
-                    // BELScriptWalker.g:548:9: fv= 'trunc'
+                    // BELScriptWalker.g:546:9: fv= 'trunc'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,99,FOLLOW_99_in_function2619); 
@@ -3738,7 +3736,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 57 :
-                    // BELScriptWalker.g:549:9: fv= 'reactants'
+                    // BELScriptWalker.g:547:9: fv= 'reactants'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,100,FOLLOW_100_in_function2656); 
@@ -3751,7 +3749,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 58 :
-                    // BELScriptWalker.g:550:9: fv= 'products'
+                    // BELScriptWalker.g:548:9: fv= 'products'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,101,FOLLOW_101_in_function2689); 
@@ -3764,7 +3762,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 59 :
-                    // BELScriptWalker.g:551:9: fv= 'list'
+                    // BELScriptWalker.g:549:9: fv= 'list'
                     {
                     _last = (CommonTree)input.LT(1);
                     fv=(CommonTree)match(input,102,FOLLOW_102_in_function2723); 
@@ -3802,7 +3800,7 @@ public class BELScriptWalker extends TreeParser {
     };
 
     // $ANTLR start "relationship"
-    // BELScriptWalker.g:555:1: relationship returns [String r] : (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' ) ;
+    // BELScriptWalker.g:553:1: relationship returns [String r] : (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' ) ;
     public final BELScriptWalker.relationship_return relationship() throws RecognitionException {
         BELScriptWalker.relationship_return retval = new BELScriptWalker.relationship_return();
         retval.start = input.LT(1);
@@ -3817,12 +3815,12 @@ public class BELScriptWalker extends TreeParser {
         CommonTree rv_tree=null;
 
         try {
-            // BELScriptWalker.g:555:32: ( (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' ) )
-            // BELScriptWalker.g:556:5: (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' )
+            // BELScriptWalker.g:553:32: ( (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' ) )
+            // BELScriptWalker.g:554:5: (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' )
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            // BELScriptWalker.g:556:5: (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' )
+            // BELScriptWalker.g:554:5: (rv= 'increases' | rv= '->' | rv= 'decreases' | rv= '-|' | rv= 'directlyIncreases' | rv= '=>' | rv= 'directlyDecreases' | rv= '=|' | rv= 'causesNoChange' | rv= 'positiveCorrelation' | rv= 'negativeCorrelation' | rv= 'translatedTo' | rv= '>>' | rv= 'transcribedTo' | rv= ':>' | rv= 'isA' | rv= 'subProcessOf' | rv= 'rateLimitingStepOf' | rv= 'biomarkerFor' | rv= 'prognosticBiomarkerFor' | rv= 'orthologous' | rv= 'analogous' | rv= 'association' | rv= '--' | rv= 'hasMembers' | rv= 'hasComponents' | rv= 'hasMember' | rv= 'hasComponent' )
             int alt23=28;
             switch ( input.LA(1) ) {
             case 103:
@@ -3974,7 +3972,7 @@ public class BELScriptWalker extends TreeParser {
 
             switch (alt23) {
                 case 1 :
-                    // BELScriptWalker.g:557:9: rv= 'increases'
+                    // BELScriptWalker.g:555:9: rv= 'increases'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,103,FOLLOW_103_in_relationship2785); 
@@ -3987,7 +3985,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // BELScriptWalker.g:558:9: rv= '->'
+                    // BELScriptWalker.g:556:9: rv= '->'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,104,FOLLOW_104_in_relationship2818); 
@@ -4000,7 +3998,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // BELScriptWalker.g:559:9: rv= 'decreases'
+                    // BELScriptWalker.g:557:9: rv= 'decreases'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,105,FOLLOW_105_in_relationship2858); 
@@ -4013,7 +4011,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // BELScriptWalker.g:560:9: rv= '-|'
+                    // BELScriptWalker.g:558:9: rv= '-|'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,106,FOLLOW_106_in_relationship2891); 
@@ -4026,7 +4024,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 5 :
-                    // BELScriptWalker.g:561:9: rv= 'directlyIncreases'
+                    // BELScriptWalker.g:559:9: rv= 'directlyIncreases'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,107,FOLLOW_107_in_relationship2931); 
@@ -4039,7 +4037,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 6 :
-                    // BELScriptWalker.g:562:9: rv= '=>'
+                    // BELScriptWalker.g:560:9: rv= '=>'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,108,FOLLOW_108_in_relationship2956); 
@@ -4052,7 +4050,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 7 :
-                    // BELScriptWalker.g:563:9: rv= 'directlyDecreases'
+                    // BELScriptWalker.g:561:9: rv= 'directlyDecreases'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,109,FOLLOW_109_in_relationship2996); 
@@ -4065,7 +4063,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 8 :
-                    // BELScriptWalker.g:564:9: rv= '=|'
+                    // BELScriptWalker.g:562:9: rv= '=|'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,110,FOLLOW_110_in_relationship3021); 
@@ -4078,7 +4076,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 9 :
-                    // BELScriptWalker.g:565:9: rv= 'causesNoChange'
+                    // BELScriptWalker.g:563:9: rv= 'causesNoChange'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,111,FOLLOW_111_in_relationship3061); 
@@ -4091,7 +4089,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 10 :
-                    // BELScriptWalker.g:566:9: rv= 'positiveCorrelation'
+                    // BELScriptWalker.g:564:9: rv= 'positiveCorrelation'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,112,FOLLOW_112_in_relationship3089); 
@@ -4104,7 +4102,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 11 :
-                    // BELScriptWalker.g:567:9: rv= 'negativeCorrelation'
+                    // BELScriptWalker.g:565:9: rv= 'negativeCorrelation'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,113,FOLLOW_113_in_relationship3112); 
@@ -4117,7 +4115,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 12 :
-                    // BELScriptWalker.g:568:9: rv= 'translatedTo'
+                    // BELScriptWalker.g:566:9: rv= 'translatedTo'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,114,FOLLOW_114_in_relationship3135); 
@@ -4130,7 +4128,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 13 :
-                    // BELScriptWalker.g:569:9: rv= '>>'
+                    // BELScriptWalker.g:567:9: rv= '>>'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,115,FOLLOW_115_in_relationship3165); 
@@ -4143,7 +4141,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 14 :
-                    // BELScriptWalker.g:570:9: rv= 'transcribedTo'
+                    // BELScriptWalker.g:568:9: rv= 'transcribedTo'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,116,FOLLOW_116_in_relationship3205); 
@@ -4156,7 +4154,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 15 :
-                    // BELScriptWalker.g:571:9: rv= ':>'
+                    // BELScriptWalker.g:569:9: rv= ':>'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,117,FOLLOW_117_in_relationship3234); 
@@ -4169,7 +4167,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 16 :
-                    // BELScriptWalker.g:572:9: rv= 'isA'
+                    // BELScriptWalker.g:570:9: rv= 'isA'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,118,FOLLOW_118_in_relationship3274); 
@@ -4182,7 +4180,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 17 :
-                    // BELScriptWalker.g:573:9: rv= 'subProcessOf'
+                    // BELScriptWalker.g:571:9: rv= 'subProcessOf'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,119,FOLLOW_119_in_relationship3313); 
@@ -4195,7 +4193,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 18 :
-                    // BELScriptWalker.g:574:9: rv= 'rateLimitingStepOf'
+                    // BELScriptWalker.g:572:9: rv= 'rateLimitingStepOf'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,120,FOLLOW_120_in_relationship3343); 
@@ -4208,7 +4206,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 19 :
-                    // BELScriptWalker.g:575:9: rv= 'biomarkerFor'
+                    // BELScriptWalker.g:573:9: rv= 'biomarkerFor'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,121,FOLLOW_121_in_relationship3367); 
@@ -4221,7 +4219,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 20 :
-                    // BELScriptWalker.g:576:9: rv= 'prognosticBiomarkerFor'
+                    // BELScriptWalker.g:574:9: rv= 'prognosticBiomarkerFor'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,122,FOLLOW_122_in_relationship3397); 
@@ -4234,7 +4232,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 21 :
-                    // BELScriptWalker.g:577:9: rv= 'orthologous'
+                    // BELScriptWalker.g:575:9: rv= 'orthologous'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,123,FOLLOW_123_in_relationship3417); 
@@ -4247,7 +4245,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 22 :
-                    // BELScriptWalker.g:578:9: rv= 'analogous'
+                    // BELScriptWalker.g:576:9: rv= 'analogous'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,124,FOLLOW_124_in_relationship3448); 
@@ -4260,7 +4258,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 23 :
-                    // BELScriptWalker.g:579:9: rv= 'association'
+                    // BELScriptWalker.g:577:9: rv= 'association'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,125,FOLLOW_125_in_relationship3481); 
@@ -4273,7 +4271,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 24 :
-                    // BELScriptWalker.g:580:9: rv= '--'
+                    // BELScriptWalker.g:578:9: rv= '--'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,126,FOLLOW_126_in_relationship3512); 
@@ -4286,7 +4284,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 25 :
-                    // BELScriptWalker.g:581:9: rv= 'hasMembers'
+                    // BELScriptWalker.g:579:9: rv= 'hasMembers'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,127,FOLLOW_127_in_relationship3552); 
@@ -4299,7 +4297,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 26 :
-                    // BELScriptWalker.g:582:9: rv= 'hasComponents'
+                    // BELScriptWalker.g:580:9: rv= 'hasComponents'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,128,FOLLOW_128_in_relationship3584); 
@@ -4312,7 +4310,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 27 :
-                    // BELScriptWalker.g:583:9: rv= 'hasMember'
+                    // BELScriptWalker.g:581:9: rv= 'hasMember'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,129,FOLLOW_129_in_relationship3613); 
@@ -4325,7 +4323,7 @@ public class BELScriptWalker extends TreeParser {
                     }
                     break;
                 case 28 :
-                    // BELScriptWalker.g:584:9: rv= 'hasComponent'
+                    // BELScriptWalker.g:582:9: rv= 'hasComponent'
                     {
                     _last = (CommonTree)input.LT(1);
                     rv=(CommonTree)match(input,130,FOLLOW_130_in_relationship3646); 

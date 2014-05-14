@@ -479,9 +479,7 @@ fragment param returns [String r]:
         }
 
         if (quo != null) {
-            // Strip quotes
-            String quoted = quo.getText();
-            pBuilder.append(quoted.substring(1, quoted.length() - 1));
+            pBuilder.append(quo.getText());
         }
 
         $r = pBuilder.toString();
