@@ -4,18 +4,32 @@ if [ ! -f "pom.xml" ]; then
     exit 1
 fi
 
-REL_VERSION=$(grep -F "<belframework-release.version>" pom.xml \
-              | grep ">.*<" -o | tr -d '<>')
-BUILD_VERSION="${REL_VERSION}-${buildNumber}"
+VERSION=$(grep -F "<belframework-release.version>" pom.xml \
+          | grep ">.*<" -o | tr -d '<>')
+echo "VERSION: ${VERSION}"
 
-echo "REL_VERSION: ${REL_VERSION}"
-echo "BUILD_VERSION: ${BUILD_VERSION}"
+if [ ! -z "${buildNumber}" ]; then
+    echo "Applying build number."
+    VERSION+="-build${buildNumber}"
+    echo "VERSION: ${VERSION}"
+fi
+
+SHORT_REV=$(git rev-parse --short HEAD 2>/dev/null)
+if [ ! -z "$SHORT_REV" ]; then
+    echo "Applying git revision."
+    VERSION+="-${SHORT_REV}"
+    echo "VERSION: ${VERSION}"
+fi
+
+echo "Applying date."
+VERSION+="-$(date +%Y-%m-%d)"
+echo "VERSION: ${VERSION}"
 
 set -x verbose
 export MAVEN_OPTS="-XX:MaxPermSize=128M" 
-mvn -Dbelframework-release.version=${BUILD_VERSION} \
+mvn -Dbelframework-release.version=${VERSION} \
     -Pdistribution clean package assembly:assembly install
 
 cd tests/functional || exit 1
-mvn -Dbelframework-release.version=${BUILD_VERSION} clean verify
+mvn -Dbelframework-release.version=${VERSION} clean verify
 
