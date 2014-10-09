@@ -314,8 +314,14 @@ public class Resolver {
         for (Parameter p : params) {
             Namespace ns = p.getNamespace();
             if (ns != null) {
-                String rloc = nsmap.get(ns.getPrefix());
-                p.setNamespace(new Namespace(ns.getPrefix(), rloc));
+                String prefix = ns.getPrefix();
+                String rloc = nsmap.get(prefix);
+                if (rloc == null) {
+                    // namespace not supported; remove it
+                    p.setNamespace(null);
+                } else {
+                    p.setNamespace(new Namespace(prefix, rloc));
+                }
             }
         }
     }
