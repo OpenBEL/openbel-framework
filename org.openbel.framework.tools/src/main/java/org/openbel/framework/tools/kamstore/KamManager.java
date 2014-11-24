@@ -461,7 +461,7 @@ public final class KamManager extends CommandLineApplication {
     }
 
     /**
-     * If {@link determineType} returns {@code null} then this function may be able to determine
+     * If {@link #determineType} returns {@code null} then this function may be able to determine
      * an appropriate type of KAM file from its file extension.
      * @param file
      * @return
@@ -571,6 +571,10 @@ public final class KamManager extends CommandLineApplication {
             setUp();
             kam = kAMStore.getKam(kamName);
 
+            if (kam == null) {
+                fatal(format("No KAM named \"%s\" exists in the catalog", kamName));
+            }
+
             // establish a default if output path is not set
             if (outputFilename == null) {
                 outputFilename =
@@ -625,6 +629,7 @@ public final class KamManager extends CommandLineApplication {
         }
     }
 
+
     private static String defaultExtension(final ExportFormat type) {
         switch (type) {
         case PORTABLE_KAM:
@@ -650,6 +655,9 @@ public final class KamManager extends CommandLineApplication {
             if (kamName != null) {
                 // Look up the requested KAM and summarize.
                 kam = kAMStore.getKam(kamName);
+                if (kam == null) {
+                    fatal(format("No KAM named \"%s\" exists in the catalog", kamName));
+                }
                 KamSummarizer summarizer = new KamSummarizer(reportable);
                 KamSummary summary = KamSummarizer.summarizeKam(kAMStore, kam);
                 summarizer.printKamSummary(kAMStore, summary);
@@ -862,7 +870,6 @@ public final class KamManager extends CommandLineApplication {
     /*
      * The following are utility methods used for usage and error messages:
      */
-
     private static String showCommandAliases() {
         final Command[] commands = Command.values();
         StringBuilder sb = new StringBuilder();
