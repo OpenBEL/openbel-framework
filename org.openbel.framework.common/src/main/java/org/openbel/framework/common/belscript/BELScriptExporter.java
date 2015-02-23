@@ -207,7 +207,7 @@ public class BELScriptExporter {
                     break;
                 case REGULAR_EXPRESSION:
                     writer.write(" PATTERN "
-                            + doubleQuote(annotationDefinition.getValue()));
+                            + doubleQuote(annotationDefinition.getValue()) + "\n");
                     break;
                 default:
                     throw new BELRuntimeException(
