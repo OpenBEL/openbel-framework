@@ -46,7 +46,7 @@
         <commons-pool.version>1.4</commons-pool.version>
         <derby.version>10.9.1.0</derby.version>
         <ftpserver.version>1.0.5</ftpserver.version>
-        <groovy.version>1.8.4</groovy.version>
+        <groovy.version>2.4.4</groovy.version>
         <jaxb-impl.version>2.2.5</jaxb-impl.version>
         <jdbm.version>2.0.0</jdbm.version>
         <jena.version>2.6.4</jena.version>
@@ -59,7 +59,7 @@
         <postgresql.version>9.1-901.jdbc4</postgresql.version>
         <servlet-api.version>2.4</servlet-api.version>
         <slf4j.version>1.6.1</slf4j.version>
-        <spockframework.version>0.5-groovy-1.8</spockframework.version>
+        <spockframework.version>1.0-groovy-2.4</spockframework.version>
         <spring-ws.version>2.0.1.RELEASE</spring-ws.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <sshd.version>0.5.0</sshd.version>
