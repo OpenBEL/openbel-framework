@@ -46,13 +46,7 @@ import static org.openbel.framework.common.PathConstants.BEL_SCRIPT_EXTENSION;
 import static org.openbel.framework.common.PathConstants.XBEL_EXTENSION;
 import static org.openbel.framework.common.Strings.SHA_256;
 
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.DatagramSocket;
@@ -575,6 +569,35 @@ public class BELUtilities {
             }
         }
         return ret;
+    }
+
+    /**
+     * Returns the first cause stacktrace for a {@link Throwable throwable}.
+     *
+     * @param t the {@link Throwable throwable}
+     * @return {@link Throwable} the first cause stacktrace for the throwable,
+     * the original throwable stacktrace if this is the first cause, or
+     * <tt>null</tt> if the <tt>t</tt> was null
+     */
+    public static String getFirstStacktrace(Throwable t) {
+        if (t == null) {
+            return null;
+        }
+
+        Throwable cause = t;
+        while (cause.getCause() != null) {
+            cause = cause.getCause();
+        }
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        try {
+            cause.printStackTrace(pw);
+        } finally {
+            pw.close();
+        }
+
+        return sw.toString();
     }
 
     /**
@@ -1229,7 +1252,7 @@ public class BELUtilities {
      * be found in this number of attempts.
      * </p>
      *
-     * @see http://en.wikipedia.org/wiki/Ephemeral_port
+     * @see <a href="http://en.wikipedia.org/wiki/Ephemeral_port">Ephemeral port</a>
      * @return {@code int} the available ephemeral port, or {@code -1} if an
      * ephemeral port could not be found.
      */

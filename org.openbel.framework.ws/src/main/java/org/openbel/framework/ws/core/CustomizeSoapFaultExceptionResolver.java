@@ -35,8 +35,8 @@
  */
 package org.openbel.framework.ws.core;
 
-import static org.openbel.framework.common.BELUtilities.getFirstMessage;
-import static org.openbel.framework.common.BELUtilities.hasLength;
+import static java.lang.String.format;
+import static org.openbel.framework.common.BELUtilities.*;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
@@ -96,12 +96,16 @@ public class CustomizeSoapFaultExceptionResolver extends
         Assert.isInstanceOf(SoapMessage.class, messageContext.getResponse(),
                 "CustomizeSoapFaultExceptionResolver requires a SoapMessage");
 
-        String exMsg = ex.getMessage();
-        String firstMsg = getFirstMessage(ex);
+        String exMsg        = ex.getMessage();
+        String firstMsg     = getFirstMessage(ex);
+        String exStacktrace = getFirstStacktrace(ex);
         if (hasLength(firstMsg)) {
             if (!exMsg.equals(firstMsg) && !exMsg.contains(firstMsg)) {
-                exMsg = exMsg.concat(" (caused by: " + firstMsg + ")");
+                exMsg = exMsg.concat("\ncaused by:\n\n" + firstMsg);
             }
+        }
+        if (hasLength(exStacktrace)) {
+            exMsg = exMsg.concat(format("\n\nstacktrace:\n\n%s\n", exStacktrace));
         }
 
         // if following conditions, soap fault with ex message
@@ -151,12 +155,20 @@ public class CustomizeSoapFaultExceptionResolver extends
                     + msgctx.getRequest());
             faultstring = exMsg;
         } else {
-            faultstring = String.format(FAULT_STRING_FORMAT, wsopName, exMsg);
+            faultstring = format(FAULT_STRING_FORMAT, wsopName, exMsg);
         }
+
+        logError(wsopName, exMsg);
 
         final SoapMessage response = (SoapMessage) msgctx.getResponse();
         final SoapBody body = response.getSoapBody();
         body.addServerOrReceiverFault(faultstring, Locale.ENGLISH);
         return true;
+    }
+
+    private void logError(String leader, final String msg) {
+        if (leader == null) leader = "request";
+
+        logger.error(format("SOAP error encountered with {0}: {1}", leader, msg));
     }
 }
