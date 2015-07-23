@@ -169,6 +169,6 @@ public class CustomizeSoapFaultExceptionResolver extends
     private void logError(String leader, final String msg) {
         if (leader == null) leader = "request";
 
-        logger.error(format("SOAP error encountered with {0}: {1}", leader, msg));
+        logger.error(format("SOAP error encountered with %s: %s", leader, msg));
     }
 }
