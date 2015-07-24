@@ -59,7 +59,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="DIRECTLY_DECREASES"/>
  *     &lt;enumeration value="DIRECTLY_INCREASES"/>
  *     &lt;enumeration value="HAS_COMPONENT"/>
+ *     &lt;enumeration value="HAS_COMPONENTS"/>
  *     &lt;enumeration value="HAS_MEMBER"/>
+ *     &lt;enumeration value="HAS_MEMBERS"/>
  *     &lt;enumeration value="HAS_MODIFICATION"/>
  *     &lt;enumeration value="HAS_PRODUCT"/>
  *     &lt;enumeration value="HAS_VARIANT"/>
@@ -95,7 +97,9 @@ public enum RelationshipType {
     DIRECTLY_DECREASES("directlyDecreases"),
     DIRECTLY_INCREASES("directlyIncreases"),
     HAS_COMPONENT("hasComponent"),
+    HAS_COMPONENTS("hasComponents"),
     HAS_MEMBER("hasMember"),
+    HAS_MEMBERS("hasMembers"),
     HAS_MODIFICATION("hasModification"),
     HAS_PRODUCT("hasProduct"),
     HAS_VARIANT("hasVariant"),

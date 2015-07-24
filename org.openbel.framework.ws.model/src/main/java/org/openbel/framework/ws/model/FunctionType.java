@@ -59,6 +59,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="COMPLEX_ABUNDANCE"/>
  *     &lt;enumeration value="COMPOSITE_ABUNDANCE"/>
  *     &lt;enumeration value="DEGRADATION"/>
+ *     &lt;enumeration value="FUSION"/>
  *     &lt;enumeration value="GENE_ABUNDANCE"/>
  *     &lt;enumeration value="GTP_BOUND_ACTIVITY"/>
  *     &lt;enumeration value="KINASE_ACTIVITY"/>
@@ -68,13 +69,18 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="PATHOLOGY"/>
  *     &lt;enumeration value="PEPTIDASE_ACTIVITY"/>
  *     &lt;enumeration value="PHOSPHATASE_ACTIVITY"/>
+ *     &lt;enumeration value="PRODUCTS"/>
  *     &lt;enumeration value="PROTEIN_ABUNDANCE"/>
+ *     &lt;enumeration value="PROTEIN_MODIFICATION"/>
+ *     &lt;enumeration value="REACTANTS"/>
  *     &lt;enumeration value="REACTION"/>
  *     &lt;enumeration value="RIBOSYLATION_ACTIVITY"/>
  *     &lt;enumeration value="RNA_ABUNDANCE"/>
+ *     &lt;enumeration value="SUBSTITUTION"/>
  *     &lt;enumeration value="TRANSCRIPTIONAL_ACTIVITY"/>
  *     &lt;enumeration value="TRANSLOCATION"/>
  *     &lt;enumeration value="TRANSPORT_ACTIVITY"/>
+ *     &lt;enumeration value="TRUNCATION"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -94,6 +100,7 @@ public enum FunctionType {
     COMPLEX_ABUNDANCE("complexAbundance"),
     COMPOSITE_ABUNDANCE("compositeAbundance"),
     DEGRADATION("degradation"),
+    FUSION("fusion"),
     GENE_ABUNDANCE("geneAbundance"),
     GTP_BOUND_ACTIVITY("gtpBoundActivity"),
     KINASE_ACTIVITY("kinaseActivity"),
@@ -103,13 +110,18 @@ public enum FunctionType {
     PATHOLOGY("pathology"),
     PEPTIDASE_ACTIVITY("peptidaseActivity"),
     PHOSPHATASE_ACTIVITY("phosphataseActivity"),
+    PRODUCTS("products"),
     PROTEIN_ABUNDANCE("proteinAbundance"),
+    PROTEIN_MODIFICATION("proteinModification"),
+    REACTANTS("reactants"),
     REACTION("reaction"),
     RIBOSYLATION_ACTIVITY("ribosylationActivity"),
     RNA_ABUNDANCE("rnaAbundance"),
+    SUBSTITUTION("substitution"),
     TRANSCRIPTIONAL_ACTIVITY("transcriptionalActivity"),
     TRANSLOCATION("translocation"),
-    TRANSPORT_ACTIVITY("transportActivity");
+    TRANSPORT_ACTIVITY("transportActivity"),
+    TRUNCATION("truncation");
 
     private static final Map<String, FunctionType> mapping =
             new HashMap<String, FunctionType>(values().length);
