@@ -74,8 +74,10 @@
             <xs:enumeration value="DECREASES" />
             <xs:enumeration value="DIRECTLY_DECREASES" />
             <xs:enumeration value="DIRECTLY_INCREASES" />
+            <xs:enumeration value="HAS_COMPONENTS" />
             <xs:enumeration value="HAS_COMPONENT" />
             <xs:enumeration value="HAS_MEMBER" />
+            <xs:enumeration value="HAS_MEMBERS" />
             <xs:enumeration value="HAS_MODIFICATION" />
             <xs:enumeration value="HAS_PRODUCT" />
             <xs:enumeration value="HAS_VARIANT" />
@@ -117,6 +119,7 @@
             <xs:enumeration value="COMPLEX_ABUNDANCE" />
             <xs:enumeration value="COMPOSITE_ABUNDANCE" />
             <xs:enumeration value="DEGRADATION" />
+            <xs:enumeration value="FUSION" />
             <xs:enumeration value="GENE_ABUNDANCE" />
             <xs:enumeration value="GTP_BOUND_ACTIVITY" />
             <xs:enumeration value="KINASE_ACTIVITY" />
@@ -126,13 +129,18 @@
             <xs:enumeration value="PATHOLOGY" />
             <xs:enumeration value="PEPTIDASE_ACTIVITY" />
             <xs:enumeration value="PHOSPHATASE_ACTIVITY" />
+            <xs:enumeration value="PRODUCTS" />
             <xs:enumeration value="PROTEIN_ABUNDANCE" />
+            <xs:enumeration value="PROTEIN_MODIFICATION" />
+            <xs:enumeration value="REACTANTS" />
             <xs:enumeration value="REACTION" />
             <xs:enumeration value="RIBOSYLATION_ACTIVITY" />
             <xs:enumeration value="RNA_ABUNDANCE" />
+            <xs:enumeration value="SUBSTITUTION" />
             <xs:enumeration value="TRANSCRIPTIONAL_ACTIVITY" />
             <xs:enumeration value="TRANSLOCATION" />
             <xs:enumeration value="TRANSPORT_ACTIVITY" />
+            <xs:enumeration value="TRUNCATION" />
         </xs:restriction>
     </xs:simpleType>
 
@@ -155,7 +163,7 @@
                         Represents long form BEL. e.g. the protein abundance of ABC
                         will be displayed as "proteinAbundance(ABC)".
                     </xs:documentation>
-                </xs:annotation>            
+                </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
@@ -223,7 +231,7 @@
             <xs:element name="name" type="xs:string" minOccurs="1" />
         </xs:sequence>
     </xs:complexType>
-    
+
     <xs:complexType name="EquivalenceId">
         <xs:annotation>
             <xs:documentation>TODO - Document</xs:documentation>
